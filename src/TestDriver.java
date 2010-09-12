@@ -87,11 +87,16 @@ public class TestDriver {
 		TweetManager tweetManager = new TweetManager();
         try {
             tweetManager.loginTwitter();
-            tweetManager.getSearchResult(100, "tvk");
+            List<Status> status = tweetManager.getSearchResult(100, "tvk");
+            for( Status s : status ) {
+                System.out.println( s );
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } catch (IOException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 	}
 }

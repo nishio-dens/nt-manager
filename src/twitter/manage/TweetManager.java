@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -607,12 +609,36 @@ public class TweetManager {
             ex.printStackTrace();
         }
 
+        List<Status> tweetList = new LinkedList<Status>();
+
         if( queryResult != null ) {
             for(Tweet tweet: queryResult.getTweets() ) {
-                System.out.println( tweet );
+                //取得できる最大限の情報を返す
+                SimpleUser user = new SimpleUser();
+                //ユーザ名
+                user.setName( tweet.getFromUser() );
+                user.setScreenName( tweet.getFromUser() );
+                //ユーザID
+                user.setId( tweet.getFromUserId() );
+                try {
+                    //ユーザイメージ
+                    user.setProfileImageURL(new URL(tweet.getProfileImageUrl()));
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(TweetManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                SimpleStatus status = new SimpleStatus();
+                status.setCreatedAt( tweet.getCreatedAt() );
+                status.setId( tweet.getId() );
+                status.setSource( tweet.getSource() );
+                status.setText( tweet.getText() );
+                status.setUser(user);
+
+                //情報追加
+                tweetList.add(status);
             }
         }
-        return null;
+        return tweetList;
     }
 
     /**
