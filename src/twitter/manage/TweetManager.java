@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -647,6 +649,9 @@ public class TweetManager {
                 tweetList.add(status);
             }
         }
+        //リスト逆転 一番あたらしいtweetを一番下に
+        Collections.reverse(tweetList);
+        
         return tweetList;
     }
 
@@ -701,6 +706,10 @@ public class TweetManager {
                 tweetList.add(status);
             }
         }
+        
+        //リスト逆転 一番あたらしいtweetを一番下に
+        Collections.reverse(tweetList);
+
         return tweetList;
     }
 
