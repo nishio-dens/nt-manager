@@ -87,7 +87,7 @@ public class TestDriver {
 		TweetManager tweetManager = new TweetManager();
         try {
             tweetManager.loginTwitter();
-            List<Status> status = tweetManager.getSearchResult(100, "tvk");
+            List<Status> status = tweetManager.getNewSearchResult(24303121371L, "tvk");
             for( Status s : status ) {
                 System.out.println( s );
             }

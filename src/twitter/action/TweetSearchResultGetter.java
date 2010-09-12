@@ -10,28 +10,59 @@ import twitter.manage.TweetManager;
 import twitter4j.Status;
 
 /**
- * 
+ * 指定したワードを含むツイートを取得する
  * @author nishio
  */
 public class TweetSearchResultGetter implements TweetGetter{
 
     //tweet管理用
     private TweetManager tweetManager;
+    //検索したいワード
+    private String searchWord;
+    //sinceid
+    private long sinceID;
 
     /**
      *
      * @param tweetManager
      */
-    public TweetSearchResultGetter(TweetManager tweetManager) {
-       this.tweetManager = tweetManager;
+    public TweetSearchResultGetter(TweetManager tweetManager, String searchWord) {
+        this.tweetManager = tweetManager;
+        this.searchWord = searchWord;
     }
 
+    /**
+     * 指定したワードのツイートを指定した数だけ取得
+     * @param num
+     * @return
+     */
     public List<Status> getTweetData(int num) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<Status> status = tweetManager.getSearchResult(num, searchWord);
+        if( status != null ) {
+            //一番最後のtweetのsinceIDを取得する
+            int lastnum = status.size();
+            if( lastnum > 0 ) {
+                sinceID = status.get(lastnum - 1).getId();
+            }
+        }
+        return status;
     }
 
-    public List<Status> getNewTweetData(long sinceID) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     * 指定したワードのツイートの新しく投稿されたものだけを取得
+     * @param sinceID
+     * @return
+     */
+    public List<Status> getNewTweetData() {
+        List<Status> status = tweetManager.getNewSearchResult(this.sinceID, this.searchWord);
+        if( status != null ) {
+            //一番最後のtweetのsinceIDを取得する
+            int lastnum = status.size();
+            if( lastnum > 0 ) {
+                sinceID = status.get(lastnum - 1).getId();
+            }
+        }
+        return status;
     }
 
 }

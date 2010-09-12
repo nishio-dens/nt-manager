@@ -25,5 +25,5 @@ public interface TweetGetter {
      * 最新のtweet情報を取得
      * @return
      */
-    public List<Status> getNewTweetData(long sinceID);
+    public List<Status> getNewTweetData();
 }
