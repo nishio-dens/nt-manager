@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.xml.sax.SAXParseException;
+import twitter.action.TweetSearchResultGetter;
 
 import twitter.log.TwitterLogManager;
 import twitter.manage.TweetManager;
@@ -85,10 +86,18 @@ public class TestDriver {
 
 	public static void main(String[] args) {
 		TweetManager tweetManager = new TweetManager();
+        TweetSearchResultGetter searchGetter = new TweetSearchResultGetter(tweetManager, "followme");
         try {
             tweetManager.loginTwitter();
-            List<Status> status = tweetManager.getNewSearchResult(24303121371L, "tvk");
+            List<Status> status = searchGetter.getNewTweetData();
             for( Status s : status ) {
+                System.out.println( s );
+            }
+
+            System.out.println("---");
+
+            List<Status> status2 = searchGetter.getTweetData(5);
+            for( Status s : status2 ) {
                 System.out.println( s );
             }
         } catch (FileNotFoundException ex) {

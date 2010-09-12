@@ -664,7 +664,7 @@ public class TweetManager {
     public List<Status> getSearchResult(int num, String searchWord) {
         Query query = new Query(searchWord);
         //取得するツイート最大数
-        query.setRpp(this.MAX_TWEET_NUM);
+        query.setRpp(num);
         //取得するページ番号
         query.setPage(1);
         //検索結果
