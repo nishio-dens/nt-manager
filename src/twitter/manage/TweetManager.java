@@ -589,6 +589,69 @@ public class TweetManager {
 
     /**
      * 指定したワードを含むtweetを返す
+     * @param sinceID 
+     * @param searchWord
+     * @return
+     */
+    public List<Status> getNewSearchResult(long sinceID, String searchWord) {
+        // 一度もデータを取得していないとき
+        if (sinceID == 0) {
+            return getSearchResult(MAX_TWEET_NUM, searchWord);
+        }
+
+        //TODO:同じようなコードを二回書いてる．ここは修正の必要があるかも
+
+        Query query = new Query(searchWord);
+        //取得するツイート最大数
+        query.setRpp(this.MAX_TWEET_NUM);
+        //取得するページ番号
+        query.setPage(1);
+        //追加: sinceIDを登録
+        query.setSinceId(sinceID);
+        //検索結果
+        QueryResult queryResult = null;
+        try {
+            queryResult = twitter.search(query);
+        } catch (TwitterException ex) {
+            Logger.getLogger(TweetManager.class.getName()).log(
+                    Level.SEVERE, "Twitter searchに失敗しました", ex);
+            ex.printStackTrace();
+        }
+
+        List<Status> tweetList = new LinkedList<Status>();
+
+        if( queryResult != null ) {
+            for(Tweet tweet: queryResult.getTweets() ) {
+                //取得できる最大限の情報を返す
+                SimpleUser user = new SimpleUser();
+                //ユーザ名
+                user.setName( tweet.getFromUser() );
+                user.setScreenName( tweet.getFromUser() );
+                //ユーザID
+                user.setId( tweet.getFromUserId() );
+                try {
+                    //ユーザイメージ
+                    user.setProfileImageURL(new URL(tweet.getProfileImageUrl()));
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(TweetManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                SimpleStatus status = new SimpleStatus();
+                status.setCreatedAt( tweet.getCreatedAt() );
+                status.setId( tweet.getId() );
+                status.setSource( tweet.getSource() );
+                status.setText( tweet.getText() );
+                status.setUser(user);
+
+                //情報追加
+                tweetList.add(status);
+            }
+        }
+        return tweetList;
+    }
+
+    /**
+     * 指定したワードを含むtweetを返す
      * @param num 指定した数だけtweetを取得
      * @param searchWord 検索したい単語
      * @return
