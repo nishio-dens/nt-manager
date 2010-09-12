@@ -86,6 +86,19 @@ public class NishioTweetManager extends javax.swing.JFrame {
         final PopupMenu popup = new PopupMenu();
         trayIcon = new TrayIcon(image, "Nishio Tweet Manager", popup);
 
+        //左クリックした時に「画面を開く」アクションをする
+        trayIcon.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+                //左クリック
+                if (me.getButton() == MouseEvent.BUTTON1) {
+                    frame.setVisible(true);
+                }
+            }
+        });
+
+        //右クリック時のポップアップメニュー
         MenuItem item1 = new MenuItem("画面を開く");
         item1.addActionListener(new ActionListener() {
 
