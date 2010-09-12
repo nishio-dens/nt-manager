@@ -84,11 +84,13 @@ public class TestDriver {
 
 
 	public static void main(String[] args) {
-		TestDriver t = new TestDriver();
-        Twitter twitter = t.getInstance("aaa", "bbb");
+		TweetManager tweetManager = new TweetManager();
         try {
-            System.out.println(twitter.getOAuthAccessToken().getToken());
-        } catch (TwitterException ex) {
+            tweetManager.loginTwitter();
+            tweetManager.getSearchResult(100, "tvk");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
         }
 	}

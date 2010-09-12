@@ -18,8 +18,11 @@ import twitter4j.DirectMessage;
 import twitter4j.GeoLocation;
 import twitter4j.Paging;
 import twitter4j.Place;
+import twitter4j.Query;
+import twitter4j.QueryResult;
 import twitter4j.RateLimitStatus;
 import twitter4j.Status;
+import twitter4j.Tweet;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -36,7 +39,7 @@ public class TweetManager {
      * @author nishio
      *
      */
-    private class UserStatus implements Status {
+    private class DirectMessageUserStatus implements Status {
 
         /**
          *
@@ -47,7 +50,7 @@ public class TweetManager {
         // ユーザ情報
         private User user = null;
 
-        public UserStatus(DirectMessage directMessage, User user) {
+        public DirectMessageUserStatus(DirectMessage directMessage, User user) {
             this.message = directMessage;
             this.user = user;
         }
@@ -290,7 +293,7 @@ public class TweetManager {
             // 一番新しいtweetを一番したに持ってくる
             for (DirectMessage message : directMessages) {
                 User user = message.getSender();
-                UserStatus status = new UserStatus(message, user);
+                DirectMessageUserStatus status = new DirectMessageUserStatus(message, user);
                 messageList.add(0, status);
             }
         }
@@ -320,7 +323,7 @@ public class TweetManager {
             // 一番新しいtweetを一番したに持ってくる
             for (DirectMessage message : directMessages) {
                 User user = message.getRecipient();
-                UserStatus status = new UserStatus(message, user);
+                DirectMessageUserStatus status = new DirectMessageUserStatus(message, user);
                 messageList.add(0, status);
             }
         }
@@ -580,6 +583,36 @@ public class TweetManager {
             e.printStackTrace();
         }
         return tweetList;
+    }
+
+    /**
+     * 指定したワードを含むtweetを返す
+     * @param num 指定した数だけtweetを取得
+     * @param searchWord 検索したい単語
+     * @return
+     */
+    public List<Status> getSearchResult(int num, String searchWord) {
+        Query query = new Query(searchWord);
+        //取得するツイート最大数
+        query.setRpp(this.MAX_TWEET_NUM);
+        //取得するページ番号
+        query.setPage(1);
+        //検索結果
+        QueryResult queryResult = null;
+        try {
+            queryResult = twitter.search(query);
+        } catch (TwitterException ex) {
+            Logger.getLogger(TweetManager.class.getName()).log(
+                    Level.SEVERE, "Twitter searchに失敗しました", ex);
+            ex.printStackTrace();
+        }
+
+        if( queryResult != null ) {
+            for(Tweet tweet: queryResult.getTweets() ) {
+                System.out.println( tweet );
+            }
+        }
+        return null;
     }
 
     /**
