@@ -37,6 +37,8 @@ public class TweetTabbedTable {
     private String title;
     //タブ
     private JTabbedPane tabbedPane;
+    //何番目のタブにテーブルをセットするか
+    private int tabSetNum;
     //スクロールペーン
     private JScrollPane scrollPane;
     //ツイートを管理するクラス
@@ -58,6 +60,7 @@ public class TweetTabbedTable {
      * @param tweetGetter tweet取得時に行うアクション
      * @param title　タブに表示するタイトル
      * @param tabbedPane　テーブルを追加するタブ
+     * @param tabSetNum 何番目のタブにセットするか
      * @param tableElementHeight テーブルの高さ
      * @param tweetManager　ツイート管理クラス
      * @param mainAction メインアクション
@@ -65,12 +68,13 @@ public class TweetTabbedTable {
      * @param tableElementMaxSize テーブルに格納できる要素の最大数
      */
     public TweetTabbedTable(TweetGetter tweetGetter,
-            String title, JTabbedPane tabbedPane, int tableElementHeight,
+            String title, JTabbedPane tabbedPane, int tabSetNum, int tableElementHeight,
             TweetManager tweetManager, TweetMainAction mainAction, Color newTableColor,
             int tableElementMaxSize) {
         this.tweetGetter = tweetGetter;
         this.title = title;
         this.tabbedPane = tabbedPane;
+        this.tabSetNum = tabSetNum;
         this.tweetManager = tweetManager;
         this.mainAction = mainAction;
         this.tableElementHeight = tableElementHeight;
@@ -119,7 +123,7 @@ public class TweetTabbedTable {
 
             // まだチェックしていないtweetの数をタブにも表示
             if (this.uncheckedTweet > 0) {
-                tabbedPane.setTitleAt(0, this.title + "("
+                tabbedPane.setTitleAt(this.tabSetNum, this.title + "("
                         + this.uncheckedTweet + ")");
             }
             // ツイートをテーブルに追加
