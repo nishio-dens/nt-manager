@@ -800,9 +800,15 @@ public class TweetMainAction {
             // Direct Message情報
 
             List<Status> sendDirectMessages = tweetManager.getNewSendDirectMessages();
-            for (Status t : sendDirectMessages) {
-                sendDirectMessageTableModel.insertTweet(t);
-                sendDirectMessageTable.setRowHeight(0, tableElementHeight);
+
+            //TODO:ここはnullぽが頻発している．修正の必要あり
+            try {
+                for (Status t : sendDirectMessages) {
+                    sendDirectMessageTableModel.insertTweet(t);
+                    sendDirectMessageTable.setRowHeight(0, tableElementHeight);
+                }
+            }catch(NullPointerException e2) {
+                e2.printStackTrace();
             }
             // 古いデータを削除
             sendDirectMessageTableModel.removeOldTweet(TABLE_ELEMENT_MAX_SIZE);
