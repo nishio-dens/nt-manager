@@ -196,12 +196,12 @@ public class TweetTabbedTable {
             // ツイート情報
             List<Status> tweet = tweetGetter.getNewTweetData();
             // まだ見ていないtweet数を追加
-            this.uncheckedTweet += tweet.size();
+            this.setUncheckedTweet(this.getUncheckedTweet() + tweet.size());
 
             // まだチェックしていないtweetの数をタブにも表示
-            if (this.uncheckedTweet > 0) {
-                tabbedPane.setTitleAt(this.tabSetNum, this.title + "("
-                        + this.uncheckedTweet + ")");
+            if (this.getUncheckedTweet() > 0) {
+                tabbedPane.setTitleAt(this.getTabSetNum(), this.title + "("
+                        + this.getUncheckedTweet() + ")");
             }
             // ツイートをテーブルに追加
             for (Status t : tweet) {
@@ -211,9 +211,9 @@ public class TweetTabbedTable {
             // 新規した部分の背景色を変更
             TableCellRenderer renderer = table.getCellRenderer(0, 2);
             if (renderer instanceof TweetCommentRenderer) {
-                if (this.uncheckedTweet - 1 >= 0) {
+                if (this.getUncheckedTweet() - 1 >= 0) {
                     ((TweetCommentRenderer) renderer).updateNewCellRow(
-                            this.uncheckedTweet, newTableColor);
+                            this.getUncheckedTweet(), newTableColor);
                 } else {
                     ((TweetCommentRenderer) renderer).updateNewCellRow(-1,
                             newTableColor);
@@ -237,8 +237,9 @@ public class TweetTabbedTable {
     private void jTableMousePressed(java.awt.event.MouseEvent evt) {
         //右クリックメニュー表示
         showPopup(evt);
-        //TODO: ここを修正
-        mainAction.actionResetUncheckedTimelineTweetCount();
+        //未読ツイート分を0にする
+        this.setUncheckedTweet(0);
+        this.setTitle( this.getTitle() );
     }
 
     /**
@@ -334,6 +335,7 @@ public class TweetTabbedTable {
      */
     public void setTitle(String title) {
         this.title = title;
+        this.tabbedPane.setTitleAt( this.getTabSetNum() , title);
     }
 
     /**
@@ -376,6 +378,27 @@ public class TweetTabbedTable {
      */
     public void setModel(TweetTableModel model) {
         this.model = model;
+    }
+
+    /**
+     * @return the tabSetNum
+     */
+    public int getTabSetNum() {
+        return tabSetNum;
+    }
+
+    /**
+     * @return the uncheckedTweet
+     */
+    public int getUncheckedTweet() {
+        return uncheckedTweet;
+    }
+
+    /**
+     * @param uncheckedTweet the uncheckedTweet to set
+     */
+    public void setUncheckedTweet(int uncheckedTweet) {
+        this.uncheckedTweet = uncheckedTweet;
     }
 
 }

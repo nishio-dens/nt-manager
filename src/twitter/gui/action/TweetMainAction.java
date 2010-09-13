@@ -299,6 +299,8 @@ public class TweetMainAction {
     private AccountDialog accountDialog;
     //ツイートを表示するテーブル管理
     private List<TweetTabbedTable> tweetTabbedTableList = new ArrayList<TweetTabbedTable>();
+    //ここは一時的に追加している部分 タブにすでに存在しているテーブルの数
+    private int ALREADY_TWEET_TAB_NUM = 4;
 
     /**
      *
@@ -446,7 +448,7 @@ public class TweetMainAction {
         int numOfTab = this.tweetTabbedTableList.size();
         //すでに追加されているタブの数
         //TODO:ここはあとで変更する必要がある．なぜなら既に追加されているタブの数は変わる可能性があるから
-        int alreadyExistTabNum = 4;
+        int alreadyExistTabNum = ALREADY_TWEET_TAB_NUM;
         //指定したワードを検索してくるアクション
         TweetGetter tweetGetter = new TweetSearchResultGetter(this.tweetManager, searchWord);
         //検索したワードを表示するテーブルを作成,及びタブにそのテーブルを追加
