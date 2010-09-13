@@ -513,6 +513,11 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenu4.setText("タブ");
 
         jMenuItem5.setText("Debug");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem5);
 
         jMenuBar1.add(jMenu4);
@@ -709,6 +714,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
         this.invalidate();
         this.validate();
     }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        this.mainAction.actionAddNewSearchResultTab("#followme");
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      *

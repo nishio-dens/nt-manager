@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -41,8 +42,11 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
+import twitter.action.TweetGetter;
+import twitter.action.TweetSearchResultGetter;
 
 import twitter.gui.component.TweetCommentRenderer;
+import twitter.gui.component.TweetTabbedTable;
 import twitter.gui.component.TweetTableModel;
 import twitter.gui.form.AboutDialog;
 import twitter.gui.form.AccountDialog;
@@ -60,7 +64,6 @@ import twitter4j.TwitterException;
  * 
  */
 public class TweetMainAction {
-    private AccountDialog accountDialog;
 
     /**
      * 一定時間毎にtweet情報をアップデートするタスク
@@ -277,6 +280,10 @@ public class TweetMainAction {
     // 新しく取得したtweetでまだ参照していない数
     private int uncheckedTimelineTweetCount = 0;
     private AboutDialog aboutDialog = null;
+    //アカウント情報表示ダイアログ
+    private AccountDialog accountDialog;
+    //ツイートを表示するテーブル管理
+    private List<TweetTabbedTable> tweetTabbedTableList = new ArrayList<TweetTabbedTable>();
 
     /**
      *
@@ -358,6 +365,25 @@ public class TweetMainAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * ツイート検索結果を表示するタブを新しく追加
+     * @param searchWord
+     */
+    public void actionAddNewSearchResultTab(String searchWord) {
+        int numOfTab = this.tweetTabbedTableList.size();
+        //すでに追加されているタブの数
+        //TODO:ここはあとで変更する必要がある．なぜなら既に追加されているタブの数は変わる可能性があるから
+        int alreadyExistTabNum = 4;
+        //指定したワードを検索してくるアクション
+        TweetGetter tweetGetter = new TweetSearchResultGetter(this.tweetManager, searchWord);
+        //検索したワードを表示するテーブルを作成,及びタブにそのテーブルを追加
+        TweetTabbedTable searchTable = new TweetTabbedTable(tweetGetter, searchWord,
+                this.tweetMainTab, numOfTab + alreadyExistTabNum,
+                this.tableElementHeight, this.tweetManager,
+                this, newTableColor, tableElementHeight);
+        searchTable.updateTweetTable();
     }
 
     /**
