@@ -983,7 +983,7 @@ public class TweetMainAction {
      */
     public KeywordSearchDialog getKeywordSearchDialog() {
         if( keywordSearchDialog == null ) {
-            keywordSearchDialog = new KeywordSearchDialog(mainFrame, true);
+            keywordSearchDialog = new KeywordSearchDialog(mainFrame, true, this);
         }
         return keywordSearchDialog;
     }

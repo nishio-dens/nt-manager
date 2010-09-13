@@ -11,6 +11,9 @@
 
 package twitter.gui.form;
 
+import javax.swing.JOptionPane;
+import twitter.gui.action.TweetMainAction;
+
 /**
  *
  * @author nishio
@@ -18,9 +21,11 @@ package twitter.gui.form;
 public class KeywordSearchDialog extends javax.swing.JDialog {
 
     /** Creates new form KeywordSearchDialog */
-    public KeywordSearchDialog(java.awt.Frame parent, boolean modal) {
+    public KeywordSearchDialog(java.awt.Frame parent, boolean modal, TweetMainAction mainAction) {
         super(parent, modal);
         initComponents();
+
+        this.mainAction = mainAction;
     }
 
     /** This method is called from within the constructor to
@@ -62,8 +67,18 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
         jRadioButton2.setText("更新しない");
 
         jButton1.setText("キャンセル");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("検索開始");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,22 +135,31 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                KeywordSearchDialog dialog = new KeywordSearchDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //TODO: 情報更新間隔などを設定する必要がある
+        
+        //検索キーワードを取得
+        String searchWord = jTextField1.getText();
+        if( searchWord == null || searchWord.length() == 0 ) {
+            JOptionPane.showMessageDialog(null, "キーワードを入力してください",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return; //終了
+        }
+
+        //キーワード検索結果を表示するテーブルをタブに追加
+        mainAction.actionAddNewSearchResultTab(searchWord);
+        //画面を閉じる
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+
+
+    //twitter
+    private TweetMainAction mainAction;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
