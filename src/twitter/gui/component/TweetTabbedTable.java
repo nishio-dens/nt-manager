@@ -103,7 +103,7 @@ public class TweetTabbedTable {
         //スクロールペーン追加
         scrollPane.setViewportView(table);
         //タブにテーブル追加
-        tabbedPane.addTab(this.title, table);
+        tabbedPane.addTab(this.title, scrollPane);
     }
 
     /**
@@ -148,6 +148,8 @@ public class TweetTabbedTable {
             model.refreshTime();
         } catch (TwitterException e1) {
             e1.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
