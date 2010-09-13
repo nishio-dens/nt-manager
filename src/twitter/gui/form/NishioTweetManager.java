@@ -527,6 +527,11 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenu5.setText("検索");
 
         jMenuItem6.setText("キーワードでTwitter全体を検索");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem6);
 
         jMenuBar1.add(jMenu5);
@@ -727,6 +732,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         this.mainAction.actionAddNewSearchResultTab("#followme");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        this.mainAction.actionShowKeywordSearchDialog();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      *

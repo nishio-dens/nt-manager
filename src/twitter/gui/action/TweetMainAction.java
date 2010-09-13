@@ -54,6 +54,7 @@ import twitter.gui.form.AboutDialog;
 import twitter.gui.form.AccountDialog;
 import twitter.gui.form.ConfigurationDialog;
 import twitter.gui.form.DirectMessageDialog;
+import twitter.gui.form.KeywordSearchDialog;
 import twitter.manage.TweetConfiguration;
 import twitter.manage.TweetManager;
 import twitter4j.Status;
@@ -213,6 +214,8 @@ public class TweetMainAction {
     private JPanel detailInfoPanel = null;
     // ダイレクトメッセージ送信用ダイアログ
     private DirectMessageDialog directMessageDialog = null;
+    //Twitter全体からキーワード検索ダイアログ
+    private KeywordSearchDialog keywordSearchDialog = null;
     // directMessageを表示するテーブル
     private JTable directMessageTable = null;
     // directMessageのtweetを表示するテーブルモデル
@@ -850,6 +853,16 @@ public class TweetMainAction {
     }
 
     /**
+     * Twitter全体からキーワード検索ダイアログを表示
+     */
+    public void actionShowKeywordSearchDialog() {
+        Point loc = getDirectMessageDialog().getLocation();
+        KeywordSearchDialog dialog = getKeywordSearchDialog();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }
+
+    /**
      * tweetBoxPaneに書かれた文字をつぶやく
      */
     public void actionTweet() {
@@ -956,6 +969,17 @@ public class TweetMainAction {
             configurationDialog = new ConfigurationDialog(mainFrame, this);
         }
         return configurationDialog;
+    }
+
+    /**
+     * twitter全体からキーワード検索ダイアログを表示
+     * @return
+     */
+    public KeywordSearchDialog getKeywordSearchDialog() {
+        if( keywordSearchDialog == null ) {
+            keywordSearchDialog = new KeywordSearchDialog(mainFrame, true);
+        }
+        return keywordSearchDialog;
     }
 
     /**

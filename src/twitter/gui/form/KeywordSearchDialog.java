@@ -51,6 +51,7 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
         jLabel2.setText("情報更新間隔を指定してください");
 
         buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("情報を定期的に更新する");
 
         jTextField2.setText("60");

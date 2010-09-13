@@ -111,6 +111,7 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup1"/>
         </Property>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="&#x60c5;&#x5831;&#x3092;&#x5b9a;&#x671f;&#x7684;&#x306b;&#x66f4;&#x65b0;&#x3059;&#x308b;"/>
       </Properties>
     </Component>
