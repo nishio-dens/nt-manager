@@ -34,6 +34,18 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x691c;&#x7d22;"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x30ad;&#x30fc;&#x30ef;&#x30fc;&#x30c9;&#x3067;Twitter&#x5168;&#x4f53;&#x3092;&#x691c;&#x7d22;"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x8a2d;&#x5b9a;"/>

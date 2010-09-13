@@ -181,6 +181,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -521,6 +523,13 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenu4.add(jMenuItem5);
 
         jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("検索");
+
+        jMenuItem6.setText("キーワードでTwitter全体を検索");
+        jMenu5.add(jMenuItem6);
+
+        jMenuBar1.add(jMenu5);
 
         jMenu2.setText("設定");
 
@@ -947,12 +956,14 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
