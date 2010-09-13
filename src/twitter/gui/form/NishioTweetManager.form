@@ -6,27 +6,73 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x30d5;&#x30a1;&#x30a4;&#x30eb;"/>
+            <Property name="mnemonic" type="int" value="70" postCode="/*"/>
+            <Property name="text" type="java.lang.String" value="&#x30d5;&#x30a1;&#x30a4;&#x30eb;(F)"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="*/&#xa;jMenu1.setText(&quot;&#x30d5;&#x30a1;&#x30a4;&#x30eb;(F)&quot;);"/>
+            <AuxValue name="generateMnemonicsCode" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x7d42;&#x4e86;"/>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+Q"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="88"/>
+                <Property name="text" type="java.lang.String" value="&#x7d42;&#x4e86;(X)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+              </AuxValues>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu6">
+          <Properties>
+            <Property name="mnemonic" type="int" value="79"/>
+            <Property name="text" type="java.lang.String" value="&#x64cd;&#x4f5c;(O)"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+F5"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="85"/>
+                <Property name="text" type="java.lang.String" value="&#x4eca;&#x3059;&#x3050;&#x66f4;&#x65b0;(U)"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem7ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+F5"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="84"/>
+                <Property name="text" type="java.lang.String" value="&#x6642;&#x9593;&#x60c5;&#x5831;&#x3092;&#x66f4;&#x65b0;(T)"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem8ActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x30bf;&#x30d6;"/>
+            <Property name="mnemonic" type="int" value="86"/>
+            <Property name="text" type="java.lang.String" value="&#x8868;&#x793a;(V)"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x9078;&#x629e;&#x3057;&#x3066;&#x3044;&#x308b;&#x30bf;&#x30d6;&#x3092;&#x524a;&#x9664;"/>
+                <Property name="mnemonic" type="int" value="68"/>
+                <Property name="text" type="java.lang.String" value="&#x9078;&#x629e;&#x3057;&#x3066;&#x3044;&#x308b;&#x30bf;&#x30d6;&#x3092;&#x524a;&#x9664;(D)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
@@ -36,12 +82,17 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x691c;&#x7d22;"/>
+            <Property name="mnemonic" type="int" value="83"/>
+            <Property name="text" type="java.lang.String" value="&#x691c;&#x7d22;(S)"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x30ad;&#x30fc;&#x30ef;&#x30fc;&#x30c9;&#x3067;Twitter&#x5168;&#x4f53;&#x3092;&#x691c;&#x7d22;"/>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+F"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="65"/>
+                <Property name="text" type="java.lang.String" value="&#x30ad;&#x30fc;&#x30ef;&#x30fc;&#x30c9;&#x3067;Twitter&#x5168;&#x4f53;&#x3092;&#x691c;&#x7d22;(A)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem6ActionPerformed"/>
@@ -51,7 +102,8 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x8a2d;&#x5b9a;"/>
+            <Property name="mnemonic" type="int" value="79"/>
+            <Property name="text" type="java.lang.String" value="&#x8a2d;&#x5b9a;(O)"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
@@ -74,11 +126,15 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x30d8;&#x30eb;&#x30d7;"/>
+            <Property name="mnemonic" type="int" value="72"/>
+            <Property name="text" type="java.lang.String" value="&#x30d8;&#x30eb;&#x30d7;(H)"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="&#x3053;&#x306e;&#x30d7;&#x30ed;&#x30b0;&#x30e9;&#x30e0;&#x306b;&#x3064;&#x3044;&#x3066;"/>
               </Properties>
               <Events>

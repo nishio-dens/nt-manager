@@ -179,6 +179,9 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -500,9 +503,15 @@ public class NishioTweetManager extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("ファイル");
+        jMenu1.setMnemonic('F');
+        /*
+        org.openide.awt.Mnemonics.setLocalizedText(jMenu1, "ファイル(F)");
+        */
+        jMenu1.setText("ファイル(F)");
 
-        jMenuItem1.setText("終了");
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setMnemonic('X');
+        jMenuItem1.setText("終了(X)");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -512,9 +521,36 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu4.setText("タブ");
+        jMenu6.setMnemonic('O');
+        jMenu6.setText("操作(O)");
 
-        jMenuItem5.setText("選択しているタブを削除");
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem7.setMnemonic('U');
+        jMenuItem7.setText("今すぐ更新(U)");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem7);
+
+        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem8.setMnemonic('T');
+        jMenuItem8.setText("時間情報を更新(T)");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu6);
+
+        jMenu4.setMnemonic('V');
+        jMenu4.setText("表示(V)");
+
+        jMenuItem5.setMnemonic('D');
+        jMenuItem5.setText("選択しているタブを削除(D)");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -524,9 +560,12 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        jMenu5.setText("検索");
+        jMenu5.setMnemonic('S');
+        jMenu5.setText("検索(S)");
 
-        jMenuItem6.setText("キーワードでTwitter全体を検索");
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem6.setMnemonic('A');
+        jMenuItem6.setText("キーワードでTwitter全体を検索(A)");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -536,7 +575,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        jMenu2.setText("設定");
+        jMenu2.setMnemonic('O');
+        jMenu2.setText("設定(O)");
 
         jMenuItem2.setText("基本設定");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -556,8 +596,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("ヘルプ");
+        jMenu3.setMnemonic('H');
+        jMenu3.setText("ヘルプ(H)");
 
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         jMenuItem3.setText("このプログラムについて");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -737,6 +779,17 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         this.mainAction.actionShowKeywordSearchDialog();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        mainAction.actionUpdateButton(evt);
+        // いますぐ更新ボタンを押したので，更新タイムを一度リセットする
+        mainAction.resetTweetAutoUpdate();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // tweet取得時間情報を更新
+        mainAction.actionRefreshTime();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      *
@@ -967,6 +1020,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -974,6 +1028,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
