@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -26,6 +27,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -277,6 +279,19 @@ public class TweetMainAction {
     private TweetTableModel tweetTableModel = null;
     private int uncheckedDirectMessageCount = 0;
     private int uncheckedMentionTweetCount = 0;
+
+    //Tweetの詳細情報を表示する部分
+    private JLabel userImageLabel = null;
+    private JLabel userNameLabel = null;
+    private JLabel updateTimeLabel = null;
+    private JLabel followerLabel = null;
+    private JLabel followingLabel = null;
+    private JLabel locationLabel = null;
+    private JEditorPane clientNameLabel = null;
+    private JLabel updateLabel = null;
+    private JEditorPane userIntroBox = null;
+    private JEditorPane userWebBox = null;
+
     // 新しく取得したtweetでまだ参照していない数
     private int uncheckedTimelineTweetCount = 0;
     private AboutDialog aboutDialog = null;
@@ -287,17 +302,61 @@ public class TweetMainAction {
 
     /**
      *
+     * @param mainFrame
+     * @param tweetManager
      * @param statusBarLabel
+     * @param tweetTableModel
+     * @param mentionTableModel
+     * @param directMessageTableModel
+     * @param sendDirectMessageTableModel
+     * @param mainTweetTable
+     * @param mentionTable
+     * @param directMessageTable
+     * @param sendDirectMessageTable
+     * @param tweetBoxPane
+     * @param tweetBoxScrollPane
+     * @param tweetMessageCountLabel
+     * @param detailInfoPanel
+     * @param tweetMainTab
+     * @param tweetMessageBox
+     * @param userImageLabel
+     * @param userNameLabel
+     * @param updateTimeLabel
+     * @param followerLabel
+     * @param followingLabel
+     * @param locationLabel
+     * @param clientNameLabel
+     * @param updateLabel
+     * @param userIntroBox
+     * @param userWebBox
      */
-    public TweetMainAction(JFrame mainFrame, TweetManager tweetManager,
-            JLabel statusBarLabel, TweetTableModel tweetTableModel,
+    public TweetMainAction(JFrame mainFrame,
+            TweetManager tweetManager,
+            JLabel statusBarLabel,
+            TweetTableModel tweetTableModel,
             TweetTableModel mentionTableModel,
             TweetTableModel directMessageTableModel,
-            TweetTableModel sendDirectMessageTableModel, JTable mainTweetTable,
-            JTable mentionTable, JTable directMessageTable,
-            JTable sendDirectMessageTable, JTextPane tweetBoxPane, JScrollPane tweetBoxScrollPane,
-            JLabel tweetMessageCountLabel, JPanel detailInfoPanel,
-            JTabbedPane tweetMainTab, JEditorPane tweetMessageBox) {
+            TweetTableModel sendDirectMessageTableModel,
+            JTable mainTweetTable,
+            JTable mentionTable,
+            JTable directMessageTable,
+            JTable sendDirectMessageTable,
+            JTextPane tweetBoxPane,
+            JScrollPane tweetBoxScrollPane,
+            JLabel tweetMessageCountLabel,
+            JPanel detailInfoPanel,
+            JTabbedPane tweetMainTab,
+            JEditorPane tweetMessageBox,
+            JLabel userImageLabel,
+            JLabel userNameLabel,
+            JLabel updateTimeLabel,
+            JLabel followerLabel,
+            JLabel followingLabel,
+            JLabel locationLabel,
+            JEditorPane clientNameLabel,
+            JLabel updateLabel,
+            JEditorPane userIntroBox,
+            JEditorPane userWebBox) {
         this.mainFrame = mainFrame;
         this.tweetManager = tweetManager;
         this.statusBarLabel = statusBarLabel;
@@ -315,6 +374,18 @@ public class TweetMainAction {
         this.tweetMainTab = tweetMainTab;
         this.tweetMessageBox = tweetMessageBox;
         this.tweetBoxScrollPane = tweetBoxScrollPane;
+
+        //詳細情報部分
+        this.userImageLabel = userImageLabel;
+        this.userNameLabel = userNameLabel;
+        this.updateTimeLabel = updateTimeLabel;
+        this.userIntroBox = userIntroBox;
+        this.followerLabel = followerLabel;
+        this.followingLabel = followingLabel;
+        this.locationLabel = locationLabel;
+        this.userWebBox = userWebBox;
+        this.clientNameLabel = clientNameLabel;
+        this.updateLabel = updateLabel;
 
         // 設定ファイルの読み込み
         try {
@@ -891,6 +962,63 @@ public class TweetMainAction {
         return directMessageDialog;
     }
 
+    /**
+     * テーブルで選択したツイートを詳細情報としてセット
+     * @param table
+     */
+    public void setDetailInformationFromTable(JTable table) {
+        int sc = table.getSelectedRowCount();
+        String infoMessage = "";
+
+        if (sc == 1) {
+            Status st = getTweetTableInformation(table, table.getModel());
+            infoMessage = st.getText();
+            // tweetMessageBox内のURLをhtmlリンクへ変換
+            infoMessage = actionReplaceTweetMessageBoxURLLink(infoMessage);
+            // @ユーザ情報をhtmlリンクへ変換
+            infoMessage = actionReplaceTweetMessageBoxUserInfo(infoMessage);
+            // #ハッシュタグ情報をhtmlリンクへ変換
+            infoMessage = actionReplaceTweetMessageBoxHashTab(infoMessage);
+            // 詳細情報にテーブルで選択した人のツイート情報を表示
+            tweetMessageBox.setText(infoMessage);
+            // user icon
+            userImageLabel.setIcon(new ImageIcon(st.getUser().getProfileImageURL()));
+            // user name and id
+            userNameLabel.setText(st.getUser().getName()
+                    + " / " + st.getUser().getScreenName());
+            // update Time
+            updateTimeLabel.setText(DateFormat.getInstance().format( st.getCreatedAt() ));
+            // ユーザ自己紹介文
+            userIntroBox.setText(st.getUser().getDescription());
+            // フォローされている数
+            followerLabel.setText(st.getUser().getFollowersCount()
+                    + "");
+            // フォローしている数
+            followingLabel.setText(st.getUser().getFriendsCount()
+                    + "");
+            // 現在地
+            locationLabel.setText(st.getUser().getLocation());
+            // Web
+            if (st.getUser().getURL() != null) {
+                userWebBox.setText("<a href=\""
+                        + st.getUser().getURL() + "\">"
+                        + st.getUser().getScreenName()
+                        + "のWebを開く" + "</a>");
+            } else {
+                userWebBox.setText("");
+            }
+            // client
+            clientNameLabel.setText(" via " + st.getSource());
+            // Update
+            updateLabel.setText(st.getUser().getStatusesCount()
+                    + "");
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
     public AboutDialog getAboutDialog() {
         if (aboutDialog == null) {
             aboutDialog = new AboutDialog(mainFrame, true);

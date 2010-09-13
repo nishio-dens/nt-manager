@@ -776,7 +776,9 @@ public class NishioTweetManager extends javax.swing.JFrame {
         mainAction = new TweetMainAction(this, tweetManager, statusBar,
                 tweetTableModel, mentionTableModel, messageTableModel,
                 sendMessageTableModel, jTable, jTable1, jTable2, jTable3,
-                jTextPane, jScrollPane9, tweetLengthLabel, jPanel1, jTabbedPane1, tweetMessageBox);
+                jTextPane, jScrollPane9, tweetLengthLabel, jPanel1, jTabbedPane1, tweetMessageBox, userImageLabel,
+                userNameLabel, updateTimeLabel, followerLabel, followingLabel, locationLabel,
+                clientNameLabel, updateLabel, userIntroBox, userWebBox);
         // 自動更新開始
         mainAction.startTweetAutoUpdate();
         //もしログインに失敗したら，アカウント設定画面を出す
@@ -831,62 +833,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
                             return;
                         }
 
-                        int sc = table.getSelectedRowCount();
-                        String infoMessage = "";
-                        if (sc == 1) {
-                            Status st = mainAction.getTweetTableInformation(
-                                    table, table.getModel());
-                            infoMessage = st.getText();
-                            // tweetMessageBox内のURLをhtmlリンクへ変換
-                            infoMessage = mainAction.actionReplaceTweetMessageBoxURLLink(infoMessage);
-                            // @ユーザ情報をhtmlリンクへ変換
-                            infoMessage = mainAction.actionReplaceTweetMessageBoxUserInfo(infoMessage);
-                            // #ハッシュタグ情報をhtmlリンクへ変換
-                            infoMessage = mainAction.actionReplaceTweetMessageBoxHashTab(infoMessage);
-                            // 詳細情報にテーブルで選択した人のツイート情報を表示
-                            tweetMessageBox.setText(infoMessage);
-                            // user icon
-                            userImageLabel.setIcon(new ImageIcon(st.getUser().getProfileImageURL()));
-                            // user name and id
-                            userNameLabel.setText(st.getUser().getName()
-                                    + " / " + st.getUser().getScreenName());
-                            // update Time
-                            updateTimeLabel.setText(st.getCreatedAt().toLocaleString());
-                            // ユーザのバックグラウンドイメージを取得
-							/*
-                             * ImagePanel imagePanel = null; if( jContentPane
-                             * instanceof ImagePanel ) { imagePanel =
-                             * (ImagePanel)jContentPane; try { URL url = new URL
-                             * ( st.getUser().getProfileBackgroundImageUrl() );
-                             * imagePanel.setImage( new ImageIcon( url
-                             * ).getImage() ); } catch (MalformedURLException
-                             * e1) { e1.printStackTrace(); } }
-                             */
-                            // ユーザ自己紹介文
-                            userIntroBox.setText(st.getUser().getDescription());
-                            // フォローされている数
-                            followerLabel.setText(st.getUser().getFollowersCount()
-                                    + "");
-                            // フォローしている数
-                            followingLabel.setText(st.getUser().getFriendsCount()
-                                    + "");
-                            // 現在地
-                            locationLabel.setText(st.getUser().getLocation());
-                            // Web
-                            if (st.getUser().getURL() != null) {
-                                userWebBox.setText("<a href=\""
-                                        + st.getUser().getURL() + "\">"
-                                        + st.getUser().getScreenName()
-                                        + "のWebを開く" + "</a>");
-                            } else {
-                                userWebBox.setText("");
-                            }
-                            // client
-                            clientNameLabel.setText(" via " + st.getSource());
-                            // Update
-                            updateLabel.setText(st.getUser().getStatusesCount()
-                                    + "");
-                        }
+                        //テーブルで選択した要素を詳細情報として表示
+                        mainAction.setDetailInformationFromTable(table);
                     }
                 });
         // JTableを右クリックでも選択できるようにする

@@ -6,6 +6,8 @@
 package twitter.gui.component;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JMenuItem;
@@ -13,7 +15,11 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import twitter.action.TweetGetter;
 import twitter.gui.action.TweetMainAction;
 import twitter.manage.TweetManager;
@@ -85,7 +91,7 @@ public class TweetTabbedTable {
         model = new TweetTableModel();
         uncheckedTweet = 0;
         scrollPane = new JScrollPane();
-        
+
         //テーブルをタブに追加
         table.setModel(model);
         table.getTableHeader().setReorderingAllowed(false);
@@ -100,10 +106,81 @@ public class TweetTabbedTable {
             }
         });
 
+        //tweetを表示するテーブルを作成
+        createTweetTable(table);
+
         //スクロールペーン追加
         scrollPane.setViewportView(table);
         //タブにテーブル追加
         tabbedPane.addTab(this.title, scrollPane);
+    }
+
+    /**
+     * Tweetを表示するテーブルを作成
+     *
+     * @param model
+     * @return
+     */
+    private void createTweetTable(final JTable table) {
+
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+        table.setShowVerticalLines(false);
+        table.setShowHorizontalLines(true);
+
+        // Comment部分のColumnを複数行コメントが表示できるようにする
+        TableColumnModel mdl = table.getColumnModel();
+        TableColumn col = mdl.getColumn(1);
+        TweetCommentRenderer commentRenderer = new TweetCommentRenderer();
+        col.setCellRenderer(commentRenderer);
+        // INfo部分のColumnを複数行表示できるように
+        TweetCommentRenderer infoRenderer = new TweetCommentRenderer();
+        col = mdl.getColumn(2);
+        col.setCellRenderer(infoRenderer);
+        col.setMaxWidth(200);
+        col.setMinWidth(150);
+        // TODO:とりあえず幅指定した部分
+        // あとでファイルに幅情報などを保存しておき，それを読み込んで設定するような仕様に変更する
+        // ユーザImageを表示する部分
+        col = mdl.getColumn(0);
+        col.setCellRenderer(new UserImageRenderer());
+        col.setMinWidth(50);
+        col.setMaxWidth(50);
+        // 選択したセルの情報をDetailInfoへと表示
+        table.getSelectionModel().addListSelectionListener(
+                new ListSelectionListener() {
+
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+
+                        if (e.getValueIsAdjusting()) {
+                            return;
+                        }
+
+                        //テーブルで選択した要素を詳細情報として表示
+                        mainAction.setDetailInformationFromTable(table);
+                    }
+                });
+        // JTableを右クリックでも選択できるようにする
+        // また，同じ行を２回クリックできるようにする
+        table.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // いったんSelectしていた情報を削除
+                table.clearSelection();
+                // if (e.getButton() == MouseEvent.BUTTON3) {
+                Point p = e.getPoint();
+                int col = table.columnAtPoint(p);
+                int row = table.rowAtPoint(p);
+                table.changeSelection(row, col, false, false);
+                // }
+            }
+        });
+        // MouseEventを追加
+        table.addMouseListener(commentRenderer);
+        table.addMouseMotionListener(commentRenderer);
+        table.addMouseListener(infoRenderer);
+        table.addMouseMotionListener(infoRenderer);
     }
 
     /**
@@ -160,6 +237,7 @@ public class TweetTabbedTable {
     private void jTableMousePressed(java.awt.event.MouseEvent evt) {
         //右クリックメニュー表示
         showPopup(evt);
+        //TODO: ここを修正
         mainAction.actionResetUncheckedTimelineTweetCount();
     }
 
