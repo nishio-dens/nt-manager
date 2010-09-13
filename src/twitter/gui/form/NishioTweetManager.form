@@ -26,7 +26,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Debug"/>
+                <Property name="text" type="java.lang.String" value="&#x9078;&#x629e;&#x3057;&#x3066;&#x3044;&#x308b;&#x30bf;&#x30d6;&#x3092;&#x524a;&#x9664;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>

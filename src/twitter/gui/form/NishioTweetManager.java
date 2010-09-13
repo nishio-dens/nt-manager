@@ -514,7 +514,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
         jMenu4.setText("タブ");
 
-        jMenuItem5.setText("Debug");
+        jMenuItem5.setText("選択しているタブを削除");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -730,7 +730,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        this.mainAction.actionAddNewSearchResultTab("#followme");
+        //選択しているタブを削除
+        mainAction.actionRemoveFocusedTabbedTable();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed

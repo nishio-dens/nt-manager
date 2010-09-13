@@ -551,6 +551,30 @@ public class TweetMainAction {
     }
 
     /**
+     * 選択しているタブを削除
+     */
+    public void actionRemoveFocusedTabbedTable() {
+        int selected = this.tweetMainTab.getSelectedIndex();
+        //TODO:ここはいつか変更
+        int deleteTabIndex = selected - this.ALREADY_TWEET_TAB_NUM;
+        if( deleteTabIndex >= 0 ) {
+            //タブを削除
+            this.tweetMainTab.remove(deleteTabIndex + this.ALREADY_TWEET_TAB_NUM);
+            int tabSetNum = this.tweetTabbedTableList.get(deleteTabIndex).getTabSetNum();
+            this.tweetTabbedTableList.remove(deleteTabIndex);
+
+            //一時的に
+            tabSetNum -= this.ALREADY_TWEET_TAB_NUM;
+            //削除した分，既存のタブ番号を1つずつずらさなければならない
+            int tabNum = this.tweetTabbedTableList.size();
+            for(int i = tabSetNum; i < tabNum; i++) {
+                TweetTabbedTable table = this.tweetTabbedTableList.get( i );
+                table.setTabSetNum( table.getTabSetNum() - 1);
+            }
+        }
+    }
+
+    /**
      * 終了ボタンを押した時の動作
      *
      * @param e

@@ -401,4 +401,11 @@ public class TweetTabbedTable {
         this.uncheckedTweet = uncheckedTweet;
     }
 
+    /**
+     * @param tabSetNum the tabSetNum to set
+     */
+    public void setTabSetNum(int tabSetNum) {
+        this.tabSetNum = tabSetNum;
+    }
+
 }
