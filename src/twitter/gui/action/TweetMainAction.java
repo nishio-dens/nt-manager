@@ -454,6 +454,8 @@ public class TweetMainAction {
                 this.tweetMainTab, numOfTab + alreadyExistTabNum,
                 this.tableElementHeight, this.tweetManager,
                 this, newTableColor, tableElementHeight);
+        //タブリストに追加
+        this.tweetTabbedTableList.add(searchTable);
         searchTable.updateTweetTable();
     }
 
@@ -636,6 +638,17 @@ public class TweetMainAction {
      */
     public void actionRefreshTime() {
         tweetTableModel.refreshTime();
+        mentionTableModel.refreshTime();
+        directMessageTableModel.refreshTime();
+        sendDirectMessageTableModel.refreshTime();
+
+        //タブに存在する時間情報を更新
+        for(TweetTabbedTable t : this.tweetTabbedTableList ) {
+            TweetTableModel model = t.getModel();
+            if( model != null ) {
+                model.refreshTime();
+            }
+        }
     }
 
     /**
@@ -908,6 +921,11 @@ public class TweetMainAction {
             actionDirectMessageTableUpdate();
             // SendDirectMessageテーブルの情報を更新
             actionSendDirectMessageTableUpdate();
+
+            //新しく追加したタブ上に存在するテーブルの情報を更新
+            for(TweetTabbedTable t : this.tweetTabbedTableList ) {
+                t.updateTweetTable();
+            }
         } catch (Exception e1) {
             e1.printStackTrace();
         }

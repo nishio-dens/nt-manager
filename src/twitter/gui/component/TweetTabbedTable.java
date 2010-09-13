@@ -205,7 +205,7 @@ public class TweetTabbedTable {
             }
             // ツイートをテーブルに追加
             for (Status t : tweet) {
-                this.model.insertTweet(t);
+                this.getModel().insertTweet(t);
                 this.table.setRowHeight(0, getTableElementHeight());
             }
             // 新規した部分の背景色を変更
@@ -220,9 +220,9 @@ public class TweetTabbedTable {
                 }
             }
             // 古いデータを削除
-            model.removeOldTweet( getTableElementMaxSize() );
+            getModel().removeOldTweet( getTableElementMaxSize() );
 
-            model.refreshTime();
+            getModel().refreshTime();
         } catch (TwitterException e1) {
             e1.printStackTrace();
         } catch (Exception e) {
@@ -362,6 +362,20 @@ public class TweetTabbedTable {
      */
     public void setTableElementMaxSize(int tableElementMaxSize) {
         this.tableElementMaxSize = tableElementMaxSize;
+    }
+
+    /**
+     * @return the model
+     */
+    public TweetTableModel getModel() {
+        return model;
+    }
+
+    /**
+     * @param model the model to set
+     */
+    public void setModel(TweetTableModel model) {
+        this.model = model;
     }
 
 }
