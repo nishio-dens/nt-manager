@@ -23,6 +23,9 @@ public class AboutDialog extends javax.swing.JDialog {
     public AboutDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        //デフォルトボタン
+        this.getRootPane().setDefaultButton(jButton1);
     }
 
     /** This method is called from within the constructor to

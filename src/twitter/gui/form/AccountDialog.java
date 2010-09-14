@@ -32,6 +32,9 @@ public class AccountDialog extends javax.swing.JDialog {
         initComponents();
         this.mainAction = mainAction;
         this.tweetManager = tweetManager;
+
+        //デフォルトボタン
+        this.getRootPane().setDefaultButton(jButton1);
     }
 
     private TweetMainAction mainAction = null;
@@ -71,7 +74,8 @@ public class AccountDialog extends javax.swing.JDialog {
 
         jLabel4.setText("パスワード");
 
-        jButton1.setText("ログイン");
+        jButton1.setMnemonic('L');
+        jButton1.setText("ログイン(L)");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
