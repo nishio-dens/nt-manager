@@ -73,7 +73,8 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setText("検索開始");
+        jButton2.setMnemonic('S');
+        jButton2.setText("検索開始(S)");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
