@@ -25,6 +25,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
@@ -57,6 +59,9 @@ import twitter.gui.form.DirectMessageDialog;
 import twitter.gui.form.KeywordSearchDialog;
 import twitter.manage.TweetConfiguration;
 import twitter.manage.TweetManager;
+import twitter.task.TweetTaskException;
+import twitter.task.TweetTaskManager;
+import twitter.task.TweetUpdateTask;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 
@@ -302,6 +307,8 @@ public class TweetMainAction {
     private AccountDialog accountDialog;
     //ツイートを表示するテーブル管理
     private List<TweetTabbedTable> tweetTabbedTableList = new ArrayList<TweetTabbedTable>();
+    //ツイートテーブルの情報を一定間隔で更新するクラスを作成
+    private TweetTaskManager tweetTaskManager = new TweetTaskManager();
     //ここは一時的に追加している部分 タブにすでに存在しているテーブルの数
     private int ALREADY_TWEET_TAB_NUM = 4;
 
@@ -446,22 +453,47 @@ public class TweetMainAction {
     /**
      * ツイート検索結果を表示するタブを新しく追加
      * @param searchWord
+     * @param period 更新周期[sec] 0以下の場合は更新しない
      */
-    public void actionAddNewSearchResultTab(String searchWord) {
+    public void actionAddNewSearchResultTab(String searchWord, int period) {
         int numOfTab = this.tweetTabbedTableList.size();
         //すでに追加されているタブの数
         //TODO:ここはあとで変更する必要がある．なぜなら既に追加されているタブの数は変わる可能性があるから
         int alreadyExistTabNum = ALREADY_TWEET_TAB_NUM;
-        //指定したワードを検索してくるアクション
-        TweetGetter tweetGetter = new TweetSearchResultGetter(this.tweetManager, searchWord);
-        //検索したワードを表示するテーブルを作成,及びタブにそのテーブルを追加
-        TweetTabbedTable searchTable = new TweetTabbedTable(tweetGetter, searchWord,
-                this.tweetMainTab, numOfTab + alreadyExistTabNum,
-                this.tableElementHeight, this.tweetManager,
-                this, newTableColor, tableElementHeight);
-        //タブリストに追加
-        this.tweetTabbedTableList.add(searchTable);
-        searchTable.updateTweetTable();
+
+        //周期的に情報を更新する
+        if( period > 0 ) {
+            //TODO: timerIDを再度検討する必要があるかもしれない
+            try {
+                //指定したワードを検索してくるアクション
+                TweetGetter tweetGetter = new TweetSearchResultGetter(this.tweetManager, searchWord);
+                //検索したワードを表示するテーブルを作成,及びタブにそのテーブルを追加
+                final TweetTabbedTable searchTable = new TweetTabbedTable(tweetGetter, searchWord,
+                        this.tweetMainTab, numOfTab + alreadyExistTabNum,
+                        this.tableElementHeight, this.tweetManager,
+                        this, newTableColor, tableElementHeight);
+
+                String timerID = "SEARCH:" + searchWord;
+                this.tweetTaskManager.addTask(timerID, new TweetUpdateTask() {
+
+                    @Override
+                    public void runTask() throws TweetTaskException {
+                        //ツイート情報を一定間隔で更新
+                        searchTable.updateTweetTable();
+                    }
+                });
+                //更新開始
+                this.tweetTaskManager.startTask(timerID, period * 1000L);
+
+                //タブにテーブルを追加
+                searchTable.addTableToTab();
+                //タブリストに追加
+                this.tweetTabbedTableList.add(searchTable);
+                //searchTable.updateTweetTable();
+            } catch (TweetTaskException ex) {
+                Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**
@@ -561,6 +593,10 @@ public class TweetMainAction {
             //タブを削除
             this.tweetMainTab.remove(deleteTabIndex + this.ALREADY_TWEET_TAB_NUM);
             int tabSetNum = this.tweetTabbedTableList.get(deleteTabIndex).getTabSetNum();
+            //タブのタイマーID
+            String timerID = this.tweetTabbedTableList.get(deleteTabIndex).getTitle();
+
+            //削除
             this.tweetTabbedTableList.remove(deleteTabIndex);
 
             //一時的に
@@ -571,6 +607,10 @@ public class TweetMainAction {
                 TweetTabbedTable table = this.tweetTabbedTableList.get( i );
                 table.setTabSetNum( table.getTabSetNum() - 1);
             }
+
+            //自動更新しているタブを削除
+            timerID = "SEARCH:" + timerID;
+            this.tweetTaskManager.shutdownTask( timerID );
         }
     }
 

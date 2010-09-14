@@ -146,8 +146,28 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
             return; //終了
         }
 
+        //情報を一定間隔で更新
+        Integer period = 0;
+        //時間情報取得
+        if( jRadioButton1.isSelected() == true ) {
+            try {
+                period = Integer.parseInt(jTextField2.getText());
+            }catch(Exception e) {
+                JOptionPane.showMessageDialog(null, "正しい周期を設定してください",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                return; //終了
+            }
+
+            if( period < MIN_PERIOD ) {
+                //更新間隔が短すぎる
+                JOptionPane.showMessageDialog(null, "周期が短すぎます．最低でも10秒以上を設定してください．",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                return; //終了
+            }
+        }
+
         //キーワード検索結果を表示するテーブルをタブに追加
-        mainAction.actionAddNewSearchResultTab(searchWord);
+        mainAction.actionAddNewSearchResultTab(searchWord, period);
         //画面を閉じる
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -160,6 +180,8 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
 
     //twitter
     private TweetMainAction mainAction;
+    //10秒以下の更新は認めない
+    private long MIN_PERIOD = 10;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

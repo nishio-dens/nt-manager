@@ -91,7 +91,12 @@ public class TweetTabbedTable {
         model = new TweetTableModel();
         uncheckedTweet = 0;
         scrollPane = new JScrollPane();
+    }
 
+    /**
+     * Tweet情報を表示するテーブルをタブに追加
+     */
+    public void addTableToTab() {
         //テーブルをタブに追加
         table.setModel(model);
         table.getTableHeader().setReorderingAllowed(false);
