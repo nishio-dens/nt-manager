@@ -83,22 +83,21 @@ public class TestDriver {
         return confbuilder.build();
     }
 
-
-	public static void main(String[] args) {
-		TweetManager tweetManager = new TweetManager();
+    public static void main(String[] args) {
+        TweetManager tweetManager = new TweetManager();
         TweetSearchResultGetter searchGetter = new TweetSearchResultGetter(tweetManager, "followme");
         try {
             tweetManager.loginTwitter();
             List<Status> status = searchGetter.getNewTweetData();
-            for( Status s : status ) {
-                System.out.println( s );
+            for (Status s : status) {
+                System.out.println(s);
             }
 
             System.out.println("---");
 
             List<Status> status2 = searchGetter.getTweetData(5);
-            for( Status s : status2 ) {
-                System.out.println( s );
+            for (Status s : status2) {
+                System.out.println(s);
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,5 +106,5 @@ public class TestDriver {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
-	}
+    }
 }
