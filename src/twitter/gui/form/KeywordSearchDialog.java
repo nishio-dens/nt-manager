@@ -25,6 +25,9 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
+        //デフォルトボタンの設定
+        this.getRootPane().setDefaultButton(jButton2);
+
         this.mainAction = mainAction;
     }
 
@@ -75,6 +78,7 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
 
         jButton2.setMnemonic('S');
         jButton2.setText("検索開始(S)");
+        jButton2.setFocusCycleRoot(true);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
