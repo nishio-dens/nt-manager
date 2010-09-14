@@ -11,6 +11,9 @@ import twitter.action.TweetSearchResultGetter;
 
 import twitter.log.TwitterLogManager;
 import twitter.manage.TweetManager;
+import twitter.task.TweetTaskException;
+import twitter.task.TweetTaskManager;
+import twitter.task.TweetUpdateTask;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -84,27 +87,40 @@ public class TestDriver {
     }
 
     public static void main(String[] args) {
-        TweetManager tweetManager = new TweetManager();
-        TweetSearchResultGetter searchGetter = new TweetSearchResultGetter(tweetManager, "followme");
+        TweetTaskManager manager = new TweetTaskManager();
         try {
-            tweetManager.loginTwitter();
-            List<Status> status = searchGetter.getNewTweetData();
-            for (Status s : status) {
-                System.out.println(s);
-            }
+            manager.addTask("TEST1", new TweetUpdateTask() {
 
-            System.out.println("---");
+                @Override
+                public void runTask() throws TweetTaskException {
+                    System.out.println("TASK1 execute");
+                }
+            });
 
-            List<Status> status2 = searchGetter.getTweetData(5);
-            for (Status s : status2) {
-                System.out.println(s);
-            }
-        } catch (FileNotFoundException ex) {
+            manager.addTask("TEST2", new TweetUpdateTask() {
+
+                @Override
+                public void runTask() throws TweetTaskException {
+                    System.out.println("TASK2 execute");
+                }
+            });
+            
+            manager.startTask("TEST1", 1000);
+            manager.startTask("TEST2", 1500);
+
+            Thread.sleep(3000);
+            manager.shutdownTask("TEST1");
+
+            Thread.sleep(3000);
+            manager.shutdownTask("TEST2");
+
+            Thread.sleep(3000);
+            manager.shutdownTask("TESTTEST");
+        } catch (InterruptedException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
-        } catch (IOException ex) {
+        } catch (TweetTaskException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
         }
+        
     }
 }
