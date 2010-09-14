@@ -165,7 +165,7 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
 
             if( period < MIN_PERIOD ) {
                 //更新間隔が短すぎる
-                JOptionPane.showMessageDialog(null, "周期が短すぎます．最低でも10秒以上を設定してください．",
+                JOptionPane.showMessageDialog(null, "周期が短すぎます．最低でも" + MIN_PERIOD + "秒以上を設定してください．",
                     "Error", JOptionPane.ERROR_MESSAGE);
                 return; //終了
             }
@@ -185,8 +185,8 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
 
     //twitter
     private TweetMainAction mainAction;
-    //10秒以下の更新は認めない
-    private long MIN_PERIOD = 10;
+    //30秒以下の更新は認めない
+    private long MIN_PERIOD = 30;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
