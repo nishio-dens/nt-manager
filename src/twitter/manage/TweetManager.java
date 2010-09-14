@@ -60,11 +60,6 @@ public class TweetManager {
         }
 
         @Override
-        public int compareTo(Status o) {
-            return 0;
-        }
-
-        @Override
         public String[] getContributors() {
             return null;
         }
@@ -142,6 +137,10 @@ public class TweetManager {
         @Override
         public boolean isTruncated() {
             return false;
+        }
+
+        public int compareTo(Status t) {
+            throw new UnsupportedOperationException("Not supported yet.");
         }
     }
     private Twitter twitter = null;
