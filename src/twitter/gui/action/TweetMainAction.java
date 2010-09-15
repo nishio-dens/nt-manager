@@ -59,6 +59,8 @@ import twitter.gui.form.DirectMessageDialog;
 import twitter.gui.form.KeywordSearchDialog;
 import twitter.manage.TweetConfiguration;
 import twitter.manage.TweetManager;
+import twitter.task.ExistTimerIDException;
+import twitter.task.TimerID;
 import twitter.task.TweetTaskException;
 import twitter.task.TweetTaskManager;
 import twitter.task.TweetUpdateTask;
@@ -463,7 +465,6 @@ public class TweetMainAction {
 
         //周期的に情報を更新する
         if( period > 0 ) {
-            //TODO: timerIDを再度検討する必要があるかもしれない
             try {
                 //指定したワードを検索してくるアクション
                 TweetGetter tweetGetter = new TweetSearchResultGetter(this.tweetManager, searchWord);
@@ -473,7 +474,12 @@ public class TweetMainAction {
                         this.tableElementHeight, this.tweetManager,
                         this, newTableColor, tableElementHeight);
 
-                String timerID = "SEARCH:" + searchWord;
+                //タイマーのID取得
+                TimerID idManager = TimerID.getInstance();
+                String timerID = idManager.createSearchTimerID(searchWord);
+                //利用するIDを追加
+                idManager.addID(timerID);
+
                 this.tweetTaskManager.addTask(timerID, new TweetUpdateTask() {
 
                     @Override
@@ -490,6 +496,8 @@ public class TweetMainAction {
                 //タブリストに追加
                 this.tweetTabbedTableList.add(searchTable);
                 //searchTable.updateTweetTable();
+            } catch (ExistTimerIDException ex) {
+                Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
             } catch (TweetTaskException ex) {
                 Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -595,6 +603,7 @@ public class TweetMainAction {
             int tabSetNum = this.tweetTabbedTableList.get(deleteTabIndex).getTabSetNum();
             //タブのタイマーID
             String timerID = this.tweetTabbedTableList.get(deleteTabIndex).getTitle();
+            TimerID idManager = TimerID.getInstance();
 
             //削除
             this.tweetTabbedTableList.remove(deleteTabIndex);
@@ -609,8 +618,10 @@ public class TweetMainAction {
             }
 
             //自動更新しているタブを削除
-            timerID = "SEARCH:" + timerID;
+            timerID = idManager.createSearchTimerID(timerID);
             this.tweetTaskManager.shutdownTask( timerID );
+            //ID削除
+            idManager.removeID(timerID);
         }
     }
 
