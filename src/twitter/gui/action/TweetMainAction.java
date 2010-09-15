@@ -274,16 +274,16 @@ public class TweetMainAction {
             String timerID = t.getTimerID();
             if( timerID.equals( TimerID.createTimelineID() ) ) {
                 //TLの周期情報更新
-                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetTimelinePeriod());
+                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetTimelinePeriod(), false);
             }else if( timerID.equals( TimerID.createMentionID() ) ) {
                 //Mentionの周期情報更新
-                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetMentionPeriod() );
+                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetMentionPeriod(), false );
             }else if( timerID.equals( TimerID.createDirectMessageID() ) ) {
                 //DMの周期情報更新
-                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetDirectMessagePeriod());
+                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetDirectMessagePeriod(), false);
             }else if( timerID.equals( TimerID.createSendDirectMessageID() ) ) {
                 //SendDMの周期情報更新
-                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetSendDirectMessagePeriod());
+                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetSendDirectMessagePeriod(), false);
             }
         }
     }
@@ -796,7 +796,8 @@ public class TweetMainAction {
         try {
             //タブ上に存在するテーブルの情報を更新
             for(TweetTabbedTable t : this.tweetTabbedTableList ) {
-                t.updateTweetTable();
+                String timerID = t.getTimerID();
+                this.tweetTaskManager.resetTask(timerID, true);
             }
 
             // API残り回数を取得

@@ -76,12 +76,18 @@ public class TweetTaskManager {
 
         /**
          * 更新リセット
+         * @param immediatelyUpdate すぐに更新するかどうか
          */
-        public void reset() {
+        public void reset(boolean immediatelyUpdate) {
             stop();
             if (future != null) {
-                future = scheduler.scheduleAtFixedRate(task, getPeriod(), getPeriod(),
-                        TimeUnit.MILLISECONDS);
+                if( immediatelyUpdate == true ) {
+                    future = scheduler.scheduleAtFixedRate(task, 0, getPeriod(),
+                            TimeUnit.MILLISECONDS);
+                }else {
+                    future = scheduler.scheduleAtFixedRate(task, getPeriod(), getPeriod(),
+                            TimeUnit.MILLISECONDS);
+                }
             }
         }
 
@@ -236,13 +242,14 @@ public class TweetTaskManager {
     /**
      * タイマーの更新間隔をリセットする
      * @param timerID
+     * @param immediatelyUpdate すぐに更新するかどうか
      * @return
      */
-    public boolean resetTask(String timerID) {
+    public boolean resetTask(String timerID, boolean immediatelyUpdate) {
         boolean found = false;
         for (TimerData t : timerList) {
             if (t.getTimerID().equals(timerID)) {
-                t.reset();
+                t.reset( immediatelyUpdate );
                 found = true;
                 break;
             }
@@ -254,14 +261,15 @@ public class TweetTaskManager {
      * タスクの周期を更新する
      * @param timerID
      * @param period
+     * @param immediatelyUpdate すぐに情報を更新するかどうか
      * @return
      */
-    public boolean updateTaskPeriod(String timerID, long period) {
+    public boolean updateTaskPeriod(String timerID, long period, boolean immediatelyUpdate) {
         boolean found = false;
         for (TimerData t : timerList) {
             if (t.getTimerID().equals(timerID)) {
                 t.setPeriod(period);
-                t.reset();
+                t.reset( immediatelyUpdate );
                 found = true;
                 break;
             }
