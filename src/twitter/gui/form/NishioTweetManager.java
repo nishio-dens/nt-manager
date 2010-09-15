@@ -184,6 +184,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -558,6 +559,14 @@ public class NishioTweetManager extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem5);
 
+        jMenuItem9.setText("Debug");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem9);
+
         jMenuBar1.add(jMenu4);
 
         jMenu5.setMnemonic('S');
@@ -790,6 +799,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
         // tweet取得時間情報を更新
         mainAction.actionRefreshTime();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        mainAction.actionAddMentionTab(60);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
      *
@@ -1030,6 +1043,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

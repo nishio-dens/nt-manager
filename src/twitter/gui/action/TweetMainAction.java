@@ -47,6 +47,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
 import twitter.action.TweetGetter;
+import twitter.action.TweetMentionGetter;
 import twitter.action.TweetSearchResultGetter;
 
 import twitter.gui.component.TweetCommentRenderer;
@@ -98,7 +99,7 @@ public class TweetMainAction {
 
                 if (currentGetMentionPeriodNum == 0) {
                     // Mentionテーブルの情報を更新
-                    actionMentionTableUpdate();
+                    //actionMentionTableUpdate();
                 }
                 currentGetMentionPeriodNum = (currentGetMentionPeriodNum + 1)
                         % getMentionPeriodNum;
@@ -472,7 +473,7 @@ public class TweetMainAction {
                 final TweetTabbedTable table = new TweetTabbedTable(tweetGetter, tabTitle,
                         this.tweetMainTab, numOfTab + alreadyExistTabNum,
                         this.tableElementHeight, this.tweetManager,
-                        this, newTableColor, tableElementHeight);
+                        this, newTableColor, tableElementHeight, timerID);
 
                 this.tweetTaskManager.addTask(timerID, new TweetUpdateTask() {
 
@@ -490,9 +491,27 @@ public class TweetMainAction {
                 //タブリストに追加
                 this.tweetTabbedTableList.add(table);
                 //searchTable.updateTweetTable();
-            }catch (TweetTaskException ex) {
+            } catch (TweetTaskException ex) {
                 Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+
+    /**
+     * mentionを追加するタブ
+     * @param period 情報更新間隔[sec]
+     */
+    public void actionAddMentionTab(int period) {
+        TimerID timerID = TimerID.getInstance();
+        String id = timerID.createMentionID();
+        try {
+            //既にIDが存在していたらここで例外発生
+            timerID.addID(id);
+            //検索結果を表示するタブを生成
+            actionAddTab(id, period, new TweetMentionGetter(tweetManager), this.TAB_MENTION_STRING);
+        } catch (ExistTimerIDException ex) {
+            JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -504,52 +523,14 @@ public class TweetMainAction {
     public void actionAddNewSearchResultTab(String searchWord, int period) {
         TimerID timerID = TimerID.getInstance();
         String id = timerID.createSearchTimerID(searchWord);
-        //TODO:ここを更新
-        actionAddTab(tlFontName, period, null, tlFontName);
-
-        int numOfTab = this.tweetTabbedTableList.size();
-        //すでに追加されているタブの数
-        //TODO:ここはあとで変更する必要がある．なぜなら既に追加されているタブの数は変わる可能性があるから
-        int alreadyExistTabNum = ALREADY_TWEET_TAB_NUM;
-
-        //周期的に情報を更新する
-        if( period > 0 ) {
-            try {
-                //指定したワードを検索してくるアクション
-                TweetGetter tweetGetter = new TweetSearchResultGetter(this.tweetManager, searchWord);
-                //検索したワードを表示するテーブルを作成,及びタブにそのテーブルを追加
-                final TweetTabbedTable searchTable = new TweetTabbedTable(tweetGetter, searchWord,
-                        this.tweetMainTab, numOfTab + alreadyExistTabNum,
-                        this.tableElementHeight, this.tweetManager,
-                        this, newTableColor, tableElementHeight);
-
-                //タイマーのID取得
-                TimerID idManager = TimerID.getInstance();
-                String timerID = idManager.createSearchTimerID(searchWord);
-                //利用するIDを追加
-                idManager.addID(timerID);
-
-                this.tweetTaskManager.addTask(timerID, new TweetUpdateTask() {
-
-                    @Override
-                    public void runTask() throws TweetTaskException {
-                        //ツイート情報を一定間隔で更新
-                        searchTable.updateTweetTable();
-                    }
-                });
-                //更新開始
-                this.tweetTaskManager.startTask(timerID, period * 1000L);
-
-                //タブにテーブルを追加
-                searchTable.addTableToTab();
-                //タブリストに追加
-                this.tweetTabbedTableList.add(searchTable);
-                //searchTable.updateTweetTable();
-            } catch (ExistTimerIDException ex) {
-                Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (TweetTaskException ex) {
-                Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            //既にIDが存在していたらここで例外発生
+            timerID.addID(id);
+            //検索結果を表示するタブを生成
+            actionAddTab(id, period, new TweetSearchResultGetter(this.tweetManager, searchWord), searchWord);
+        } catch (ExistTimerIDException ex) {
+            JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -651,8 +632,7 @@ public class TweetMainAction {
             this.tweetMainTab.remove(deleteTabIndex + this.ALREADY_TWEET_TAB_NUM);
             int tabSetNum = this.tweetTabbedTableList.get(deleteTabIndex).getTabSetNum();
             //タブのタイマーID
-            String timerID = this.tweetTabbedTableList.get(deleteTabIndex).getTitle();
-            TimerID idManager = TimerID.getInstance();
+            String timerID = this.tweetTabbedTableList.get(deleteTabIndex).getTimerID();
 
             //削除
             this.tweetTabbedTableList.remove(deleteTabIndex);
@@ -667,9 +647,9 @@ public class TweetMainAction {
             }
 
             //自動更新しているタブを削除
-            timerID = idManager.createSearchTimerID(timerID);
             this.tweetTaskManager.shutdownTask( timerID );
             //ID削除
+            TimerID idManager = TimerID.getInstance();
             idManager.removeID(timerID);
         }
     }

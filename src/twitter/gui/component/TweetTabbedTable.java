@@ -59,6 +59,8 @@ public class TweetTabbedTable {
     private Color newTableColor = null;
     //テーブルに追加できる要素の最大数
     private int tableElementMaxSize = 200;
+    //自動更新に使うタイマーのID
+    private String timerID;
 
 
     /**
@@ -72,11 +74,12 @@ public class TweetTabbedTable {
      * @param mainAction メインアクション
      * @param newTableColor 新しく取得した部分の色
      * @param tableElementMaxSize テーブルに格納できる要素の最大数
+     * @param timerID 自動更新につかうタイマーのID
      */
     public TweetTabbedTable(TweetGetter tweetGetter,
             String title, JTabbedPane tabbedPane, int tabSetNum, int tableElementHeight,
             TweetManager tweetManager, TweetMainAction mainAction, Color newTableColor,
-            int tableElementMaxSize) {
+            int tableElementMaxSize, String timerID) {
         this.tweetGetter = tweetGetter;
         this.title = title;
         this.tabbedPane = tabbedPane;
@@ -86,6 +89,7 @@ public class TweetTabbedTable {
         this.tableElementHeight = tableElementHeight;
         this.newTableColor = newTableColor;
         this.tableElementMaxSize = tableElementMaxSize;
+        this.timerID = timerID;
 
         table = new JTable();
         model = new TweetTableModel();
@@ -411,6 +415,13 @@ public class TweetTabbedTable {
      */
     public void setTabSetNum(int tabSetNum) {
         this.tabSetNum = tabSetNum;
+    }
+
+    /**
+     * @return the timerID
+     */
+    public String getTimerID() {
+        return timerID;
     }
 
 }
