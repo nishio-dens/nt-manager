@@ -57,7 +57,7 @@ public class TweetTaskManager {
         private ScheduledFuture<?> future;
         private final ScheduledExecutorService scheduler;
         private final Runnable task;
-        private long time = 0;
+        private long period = 0;
         private String timerID = null;
 
         /**
@@ -80,7 +80,7 @@ public class TweetTaskManager {
         public void reset() {
             stop();
             if (future != null) {
-                future = scheduler.scheduleAtFixedRate(task, time, time,
+                future = scheduler.scheduleAtFixedRate(task, getPeriod(), getPeriod(),
                         TimeUnit.MILLISECONDS);
             }
         }
@@ -95,12 +95,12 @@ public class TweetTaskManager {
         /**
          * 一定時間毎にTweetUpdateTaskを実行
          *
-         * @param time 実行間隔[ms]
+         * @param period 実行間隔[ms]
          */
-        public void start(long time) {
-            future = scheduler.scheduleAtFixedRate(task, 0, time,
+        public void start(long period) {
+            future = scheduler.scheduleAtFixedRate(task, 0, period,
                     TimeUnit.MILLISECONDS);
-            this.time = time;
+            this.setPeriod(period);
         }
 
         /**
@@ -146,6 +146,22 @@ public class TweetTaskManager {
             int hash = 3;
             hash = 23 * hash + (this.timerID != null ? this.timerID.hashCode() : 0);
             return hash;
+        }
+
+        /**
+         * @return the period
+         */
+        public long getPeriod() {
+            return period;
+        }
+
+        /**
+         * 周期情報を変更
+         * 周期を変更した際は，必ずresetをしなければタスクに反映されない
+         * @param period the period to set
+         */
+        public void setPeriod(long period) {
+            this.period = period;
         }
 
     }
@@ -226,6 +242,25 @@ public class TweetTaskManager {
         boolean found = false;
         for (TimerData t : timerList) {
             if (t.getTimerID().equals(timerID)) {
+                t.reset();
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
+    /**
+     * タスクの周期を更新する
+     * @param timerID
+     * @param period
+     * @return
+     */
+    public boolean updateTaskPeriod(String timerID, long period) {
+        boolean found = false;
+        for (TimerData t : timerList) {
+            if (t.getTimerID().equals(timerID)) {
+                t.setPeriod(period);
                 t.reset();
                 found = true;
                 break;
