@@ -453,11 +453,60 @@ public class TweetMainAction {
     }
 
     /**
+     * 新しいタブを追加
+     * @param timerID TimerIDクラスで生成したタイマーID
+     * @param period 情報更新間隔[sec]
+     * @param tweetGetter 実行するアクション
+     * @param tabTitle 追加するタブのタイトル
+     */
+    public void actionAddTab(String timerID, int period, TweetGetter tweetGetter, String tabTitle) {
+        int numOfTab = this.tweetTabbedTableList.size();
+        //すでに追加されているタブの数
+        //TODO:ここはあとで変更する必要がある．なぜなら既に追加されているタブの数は変わる可能性があるから
+        int alreadyExistTabNum = ALREADY_TWEET_TAB_NUM;
+
+        //周期的に情報を更新する
+        if( period > 0 ) {
+            try {
+                //テーブルを作成
+                final TweetTabbedTable table = new TweetTabbedTable(tweetGetter, tabTitle,
+                        this.tweetMainTab, numOfTab + alreadyExistTabNum,
+                        this.tableElementHeight, this.tweetManager,
+                        this, newTableColor, tableElementHeight);
+
+                this.tweetTaskManager.addTask(timerID, new TweetUpdateTask() {
+
+                    @Override
+                    public void runTask() throws TweetTaskException {
+                        //ツイート情報を一定間隔で更新
+                        table.updateTweetTable();
+                    }
+                });
+                //更新開始
+                this.tweetTaskManager.startTask(timerID, period * 1000L);
+
+                //タブにテーブルを追加
+                table.addTableToTab();
+                //タブリストに追加
+                this.tweetTabbedTableList.add(table);
+                //searchTable.updateTweetTable();
+            }catch (TweetTaskException ex) {
+                Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    /**
      * ツイート検索結果を表示するタブを新しく追加
      * @param searchWord
      * @param period 更新周期[sec] 0以下の場合は更新しない
      */
     public void actionAddNewSearchResultTab(String searchWord, int period) {
+        TimerID timerID = TimerID.getInstance();
+        String id = timerID.createSearchTimerID(searchWord);
+        //TODO:ここを更新
+        actionAddTab(tlFontName, period, null, tlFontName);
+
         int numOfTab = this.tweetTabbedTableList.size();
         //すでに追加されているタブの数
         //TODO:ここはあとで変更する必要がある．なぜなら既に追加されているタブの数は変わる可能性があるから
