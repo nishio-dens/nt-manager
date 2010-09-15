@@ -169,6 +169,9 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
                     "Error", JOptionPane.ERROR_MESSAGE);
                 return; //終了
             }
+        }else {
+            //情報を一定間隔で更新しない場合は，更新間隔をINTMAXとする
+            period = Integer.MAX_VALUE;
         }
 
         //キーワード検索結果を表示するテーブルをタブに追加
