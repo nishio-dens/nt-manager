@@ -737,7 +737,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
             this.mainAction.actionAddTimelineTab( this.mainAction.getGetTimelinePeriod() );
             this.mainAction.actionAddMentionTab( this.mainAction.getGetMentionPeriod() );
             this.mainAction.actionAddDirectMessageTab( this.mainAction.getGetDirectMessagePeriod() );
-            this.mainAction.actionAddSendDirectMessageTab( this.mainAction.getGetSendDirectMessagePeriod() );
+            //this.mainAction.actionAddSendDirectMessageTab( this.mainAction.getGetSendDirectMessagePeriod() );
         }
     }
     
