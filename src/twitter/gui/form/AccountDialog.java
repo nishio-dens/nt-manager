@@ -150,7 +150,8 @@ public class AccountDialog extends javax.swing.JDialog {
         }
         try {
             this.tweetManager.loginTwitter();
-            this.mainAction.actionTweetTableUpdate();
+            //TODO: ここにツイート情報を更新する動作を追加 この下の行はいささか不安
+            this.mainAction.actionUpdateButton(null);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AccountDialog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

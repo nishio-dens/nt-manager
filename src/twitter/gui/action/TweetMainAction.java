@@ -79,114 +79,6 @@ import twitter4j.TwitterException;
  */
 public class TweetMainAction {
 
-    /**
-     * 一定時間毎にtweet情報をアップデートするタスク
-     *
-     * @author nishio
-     *
-     */
-    private class TweetAutoUpdateTask implements Runnable {
-
-        TweetAutoUpdateTask() {
-        }
-
-        public void run() {
-            // 一定時間ごとにTweet情報をアップデート
-            try {
-                /*if (currentGetTimelinePeriodNum == 0) {
-                    // Tweetテーブルの情報を更新
-                    actionTweetTableUpdate();
-                }
-                currentGetTimelinePeriodNum = (currentGetTimelinePeriodNum + 1)
-                        % getTimelinePeriodNum;
-
-                if (currentGetMentionPeriodNum == 0) {
-                    // Mentionテーブルの情報を更新
-                    //actionMentionTableUpdate();
-                }
-                currentGetMentionPeriodNum = (currentGetMentionPeriodNum + 1)
-                        % getMentionPeriodNum;
-
-                if (currentGetDirectMessagePeriodNum == 0) {
-                    // DirectMessageテーブルの情報を更新
-                    actionDirectMessageTableUpdate();
-                }
-                currentGetDirectMessagePeriodNum = (currentGetDirectMessagePeriodNum + 1)
-                        % getDirectMessagePeriodNum;
-
-                if (currentGetSendDirectMessagePeriodNum == 0) {
-                    // SendDirectMessageテーブルの情報を更新
-                    actionSendDirectMessageTableUpdate();
-                }
-                currentGetSendDirectMessagePeriodNum = (currentGetSendDirectMessagePeriodNum + 1)
-                        % getSendDirectMessagePeriodNum;*/
-
-                //設定ファイルを保存
-                saveProperties();
-
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * 一定時間毎にtweet情報をアップデートする
-     *
-     * @author nishio
-     *
-     */
-    private class TweetAutoUpdateTimer {
-
-        private ScheduledFuture<?> future;
-        private final ScheduledExecutorService scheduler;
-        private final Runnable task;
-        private long time = 0;
-
-        public TweetAutoUpdateTimer() {
-            task = new TweetAutoUpdateTask();
-            scheduler = Executors.newSingleThreadScheduledExecutor();
-        }
-
-        /**
-         * 更新リセット
-         */
-        public void reset() {
-            stop();
-            if (future != null) {
-                future = scheduler.scheduleAtFixedRate(task, time, time,
-                        TimeUnit.SECONDS);
-            }
-        }
-
-        /**
-         * シャットダウン
-         */
-        public void shutdown() {
-            scheduler.shutdown();
-        }
-
-        /**
-         * 一定時間毎にTweetUpdateTaskを実行
-         *
-         * @param time
-         *            second単位
-         */
-        public void start(long time) {
-            future = scheduler.scheduleAtFixedRate(task, 2, time,
-                    TimeUnit.SECONDS);
-            this.time = time;
-        }
-
-        /**
-         * タスク終了
-         */
-        public void stop() {
-            if (future != null) {
-                future.cancel(true);
-            }
-        }
-    }
     // 基本設定を保存するファイル名
     public static final String BASIC_SETTING_FILENAME = TweetConfiguration.BASIC_SETTING_FILENAME;
     // httpのパターン
@@ -213,14 +105,8 @@ public class TweetMainAction {
     private static final int TABLE_ELEMENT_MAX_SIZE = 200;
     // twitterの公式URL
     private static final String TWITTER_URL = "http://twitter.com/";
-    // Tweet情報自動更新タイマー
-    private TweetAutoUpdateTimer autoUpdateTimer = null;
     // 基本設定用ダイアログ
     private ConfigurationDialog configurationDialog = null;
-    private int currentGetDirectMessagePeriodNum = 0;
-    private int currentGetMentionPeriodNum = 0;
-    private int currentGetSendDirectMessagePeriodNum = 0;
-    private int currentGetTimelinePeriodNum = 0;
     // 現在選択しているStatus情報
     private Status currentStatus = null;
     // 詳細情報パネル
@@ -229,20 +115,6 @@ public class TweetMainAction {
     private DirectMessageDialog directMessageDialog = null;
     //Twitter全体からキーワード検索ダイアログ
     private KeywordSearchDialog keywordSearchDialog = null;
-    // directMessageを表示するテーブル
-    private JTable directMessageTable = null;
-    // directMessageのtweetを表示するテーブルモデル
-    private TweetTableModel directMessageTableModel = null;
-    // 情報アップデート間隔(分)
-    private int updatePeriod = 1;
-    // DirectMessageの取得間隔
-    private int getDirectMessagePeriodNum = 10;
-    // Mentionの取得間隔
-    private int getMentionPeriodNum = 5;
-    // SendDirectMessageの取得間隔
-    private int getSendDirectMessagePeriodNum = 30;
-    // Timelineの取得間隔
-    private int getTimelinePeriodNum = 1;
     // 新しく取得した部分のテーブルカラー
     private Color newTableColor = new Color(224, 255, 255);
     // TLのフォント名
@@ -261,22 +133,12 @@ public class TweetMainAction {
     private int mainFrameHeight = 629;
     // MainFrame
     private JFrame mainFrame = null;
-    // メインのtweetを表示するテーブル
-    private JTable mainTweetTable = null;
-    // mentionを表示するテーブル
-    private JTable mentionTable = null;
-    // mentionのtweetを表示するテーブルモデル
-    private TweetTableModel mentionTableModel = null;
     // 設定
     private Properties property = null;
     // 現在テーブルで選択しているユーザ画像のURL
     private URL selectedUserImageURL = null;
     // 現在テーブルで選択しているユーザの名前
     private String selectedUsername = null;
-    // sendDirectMessageを表示するテーブル
-    private JTable sendDirectMessageTable = null;
-    // sendDirectMessageのtweetを表示するテーブル
-    private TweetTableModel sendDirectMessageTableModel = null;
     // ステータス表示ラベル
     private JLabel statusBarLabel = null;
     // 自分がつぶやきをかく領域
@@ -291,8 +153,6 @@ public class TweetMainAction {
     private JEditorPane tweetMessageBox = null;
     // つぶやくことができる文字数を表示するラベル
     private JLabel tweetMessageCountLabel = null;
-    // メインのtweetを表示するテーブルモデル
-    private TweetTableModel tweetTableModel = null;
     private int uncheckedDirectMessageCount = 0;
     private int uncheckedMentionTweetCount = 0;
 
@@ -317,8 +177,6 @@ public class TweetMainAction {
     private List<TweetTabbedTable> tweetTabbedTableList = new ArrayList<TweetTabbedTable>();
     //ツイートテーブルの情報を一定間隔で更新するクラスを作成
     private TweetTaskManager tweetTaskManager = new TweetTaskManager();
-    //ここは一時的に追加している部分 タブにすでに存在しているテーブルの数
-    private int ALREADY_TWEET_TAB_NUM = 4;
 
     /**
      *
@@ -353,14 +211,6 @@ public class TweetMainAction {
     public TweetMainAction(JFrame mainFrame,
             TweetManager tweetManager,
             JLabel statusBarLabel,
-            TweetTableModel tweetTableModel,
-            TweetTableModel mentionTableModel,
-            TweetTableModel directMessageTableModel,
-            TweetTableModel sendDirectMessageTableModel,
-            JTable mainTweetTable,
-            JTable mentionTable,
-            JTable directMessageTable,
-            JTable sendDirectMessageTable,
             JTextPane tweetBoxPane,
             JScrollPane tweetBoxScrollPane,
             JLabel tweetMessageCountLabel,
@@ -380,14 +230,6 @@ public class TweetMainAction {
         this.mainFrame = mainFrame;
         this.tweetManager = tweetManager;
         this.statusBarLabel = statusBarLabel;
-        this.tweetTableModel = tweetTableModel;
-        this.mentionTableModel = mentionTableModel;
-        this.directMessageTableModel = directMessageTableModel;
-        this.sendDirectMessageTableModel = sendDirectMessageTableModel;
-        this.mainTweetTable = mainTweetTable;
-        this.mentionTable = mentionTable;
-        this.directMessageTable = directMessageTable;
-        this.sendDirectMessageTable = sendDirectMessageTable;
         this.tweetBoxPane = tweetBoxPane;
         this.tweetMessageCountLabel = tweetMessageCountLabel;
         this.detailInfoPanel = detailInfoPanel;
@@ -435,10 +277,11 @@ public class TweetMainAction {
                 detailFont = new Font(this.detailFontName, Font.PLAIN,
                         this.detailFontSize);
             }
-            this.mainTweetTable.setFont(tlFont);
-            this.mentionTable.setFont(tlFont);
-            this.directMessageTable.setFont(tlFont);
-            this.sendDirectMessageTable.setFont(tlFont);
+
+            //すべてのテーブルにフォント情報を反映
+            for( TweetTabbedTable t : this.tweetTabbedTableList) {
+                t.getTable().setFont(tlFont);
+            }
 
             // tweetメッセージボックスのフォントはhtmlレベルで変更する必要がある
             this.tweetMessageBox.setFont(detailFont);
@@ -468,15 +311,13 @@ public class TweetMainAction {
     public void actionAddTab(String timerID, int period, TweetGetter tweetGetter, String tabTitle) {
         int numOfTab = this.tweetTabbedTableList.size();
         //すでに追加されているタブの数
-        //TODO:ここはあとで変更する必要がある．なぜなら既に追加されているタブの数は変わる可能性があるから
-        int alreadyExistTabNum = ALREADY_TWEET_TAB_NUM;
 
         //周期的に情報を更新する
         if( period > 0 ) {
             try {
                 //テーブルを作成
                 final TweetTabbedTable table = new TweetTabbedTable(tweetGetter, tabTitle,
-                        this.tweetMainTab, numOfTab + alreadyExistTabNum,
+                        this.tweetMainTab, numOfTab,
                         this.tableElementHeight, this.tweetManager,
                         this, newTableColor, tableElementHeight, timerID);
 
@@ -500,6 +341,9 @@ public class TweetMainAction {
                 Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        //フォント情報を更新
+        this.updateFontInformationToComponent();
     }
 
     /**
@@ -647,53 +491,15 @@ public class TweetMainAction {
     }
 
     /**
-     * DirectMessageテーブルの更新
-     */
-    public void actionDirectMessageTableUpdate() {
-        try {
-            // API残り回数を取得
-            int remainingHits = tweetManager.getRateLimitStatus().getRemainingHits();
-            if (remainingHits <= 0) {
-                information("API制限です．リクエストの残数が0となりました．");
-                return;
-            }
-
-            // Direct Message情報
-
-            // DirectMessageを追加
-            List<Status> directMessages = tweetManager.getNewDirectMessages();
-            // まだ見ていないdirectMessage数を追加
-            uncheckedDirectMessageCount += directMessages.size();
-            // まだ見ていないmentionの数をタブに表示
-            if (uncheckedDirectMessageCount > 0) {
-                tweetMainTab.setTitleAt(2, TAB_DIRECT_MESSAGE_STRING + "("
-                        + uncheckedDirectMessageCount + ")");
-            }
-            for (Status t : directMessages) {
-                directMessageTableModel.insertTweet(t);
-                directMessageTable.setRowHeight(0, tableElementHeight);
-            }
-            // 古いデータを削除
-            directMessageTableModel.removeOldTweet(TABLE_ELEMENT_MAX_SIZE);
-
-            directMessageTableModel.refreshTime();
-        } catch (TwitterException e1) {
-            e1.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * 選択しているタブを削除
      */
     public void actionRemoveFocusedTabbedTable() {
         int selected = this.tweetMainTab.getSelectedIndex();
-        //TODO:ここはいつか変更
-        int deleteTabIndex = selected - this.ALREADY_TWEET_TAB_NUM;
+        int deleteTabIndex = selected;
+        
         if( deleteTabIndex >= 0 ) {
             //タブを削除
-            this.tweetMainTab.remove(deleteTabIndex + this.ALREADY_TWEET_TAB_NUM);
+            this.tweetMainTab.remove(deleteTabIndex);
             int tabSetNum = this.tweetTabbedTableList.get(deleteTabIndex).getTabSetNum();
             //タブのタイマーID
             String timerID = this.tweetTabbedTableList.get(deleteTabIndex).getTimerID();
@@ -701,8 +507,6 @@ public class TweetMainAction {
             //削除
             this.tweetTabbedTableList.remove(deleteTabIndex);
 
-            //一時的に
-            tabSetNum -= this.ALREADY_TWEET_TAB_NUM;
             //削除した分，既存のタブ番号を1つずつずらさなければならない
             int tabNum = this.tweetTabbedTableList.size();
             for(int i = tabSetNum; i < tabNum; i++) {
@@ -725,53 +529,6 @@ public class TweetMainAction {
      */
     public void actionExitButton(ActionEvent e) {
         System.exit(0);
-    }
-
-    /**
-     * Mentionテーブル情報を更新
-     */
-    public void actionMentionTableUpdate() {
-        try {
-            // API残り回数を取得
-            int remainingHits = tweetManager.getRateLimitStatus().getRemainingHits();
-            if (remainingHits <= 0) {
-                information("API制限です．リクエストの残数が0となりました．");
-                return;
-            }
-
-            // Mention情報
-
-            // Mentionを追加
-            List<Status> mention = tweetManager.getNewMentionData();
-            // まだ見ていないmention数を追加
-            uncheckedMentionTweetCount += mention.size();
-            // まだ見ていないmentionの数をタブに表示
-            if (uncheckedMentionTweetCount > 0) {
-                tweetMainTab.setTitleAt(1, TAB_MENTION_STRING + "("
-                        + uncheckedMentionTweetCount + ")");
-            }
-            for (Status t : mention) {
-                mentionTableModel.insertTweet(t);
-                mentionTable.setRowHeight(0, tableElementHeight);
-            }
-            // 新規した部分の背景色を変更
-            TableCellRenderer renderer2 = mentionTable.getCellRenderer(0, 2);
-            if (renderer2 instanceof TweetCommentRenderer) {
-                if (this.uncheckedMentionTweetCount - 1 >= 0) {
-                    ((TweetCommentRenderer) renderer2).updateNewCellRow(
-                            this.uncheckedMentionTweetCount, newTableColor);
-                } else {
-                    ((TweetCommentRenderer) renderer2).updateNewCellRow(-1,
-                            newTableColor);
-                }
-            }
-            // 古いデータを削除
-            mentionTableModel.removeOldTweet(TABLE_ELEMENT_MAX_SIZE);
-
-            mentionTableModel.refreshTime();
-        } catch (TwitterException e1) {
-            e1.printStackTrace();
-        }
     }
 
     /**
@@ -810,11 +567,6 @@ public class TweetMainAction {
      * Tweet取得時間情報を更新
      */
     public void actionRefreshTime() {
-        tweetTableModel.refreshTime();
-        mentionTableModel.refreshTime();
-        directMessageTableModel.refreshTime();
-        sendDirectMessageTableModel.refreshTime();
-
         //タブに存在する時間情報を更新
         for(TweetTabbedTable t : this.tweetTabbedTableList ) {
             TweetTableModel model = t.getModel();
@@ -948,42 +700,8 @@ public class TweetMainAction {
      */
     public void updateTableHeight(int height) {
         this.tableElementHeight = height;
-        mainTweetTable.setRowHeight(tableElementHeight);
-        mentionTable.setRowHeight(tableElementHeight);
-        directMessageTable.setRowHeight(tableElementHeight);
-        sendDirectMessageTable.setRowHeight(tableElementHeight);
-    }
-
-    /**
-     * SendDirectMessageテーブルを更新
-     */
-    public void actionSendDirectMessageTableUpdate() {
-        try {
-            // API残り回数を取得
-            int remainingHits = tweetManager.getRateLimitStatus().getRemainingHits();
-            if (remainingHits <= 0) {
-                information("API制限です．リクエストの残数が0となりました．");
-                return;
-            }
-            // Direct Message情報
-
-            List<Status> sendDirectMessages = tweetManager.getNewSendDirectMessages();
-
-            //TODO:ここはnullぽが頻発している．修正の必要あり
-            try {
-                for (Status t : sendDirectMessages) {
-                    sendDirectMessageTableModel.insertTweet(t);
-                    sendDirectMessageTable.setRowHeight(0, tableElementHeight);
-                }
-            }catch(NullPointerException e2) {
-                e2.printStackTrace();
-            }
-            // 古いデータを削除
-            sendDirectMessageTableModel.removeOldTweet(TABLE_ELEMENT_MAX_SIZE);
-
-            sendDirectMessageTableModel.refreshTime();
-        } catch (TwitterException e1) {
-            e1.printStackTrace();
+        for( TweetTabbedTable t : this.tweetTabbedTableList) {
+            t.getTable().setRowHeight(tableElementHeight);
         }
     }
 
@@ -1045,76 +763,24 @@ public class TweetMainAction {
     }
 
     /**
-     * Tweetテーブルの情報を更新
-     */
-    public void actionTweetTableUpdate() {
-        try {
-            // API残り回数を取得
-            int remainingHits = tweetManager.getRateLimitStatus().getRemainingHits();
-            if (remainingHits <= 0) {
-                information("API制限です．リクエストの残数が0となりました．");
-                return;
-            }
-
-            // Timeline情報
-            List<Status> tweet = tweetManager.getNewTimelineData();
-            // まだ見ていないtweet数を追加
-            uncheckedTimelineTweetCount += tweet.size();
-            // まだチェックしていないtweetの数をタブにも表示
-            if (uncheckedTimelineTweetCount > 0) {
-                tweetMainTab.setTitleAt(0, TAB_TIMELINE_STRING + "("
-                        + uncheckedTimelineTweetCount + ")");
-            }
-            // Timelineをテーブルに追加
-            for (Status t : tweet) {
-                tweetTableModel.insertTweet(t);
-                mainTweetTable.setRowHeight(0, tableElementHeight);
-            }
-            // 新規した部分の背景色を変更
-            TableCellRenderer renderer = mainTweetTable.getCellRenderer(0, 2);
-            if (renderer instanceof TweetCommentRenderer) {
-                if (this.uncheckedTimelineTweetCount - 1 >= 0) {
-                    ((TweetCommentRenderer) renderer).updateNewCellRow(
-                            this.uncheckedTimelineTweetCount, newTableColor);
-                } else {
-                    ((TweetCommentRenderer) renderer).updateNewCellRow(-1,
-                            newTableColor);
-                }
-            }
-            // 古いデータを削除
-            tweetTableModel.removeOldTweet(TABLE_ELEMENT_MAX_SIZE);
-
-            // 取得したコメント数をステータスバーに表示
-            information(uncheckedTimelineTweetCount
-                    + " 件の新しいツイートを取得しました. (APIリクエスト残数は" + remainingHits
-                    + "回です)");
-
-            tweetTableModel.refreshTime();
-        } catch (TwitterException e1) {
-            e1.printStackTrace();
-        }
-    }
-
-    /**
-     * メインTweet情報を更新
+     * Tweet情報を更新
      *
      * @param e
      */
     public void actionUpdateButton(java.awt.event.ActionEvent e) {
         try {
-            // Tweetテーブルの情報を更新
-            actionTweetTableUpdate();
-            // Mentionテーブルの情報を更新
-            actionMentionTableUpdate();
-            // DirectMessageテーブルの情報を更新
-            actionDirectMessageTableUpdate();
-            // SendDirectMessageテーブルの情報を更新
-            actionSendDirectMessageTableUpdate();
-
-            //新しく追加したタブ上に存在するテーブルの情報を更新
+            //タブ上に存在するテーブルの情報を更新
             for(TweetTabbedTable t : this.tweetTabbedTableList ) {
                 t.updateTweetTable();
             }
+
+            // API残り回数を取得
+            int remainingHits = tweetManager.getRateLimitStatus().getRemainingHits();
+            // 取得したコメント数をステータスバーに表示
+            //TODO:ここの???部分を更新
+            information("???"
+                    + " 件の新しいツイートを取得しました. (APIリクエスト残数は" + remainingHits
+                    + "回です)");
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -1245,61 +911,6 @@ public class TweetMainAction {
     }
 
     /**
-     * updatePeriodを取得します。
-     *
-     * @return updatePeriod
-     */
-    public int getUpdatePeriod() {
-        return updatePeriod;
-    }
-
-    /**
-     * updatePeriodを設定します。
-     *
-     * @param updatePeriod
-     *            updatePeriod
-     */
-    public void setUpdatePeriod(int updatePeriod) {
-        this.updatePeriod = updatePeriod;
-    }
-
-    /**
-     * getDirectMessagePeriodNumを取得します。
-     *
-     * @return getDirectMessagePeriodNum
-     */
-    public int getGetDirectMessagePeriodNum() {
-        return getDirectMessagePeriodNum;
-    }
-
-    /**
-     * getMentionPeriodNumを取得します。
-     *
-     * @return getMentionPeriodNum
-     */
-    public int getGetMentionPeriodNum() {
-        return getMentionPeriodNum;
-    }
-
-    /**
-     * getSendDirectMessagePeriodNumを取得します。
-     *
-     * @return getSendDirectMessagePeriodNum
-     */
-    public int getGetSendDirectMessagePeriodNum() {
-        return getSendDirectMessagePeriodNum;
-    }
-
-    /**
-     * getTimelinePeriodNumを取得します。
-     *
-     * @return getTimelinePeriodNum
-     */
-    public int getGetTimelinePeriodNum() {
-        return getTimelinePeriodNum;
-    }
-
-    /**
      * テーブルで選択した場所のTweet情報を取得
      *
      * @return
@@ -1360,11 +971,6 @@ public class TweetMainAction {
         String mfh = this.property.getProperty("mainFrameHeight");
 
         try {
-            this.getTimelinePeriodNum = Integer.parseInt(gtpn);
-            this.getMentionPeriodNum = Integer.parseInt(gmpn);
-            this.getDirectMessagePeriodNum = Integer.parseInt(gdmpn);
-            this.getSendDirectMessagePeriodNum = Integer.parseInt(gsdmpn);
-            this.updatePeriod = Integer.parseInt(up);
             this.newTableColor = new Color(Integer.parseInt(ntrgb));
             this.tlFontSize = Integer.parseInt(tfs);
             this.detailFontSize = Integer.parseInt(dfs);
@@ -1373,15 +979,6 @@ public class TweetMainAction {
             this.mainFrameHeight = Integer.parseInt(mfh);
         } catch (NumberFormatException e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Tweet情報の自動更新のタイムをリセット
-     */
-    public void resetTweetAutoUpdate() {
-        if (this.autoUpdateTimer != null) {
-            this.autoUpdateTimer.reset();
         }
     }
 
@@ -1403,16 +1000,6 @@ public class TweetMainAction {
         if (property == null) {
             this.property = new Properties();
         }
-        // since idを保存
-        this.property.setProperty("getTimelinePeriodNum",
-                this.getTimelinePeriodNum + "");
-        this.property.setProperty("getMentionPeriodNum",
-                this.getMentionPeriodNum + "");
-        this.property.setProperty("getDirectMessagePeriodNum",
-                this.getDirectMessagePeriodNum + "");
-        this.property.setProperty("getSendDirectMessagePeriodNum",
-                this.getSendDirectMessagePeriodNum + "");
-        this.property.setProperty("updatePeriod", this.updatePeriod + "");
         this.property.setProperty("newTableColorRGB", newTableColor.getRGB()
                 + "");
         this.property.setProperty("tlFontName", this.tlFontName);
@@ -1432,62 +1019,6 @@ public class TweetMainAction {
         // プロパティのリストを保存
         property.store(new FileOutputStream("./" + PROPERTIES_DIRECTORY + "/"
                 + BASIC_SETTING_FILENAME), null);
-    }
-
-    /**
-     * getDirectMessagePeriodNumを設定します。
-     *
-     * @param getDirectMessagePeriodNum
-     *            getDirectMessagePeriodNum
-     */
-    public void setGetDirectMessagePeriodNum(int getDirectMessagePeriodNum) {
-        this.getDirectMessagePeriodNum = getDirectMessagePeriodNum;
-    }
-
-    /**
-     * getMentionPeriodNumを設定します。
-     *
-     * @param getMentionPeriodNum
-     *            getMentionPeriodNum
-     */
-    public void setGetMentionPeriodNum(int getMentionPeriodNum) {
-        this.getMentionPeriodNum = getMentionPeriodNum;
-    }
-
-    /**
-     * getSendDirectMessagePeriodNumを設定します。
-     *
-     * @param getSendDirectMessagePeriodNum
-     *            getSendDirectMessagePeriodNum
-     */
-    public void setGetSendDirectMessagePeriodNum(
-            int getSendDirectMessagePeriodNum) {
-        this.getSendDirectMessagePeriodNum = getSendDirectMessagePeriodNum;
-    }
-
-    /**
-     * getTimelinePeriodNumを設定します。
-     *
-     * @param getTimelinePeriodNum
-     *            getTimelinePeriodNum
-     */
-    public void setGetTimelinePeriodNum(int getTimelinePeriodNum) {
-        this.getTimelinePeriodNum = getTimelinePeriodNum;
-    }
-
-    /**
-     * Tweet情報の自動更新スタート
-     *
-     * @param second
-     */
-    public void startTweetAutoUpdate() {
-        if (this.autoUpdateTimer == null) {
-            this.autoUpdateTimer = new TweetAutoUpdateTimer();
-        }
-        // 一度タイマーストップ
-        this.autoUpdateTimer.stop();
-        // 自動更新開始
-        this.autoUpdateTimer.start(updatePeriod * 60);
     }
 
     /**

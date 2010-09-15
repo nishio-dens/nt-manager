@@ -13,7 +13,6 @@ package twitter.gui.form;
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;
-import java.awt.Point;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
@@ -22,29 +21,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
 import twitter.gui.action.TweetMainAction;
-import twitter.gui.component.TweetCommentRenderer;
 import twitter.gui.component.TweetHyperlinkHandler;
-import twitter.gui.component.TweetTableModel;
-import twitter.gui.component.UserImageRenderer;
 import twitter.manage.TweetManager;
-import twitter4j.Status;
 
 /**
  *
@@ -102,6 +90,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         MenuItem item1 = new MenuItem("画面を開く");
         item1.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(true);
             }
@@ -109,6 +98,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         MenuItem item2 = new MenuItem("終了");
         item2.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 systemTray.remove(trayIcon);
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -136,14 +126,6 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         userImageLabel = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -194,69 +176,6 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setTitle("Nishio Tweet Manager");
-
-        jTable.setModel(tweetTableModel);
-        jTable.getTableHeader().setReorderingAllowed(false);
-        jTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTableMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jTableMouseReleased(evt);
-            }
-        });
-        jTable.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTableFocusGained(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTable);
-
-        jTabbedPane1.addTab("Timeline", jScrollPane1);
-
-        jTable1.setModel(mentionTableModel);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTable1MousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jTable1MouseReleased(evt);
-            }
-        });
-        jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTable1FocusGained(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTable1);
-
-        jTabbedPane1.addTab("Mention", jScrollPane2);
-
-        jTable2.setModel(messageTableModel);
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTable2MousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jTable2MouseReleased(evt);
-            }
-        });
-        jTable2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTable2FocusGained(evt);
-            }
-        });
-        jScrollPane3.setViewportView(jTable2);
-
-        jTabbedPane1.addTab("Message", jScrollPane3);
-
-        jTable3.setModel(sendMessageTableModel);
-        jTable3.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(jTable3);
-
-        jTabbedPane1.addTab("Send", jScrollPane4);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -678,59 +597,13 @@ public class NishioTweetManager extends javax.swing.JFrame {
         updateLen();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jTableFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableFocusGained
-        // まだ見ていないtweet数を0にする
-        mainAction.actionResetUncheckedTimelineTweetCount();
-    }//GEN-LAST:event_jTableFocusGained
-
-    private void jTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMousePressed
-        //右クリックメニュー表示
-        showPopup(evt);
-        mainAction.actionResetUncheckedTimelineTweetCount();
-    }//GEN-LAST:event_jTableMousePressed
-
-    private void jTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseReleased
-        //右クリックメニュー表示
-        showPopup(evt);
-    }//GEN-LAST:event_jTableMouseReleased
-
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
-        mainAction.actionResetUncheckedMentionTweetCount();
-    }//GEN-LAST:event_jTable1FocusGained
-
-    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
-        //右クリックメニュー表示
-        showPopup(evt);
-        mainAction.actionResetUncheckedMentionTweetCount();
-    }//GEN-LAST:event_jTable1MousePressed
-
-    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
-        //右クリックメニュー表示
-        showPopup(evt);
-    }//GEN-LAST:event_jTable1MouseReleased
-
-    private void jTable2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable2FocusGained
-        mainAction.actionResetUncheckedDirectMessageCount();
-    }//GEN-LAST:event_jTable2FocusGained
-
-    private void jTable2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MousePressed
-        //右クリックメニュー表示
-        showPopup(evt);
-        mainAction.actionResetUncheckedDirectMessageCount();
-    }//GEN-LAST:event_jTable2MousePressed
-
-    private void jTable2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseReleased
-        //右クリックメニュー表示
-        showPopup(evt);
-    }//GEN-LAST:event_jTable2MouseReleased
-
     private void tweetMessageBoxComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tweetMessageBoxComponentResized
     }//GEN-LAST:event_tweetMessageBoxComponentResized
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         mainAction.actionUpdateButton(evt);
         // いますぐ更新ボタンを押したので，更新タイムを一度リセットする
-        mainAction.resetTweetAutoUpdate();
+        //mainAction.resetTweetAutoUpdate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -792,7 +665,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         mainAction.actionUpdateButton(evt);
         // いますぐ更新ボタンを押したので，更新タイムを一度リセットする
-        mainAction.resetTweetAutoUpdate();
+       // mainAction.resetTweetAutoUpdate();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -813,18 +686,6 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private void updateLen() {
         // 残りつぶやける文字数情報を更新
         mainAction.actionUpdateTweetMessageCount();
-    }
-
-    /**
-     * ポップアップメニューを作成
-     * @param e
-     */
-    private void showPopup(MouseEvent e) {
-        if (e.isPopupTrigger()) {
-            // 右クリックのメニューを表示
-            getRightClickPopup().show(e.getComponent(), e.getX(),
-                    e.getY());
-        }
     }
 
     /**
@@ -862,161 +723,29 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
         // メインアクション初期化
         mainAction = new TweetMainAction(this, tweetManager, statusBar,
-                tweetTableModel, mentionTableModel, messageTableModel,
-                sendMessageTableModel, jTable, jTable1, jTable2, jTable3,
                 jTextPane, jScrollPane9, tweetLengthLabel, jPanel1, jTabbedPane1, tweetMessageBox, userImageLabel,
                 userNameLabel, updateTimeLabel, followerLabel, followingLabel, locationLabel,
                 clientNameLabel, updateLabel, userIntroBox, userWebBox);
         // 自動更新開始
-        mainAction.startTweetAutoUpdate();
+        //TODO:処理を書く
+        //mainAction.startTweetAutoUpdate();
         //もしログインに失敗したら，アカウント設定画面を出す
         if (login == false) {
             mainAction.actionShowAccountDialog();
+        } else {
+            //TLなどを表示するタブを追加
+            //TODO:時間情報を更新
+            this.mainAction.actionAddTimelineTab(60);
+            this.mainAction.actionAddMentionTab(180);
+            this.mainAction.actionAddDirectMessageTab(3000);
         }
-        //テーブル生成
-        createTweetTable(jTable);
-        createTweetTable(jTable1);
-        createTweetTable(jTable2);
-        createTweetTable(jTable3);
     }
-
-    /**
-     * Tweetを表示するテーブルを作成
-     *
-     * @param model
-     * @return
-     */
-    private void createTweetTable(final JTable table) {
-
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
-        table.setShowVerticalLines(false);
-        table.setShowHorizontalLines(true);
-
-        // Comment部分のColumnを複数行コメントが表示できるようにする
-        TableColumnModel mdl = table.getColumnModel();
-        TableColumn col = mdl.getColumn(1);
-        TweetCommentRenderer commentRenderer = new TweetCommentRenderer();
-        col.setCellRenderer(commentRenderer);
-        // INfo部分のColumnを複数行表示できるように
-        TweetCommentRenderer infoRenderer = new TweetCommentRenderer();
-        col = mdl.getColumn(2);
-        col.setCellRenderer(infoRenderer);
-        col.setMaxWidth(200);
-        col.setMinWidth(150);
-        // TODO:とりあえず幅指定した部分
-        // あとでファイルに幅情報などを保存しておき，それを読み込んで設定するような仕様に変更する
-        // ユーザImageを表示する部分
-        col = mdl.getColumn(0);
-        col.setCellRenderer(new UserImageRenderer());
-        col.setMinWidth(50);
-        col.setMaxWidth(50);
-        // 選択したセルの情報をDetailInfoへと表示
-        table.getSelectionModel().addListSelectionListener(
-                new ListSelectionListener() {
-
-                    @Override
-                    public void valueChanged(ListSelectionEvent e) {
-
-                        if (e.getValueIsAdjusting()) {
-                            return;
-                        }
-
-                        //テーブルで選択した要素を詳細情報として表示
-                        mainAction.setDetailInformationFromTable(table);
-                    }
-                });
-        // JTableを右クリックでも選択できるようにする
-        // また，同じ行を２回クリックできるようにする
-        table.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // いったんSelectしていた情報を削除
-                table.clearSelection();
-                // if (e.getButton() == MouseEvent.BUTTON3) {
-                Point p = e.getPoint();
-                int col = table.columnAtPoint(p);
-                int row = table.rowAtPoint(p);
-                table.changeSelection(row, col, false, false);
-                // }
-            }
-        });
-        // MouseEventを追加
-        table.addMouseListener(commentRenderer);
-        table.addMouseMotionListener(commentRenderer);
-        table.addMouseListener(infoRenderer);
-        table.addMouseMotionListener(infoRenderer);
-    }
-
-    /**
-     * 右クリックを押した時のポップアップメニューを取得
-     *
-     * @return
-     */
-    private JPopupMenu getRightClickPopup() {
-        if (rightClickPopup == null) {
-            rightClickPopup = new JPopupMenu();
-            JMenuItem directMessageMenuItem = new JMenuItem("ダイレクトメッセージを送信");
-            directMessageMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // ダイレクトメッセージ送信ダイアログを表示
-                    mainAction.actionShowDirectMessageDialog();
-                }
-            });
-            rightClickPopup.add(directMessageMenuItem);
-            JMenuItem retweetMenuItem = new JMenuItem("発言を公式リツイート");
-            retweetMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // 選択したセルのステータスをRetweet
-                    mainAction.actionRetweet();
-                }
-            });
-            rightClickPopup.add(retweetMenuItem);
-            JMenuItem quoteMenuItem = new JMenuItem("発言をコメント付きリツイート");
-            quoteMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // 選択したセルのステータスをコメント付Retweet
-                    mainAction.actionCopySelectedStatusToTweetBoxPane();
-                }
-            });
-            rightClickPopup.add(quoteMenuItem);
-
-            JMenuItem statusBrowserMenuItem = new JMenuItem("発言をブラウザで開く");
-            statusBrowserMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // 選択したセルのステータスをブラウザで開く
-                    mainAction.actionOpenStatusURL();
-                }
-            });
-            rightClickPopup.add(statusBrowserMenuItem);
-
-            JMenuItem openBrowserUserInformationMenuItem = new JMenuItem(
-                    "この人のTimelineをブラウザで開く");
-            openBrowserUserInformationMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // 選択したセルのユーザ情報をブラウザで開く
-                    mainAction.actionOpenUserURL();
-                }
-            });
-            rightClickPopup.add(openBrowserUserInformationMenuItem);
-        }
-        return rightClickPopup;
-    }
+    
     //nishio tweet manager
     private JPopupMenu rightClickPopup = null;
     private TweetMainAction mainAction = null;
     // TweetManager
     private TweetManager tweetManager = new TweetManager();
-    //TableModel
-    private TweetTableModel tweetTableModel = new TweetTableModel();
-    private TweetTableModel mentionTableModel = new TweetTableModel();
-    private TweetTableModel messageTableModel = new TweetTableModel();
-    private TweetTableModel sendMessageTableModel = new TweetTableModel();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JEditorPane clientNameLabel;
     private javax.swing.JLabel followerLabel;
@@ -1048,20 +777,12 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextPane jTextPane;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;

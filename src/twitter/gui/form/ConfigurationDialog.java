@@ -104,13 +104,6 @@ public class ConfigurationDialog extends JDialog {
 	public void setVisible(boolean b) {
 		super.setVisible(b);
 		try {
-			// 画面が見えたときに情報更新
-			jTextField2.setText(mainAction.getUpdatePeriod() + "");
-			jTextField.setText(mainAction.getGetTimelinePeriodNum() + "");
-			jTextField1.setText(mainAction.getGetMentionPeriodNum() + "");
-			jTextField3.setText(mainAction.getGetDirectMessagePeriodNum() + "");
-			jTextField4.setText(mainAction.getGetSendDirectMessagePeriodNum()
-					+ "");
 			jLabel12.setBackground(mainAction.getNewTableColor());
 
 			// font関係
@@ -321,17 +314,6 @@ public class ConfigurationDialog extends JDialog {
 			jButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					try {
-						// 更新間隔情報
-						mainAction.setUpdatePeriod(Integer.parseInt(jTextField2
-								.getText()));
-						mainAction.setGetTimelinePeriodNum(Integer
-								.parseInt(jTextField.getText()));
-						mainAction.setGetMentionPeriodNum(Integer
-								.parseInt(jTextField1.getText()));
-						mainAction.setGetDirectMessagePeriodNum(Integer
-								.parseInt(jTextField3.getText()));
-						mainAction.setGetSendDirectMessagePeriodNum(Integer
-								.parseInt(jTextField4.getText()));
 						mainAction.setNewTableColor(jLabel12.getBackground());
 
 						// フォント情報

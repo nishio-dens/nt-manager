@@ -102,9 +102,9 @@ public class TweetTabbedTable {
      */
     public void addTableToTab() {
         //テーブルをタブに追加
-        table.setModel(model);
-        table.getTableHeader().setReorderingAllowed(false);
-        table.addMouseListener(new java.awt.event.MouseAdapter() {
+        getTable().setModel(model);
+        getTable().getTableHeader().setReorderingAllowed(false);
+        getTable().addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTableMousePressed(evt);
@@ -116,10 +116,10 @@ public class TweetTabbedTable {
         });
 
         //tweetを表示するテーブルを作成
-        createTweetTable(table);
+        createTweetTable(getTable());
 
         //スクロールペーン追加
-        scrollPane.setViewportView(table);
+        scrollPane.setViewportView(getTable());
         //タブにテーブル追加
         tabbedPane.addTab(this.title, scrollPane);
     }
@@ -215,10 +215,10 @@ public class TweetTabbedTable {
             // ツイートをテーブルに追加
             for (Status t : tweet) {
                 this.getModel().insertTweet(t);
-                this.table.setRowHeight(0, getTableElementHeight());
+                this.getTable().setRowHeight(0, getTableElementHeight());
             }
             // 新規した部分の背景色を変更
-            TableCellRenderer renderer = table.getCellRenderer(0, 2);
+            TableCellRenderer renderer = getTable().getCellRenderer(0, 2);
             if (renderer instanceof TweetCommentRenderer) {
                 if (this.getUncheckedTweet() - 1 >= 0) {
                     ((TweetCommentRenderer) renderer).updateNewCellRow(
@@ -422,6 +422,13 @@ public class TweetTabbedTable {
      */
     public String getTimerID() {
         return timerID;
+    }
+
+    /**
+     * @return the table
+     */
+    public JTable getTable() {
+        return table;
     }
 
 }
