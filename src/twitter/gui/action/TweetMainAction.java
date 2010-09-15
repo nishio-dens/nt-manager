@@ -265,6 +265,29 @@ public class TweetMainAction {
         mainFrame.setPreferredSize(new Dimension(this.mainFrameWidth, this.mainFrameHeight));
     }
 
+    /**
+     * Timeline, Mention , DM, SendDMの情報更新間隔を取得し,その情報をテーブルに反映
+     */
+    public void updatePeriodInformationToComponent() {
+        //すべてのテーブルにフォント情報を反映
+        for (TweetTabbedTable t : this.tweetTabbedTableList) {
+            String timerID = t.getTimerID();
+            if( timerID.equals( TimerID.createTimelineID() ) ) {
+                //TLの周期情報更新
+                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetTimelinePeriod());
+            }else if( timerID.equals( TimerID.createMentionID() ) ) {
+                //Mentionの周期情報更新
+                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetMentionPeriod() );
+            }else if( timerID.equals( TimerID.createDirectMessageID() ) ) {
+                //DMの周期情報更新
+                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetDirectMessagePeriod());
+            }else if( timerID.equals( TimerID.createSendDirectMessageID() ) ) {
+                //SendDMの周期情報更新
+                this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetSendDirectMessagePeriod());
+            }
+        }
+    }
+
     // フォント情報をコンポーネントに反映
     public void updateFontInformationToComponent() {
         try {
