@@ -802,9 +802,7 @@ public class TweetMainAction {
             // API残り回数を取得
             int remainingHits = tweetManager.getRateLimitStatus().getRemainingHits();
             // 取得したコメント数をステータスバーに表示
-            //TODO:ここの???部分を更新
-            information("???"
-                    + " 件の新しいツイートを取得しました. (APIリクエスト残数は" + remainingHits
+            information("新しいツイートを取得しました. (APIリクエスト残数は" + remainingHits
                     + "回です)");
         } catch (Exception e1) {
             e1.printStackTrace();
@@ -960,7 +958,7 @@ public class TweetMainAction {
      *
      * @param message
      */
-    private void information(String message) {
+    public void information(String message) {
         statusBarLabel.setText(message);
     }
 

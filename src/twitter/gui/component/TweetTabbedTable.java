@@ -230,8 +230,17 @@ public class TweetTabbedTable {
             }
             // 古いデータを削除
             getModel().removeOldTweet( getTableElementMaxSize() );
-
+            //時間情報リフレッシュ
             getModel().refreshTime();
+            //新しい情報
+            int newNum = 0;
+            if( tweet != null ) {
+                newNum = tweet.size();
+            }
+            //情報を取得したことをステータスバーに表示
+            mainAction.information( this.getTitle() + "タブのツイートを" + newNum +
+                    "件取得しました. (APIリクエスト残数は" + remainingHits
+                    + "回です)");
 
             //情報間隔毎に設定を保存
             this.mainAction.saveProperties();
