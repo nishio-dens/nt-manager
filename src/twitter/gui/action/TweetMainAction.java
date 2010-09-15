@@ -46,9 +46,12 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
+import twitter.action.TweetDirectMessageGetter;
 import twitter.action.TweetGetter;
 import twitter.action.TweetMentionGetter;
 import twitter.action.TweetSearchResultGetter;
+import twitter.action.TweetSendDirectMessageGetter;
+import twitter.action.TweetTimelineGetter;
 
 import twitter.gui.component.TweetCommentRenderer;
 import twitter.gui.component.TweetTabbedTable;
@@ -90,7 +93,7 @@ public class TweetMainAction {
         public void run() {
             // 一定時間ごとにTweet情報をアップデート
             try {
-                if (currentGetTimelinePeriodNum == 0) {
+                /*if (currentGetTimelinePeriodNum == 0) {
                     // Tweetテーブルの情報を更新
                     actionTweetTableUpdate();
                 }
@@ -116,7 +119,7 @@ public class TweetMainAction {
                     actionSendDirectMessageTableUpdate();
                 }
                 currentGetSendDirectMessagePeriodNum = (currentGetSendDirectMessagePeriodNum + 1)
-                        % getSendDirectMessagePeriodNum;
+                        % getSendDirectMessagePeriodNum;*/
 
                 //設定ファイルを保存
                 saveProperties();
@@ -204,6 +207,8 @@ public class TweetMainAction {
     public static final String TAB_MENTION_STRING = "Mention";
     // タイムラインタブに表示する文字
     public static final String TAB_TIMELINE_STRING = "Timeline";
+    //Send Direct Messageタブに表示する文字
+    public static final String TAB_SEND_DIRECT_MESSAGE_STRING = "Send";
     // テーブルのデータ量が以下の値を超えたら古いデータから削除
     private static final int TABLE_ELEMENT_MAX_SIZE = 200;
     // twitterの公式URL
@@ -498,22 +503,81 @@ public class TweetMainAction {
     }
 
     /**
-     * mentionを追加するタブ
+     * mentionタブを追加する
      * @param period 情報更新間隔[sec]
      */
     public void actionAddMentionTab(int period) {
         TimerID timerID = TimerID.getInstance();
-        String id = timerID.createMentionID();
+        String id = TimerID.createMentionID();
         try {
             //既にIDが存在していたらここで例外発生
             timerID.addID(id);
             //検索結果を表示するタブを生成
-            actionAddTab(id, period, new TweetMentionGetter(tweetManager), this.TAB_MENTION_STRING);
+            actionAddTab(id, period, new TweetMentionGetter(tweetManager),
+                    TweetMainAction.TAB_MENTION_STRING);
         } catch (ExistTimerIDException ex) {
             JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    /**
+     * timelineタブを追加する
+     * @param period[sec]
+     */
+    public void actionAddTimelineTab(int period) {
+        TimerID timerID = TimerID.getInstance();
+        String id = TimerID.createTimelineID();
+        try {
+            //既にIDが存在していたらここで例外発生
+            timerID.addID(id);
+            //検索結果を表示するタブを生成
+            actionAddTab(id, period, new TweetTimelineGetter(tweetManager),
+                    TweetMainAction.TAB_TIMELINE_STRING);
+        } catch (ExistTimerIDException ex) {
+            JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * ダイレクトメッセージタブを追加する
+     * @param period 更新間隔[sec]
+     */
+    public void actionAddDirectMessageTab(int period) {
+        TimerID timerID = TimerID.getInstance();
+        String id = TimerID.createDirectMessageID();
+        try {
+            //既にIDが存在していたらここで例外発生
+            timerID.addID(id);
+            //検索結果を表示するタブを生成
+            actionAddTab(id, period, new TweetDirectMessageGetter(tweetManager),
+                    TweetMainAction.TAB_DIRECT_MESSAGE_STRING);
+        } catch (ExistTimerIDException ex) {
+            JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * SendDMタブを追加する
+     * @param period
+     */
+    public void actionAddSendDirectMessageTab(int period) {
+        TimerID timerID = TimerID.getInstance();
+        String id = TimerID.createSendDirectMessageID();
+        try {
+            //既にIDが存在していたらここで例外発生
+            timerID.addID(id);
+            //検索結果を表示するタブを生成
+            actionAddTab(id, period, new TweetSendDirectMessageGetter(tweetManager),
+                    TweetMainAction.TAB_SEND_DIRECT_MESSAGE_STRING);
+        } catch (ExistTimerIDException ex) {
+            JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     /**
      * ツイート検索結果を表示するタブを新しく追加
@@ -522,7 +586,7 @@ public class TweetMainAction {
      */
     public void actionAddNewSearchResultTab(String searchWord, int period) {
         TimerID timerID = TimerID.getInstance();
-        String id = timerID.createSearchTimerID(searchWord);
+        String id = TimerID.createSearchTimerID(searchWord);
         try {
             //既にIDが存在していたらここで例外発生
             timerID.addID(id);

@@ -13,10 +13,10 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 
 /**
- * Mentionを取得するクラス
+ *
  * @author nishio
  */
-public class TweetMentionGetter implements TweetGetter{
+public class TweetSendDirectMessageGetter implements TweetGetter{
 
     //tweet管理用
     private TweetManager tweetManager;
@@ -25,12 +25,12 @@ public class TweetMentionGetter implements TweetGetter{
      *
      * @param tweetManager
      */
-    public TweetMentionGetter(TweetManager tweetManager) {
+    public TweetSendDirectMessageGetter(TweetManager tweetManager) {
         this.tweetManager = tweetManager;
     }
 
     /**
-     * Mentionツイートを指定した数だけ取得
+     * SendDMツイートを指定した数だけ取得
      * @param num
      * @return
      */
@@ -38,7 +38,7 @@ public class TweetMentionGetter implements TweetGetter{
     public List<Status> getTweetData(int num) {
         List<Status> status = null;
         try {
-            status = tweetManager.getMentions(num);
+            status = tweetManager.getSendDirectMessages(num);
         } catch (TwitterException ex) {
             Logger.getLogger(TweetMentionGetter.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -46,14 +46,15 @@ public class TweetMentionGetter implements TweetGetter{
     }
 
     /**
-     * Mentionツイートの新しく投稿されたものだけを取得
+     * SendDMツイートの新しく投稿されたものだけを取得
+     * @param sinceID
      * @return
      */
     @Override
     public List<Status> getNewTweetData() {
         List<Status> status = null;
         try {
-            status = tweetManager.getNewMentionData();
+            status = tweetManager.getNewSendDirectMessages();
         } catch (TwitterException ex) {
             Logger.getLogger(TweetMentionGetter.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,3 +62,4 @@ public class TweetMentionGetter implements TweetGetter{
     }
 
 }
+
