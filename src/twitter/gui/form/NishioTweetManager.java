@@ -734,10 +734,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
             mainAction.actionShowAccountDialog();
         } else {
             //TLなどを表示するタブを追加
-            //TODO:時間情報を更新
-            this.mainAction.actionAddTimelineTab(60);
-            this.mainAction.actionAddMentionTab(180);
-            this.mainAction.actionAddDirectMessageTab(3000);
+            this.mainAction.actionAddTimelineTab( this.mainAction.getGetTimelinePeriod() );
+            this.mainAction.actionAddMentionTab( this.mainAction.getGetMentionPeriod() );
+            this.mainAction.actionAddDirectMessageTab( this.mainAction.getGetDirectMessagePeriod() );
+            this.mainAction.actionAddSendDirectMessageTab( this.mainAction.getGetSendDirectMessagePeriod() );
         }
     }
     

@@ -21,10 +21,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -40,7 +36,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
@@ -53,7 +48,6 @@ import twitter.action.TweetSearchResultGetter;
 import twitter.action.TweetSendDirectMessageGetter;
 import twitter.action.TweetTimelineGetter;
 
-import twitter.gui.component.TweetCommentRenderer;
 import twitter.gui.component.TweetTabbedTable;
 import twitter.gui.component.TweetTableModel;
 import twitter.gui.form.AboutDialog;
@@ -177,6 +171,12 @@ public class TweetMainAction {
     private List<TweetTabbedTable> tweetTabbedTableList = new ArrayList<TweetTabbedTable>();
     //ツイートテーブルの情報を一定間隔で更新するクラスを作成
     private TweetTaskManager tweetTaskManager = new TweetTaskManager();
+
+    //情報更新間隔[sec]
+    private int getTimelinePeriod = 60;
+    private int getMentionPeriod = 60 * 3;
+    private int getDirectMessagePeriod = 60 * 15;
+    private int getSendDirectMessagePeriod = 60 * 30;
 
     /**
      *
@@ -344,6 +344,8 @@ public class TweetMainAction {
 
         //フォント情報を更新
         this.updateFontInformationToComponent();
+        //テーブルの高さをすべて更新
+        this.updateTableHeight( this.getTableElementHeight() );
     }
 
     /**
@@ -952,11 +954,11 @@ public class TweetMainAction {
         property.load(new FileInputStream("./" + PROPERTIES_DIRECTORY + "/"
                 + BASIC_SETTING_FILENAME));
         // 設定読み込み
-        String gtpn = this.property.getProperty("getTimelinePeriodNum");
-        String gmpn = this.property.getProperty("getMentionPeriodNum");
-        String gdmpn = this.property.getProperty("getDirectMessagePeriodNum");
-        String gsdmpn = this.property.getProperty("getSendDirectMessagePeriodNum");
-        String up = this.property.getProperty("updatePeriod");
+        String gtp = this.property.getProperty("getTimelinePeriod");
+        String gmp = this.property.getProperty("getMentionPeriod");
+        String gdmp = this.property.getProperty("getDirectMessagePeriod");
+        String gsdmp = this.property.getProperty("getSendDirectMessagePeriod");
+
         String ntrgb = this.property.getProperty("newTableColorRGB");
 
         this.tlFontName = this.property.getProperty("tlFontName");
@@ -977,6 +979,12 @@ public class TweetMainAction {
             this.tableElementHeight = Integer.parseInt(teh);
             this.mainFrameWidth = Integer.parseInt(mfw);
             this.mainFrameHeight = Integer.parseInt(mfh);
+
+            //更新間隔
+            this.getTimelinePeriod = Integer.parseInt(gtp);
+            this.getMentionPeriod = Integer.parseInt(gmp);
+            this.getDirectMessagePeriod = Integer.parseInt(gdmp);
+            this.getSendDirectMessagePeriod = Integer.parseInt(gsdmp);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
@@ -1000,6 +1008,13 @@ public class TweetMainAction {
         if (property == null) {
             this.property = new Properties();
         }
+
+        //情報更新間隔
+        this.property.setProperty("getTimelinePeriod", this.getTimelinePeriod + "");
+        this.property.setProperty("getMentionPeriod", this.getMentionPeriod + "");
+        this.property.setProperty("getDirectMessagePeriod", this.getDirectMessagePeriod + "");
+        this.property.setProperty("getSendDirectMessagePeriod", this.getSendDirectMessagePeriod + "");
+
         this.property.setProperty("newTableColorRGB", newTableColor.getRGB()
                 + "");
         this.property.setProperty("tlFontName", this.tlFontName);
@@ -1133,5 +1148,61 @@ public class TweetMainAction {
      */
     public void setTableElementHeight(int tableElementHeight) {
         this.tableElementHeight = tableElementHeight;
+    }
+
+    /**
+     * @return the getTimelinePeriod
+     */
+    public int getGetTimelinePeriod() {
+        return getTimelinePeriod;
+    }
+
+    /**
+     * @param getTimelinePeriod the getTimelinePeriod to set
+     */
+    public void setGetTimelinePeriod(int getTimelinePeriod) {
+        this.getTimelinePeriod = getTimelinePeriod;
+    }
+
+    /**
+     * @return the getMentionPeriod
+     */
+    public int getGetMentionPeriod() {
+        return getMentionPeriod;
+    }
+
+    /**
+     * @param getMentionPeriod the getMentionPeriod to set
+     */
+    public void setGetMentionPeriod(int getMentionPeriod) {
+        this.getMentionPeriod = getMentionPeriod;
+    }
+
+    /**
+     * @return the getDirectMessagePeriod
+     */
+    public int getGetDirectMessagePeriod() {
+        return getDirectMessagePeriod;
+    }
+
+    /**
+     * @param getDirectMessagePeriod the getDirectMessagePeriod to set
+     */
+    public void setGetDirectMessagePeriod(int getDirectMessagePeriod) {
+        this.getDirectMessagePeriod = getDirectMessagePeriod;
+    }
+
+    /**
+     * @return the getSendDirectMessagePeriod
+     */
+    public int getGetSendDirectMessagePeriod() {
+        return getSendDirectMessagePeriod;
+    }
+
+    /**
+     * @param getSendDirectMessagePeriod the getSendDirectMessagePeriod to set
+     */
+    public void setGetSendDirectMessagePeriod(int getSendDirectMessagePeriod) {
+        this.getSendDirectMessagePeriod = getSendDirectMessagePeriod;
     }
 }

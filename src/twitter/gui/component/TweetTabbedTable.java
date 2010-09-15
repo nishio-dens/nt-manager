@@ -232,6 +232,9 @@ public class TweetTabbedTable {
             getModel().removeOldTweet( getTableElementMaxSize() );
 
             getModel().refreshTime();
+
+            //情報間隔毎に設定を保存
+            this.mainAction.saveProperties();
         } catch (TwitterException e1) {
             e1.printStackTrace();
         } catch (Exception e) {
