@@ -201,13 +201,18 @@ public class TweetTaskManager {
      */
     public boolean shutdownTask(String timerID) {
         boolean found = false;
+        TimerData removeData = null;
         for (TimerData t : timerList) {
             if (t.getTimerID().equals(timerID)) {
                 t.stop();
                 t.shutdown();
                 found = true;
+                removeData = t;
                 break;
             }
+        }
+        if( removeData != null ) {
+            this.timerList.remove(removeData);
         }
         return found;
     }
