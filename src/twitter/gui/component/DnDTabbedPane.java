@@ -213,6 +213,22 @@ public class DnDTabbedPane extends JTabbedPane {
         setTabComponentAt(getTabCount()-1, tab);
     }
 
+    @Override
+    public void setTitleAt(int i, String string) {
+        //TODO:とても強引な方法
+        //addTabの仕様が変わったらここも変更しなければならないので，いつか修正の必要がある
+        JPanel p = null;
+        if( super.getTabComponentAt(i) instanceof JPanel ) {
+            p = (JPanel) super.getTabComponentAt(i);
+            //ラベル取得
+            JLabel label = null;
+            if( p.getComponent(0) instanceof JLabel ) {
+                label = (JLabel)p.getComponent(0);
+                label.setText(string);
+            }
+        }
+    }
+
     class CDropTargetListener implements DropTargetListener{
         public void dragEnter(DropTargetDragEvent e) {
             if(isDragAcceptable(e)) e.acceptDrag(e.getDropAction());
