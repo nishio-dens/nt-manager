@@ -175,6 +175,9 @@ public class DnDTabbedPane extends JTabbedPane {
 
         //アイコン初期化
         this.icon = new CloseTabIcon();
+
+        //スクロールポリシー
+        this.setTabLayoutPolicy( JTabbedPane.SCROLL_TAB_LAYOUT );
     }
 
     /**
