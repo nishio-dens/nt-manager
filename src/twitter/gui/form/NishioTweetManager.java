@@ -125,7 +125,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPane1 = new twitter.gui.component.DnDTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         userImageLabel = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
