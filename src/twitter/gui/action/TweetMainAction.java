@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -48,6 +49,7 @@ import twitter.action.TweetMentionGetter;
 import twitter.action.TweetSearchResultGetter;
 import twitter.action.TweetSendDirectMessageGetter;
 import twitter.action.TweetTimelineGetter;
+import twitter.gui.component.DnDTabbedPane;
 
 import twitter.gui.component.TweetTabbedTable;
 import twitter.gui.component.TweetTableModel;
@@ -249,6 +251,11 @@ public class TweetMainAction {
         this.userWebBox = userWebBox;
         this.clientNameLabel = clientNameLabel;
         this.updateLabel = updateLabel;
+
+        //罰ボタンを押した時のイベントを追加
+        if( this.tweetMainTab instanceof DnDTabbedPane ) {
+            ((DnDTabbedPane)this.tweetMainTab).setMainAction(this);
+        }
 
         // 設定ファイルの読み込み
         try {
@@ -518,7 +525,16 @@ public class TweetMainAction {
      */
     public void actionRemoveFocusedTabbedTable() {
         int selected = this.tweetMainTab.getSelectedIndex();
-        Component c = this.tweetMainTab.getComponentAt( selected );
+        actionRemoveTabbedTable(selected);
+    }
+
+    /**
+     * 指定した場所にあるタブを削除
+     * @param removeTabIndex
+     */
+    public void actionRemoveTabbedTable(int removeTabIndex) {
+        int selected = removeTabIndex;
+        Component c = this.tweetMainTab.getComponentAt( removeTabIndex );
         //タブの何番目に消したいテーブルがあるのかと，tweetTabbedTableListの何番目に消したいテーブルがあるのかは違う
         //これを探してくる必要がある
 
@@ -532,7 +548,7 @@ public class TweetMainAction {
                 break;
             }
         }
-        
+
         if( deleteTabIndex >= 0 ) {
             //タブを削除
             this.tweetMainTab.remove(selected);

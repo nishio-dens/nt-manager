@@ -18,6 +18,7 @@ import java.awt.dnd.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import javax.swing.*;
+import twitter.gui.action.TweetMainAction;
 
 public class DnDTabbedPane extends JTabbedPane {
     private static final int LINEWIDTH = 3;
@@ -26,6 +27,16 @@ public class DnDTabbedPane extends JTabbedPane {
     private final Rectangle lineRect  = new Rectangle();
     private final Color     lineColor = new Color(0, 100, 255);
     private int dragTabIndex = -1;
+    private final Icon icon;
+    private TweetMainAction mainAction = null;
+
+    /**
+     * 
+     * @param mainAction
+     */
+    public void setMainAction(TweetMainAction mainAction ) {
+        this.mainAction = mainAction;
+    }
 
     private void clickArrowButton(String actionKey) {
         ActionMap map = getActionMap();
@@ -40,6 +51,7 @@ public class DnDTabbedPane extends JTabbedPane {
     private static Rectangle rForward  = new Rectangle();
     private static int rwh = 20;
     private static int buttonsize = 30; //xxx magic number of scroll button size
+
     private void autoScrollTest(Point glassPt) {
         Rectangle r = getTabAreaBounds();
         int tabPlacement = getTabPlacement();
@@ -58,6 +70,40 @@ public class DnDTabbedPane extends JTabbedPane {
             clickArrowButton("scrollTabsForwardAction");
         }
     }
+
+    /**
+     * ばつボタン
+     */
+    private static class CloseTabIcon implements Icon {
+        private int width;
+        private int height;
+        public CloseTabIcon() {
+            width  = 16;
+            height = 16;
+        }
+        @Override
+        public void paintIcon(Component c, Graphics g, int x, int y) {
+            g.translate(x, y);
+            g.setColor(Color.BLACK);
+            g.drawLine(4,  4, 11, 11);
+            g.drawLine(4,  5, 10, 11);
+            g.drawLine(5,  4, 11, 10);
+            g.drawLine(11, 4,  4, 11);
+            g.drawLine(11, 5,  5, 11);
+            g.drawLine(10, 4,  4, 10);
+            g.translate(-x, -y);
+        }
+        @Override public int getIconWidth() {
+            return width;
+        }
+        @Override public int getIconHeight() {
+            return height;
+        }
+//         public Rectangle getBounds() {
+//             return new Rectangle(0, 0, width, height);
+//         }
+    }
+
     public DnDTabbedPane() {
         super();
         final DragSourceListener dsl = new DragSourceListener() {
@@ -126,6 +172,42 @@ public class DnDTabbedPane extends JTabbedPane {
         };
         new DropTarget(glassPane, DnDConstants.ACTION_COPY_OR_MOVE, new CDropTargetListener(), true);
         new DragSource().createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY_OR_MOVE, dgl);
+
+        //アイコン初期化
+        this.icon = new CloseTabIcon();
+    }
+
+    /**
+     * 
+     * @param title
+     * @param content
+     */
+    @Override
+    public void addTab(String title, final Component content) {
+        JPanel tab = new JPanel(new BorderLayout());
+        tab.setOpaque(false);
+        JLabel label = new JLabel(title);
+        label.setBorder(BorderFactory.createEmptyBorder(0,0,0,4));
+        JButton button = new JButton(icon);
+        //button.setBorderPainted(false);
+        //button.setFocusPainted(false);
+        //button.setContentAreaFilled(false);
+        button.setPreferredSize(new Dimension(icon.getIconWidth(),
+                                              icon.getIconHeight()));
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int index = indexOfComponent(content);
+                //削除時のイベント
+                if( mainAction != null ) {
+                    mainAction.actionRemoveTabbedTable( index );
+                }
+            }
+        });
+        tab.add(label,  BorderLayout.WEST);
+        tab.add(button, BorderLayout.EAST);
+        tab.setBorder(BorderFactory.createEmptyBorder(2,1,1,1));
+        super.addTab(title, content);
+        setTabComponentAt(getTabCount()-1, tab);
     }
 
     class CDropTargetListener implements DropTargetListener{
