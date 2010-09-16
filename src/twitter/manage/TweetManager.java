@@ -786,6 +786,21 @@ public class TweetManager {
     }
 
     /**
+     * 返信メッセージをつぶやく
+     * @param message
+     * @param replyToStatusID
+     */
+    public void replyTweet(String message, long replyToStatusID) {
+        twitter4j.Status status;
+        try {
+            status = twitter.updateStatus(message, replyToStatusID);
+        } catch (TwitterException e) {
+            // TODO: エラー処理
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * ダイレクトメッセージを送信
      *
      * @param screenName

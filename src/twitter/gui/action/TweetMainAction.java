@@ -710,12 +710,19 @@ public class TweetMainAction {
      * 現在選択しているステータスを公式Retweet
      */
     public void actionRetweet() {
+        Status status = null;
+        if( this.currentStatus.isRetweet() ) {
+            status = this.currentStatus.getRetweetedStatus();
+        }else {
+            status = this.currentStatus;
+        }
+
         // 選択しているtweetのstatus id
-        long statusID = this.currentStatus.getId();
+        long statusID = status.getId();
         // コメントしたユーザ名
-        String username = this.currentStatus.getUser().getScreenName();
+        String username = status.getUser().getScreenName();
         // コメント
-        String message = this.currentStatus.getText();
+        String message = status.getText();
         // 発言が長すぎる場合，後半をカット
         if (message.length() > 30) {
             message = message.substring(0, 30) + " ...(以下略)";
