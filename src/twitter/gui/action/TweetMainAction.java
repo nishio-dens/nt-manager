@@ -895,7 +895,8 @@ public class TweetMainAction {
         int sc = table.getSelectedRowCount();
         String infoMessage = "";
 
-        if (sc == 1) {
+        //選択している行が1行だけの場合，情報を表示する
+        if (sc == 1 && table != null) {
             Status st = getTweetTableInformation(table, table.getModel());
             infoMessage = st.getText();
             // tweetMessageBox内のURLをhtmlリンクへ変換

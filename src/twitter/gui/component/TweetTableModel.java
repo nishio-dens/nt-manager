@@ -110,7 +110,13 @@ public class TweetTableModel extends DefaultTableModel {
 	 */
 	public Status getTweetStatus(int row) {
 		// TODO:リンクリストだと行数が多くなると読み込み遅くなりそう 改良を検討
-		return tweetStatus.get(row);
+        Status s = null;
+        try {
+            s = tweetStatus.get(row);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+		return s;
 	}
 
 	/**

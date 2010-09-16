@@ -8,6 +8,8 @@ package twitter.gui.component;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -152,20 +154,6 @@ public class TweetTabbedTable {
         col.setMinWidth(50);
         col.setMaxWidth(50);
         // 選択したセルの情報をDetailInfoへと表示
-        table.getSelectionModel().addListSelectionListener(
-                new ListSelectionListener() {
-
-                    @Override
-                    public void valueChanged(ListSelectionEvent e) {
-
-                        if (e.getValueIsAdjusting()) {
-                            return;
-                        }
-
-                        //テーブルで選択した要素を詳細情報として表示
-                        mainAction.setDetailInformationFromTable(table);
-                    }
-                });
         // JTableを右クリックでも選択できるようにする
         // また，同じ行を２回クリックできるようにする
         table.addMouseListener(new MouseAdapter() {
@@ -179,8 +167,20 @@ public class TweetTabbedTable {
                 int col = table.columnAtPoint(p);
                 int row = table.rowAtPoint(p);
                 table.changeSelection(row, col, false, false);
+
+                //テーブルで選択した要素を詳細情報として表示
+                mainAction.setDetailInformationFromTable(table);
                 // }
             }
+        });
+        //キー受付
+        table.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                mainAction.setDetailInformationFromTable(table);
+            }
+
         });
         // MouseEventを追加
         table.addMouseListener(commentRenderer);

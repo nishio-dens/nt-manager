@@ -674,10 +674,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        mainAction.actionAddMentionTab(60);
-        mainAction.actionAddTimelineTab(60);
-        mainAction.actionAddDirectMessageTab(60);
-        mainAction.actionAddSendDirectMessageTab(60);
+        
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
