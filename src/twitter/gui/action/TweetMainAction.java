@@ -347,7 +347,7 @@ public class TweetMainAction {
                 final TweetTabbedTable table = new TweetTabbedTable(tweetGetter, tabTitle,
                         this.tweetMainTab, 
                         this.tableElementHeight, this.tweetManager,
-                        this, newTableColor, tableElementHeight, timerID);
+                        this, newTableColor, TABLE_ELEMENT_MAX_SIZE, timerID);
 
                 this.tweetTaskManager.addTask(timerID, new TweetUpdateTask() {
 

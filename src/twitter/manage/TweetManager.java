@@ -705,7 +705,7 @@ public class TweetManager {
                 tweetList.add(status);
             }
         }
-        
+
         //リスト逆転 一番あたらしいtweetを一番下に
         Collections.reverse(tweetList);
 
