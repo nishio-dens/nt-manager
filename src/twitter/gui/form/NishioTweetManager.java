@@ -726,14 +726,13 @@ public class NishioTweetManager extends javax.swing.JFrame {
                 jTextPane, jScrollPane9, tweetLengthLabel, jPanel1, jTabbedPane1, tweetMessageBox, userImageLabel,
                 userNameLabel, updateTimeLabel, followerLabel, followingLabel, locationLabel,
                 clientNameLabel, updateLabel, userIntroBox, userWebBox);
-        // 自動更新開始
-        //TODO:処理を書く
-        //mainAction.startTweetAutoUpdate();
         //もしログインに失敗したら，アカウント設定画面を出す
         if (login == false) {
             mainAction.actionShowAccountDialog();
         } else {
             //TLなどを表示するタブを追加
+            //自動更新も開始
+            //TODO:TL, Mention, DMのタブを表示するかしないかの設定を読み込んで反映するように
             this.mainAction.actionAddTimelineTab( this.mainAction.getGetTimelinePeriod() );
             this.mainAction.actionAddMentionTab( this.mainAction.getGetMentionPeriod() );
             this.mainAction.actionAddDirectMessageTab( this.mainAction.getGetDirectMessagePeriod() );

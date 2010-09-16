@@ -6,6 +6,7 @@
 package twitter.gui.component;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -43,8 +44,6 @@ public class TweetTabbedTable {
     private String title;
     //タブ
     private JTabbedPane tabbedPane;
-    //何番目のタブにテーブルをセットするか
-    private int tabSetNum;
     //スクロールペーン
     private JScrollPane scrollPane;
     //ツイートを管理するクラス
@@ -68,7 +67,6 @@ public class TweetTabbedTable {
      * @param tweetGetter tweet取得時に行うアクション
      * @param title　タブに表示するタイトル
      * @param tabbedPane　テーブルを追加するタブ
-     * @param tabSetNum 何番目のタブにセットするか
      * @param tableElementHeight テーブルの高さ
      * @param tweetManager　ツイート管理クラス
      * @param mainAction メインアクション
@@ -77,13 +75,12 @@ public class TweetTabbedTable {
      * @param timerID 自動更新につかうタイマーのID
      */
     public TweetTabbedTable(TweetGetter tweetGetter,
-            String title, JTabbedPane tabbedPane, int tabSetNum, int tableElementHeight,
+            String title, JTabbedPane tabbedPane, int tableElementHeight,
             TweetManager tweetManager, TweetMainAction mainAction, Color newTableColor,
             int tableElementMaxSize, String timerID) {
         this.tweetGetter = tweetGetter;
         this.title = title;
         this.tabbedPane = tabbedPane;
-        this.tabSetNum = tabSetNum;
         this.tweetManager = tweetManager;
         this.mainAction = mainAction;
         this.tableElementHeight = tableElementHeight;
@@ -360,6 +357,23 @@ public class TweetTabbedTable {
     }
 
     /**
+     * 自分自信がタブのどの場所に位置しているのかを取得
+     * @return
+     */
+    public int getTabSetNum() {
+        int tabCount = this.tabbedPane.getTabCount();
+        for(int i=0; i < tabCount; i++) {
+            Component c = this.tabbedPane.getComponentAt(i);
+            if( c instanceof JScrollPane ) {
+                if ( c == this.scrollPane ) {
+                    return i;
+                }
+            }
+        }
+        return 0;
+    }
+
+    /**
      * @return the tableElementHeight
      */
     public int getTableElementHeight() {
@@ -401,12 +415,6 @@ public class TweetTabbedTable {
         this.model = model;
     }
 
-    /**
-     * @return the tabSetNum
-     */
-    public int getTabSetNum() {
-        return tabSetNum;
-    }
 
     /**
      * @return the uncheckedTweet
@@ -420,13 +428,6 @@ public class TweetTabbedTable {
      */
     public void setUncheckedTweet(int uncheckedTweet) {
         this.uncheckedTweet = uncheckedTweet;
-    }
-
-    /**
-     * @param tabSetNum the tabSetNum to set
-     */
-    public void setTabSetNum(int tabSetNum) {
-        this.tabSetNum = tabSetNum;
     }
 
     /**

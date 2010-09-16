@@ -1,6 +1,7 @@
 package twitter.gui.action;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -332,15 +333,12 @@ public class TweetMainAction {
      * @param tabTitle 追加するタブのタイトル
      */
     public void actionAddTab(String timerID, int period, TweetGetter tweetGetter, String tabTitle) {
-        int numOfTab = this.tweetTabbedTableList.size();
-        //すでに追加されているタブの数
-
         //周期的に情報を更新する
         if( period > 0 ) {
             try {
                 //テーブルを作成
                 final TweetTabbedTable table = new TweetTabbedTable(tweetGetter, tabTitle,
-                        this.tweetMainTab, numOfTab,
+                        this.tweetMainTab, 
                         this.tableElementHeight, this.tweetManager,
                         this, newTableColor, tableElementHeight, timerID);
 
@@ -520,25 +518,28 @@ public class TweetMainAction {
      */
     public void actionRemoveFocusedTabbedTable() {
         int selected = this.tweetMainTab.getSelectedIndex();
-        int deleteTabIndex = selected;
+        Component c = this.tweetMainTab.getComponentAt( selected );
+        //タブの何番目に消したいテーブルがあるのかと，tweetTabbedTableListの何番目に消したいテーブルがあるのかは違う
+        //これを探してくる必要がある
+
+        //選択したタブのテーブルを取得
+        int deleteTabIndex = -1;
+        for(int i=0 ; i < tweetTabbedTableList.size(); i++ ) {
+            TweetTabbedTable table = tweetTabbedTableList.get(i);
+            if( selected == table.getTabSetNum() ) {
+                //消したいタブが見つかった
+                deleteTabIndex = i;
+                break;
+            }
+        }
         
         if( deleteTabIndex >= 0 ) {
             //タブを削除
-            this.tweetMainTab.remove(deleteTabIndex);
-            int tabSetNum = this.tweetTabbedTableList.get(deleteTabIndex).getTabSetNum();
+            this.tweetMainTab.remove(selected);
             //タブのタイマーID
             String timerID = this.tweetTabbedTableList.get(deleteTabIndex).getTimerID();
-
             //削除
             this.tweetTabbedTableList.remove(deleteTabIndex);
-
-            //削除した分，既存のタブ番号を1つずつずらさなければならない
-            int tabNum = this.tweetTabbedTableList.size();
-            for(int i = tabSetNum; i < tabNum; i++) {
-                TweetTabbedTable table = this.tweetTabbedTableList.get( i );
-                table.setTabSetNum( table.getTabSetNum() - 1);
-            }
-
             //自動更新しているタブを削除
             this.tweetTaskManager.shutdownTask( timerID );
             //ID削除
