@@ -264,7 +264,7 @@ public class TweetTaskManager {
      * @param immediatelyUpdate すぐに情報を更新するかどうか
      * @return
      */
-    public boolean updateTaskPeriod(String timerID, long period, boolean immediatelyUpdate) {
+    public boolean updateTaskPeriod(String timerID, int period, boolean immediatelyUpdate) {
         boolean found = false;
         for (TimerData t : timerList) {
             if (t.getTimerID().equals(timerID)) {
