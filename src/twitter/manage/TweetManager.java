@@ -823,6 +823,23 @@ public class TweetManager {
     }
 
     /**
+     * 指定した発言をお気に入りに追加
+     * @param statusID
+     * @throws TwitterException
+     */
+    public void createFavorite(long statusID) throws TwitterException {
+        twitter.createFavorite(statusID);
+    }
+
+    /**
+     * 指定した発言のお気に入りを取り下げる
+     * @param statusID
+     */
+    public void destroyFavorite(long statusID) throws TwitterException {
+        twitter.destroyFavorite(statusID);
+    }
+
+    /**
      * API制限数を取得
      *
      * @return

@@ -288,7 +288,7 @@ public class TweetTabbedTable {
         //if (rightClickPopup == null) {
         JPopupMenu rightClickPopup = new JPopupMenu();
 
-        JMenuItem replyMenuItem = new JMenuItem("この発言に返信する(Reply)");
+        JMenuItem replyMenuItem = new JMenuItem("この発言に返信(Reply)");
         replyMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -357,6 +357,29 @@ public class TweetTabbedTable {
                 mainAction.actionOpenUserURL();
             }
         });
+        
+        JMenuItem createFavMenuItem = new JMenuItem(
+                "この発言をお気に入りに追加");
+        createFavMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのユーザ情報をブラウザで開く
+                mainAction.actionCreateFavorite();
+            }
+        });
+
+        JMenuItem destroyFavMenuItem = new JMenuItem(
+                "この発言をお気に入りから削除");
+        destroyFavMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのユーザ情報をブラウザで開く
+                mainAction.actionDestroyFavorite();
+            }
+        });
+
 
         //指定した発言がRTかどうか判定
         int sc = table.getSelectedRowCount();
@@ -384,6 +407,10 @@ public class TweetTabbedTable {
             }
             if( st.isFavorited() ) {
                 //お気に入りに追加されている時のみ表示するメニュー
+                //お気に入り追加
+                rightClickPopup.add(destroyFavMenuItem);
+            }else {
+                rightClickPopup.add(createFavMenuItem);
             }
         }
         //}

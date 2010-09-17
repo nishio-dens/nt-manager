@@ -756,6 +756,76 @@ public class TweetMainAction {
     }
 
     /**
+     * 選択しているツイートをお気に入りに追加
+     */
+    public void actionCreateFavorite() {
+        Status status = null;
+        if( this.getCurrentStatus().isRetweet() ) {
+            status = this.getCurrentStatus().getRetweetedStatus();
+        }else {
+            status = this.getCurrentStatus();
+        }
+        // 選択しているtweetのstatus id
+        long statusID = status.getId();
+        // コメントしたユーザ名
+        String username = status.getUser().getScreenName();
+        // コメント
+        String message = status.getText();
+        // 発言が長すぎる場合，後半をカット
+        if (message.length() > 30) {
+            message = message.substring(0, 30) + " ...(以下略)";
+        }
+        // Retweetしていいかどうかの確認
+        int ret = JOptionPane.showConfirmDialog(mainFrame, username + " さんの発言:"
+                + message + "\nをお気に入りに追加しますか?", "Favの確認",
+                JOptionPane.YES_NO_OPTION);
+        if (ret == JOptionPane.YES_OPTION) {
+            try {
+                // Retweetを行う
+                this.tweetManager.createFavorite(statusID);
+            } catch (TwitterException e) {
+                JOptionPane.showMessageDialog(null, "エラーによりお気に入りに追加できませんでした．",
+                        "Fav Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    /**
+     * 選択しているツイートをお気に入りから外す
+     */
+    public void actionDestroyFavorite() {
+        Status status = null;
+        if( this.getCurrentStatus().isRetweet() ) {
+            status = this.getCurrentStatus().getRetweetedStatus();
+        }else {
+            status = this.getCurrentStatus();
+        }
+        // 選択しているtweetのstatus id
+        long statusID = status.getId();
+        // コメントしたユーザ名
+        String username = status.getUser().getScreenName();
+        // コメント
+        String message = status.getText();
+        // 発言が長すぎる場合，後半をカット
+        if (message.length() > 30) {
+            message = message.substring(0, 30) + " ...(以下略)";
+        }
+        // Retweetしていいかどうかの確認
+        int ret = JOptionPane.showConfirmDialog(mainFrame, username + " さんの発言:"
+                + message + "\nをお気に入りから削除しますか?", "Favの確認",
+                JOptionPane.YES_NO_OPTION);
+        if (ret == JOptionPane.YES_OPTION) {
+            try {
+                // Retweetを行う
+                this.tweetManager.destroyFavorite(statusID);
+            } catch (TwitterException e) {
+                JOptionPane.showMessageDialog(null, "エラーによりお気に入りから削除できませんでした．",
+                        "Fav Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    /**
      * 現在選択しているステータスを公式Retweet
      */
     public void actionRetweet() {
