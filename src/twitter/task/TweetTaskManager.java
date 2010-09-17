@@ -55,7 +55,7 @@ public class TweetTaskManager {
     private class TimerData {
 
         private ScheduledFuture<?> future;
-        private final ScheduledExecutorService scheduler;
+        private ScheduledExecutorService scheduler;
         private final Runnable task;
         private long period = 0;
         private String timerID = null;
@@ -260,7 +260,7 @@ public class TweetTaskManager {
     /**
      * タスクの周期を更新する
      * @param timerID
-     * @param period
+     * @param period 周期[sec]
      * @param immediatelyUpdate すぐに情報を更新するかどうか
      * @return
      */
@@ -268,7 +268,7 @@ public class TweetTaskManager {
         boolean found = false;
         for (TimerData t : timerList) {
             if (t.getTimerID().equals(timerID)) {
-                t.setPeriod(period);
+                t.setPeriod(period * 1000);
                 t.reset( immediatelyUpdate );
                 found = true;
                 break;

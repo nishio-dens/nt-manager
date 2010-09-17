@@ -453,7 +453,7 @@ public class ConfigurationDialog2 extends javax.swing.JDialog {
             mainAction.updateFontInformationToComponent();
 
             //更新間隔反映
-            //mainAction.updatePeriodInformationToComponent();
+            mainAction.updatePeriodInformationToComponent();
 
             // 表示
             mainAction.setTableElementHeight(Integer.parseInt( jSpinner5.getValue().toString() ));
