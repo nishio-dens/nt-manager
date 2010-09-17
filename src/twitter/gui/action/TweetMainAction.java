@@ -44,6 +44,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
 import twitter.action.TweetDirectMessageGetter;
+import twitter.action.TweetFavoriteGetter;
 import twitter.action.TweetGetter;
 import twitter.action.TweetMentionGetter;
 import twitter.action.TweetSearchResultGetter;
@@ -398,6 +399,31 @@ public class TweetMainAction {
     }
 
     /**
+     * お気に入りタブを追加
+     * @param screenName nullで自分自身を取得，指定するとscreenNameのFav取得
+     */
+    public void actionAddFavoriteTab(String screenName) {
+        TimerID timerID = TimerID.getInstance();
+        String id = TimerID.createFavoriteID(screenName);
+        try {
+            //既にIDが存在していたらここで例外発生
+            timerID.addID(id);
+            String favTitle;
+            if( screenName == null ) {
+                favTitle = "お気に入り";
+            }else {
+                favTitle = screenName + "のお気に入り";
+            }
+            //検索結果を表示するタブを生成
+            actionAddTab(id, Integer.MAX_VALUE, new TweetFavoriteGetter(tweetManager, screenName),
+                    favTitle);
+        } catch (ExistTimerIDException ex) {
+            JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
      * timelineタブを追加する
      * @param period[sec]
      */
@@ -633,6 +659,22 @@ public class TweetMainAction {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "エラーによりブラウザを起動できませんでした．",
                     "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * 選択したユーザのFavを開く
+     */
+    public void actionOpenUserFav() {
+        try {
+            Status s = this.getCurrentStatus();
+            if( s.isRetweet() ) {
+                s = s.getRetweetedStatus();
+            }
+            String userName = s.getUser().getScreenName();
+            this.actionAddFavoriteTab(userName);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

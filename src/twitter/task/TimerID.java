@@ -79,6 +79,15 @@ public class TimerID {
     }
 
     /**
+     * お気に入り取得の際に利用するタイマーID生成
+     * @param screenName
+     * @return
+     */
+    public static String createFavoriteID(String screenName) {
+        return "FAV:" + screenName;
+    }
+
+    /**
      * timelineのIDを生成
      * @return
      */

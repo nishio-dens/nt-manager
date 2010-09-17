@@ -346,17 +346,6 @@ public class TweetTabbedTable {
                 mainAction.actionOpenStatusURL();
             }
         });
-
-        JMenuItem openBrowserUserInformationMenuItem = new JMenuItem(
-                "この人のTimelineをブラウザで開く");
-        openBrowserUserInformationMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                // 選択したセルのユーザ情報をブラウザで開く
-                mainAction.actionOpenUserURL();
-            }
-        });
         
         JMenuItem createFavMenuItem = new JMenuItem(
                 "この発言をお気に入りに追加");
@@ -386,6 +375,37 @@ public class TweetTabbedTable {
         if (sc == 1 && table != null) {
             Status st = mainAction.getTweetTableInformation(table, table.getModel());
 
+            //発言した人のscreenName取得
+            String screenName = null;
+            if( st.isRetweet() ) {
+                screenName = st.getRetweetedStatus().getUser().getScreenName();
+            }else {
+                screenName = st.getUser().getScreenName();
+            }
+
+            JMenuItem openBrowserUserInformationMenuItem = new JMenuItem(
+                    screenName + "のTimelineをブラウザで開く");
+            openBrowserUserInformationMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    // 選択したセルのユーザ情報をブラウザで開く
+                    mainAction.actionOpenUserURL();
+                }
+            });
+
+            JMenuItem openFavMenuItem = new JMenuItem(
+                    screenName + "のお気に入りを開く");
+            openFavMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    // 選択したセルのユーザ情報をブラウザで開く
+                    mainAction.actionOpenUserFav();
+                }
+            });
+
+
             //メニューアイテムを追加
             //返信
             rightClickPopup.add(replyMenuItem);
@@ -401,6 +421,8 @@ public class TweetTabbedTable {
             rightClickPopup.add(statusBrowserMenuItem);
             //この人のtimelineを開く
             rightClickPopup.add(openBrowserUserInformationMenuItem);
+            //この人のfavを開く
+            rightClickPopup.add(openFavMenuItem);
 
             if( st.isRetweet() ) {
                 //Retweetのときのみ表示するメニュー

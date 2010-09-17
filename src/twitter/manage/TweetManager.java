@@ -713,6 +713,24 @@ public class TweetManager {
     }
 
     /**
+     * 指定したユーザのお気に入りを取得
+     * @param screenName nullの場合，自分自身のお気に入りを取得
+     */
+    public List<Status> getFavoritesTweet(String screenName) throws TwitterException {
+        // getFriendsTimelineではRetweetは表示されないので注意
+        List<Status> statuses = null;
+        if( screenName == null ) {
+            //自分自身のお気に入り取得
+            statuses = twitter.getFavorites();
+        }else {
+            statuses = twitter.getFavorites(screenName);
+        }
+        //リスト逆転 一番あたらしいtweetを一番下に
+        Collections.reverse(statuses);
+        return statuses;
+    }
+
+    /**
      * Twitterへログイン
      */
     public void loginTwitter() throws FileNotFoundException, IOException {
