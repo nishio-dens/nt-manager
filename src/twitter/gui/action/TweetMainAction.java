@@ -492,8 +492,13 @@ public class TweetMainAction {
     public void actionSetReplyStatusToTweetBoxPane() {
         //選択した部分
         this.setReplyStatus( currentStatus );
+
+        Status s = this.getCurrentStatus();
+        if( s.isRetweet() ) {
+            s = s.getRetweetedStatus();
+        }
         // コメントしたユーザ名
-        String username = this.getCurrentStatus().getUser().getScreenName();
+        String username = s.getUser().getScreenName();
         this.tweetBoxPane.setText("@" + username + " ");
 
         //情報表示
@@ -506,10 +511,14 @@ public class TweetMainAction {
     public void actionSetQuoteStatusToTweetBoxPane() {
         //選択した部分
         this.setReplyStatus( currentStatus );
+        Status s = this.getCurrentStatus();
+        if( s.isRetweet() ) {
+            s = s.getRetweetedStatus();
+        }
         // コメントしたユーザ名
-        String username = this.getCurrentStatus().getUser().getScreenName();
+        String username = s.getUser().getScreenName();
         // コメント
-        String message = this.getCurrentStatus().getText();
+        String message = s.getText();
         this.tweetBoxPane.setText("QT @" + username + ": " + message);
 
         //情報表示
@@ -520,10 +529,14 @@ public class TweetMainAction {
      * 選択したtweetを非公式RT
      */
     public void actionCopySelectedStatusToTweetBoxPane() {
+        Status s = this.getCurrentStatus();
+        if( s.isRetweet() ) {
+            s = s.getRetweetedStatus();
+        }
         // コメントしたユーザ名
-        String username = this.getCurrentStatus().getUser().getScreenName();
+        String username = s.getUser().getScreenName();
         // コメント
-        String message = this.getCurrentStatus().getText();
+        String message = s.getText();
         this.tweetBoxPane.setText("RT @" + username + ": " + message);
     }
 
@@ -628,7 +641,11 @@ public class TweetMainAction {
      */
     public void actionOpenUserURL() {
         try {
-            String userName = this.getCurrentStatus().getUser().getScreenName();
+            Status s = this.getCurrentStatus();
+            if( s.isRetweet() ) {
+                s = s.getRetweetedStatus();
+            }
+            String userName = s.getUser().getScreenName();
             Desktop.getDesktop().browse(new URI(TWITTER_URL + userName));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -950,6 +967,10 @@ public class TweetMainAction {
         //選択している行が1行だけの場合，情報を表示する
         if (sc == 1 && table != null) {
             Status st = getTweetTableInformation(table, table.getModel());
+            //RTの場合，もとの発言を表示
+            if( st.isRetweet() ) {
+                st = st.getRetweetedStatus();
+            }
             infoMessage = st.getText();
             // tweetMessageBox内のURLをhtmlリンクへ変換
             infoMessage = actionReplaceTweetMessageBoxURLLink(infoMessage);

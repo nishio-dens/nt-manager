@@ -52,8 +52,6 @@ public class TweetTabbedTable {
     private TweetManager tweetManager;
     //メインアクション
     private TweetMainAction mainAction;
-    //右クリックを押した時のポップアップ
-    private JPopupMenu rightClickPopup = null;
     //テーブルの高さ
     private int tableElementHeight;
     //新しく取得した部分のテーブルの色
@@ -287,86 +285,108 @@ public class TweetTabbedTable {
      * @return
      */
     private JPopupMenu getRightClickPopup() {
-        if (rightClickPopup == null) {
-            rightClickPopup = new JPopupMenu();
+        //if (rightClickPopup == null) {
+        JPopupMenu rightClickPopup = new JPopupMenu();
 
-            JMenuItem replyMenuItem = new JMenuItem("この発言に返信する(Reply)");
-            replyMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        JMenuItem replyMenuItem = new JMenuItem("この発言に返信する(Reply)");
+        replyMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // 選択したセルのステータスにreply
-                    mainAction.actionSetReplyStatusToTweetBoxPane();
-                }
-            });
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのステータスにreply
+                mainAction.actionSetReplyStatusToTweetBoxPane();
+            }
+        });
+ 
+        JMenuItem retweetMenuItem = new JMenuItem("発言を公式リツイート(RT)");
+        retweetMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのステータスをRetweet
+                mainAction.actionRetweet();
+            }
+        });
+       
+        JMenuItem quoteMenuItem = new JMenuItem("発言を引用ツイート(QT)");
+        quoteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのステータスをQT
+                mainAction.actionSetQuoteStatusToTweetBoxPane();
+            }
+        });
+        
+        JMenuItem unofficialRetweetMenuItem = new JMenuItem("発言をコメント付きリツイート(非公式RT)");
+        unofficialRetweetMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのステータスをコメント付Retweet
+                mainAction.actionCopySelectedStatusToTweetBoxPane();
+            }
+        });
+
+        JMenuItem directMessageMenuItem = new JMenuItem("ダイレクトメッセージを送信");
+        directMessageMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // ダイレクトメッセージ送信ダイアログを表示
+                mainAction.actionShowDirectMessageDialog();
+            }
+        });
+
+        JMenuItem statusBrowserMenuItem = new JMenuItem("この発言をブラウザで開く");
+        statusBrowserMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのステータスをブラウザで開く
+                mainAction.actionOpenStatusURL();
+            }
+        });
+
+        JMenuItem openBrowserUserInformationMenuItem = new JMenuItem(
+                "この人のTimelineをブラウザで開く");
+        openBrowserUserInformationMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのユーザ情報をブラウザで開く
+                mainAction.actionOpenUserURL();
+            }
+        });
+
+        //指定した発言がRTかどうか判定
+        int sc = table.getSelectedRowCount();
+        if (sc == 1 && table != null) {
+            Status st = mainAction.getTweetTableInformation(table, table.getModel());
+
+            //メニューアイテムを追加
+            //返信
             rightClickPopup.add(replyMenuItem);
-            
-            JMenuItem retweetMenuItem = new JMenuItem("発言を公式リツイート(RT)");
-            retweetMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // 選択したセルのステータスをRetweet
-                    mainAction.actionRetweet();
-                }
-            });
+            //公式RT
             rightClickPopup.add(retweetMenuItem);
-
-            JMenuItem quoteMenuItem = new JMenuItem("発言を引用ツイート(QT)");
-            quoteMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // 選択したセルのステータスをQT
-                    mainAction.actionSetQuoteStatusToTweetBoxPane();
-                }
-            });
+            //QT
             rightClickPopup.add(quoteMenuItem);
-
-            JMenuItem unofficialRetweetMenuItem = new JMenuItem("発言をコメント付きリツイート(非公式RT)");
-            unofficialRetweetMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // 選択したセルのステータスをコメント付Retweet
-                    mainAction.actionCopySelectedStatusToTweetBoxPane();
-                }
-            });
+            //非公式RT
             rightClickPopup.add(unofficialRetweetMenuItem);
-
-            JMenuItem directMessageMenuItem = new JMenuItem("ダイレクトメッセージを送信");
-            directMessageMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // ダイレクトメッセージ送信ダイアログを表示
-                    mainAction.actionShowDirectMessageDialog();
-                }
-            });
+            //ダイレクトメッセージ
             rightClickPopup.add(directMessageMenuItem);
-
-            JMenuItem statusBrowserMenuItem = new JMenuItem("この発言をブラウザで開く");
-            statusBrowserMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // 選択したセルのステータスをブラウザで開く
-                    mainAction.actionOpenStatusURL();
-                }
-            });
+            //発言をブラウザで開く
             rightClickPopup.add(statusBrowserMenuItem);
-
-            JMenuItem openBrowserUserInformationMenuItem = new JMenuItem(
-                    "この人のTimelineをブラウザで開く");
-            openBrowserUserInformationMenuItem.addActionListener(new java.awt.event.ActionListener() {
-
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // 選択したセルのユーザ情報をブラウザで開く
-                    mainAction.actionOpenUserURL();
-                }
-            });
+            //この人のtimelineを開く
             rightClickPopup.add(openBrowserUserInformationMenuItem);
+
+            if( st.isRetweet() ) {
+                //Retweetのときのみ表示するメニュー
+            }
+            if( st.isFavorited() ) {
+                //お気に入りに追加されている時のみ表示するメニュー
+            }
         }
+        //}
         return rightClickPopup;
     }
 
