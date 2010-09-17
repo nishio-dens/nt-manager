@@ -374,6 +374,11 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jScrollPane9.setMinimumSize(new java.awt.Dimension(26, 80));
 
         jTextPane.setMaximumSize(new java.awt.Dimension(2147483647, 20));
+        jTextPane.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextPaneCaretUpdate(evt);
+            }
+        });
         jTextPane.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextPaneFocusGained(evt);
@@ -676,6 +681,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jTextPaneCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextPaneCaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextPaneCaretUpdate
 
     /**
      *

@@ -106,6 +106,8 @@ public class TweetMainAction {
     private ConfigurationDialog configurationDialog = null;
     // 現在選択しているStatus情報
     private Status currentStatus = null;
+    // reply予定のStatus
+    private Status replyStatus = null;
     // 詳細情報パネル
     private JPanel detailInfoPanel = null;
     // ダイレクトメッセージ送信用ダイアログ
@@ -485,14 +487,44 @@ public class TweetMainAction {
     }
 
     /**
-     * 選択したtweetをRT
+     * reply設定
+     */
+    public void actionSetReplyStatusToTweetBoxPane() {
+        //選択した部分
+        this.setReplyStatus( currentStatus );
+        // コメントしたユーザ名
+        String username = this.getCurrentStatus().getUser().getScreenName();
+        this.tweetBoxPane.setText("@" + username + " ");
+
+        //情報表示
+        this.information(username + "さんに返信");
+    }
+
+    /**
+     * 引用Tweet
+     */
+    public void actionSetQuoteStatusToTweetBoxPane() {
+        //選択した部分
+        this.setReplyStatus( currentStatus );
+        // コメントしたユーザ名
+        String username = this.getCurrentStatus().getUser().getScreenName();
+        // コメント
+        String message = this.getCurrentStatus().getText();
+        this.tweetBoxPane.setText("QT @" + username + ": " + message);
+
+        //情報表示
+        this.information(username + "さんのメッセージを引用ツイート");
+    }
+
+    /**
+     * 選択したtweetを非公式RT
      */
     public void actionCopySelectedStatusToTweetBoxPane() {
         // コメントしたユーザ名
-        String username = this.currentStatus.getUser().getScreenName();
+        String username = this.getCurrentStatus().getUser().getScreenName();
         // コメント
-        String message = this.currentStatus.getText();
-        this.tweetBoxPane.setText("RT: @" + username + ": " + message);
+        String message = this.getCurrentStatus().getText();
+        this.tweetBoxPane.setText("RT @" + username + ": " + message);
     }
 
     /**
@@ -579,9 +611,9 @@ public class TweetMainAction {
     public void actionOpenStatusURL() {
         try {
             // ユーザ名
-            String userName = this.currentStatus.getUser().getScreenName();
+            String userName = this.getCurrentStatus().getUser().getScreenName();
             // 発言のstatusID
-            long statusID = this.currentStatus.getId();
+            long statusID = this.getCurrentStatus().getId();
             Desktop.getDesktop().browse(
                     new URI(TWITTER_URL + userName + "/statuses/" + statusID));
         } catch (Exception ex) {
@@ -596,7 +628,7 @@ public class TweetMainAction {
      */
     public void actionOpenUserURL() {
         try {
-            String userName = this.currentStatus.getUser().getScreenName();
+            String userName = this.getCurrentStatus().getUser().getScreenName();
             Desktop.getDesktop().browse(new URI(TWITTER_URL + userName));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -711,10 +743,10 @@ public class TweetMainAction {
      */
     public void actionRetweet() {
         Status status = null;
-        if( this.currentStatus.isRetweet() ) {
-            status = this.currentStatus.getRetweetedStatus();
+        if( this.getCurrentStatus().isRetweet() ) {
+            status = this.getCurrentStatus().getRetweetedStatus();
         }else {
-            status = this.currentStatus;
+            status = this.getCurrentStatus();
         }
 
         // 選択しているtweetのstatus id
@@ -807,8 +839,16 @@ public class TweetMainAction {
      * tweetBoxPaneに書かれた文字をつぶやく
      */
     public void actionTweet() {
-        tweetManager.tweet(tweetBoxPane.getText());
+        if( this.replyStatus != null ) {
+            tweetManager.replyTweet(tweetBoxPane.getText(), this.replyStatus.getId());
+        }else {
+            tweetManager.tweet(tweetBoxPane.getText());
+        }
+        //ツイートした旨を表示
+        this.information("メッセージをつぶやきました. 発言:" + tweetBoxPane.getText());
+        
         tweetBoxPane.setText(""); // テキストをクリア
+        
     }
 
     /**
@@ -845,6 +885,11 @@ public class TweetMainAction {
             len = 0;
         }
         tweetMessageCountLabel.setText(len + "");
+
+        //残りつぶやき数140の場合，reply状態も解除する
+        if( len == 140 ) {
+            this.setReplyStatus(null);
+        }
     }
 
     /**
@@ -974,7 +1019,7 @@ public class TweetMainAction {
             // 現在選択したセルのユーザURLを保存しておく
             this.selectedUserImageURL = status.getUser().getProfileImageURL();
             // 選択したStatusを保存しておく
-            this.currentStatus = status;
+            this.setCurrentStatus(status);
         }
         return status;
     }
@@ -1251,5 +1296,36 @@ public class TweetMainAction {
      */
     public void setGetSendDirectMessagePeriod(int getSendDirectMessagePeriod) {
         this.getSendDirectMessagePeriod = getSendDirectMessagePeriod;
+    }
+
+    /**
+     * @return the currentStatus
+     */
+    public Status getCurrentStatus() {
+        return currentStatus;
+    }
+
+    /**
+     * @param currentStatus the currentStatus to set
+     */
+    public void setCurrentStatus(Status currentStatus) {
+        this.currentStatus = currentStatus;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public Status getReplyStatus() {
+        return replyStatus;
+    }
+
+    /**
+     *
+     * @param status
+     * @return
+     */
+    public void setReplyStatus(Status status) {
+        this.replyStatus = status;
     }
 }
