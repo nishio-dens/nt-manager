@@ -375,16 +375,8 @@ public class TweetTabbedTable {
         if (sc == 1 && table != null) {
             Status st = mainAction.getTweetTableInformation(table, table.getModel());
 
-            //発言した人のscreenName取得
-            String screenName = null;
-            if( st.isRetweet() ) {
-                screenName = st.getRetweetedStatus().getUser().getScreenName();
-            }else {
-                screenName = st.getUser().getScreenName();
-            }
-
             JMenuItem openBrowserUserInformationMenuItem = new JMenuItem(
-                    screenName + "のTimelineをブラウザで開く");
+                    "この人のTimelineをブラウザで開く");
             openBrowserUserInformationMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
                 @Override
@@ -395,7 +387,7 @@ public class TweetTabbedTable {
             });
 
             JMenuItem openFavMenuItem = new JMenuItem(
-                    screenName + "のお気に入りを開く");
+                   "この人のお気に入りを開く");
             openFavMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
                 @Override
@@ -424,15 +416,20 @@ public class TweetTabbedTable {
             //この人のfavを開く
             rightClickPopup.add(openFavMenuItem);
 
-            if( st.isRetweet() ) {
-                //Retweetのときのみ表示するメニュー
-            }
-            if( st.isFavorited() ) {
-                //お気に入りに追加されている時のみ表示するメニュー
-                //お気に入り追加
-                rightClickPopup.add(destroyFavMenuItem);
-            }else {
-                rightClickPopup.add(createFavMenuItem);
+            try {
+                if (st.isRetweet()) {
+                    //Retweetのときのみ表示するメニュー
+                }
+                if (st.isFavorited()) {
+                    //お気に入りに追加されている時のみ表示するメニュー
+                    //お気に入り追加
+                    rightClickPopup.add(destroyFavMenuItem);
+                } else {
+                    rightClickPopup.add(createFavMenuItem);
+                }
+            }catch(Exception e) {
+                //TODO:ここの無視部分をなんとかする
+                //DMのときはisFavoritedができない
             }
         }
         //}
