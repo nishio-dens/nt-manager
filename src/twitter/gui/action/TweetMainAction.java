@@ -57,6 +57,7 @@ import twitter.gui.component.TweetTableModel;
 import twitter.gui.form.AboutDialog;
 import twitter.gui.form.AccountDialog;
 import twitter.gui.form.ConfigurationDialog;
+import twitter.gui.form.ConfigurationDialog2;
 import twitter.gui.form.DirectMessageDialog;
 import twitter.gui.form.KeywordSearchDialog;
 import twitter.manage.TweetConfiguration;
@@ -104,7 +105,7 @@ public class TweetMainAction {
     // twitterの公式URL
     private static final String TWITTER_URL = "http://twitter.com/";
     // 基本設定用ダイアログ
-    private ConfigurationDialog configurationDialog = null;
+    private ConfigurationDialog2 configurationDialog = null;
     // 現在選択しているStatus情報
     private Status currentStatus = null;
     // reply予定のStatus
@@ -286,7 +287,7 @@ public class TweetMainAction {
             if( timerID.equals( TimerID.createTimelineID() ) ) {
                 //TLの周期情報更新
                 this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetTimelinePeriod(), false);
-            }else if( timerID.equals( TimerID.createMentionID() ) ) {
+            /*}else if( timerID.equals( TimerID.createMentionID() ) ) {
                 //Mentionの周期情報更新
                 this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetMentionPeriod(), false );
             }else if( timerID.equals( TimerID.createDirectMessageID() ) ) {
@@ -295,7 +296,7 @@ public class TweetMainAction {
             }else if( timerID.equals( TimerID.createSendDirectMessageID() ) ) {
                 //SendDMの周期情報更新
                 this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetSendDirectMessagePeriod(), false);
-            }
+            */}
         }
     }
 
@@ -507,7 +508,7 @@ public class TweetMainAction {
         // ダイレクトメッセージ送信用ダイアログを開く
         Point loc = getConfigurationDialog().getLocation();
         loc.translate(20, 20);
-        ConfigurationDialog dialog = getConfigurationDialog();
+        ConfigurationDialog2 dialog = getConfigurationDialog();
         dialog.setLocation(loc);
         dialog.setVisible(true);
     }
@@ -1026,9 +1027,9 @@ public class TweetMainAction {
      *
      * @return
      */
-    public ConfigurationDialog getConfigurationDialog() {
+    public ConfigurationDialog2 getConfigurationDialog() {
         if (configurationDialog == null) {
-            configurationDialog = new ConfigurationDialog(mainFrame, this);
+            configurationDialog = new ConfigurationDialog2(mainFrame, true, this);
         }
         return configurationDialog;
     }

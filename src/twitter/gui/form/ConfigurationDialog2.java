@@ -11,6 +11,15 @@
 
 package twitter.gui.form;
 
+import java.awt.Color;
+import java.awt.GraphicsEnvironment;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JColorChooser;
+import twitter.gui.action.TweetMainAction;
+
 /**
  *
  * @author nishio
@@ -18,10 +27,81 @@ package twitter.gui.form;
 public class ConfigurationDialog2 extends javax.swing.JDialog {
 
     /** Creates new form ConfigurationDialog2 */
-    public ConfigurationDialog2(java.awt.Frame parent, boolean modal) {
+    public ConfigurationDialog2(java.awt.Frame parent, boolean modal, TweetMainAction mainAction) {
         super(parent, modal);
         initComponents();
+
+        this.mainAction = mainAction;
+        init();
     }
+
+    /**
+     * 初期化
+     */
+    public void init() {
+        // 利用可能なフォント一覧を取得しておく
+		this.fonts = GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getAvailableFontFamilyNames();
+		// 利用可能なフォント一覧を設定しておく
+		if (fonts != null) {
+			for (String f : fonts) {
+				fontModel.addElement(f);
+				fontModel2.addElement(f);
+			}
+		}
+		// 利用可能なフォントサイズを設定しておく
+		String[] fontSize = { "8", "9", "10", "11", "12", "13", "14", "15",
+				"16", "17", "18" };
+		for (String f : fontSize) {
+			fontSizeModel.addElement(f);
+			fontSizeModel2.addElement(f);
+		}
+
+        //読み込んだ情報を反映
+        applyLoadInformation();
+    }
+
+    /**
+     * 読み込んだ情報を反映
+     */
+    public void applyLoadInformation() {
+        try {
+            // 画面が見えたときに情報更新
+            jSpinner1.setValue( mainAction.getGetTimelinePeriod() );
+            jSpinner2.setValue( mainAction.getGetMentionPeriod() );
+            jSpinner3.setValue( mainAction.getGetDirectMessagePeriod() );
+            jSpinner4.setValue( mainAction.getGetSendDirectMessagePeriod() );
+
+			jLabel10.setBackground(mainAction.getNewTableColor());
+
+			// font関係
+			if (mainAction.getTlFontName() != null) {
+				jComboBox1.setSelectedItem(mainAction.getTlFontName());
+			}
+			if (mainAction.getDetailFontName() != null) {
+				jComboBox2.setSelectedItem(mainAction.getDetailFontName());
+			}
+			jComboBox3.setSelectedItem(mainAction.getTlFontSize() + "");
+			jComboBox4.setSelectedItem(mainAction.getDetailFontSize() + "");
+
+			// 表示
+			jSpinner5.setValue(mainAction.getTableElementHeight());
+
+            
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+
+    /**
+     * 
+     */
+    @Override
+	public void setVisible(boolean b) {
+		super.setVisible(b);
+        applyLoadInformation();
+	}
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -68,11 +148,35 @@ public class ConfigurationDialog2 extends javax.swing.JDialog {
 
         jLabel1.setText("タイムライン更新間隔 [秒]");
 
+        jSpinner1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner1StateChanged(evt);
+            }
+        });
+
         jLabel2.setText("Mention更新間隔 [秒]");
+
+        jSpinner2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner2StateChanged(evt);
+            }
+        });
 
         jLabel3.setText("ダイレクトメッセージ更新間隔 [秒]");
 
+        jSpinner3.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner3StateChanged(evt);
+            }
+        });
+
         jLabel4.setText("送信済みダイレクトメッセージ更新間隔 [秒]");
+
+        jSpinner4.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner4StateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,13 +235,13 @@ public class ConfigurationDialog2 extends javax.swing.JDialog {
 
         jLabel8.setText("詳細情報のフォントサイズ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(fontModel);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(fontModel2);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(fontSizeModel);
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox4.setModel(fontSizeModel2);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -194,6 +298,11 @@ public class ConfigurationDialog2 extends javax.swing.JDialog {
 
         jLabel10.setBackground(java.awt.Color.black);
         jLabel10.setOpaque(true);
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -231,6 +340,12 @@ public class ConfigurationDialog2 extends javax.swing.JDialog {
 
         jLabel11.setText("タイムラインのテーブルの高さ");
 
+        jSpinner5.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner5StateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -255,8 +370,18 @@ public class ConfigurationDialog2 extends javax.swing.JDialog {
         jTabbedPane1.addTab("表示", jPanel4);
 
         jButton1.setText("設定を保存");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("キャンセル");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -284,22 +409,129 @@ public class ConfigurationDialog2 extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ConfigurationDialog2 dialog = new ConfigurationDialog2(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        Color c = JColorChooser.showDialog(this, "テーブルカラーの選択",
+                mainAction.getNewTableColor());
+        if (c != null) {
+            jLabel10.setBackground(c);
+        }
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jSpinner5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner5StateChanged
+        	// テーブルの高さを更新
+        Integer val = Integer.parseInt( jSpinner5.getValue().toString() );
+        if( val == null ) {
+            val = 50;
+        }
+        if( val < 0 ) {
+            val = 0;
+            jSpinner5.setValue(0);
+        }
+        mainAction.updateTableHeight( val );
+    }//GEN-LAST:event_jSpinner5StateChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // 更新間隔情報
+            mainAction.setGetTimelinePeriod(Integer.parseInt(jSpinner1.getValue().toString()));
+            mainAction.setGetMentionPeriod(Integer.parseInt(jSpinner2.getValue().toString()));
+            mainAction.setGetDirectMessagePeriod(Integer.parseInt(jSpinner3.getValue().toString()));
+            mainAction.setGetSendDirectMessagePeriod(Integer.parseInt(jSpinner4.getValue().toString()));
+
+            mainAction.setNewTableColor(jLabel10.getBackground());
+
+            // フォント情報
+            mainAction.setTlFontName((String) jComboBox1.getSelectedItem());
+            mainAction.setDetailFontName((String) jComboBox2.getSelectedItem());
+            mainAction.setTlFontSize(Integer.parseInt((String) jComboBox3.getSelectedItem()));
+            mainAction.setDetailFontSize(Integer.parseInt((String) jComboBox4.getSelectedItem()));
+            // フォント情報反映
+            mainAction.updateFontInformationToComponent();
+
+            //更新間隔反映
+            //mainAction.updatePeriodInformationToComponent();
+
+            // 表示
+            mainAction.setTableElementHeight(Integer.parseInt( jSpinner5.getValue().toString() ));
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+        try {
+            //設定保存
+            mainAction.saveProperties();
+        } catch (IOException ex) {
+            Logger.getLogger(ConfigurationDialog2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
+        Integer val = Integer.parseInt(jSpinner1.getValue().toString());
+        if (val == null) {
+            //最小値30
+            val = MIN_PERIOD * 2;
+        }
+        if (val < MIN_PERIOD) {
+            val = MIN_PERIOD;
+            jSpinner1.setValue(MIN_PERIOD);
+        }
+    }//GEN-LAST:event_jSpinner1StateChanged
+
+    private void jSpinner2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner2StateChanged
+        Integer val = Integer.parseInt(jSpinner2.getValue().toString());
+        if (val == null) {
+            //最小値30
+            val = MIN_PERIOD * 2;
+        }
+        if (val < MIN_PERIOD) {
+            val = MIN_PERIOD;
+            jSpinner2.setValue(MIN_PERIOD);
+        }
+    }//GEN-LAST:event_jSpinner2StateChanged
+
+    private void jSpinner3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner3StateChanged
+        Integer val = Integer.parseInt(jSpinner3.getValue().toString());
+        if (val == null) {
+            //最小値30
+            val = MIN_PERIOD * 2;
+        }
+        if (val < MIN_PERIOD) {
+            val = MIN_PERIOD;
+            jSpinner3.setValue(MIN_PERIOD);
+        }
+    }//GEN-LAST:event_jSpinner3StateChanged
+
+    private void jSpinner4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner4StateChanged
+        Integer val = Integer.parseInt(jSpinner4.getValue().toString());
+        if (val == null) {
+            //最小値30
+            val = MIN_PERIOD * 2;
+        }
+        if (val < MIN_PERIOD) {
+            val = MIN_PERIOD;
+            jSpinner4.setValue(MIN_PERIOD);
+        }
+    }//GEN-LAST:event_jSpinner4StateChanged
+
+    //twitter
+    private TweetMainAction mainAction;
+    // 利用可能なフォント一覧
+	private String[] fonts = null;
+    // フォント一覧コンボボックスのモデル
+	private final DefaultComboBoxModel fontModel = new DefaultComboBoxModel();
+	private final DefaultComboBoxModel fontModel2 = new DefaultComboBoxModel();
+	// フォントサイズコンボボックスのモデル
+	private final DefaultComboBoxModel fontSizeModel = new DefaultComboBoxModel();
+	private final DefaultComboBoxModel fontSizeModel2 = new DefaultComboBoxModel();
+
+    //情報更新最小値
+    private final int MIN_PERIOD = 30;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
