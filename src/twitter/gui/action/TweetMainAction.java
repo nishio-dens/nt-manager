@@ -287,7 +287,7 @@ public class TweetMainAction {
             if( timerID.equals( TimerID.createTimelineID() ) ) {
                 //TLの周期情報更新
                 this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetTimelinePeriod(), false);
-            /*}else if( timerID.equals( TimerID.createMentionID() ) ) {
+            }else if( timerID.equals( TimerID.createMentionID() ) ) {
                 //Mentionの周期情報更新
                 this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetMentionPeriod(), false );
             }else if( timerID.equals( TimerID.createDirectMessageID() ) ) {
@@ -296,7 +296,7 @@ public class TweetMainAction {
             }else if( timerID.equals( TimerID.createSendDirectMessageID() ) ) {
                 //SendDMの周期情報更新
                 this.tweetTaskManager.updateTaskPeriod(timerID, this.getGetSendDirectMessagePeriod(), false);
-            */}
+            }
         }
     }
 
