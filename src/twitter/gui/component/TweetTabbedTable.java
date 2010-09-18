@@ -289,6 +289,7 @@ public class TweetTabbedTable {
         JPopupMenu rightClickPopup = new JPopupMenu();
 
         JMenuItem replyMenuItem = new JMenuItem("この発言に返信(Reply)");
+        replyMenuItem.setMnemonic('R');
         replyMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -298,6 +299,7 @@ public class TweetTabbedTable {
         });
         
         JMenuItem replyAllMenuItem = new JMenuItem("この発言に返信(Reply All)");
+        replyAllMenuItem.setMnemonic('A');
         replyAllMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -308,6 +310,7 @@ public class TweetTabbedTable {
 
  
         JMenuItem retweetMenuItem = new JMenuItem("発言を公式リツイート(RT)");
+        retweetMenuItem.setMnemonic('R');
         retweetMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             @Override
@@ -318,6 +321,7 @@ public class TweetTabbedTable {
         });
        
         JMenuItem quoteMenuItem = new JMenuItem("発言を引用ツイート(QT)");
+        quoteMenuItem.setMnemonic('Q');
         quoteMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             @Override
@@ -328,6 +332,7 @@ public class TweetTabbedTable {
         });
         
         JMenuItem unofficialRetweetMenuItem = new JMenuItem("発言をコメント付きリツイート(非公式RT)");
+        unofficialRetweetMenuItem.setMnemonic('T');
         unofficialRetweetMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             @Override
@@ -337,7 +342,8 @@ public class TweetTabbedTable {
             }
         });
 
-        JMenuItem directMessageMenuItem = new JMenuItem("ダイレクトメッセージを送信");
+        JMenuItem directMessageMenuItem = new JMenuItem("ダイレクトメッセージを送信(D)");
+        directMessageMenuItem.setMnemonic('D');
         directMessageMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             @Override
@@ -347,7 +353,8 @@ public class TweetTabbedTable {
             }
         });
 
-        JMenuItem statusBrowserMenuItem = new JMenuItem("この発言をブラウザで開く");
+        JMenuItem statusBrowserMenuItem = new JMenuItem("この発言をブラウザで開く(O)");
+        statusBrowserMenuItem.setMnemonic('O');
         statusBrowserMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             @Override
@@ -358,7 +365,8 @@ public class TweetTabbedTable {
         });
         
         JMenuItem createFavMenuItem = new JMenuItem(
-                "この発言をお気に入りに追加");
+                "この発言をお気に入りに追加(F)");
+        createFavMenuItem.setMnemonic('F');
         createFavMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
             @Override
@@ -386,7 +394,8 @@ public class TweetTabbedTable {
             Status st = mainAction.getTweetTableInformation(table, table.getModel());
 
             JMenuItem openBrowserUserInformationMenuItem = new JMenuItem(
-                    "この人のTimelineをブラウザで開く");
+                    "この人のTimelineをブラウザで開く(B)");
+            openBrowserUserInformationMenuItem.setMnemonic('B');
             openBrowserUserInformationMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
                 @Override
