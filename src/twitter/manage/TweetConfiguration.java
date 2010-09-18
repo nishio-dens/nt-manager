@@ -23,4 +23,6 @@ public class TweetConfiguration {
 	public static final String BASIC_SETTING_FILENAME = "setting.properties";
     //アカウント情報を保存するファイル名
     public static final String ACCOUNT_INFORMATION_FILENAME = "account.properties";
+    // search twitterのURL
+    public static final String SEARCH_TWITTER_HOSTNAME = "search.twitter.com";
 }

@@ -567,7 +567,7 @@
                 <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="tweetMessageBoxComponentResized"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tweetMessageBox.addHyperlinkListener(new TweetHyperlinkHandler());"/>
+                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tweetMessageBox.addHyperlinkListener(hashTagHyperlinkListener);"/>
               </AuxValues>
             </Component>
           </SubComponents>

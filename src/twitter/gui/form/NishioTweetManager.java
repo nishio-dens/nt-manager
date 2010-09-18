@@ -35,6 +35,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
 import twitter.gui.action.TweetMainAction;
+import twitter.gui.component.TweetHashtagHyperlinkHandler;
 import twitter.gui.component.TweetHyperlinkHandler;
 import twitter.manage.TweetManager;
 import twitter.task.TimerID;
@@ -47,6 +48,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
     private SystemTray systemTray;
     private TrayIcon trayIcon;
+    private TweetHashtagHyperlinkHandler hashTagHyperlinkListener = new TweetHashtagHyperlinkHandler();
 
     /** Creates new form NishioTweetManager */
     public NishioTweetManager() {
@@ -237,7 +239,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
                 tweetMessageBoxComponentResized(evt);
             }
         });
-        tweetMessageBox.addHyperlinkListener(new TweetHyperlinkHandler());
+        tweetMessageBox.addHyperlinkListener(hashTagHyperlinkListener);
         jScrollPane5.setViewportView(tweetMessageBox);
 
         jLabel3.setText("ユーザ名");
@@ -1198,6 +1200,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
                 clientNameLabel, updateLabel, userIntroBox, userWebBox, 
                 jToggleButton3, jToggleButton4, jToggleButton5, jToggleButton6,
                 jCheckBoxMenuItem3,jCheckBoxMenuItem4, jCheckBoxMenuItem5, jCheckBoxMenuItem6);
+        //ハッシュタグ用のハイパーリンクリスナーにアクション登録
+        this.hashTagHyperlinkListener.setMainAction(mainAction);
         //もしログインに失敗したら，アカウント設定画面を出す
         if (login == false) {
             mainAction.actionShowAccountDialog();

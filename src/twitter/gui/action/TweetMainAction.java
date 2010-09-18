@@ -90,7 +90,7 @@ public class TweetMainAction {
     // search twitterのクエリ
     private static final String SEARCH_QUERY = "search?q=";
     // search twitterのURL
-    private static final String SEARCH_TWITTER_URL = "http://search.twitter.com/";
+    private static final String SEARCH_TWITTER_URL = "http://" + TweetConfiguration.SEARCH_TWITTER_HOSTNAME + "/";
     // Direct Messageタブに表示する文字
     public static final String TAB_DIRECT_MESSAGE_STRING = "Message";
     // Mentionタブに表示する文字
