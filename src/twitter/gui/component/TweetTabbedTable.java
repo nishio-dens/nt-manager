@@ -296,6 +296,16 @@ public class TweetTabbedTable {
                 mainAction.actionSetReplyStatusToTweetBoxPane();
             }
         });
+        
+        JMenuItem replyAllMenuItem = new JMenuItem("この発言に返信(Reply All)");
+        replyAllMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのステータスにreply all
+                mainAction.actionSetReplyAllStatusToTweetBoxPane();
+            }
+        });
+
  
         JMenuItem retweetMenuItem = new JMenuItem("発言を公式リツイート(RT)");
         retweetMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -401,6 +411,8 @@ public class TweetTabbedTable {
             //メニューアイテムを追加
             //返信
             rightClickPopup.add(replyMenuItem);
+            //返信all
+            rightClickPopup.add(replyAllMenuItem);
             //公式RT
             rightClickPopup.add(retweetMenuItem);
             //QT

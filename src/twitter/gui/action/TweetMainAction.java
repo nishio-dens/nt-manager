@@ -621,6 +621,25 @@ public class TweetMainAction {
     }
 
     /**
+     * reply All設定
+     */
+    public void actionSetReplyAllStatusToTweetBoxPane() {
+        //選択し多分
+        this.setReplyStatus(null);
+
+        Status s = this.getCurrentStatus();
+        if( s.isRetweet() ) {
+            s = s.getRetweetedStatus();
+        }
+        // コメントしたユーザ名
+        String username = s.getUser().getScreenName();
+        this.tweetBoxPane.setText("@" + username + " ");
+
+        //情報表示
+        this.information(username + "さんに返信");
+    }
+
+    /**
      * 引用Tweet
      */
     public void actionSetQuoteStatusToTweetBoxPane() {
