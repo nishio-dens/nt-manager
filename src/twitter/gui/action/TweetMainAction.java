@@ -144,7 +144,7 @@ public class TweetMainAction {
     // 自分がつぶやきをかく領域
     private JTextPane tweetBoxPane = null;
     //自分がつぶやきを書く領域のスクロールペーン
-    private JScrollPane tweetBoxScrollPane = null;
+    private JPanel tweetBoxRegionPane = null;
     // tweet情報などを表示するタブ
     private JTabbedPane tweetMainTab = null;
     // Tweet管理
@@ -218,7 +218,7 @@ public class TweetMainAction {
             TweetManager tweetManager,
             JLabel statusBarLabel,
             JTextPane tweetBoxPane,
-            JScrollPane tweetBoxScrollPane,
+            JPanel tweetBoxScrollPane,
             JLabel tweetMessageCountLabel,
             JPanel detailInfoPanel,
             JTabbedPane tweetMainTab,
@@ -241,7 +241,7 @@ public class TweetMainAction {
         this.detailInfoPanel = detailInfoPanel;
         this.tweetMainTab = tweetMainTab;
         this.tweetMessageBox = tweetMessageBox;
-        this.tweetBoxScrollPane = tweetBoxScrollPane;
+        this.tweetBoxRegionPane = tweetBoxScrollPane;
 
         //詳細情報部分
         this.userImageLabel = userImageLabel;
@@ -584,10 +584,10 @@ public class TweetMainAction {
      * @param e
      */
     public void actionShowTweetboxButton(ActionEvent e) {
-        if( this.tweetBoxScrollPane.isVisible() ) {
-            this.tweetBoxScrollPane.setVisible(false);
+        if( this.tweetBoxRegionPane.isVisible() ) {
+            this.tweetBoxRegionPane.setVisible(false);
         }else {
-            this.tweetBoxScrollPane.setVisible(true);
+            this.tweetBoxRegionPane.setVisible(true);
         }
     }
 
