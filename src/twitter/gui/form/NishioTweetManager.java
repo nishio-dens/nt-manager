@@ -21,7 +21,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
@@ -33,6 +37,7 @@ import javax.swing.text.html.StyleSheet;
 import twitter.gui.action.TweetMainAction;
 import twitter.gui.component.TweetHyperlinkHandler;
 import twitter.manage.TweetManager;
+import twitter.task.TimerID;
 
 /**
  *
@@ -50,6 +55,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
         initComponents2();
         //twitterコード初期化
         init();
+        //checkboxの更新
+        updateSelectedInformation();
     }
 
     /**
@@ -116,6 +123,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         }
     }
 
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -151,7 +159,17 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         statusBar = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        jButton2 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
         jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        jToggleButton3 = new javax.swing.JToggleButton();
+        jToggleButton4 = new javax.swing.JToggleButton();
+        jToggleButton5 = new javax.swing.JToggleButton();
+        jToggleButton6 = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jTextPane = new javax.swing.JTextPane();
@@ -169,6 +187,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem3 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem4 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem5 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem6 = new javax.swing.JCheckBoxMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -179,6 +201,12 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setTitle("Nishio Tweet Manager");
+
+        jTabbedPane1.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentRemoved(java.awt.event.ContainerEvent evt) {
+                jTabbedPane1ComponentRemoved(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -381,11 +409,99 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jToggleButton1.setText("jToggleButton1");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Refresh24.gif"))); // NOI18N
+        jButton1.setToolTipText("今すぐ更新");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton1);
+        jToolBar1.add(jSeparator1);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Find24.gif"))); // NOI18N
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton2);
+        jToolBar1.add(jSeparator2);
+
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/syousai.PNG"))); // NOI18N
+        jToggleButton1.setSelected(true);
         jToggleButton1.setFocusable(false);
         jToggleButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jToggleButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jToggleButton1);
+
+        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/write.PNG"))); // NOI18N
+        jToggleButton2.setSelected(true);
+        jToggleButton2.setFocusable(false);
+        jToggleButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton2);
+        jToolBar1.add(jSeparator3);
+
+        jToggleButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/timeline.PNG"))); // NOI18N
+        jToggleButton3.setFocusable(false);
+        jToggleButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton3);
+
+        jToggleButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/mention.PNG"))); // NOI18N
+        jToggleButton4.setFocusable(false);
+        jToggleButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton4ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton4);
+
+        jToggleButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/directmessage.PNG"))); // NOI18N
+        jToggleButton5.setFocusable(false);
+        jToggleButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton5ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton5);
+
+        jToggleButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/sendMessage.PNG"))); // NOI18N
+        jToggleButton6.setFocusable(false);
+        jToggleButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton6ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton6);
 
         jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane9.setMaximumSize(new java.awt.Dimension(32767, 80));
@@ -538,6 +654,42 @@ public class NishioTweetManager extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jCheckBoxMenuItem2);
+
+        jCheckBoxMenuItem3.setSelected(true);
+        jCheckBoxMenuItem3.setText("Timelineタブを表示");
+        jCheckBoxMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem3);
+
+        jCheckBoxMenuItem4.setSelected(true);
+        jCheckBoxMenuItem4.setText("Mentionタブを表示");
+        jCheckBoxMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem4);
+
+        jCheckBoxMenuItem5.setSelected(true);
+        jCheckBoxMenuItem5.setText("ダイレクトメッセージタブを表示");
+        jCheckBoxMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem5);
+
+        jCheckBoxMenuItem6.setSelected(true);
+        jCheckBoxMenuItem6.setText("送信済みメッセージタブの表示");
+        jCheckBoxMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem6);
 
         jMenuItem9.setText("Debug");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
@@ -708,6 +860,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
         // 詳細情報ボタンを押した時の動作
         mainAction.actionDetailInfoButton(evt);
+        jCheckBoxMenuItem1.setSelected( mainAction.isDetailInfoPanelVisible() );
+        jToggleButton1.setSelected( mainAction.isDetailInfoPanelVisible() );
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
     private void jCheckBoxMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem2ActionPerformed
@@ -715,7 +869,102 @@ public class NishioTweetManager extends javax.swing.JFrame {
         mainAction.actionShowTweetboxButton(evt);
         this.invalidate();
         this.validate();
+
+        jCheckBoxMenuItem2.setSelected( mainAction.isShowTweetBoxVisible() );
+        jToggleButton2.setSelected( mainAction.isShowTweetBoxVisible() );
     }//GEN-LAST:event_jCheckBoxMenuItem2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jMenuItem10ActionPerformed(evt);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jMenuItem6ActionPerformed(evt);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        jCheckBoxMenuItem1ActionPerformed(evt);
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        jCheckBoxMenuItem2ActionPerformed(evt);
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jCheckBoxMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem3ActionPerformed
+        if( mainAction.isExistTimelineTab() ) {
+            //タイムラインタブを削除
+            mainAction.actionRemoveTabbedTable( TimerID.createTimelineID() );
+            jCheckBoxMenuItem3.setSelected(false);
+            jToggleButton3.setSelected(false);
+        }else {
+            //タイムラインタブを追加
+            mainAction.actionAddTimelineTab( mainAction.getGetTimelinePeriod() );
+            jCheckBoxMenuItem3.setSelected(true);
+            jToggleButton3.setSelected(true);
+        }
+    }//GEN-LAST:event_jCheckBoxMenuItem3ActionPerformed
+
+    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
+        jCheckBoxMenuItem3ActionPerformed(evt);
+    }//GEN-LAST:event_jToggleButton3ActionPerformed
+
+    private void jTabbedPane1ComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jTabbedPane1ComponentRemoved
+        
+    }//GEN-LAST:event_jTabbedPane1ComponentRemoved
+
+    private void jCheckBoxMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem4ActionPerformed
+        if( mainAction.isExistMentionTab() ) {
+            //mentionタブを削除
+            mainAction.actionRemoveTabbedTable( TimerID.createMentionID() );
+            jCheckBoxMenuItem4.setSelected(false);
+            jToggleButton4.setSelected(false);
+        }else {
+            //mentionタブを追加
+            mainAction.actionAddMentionTab( mainAction.getGetMentionPeriod() );
+            jCheckBoxMenuItem4.setSelected(true);
+            jToggleButton4.setSelected(true);
+        }
+    }//GEN-LAST:event_jCheckBoxMenuItem4ActionPerformed
+
+    private void jCheckBoxMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem5ActionPerformed
+        if( mainAction.isExistDirectMessageTab() ) {
+            //dmタブを削除
+            mainAction.actionRemoveTabbedTable( TimerID.createDirectMessageID() );
+            jCheckBoxMenuItem5.setSelected(false);
+            jToggleButton5.setSelected(false);
+        }else {
+            //dmタブを追加
+            mainAction.actionAddDirectMessageTab( mainAction.getGetDirectMessagePeriod() );
+            jCheckBoxMenuItem5.setSelected(true);
+            jToggleButton5.setSelected(true);
+        }
+    }//GEN-LAST:event_jCheckBoxMenuItem5ActionPerformed
+
+    private void jCheckBoxMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem6ActionPerformed
+        if( mainAction.isExistSendDirectMessageTab() ) {
+            //タイムラインタブを削除
+            mainAction.actionRemoveTabbedTable( TimerID.createSendDirectMessageID() );
+            jCheckBoxMenuItem6.setSelected(false);
+            jToggleButton6.setSelected(false);
+        }else {
+            //タイムラインタブを追加
+            mainAction.actionAddSendDirectMessageTab( mainAction.getGetSendDirectMessagePeriod() );
+            jCheckBoxMenuItem6.setSelected(true);
+            jToggleButton6.setSelected(true);
+        }
+    }//GEN-LAST:event_jCheckBoxMenuItem6ActionPerformed
+
+    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
+        jCheckBoxMenuItem4ActionPerformed(evt);
+    }//GEN-LAST:event_jToggleButton4ActionPerformed
+
+    private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
+        jCheckBoxMenuItem5ActionPerformed(evt);
+    }//GEN-LAST:event_jToggleButton5ActionPerformed
+
+    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
+        jCheckBoxMenuItem6ActionPerformed(evt);
+    }//GEN-LAST:event_jToggleButton6ActionPerformed
 
     /**
      *
@@ -762,7 +1011,9 @@ public class NishioTweetManager extends javax.swing.JFrame {
         mainAction = new TweetMainAction(this, tweetManager, statusBar,
                 jTextPane, jPanel3, tweetLengthLabel, jPanel1, jTabbedPane1, tweetMessageBox, userImageLabel,
                 userNameLabel, updateTimeLabel, followerLabel, followingLabel, locationLabel,
-                clientNameLabel, updateLabel, userIntroBox, userWebBox);
+                clientNameLabel, updateLabel, userIntroBox, userWebBox, 
+                jToggleButton3, jToggleButton4, jToggleButton5, jToggleButton6,
+                jCheckBoxMenuItem3,jCheckBoxMenuItem4, jCheckBoxMenuItem5, jCheckBoxMenuItem6);
         //もしログインに失敗したら，アカウント設定画面を出す
         if (login == false) {
             mainAction.actionShowAccountDialog();
@@ -776,6 +1027,21 @@ public class NishioTweetManager extends javax.swing.JFrame {
             //this.mainAction.actionAddSendDirectMessageTab( this.mainAction.getGetSendDirectMessagePeriod() );
         }
     }
+
+    /**
+     * チェックボックスすべてのチェック状態を更新
+     */
+    public void updateSelectedInformation() {
+        //checkボタンの状態を設定
+        //詳細情報
+        jCheckBoxMenuItem1.setSelected( mainAction.isDetailInfoPanelVisible() );
+        jToggleButton1.setSelected( mainAction.isDetailInfoPanelVisible() );
+        //書き込みボタン
+        jCheckBoxMenuItem2.setSelected(mainAction.isShowTweetBoxVisible());
+        jToggleButton2.setSelected( mainAction.isShowTweetBoxVisible() );
+        //TL表示
+        mainAction.updateCheckboxInformation();
+    }
     
     //nishio tweet manager
     private JPopupMenu rightClickPopup = null;
@@ -786,9 +1052,15 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JEditorPane clientNameLabel;
     private javax.swing.JLabel followerLabel;
     private javax.swing.JLabel followingLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem4;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem5;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem6;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
@@ -821,9 +1093,17 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextPane jTextPane;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JToggleButton jToggleButton5;
+    private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel locationLabel;
     private javax.swing.JLabel statusBar;

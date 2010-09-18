@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -38,6 +39,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
+import javax.swing.JToggleButton;
 import javax.swing.table.TableModel;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
@@ -168,6 +170,17 @@ public class TweetMainAction {
     private JEditorPane userIntroBox = null;
     private JEditorPane userWebBox = null;
 
+    //checkbox関係
+    private javax.swing.JToggleButton timelineToggleButton;
+    private javax.swing.JToggleButton mentionToggleButton;
+    private javax.swing.JToggleButton dmToggleButton;
+    private javax.swing.JToggleButton sendDMToggleButton;
+
+    private javax.swing.JCheckBoxMenuItem timelineCheckBoxMenuItem;
+    private javax.swing.JCheckBoxMenuItem mentionCheckBoxMenuItem;
+    private javax.swing.JCheckBoxMenuItem dmCheckBoxMenuItem;
+    private javax.swing.JCheckBoxMenuItem sendCheckBoxMenuItem;
+
     // 新しく取得したtweetでまだ参照していない数
     private int uncheckedTimelineTweetCount = 0;
     private AboutDialog aboutDialog = null;
@@ -232,7 +245,15 @@ public class TweetMainAction {
             JEditorPane clientNameLabel,
             JLabel updateLabel,
             JEditorPane userIntroBox,
-            JEditorPane userWebBox) {
+            JEditorPane userWebBox,
+            JToggleButton timelineToggleButton,
+            JToggleButton mentionToggleButton,
+            JToggleButton dmToggleButton,
+            JToggleButton sendToggleButton,
+            JCheckBoxMenuItem timelineCheckBoxMenuItem,
+            JCheckBoxMenuItem mentionCheckBoxMenuItem,
+            JCheckBoxMenuItem dmCheckBoxMenuItem,
+            JCheckBoxMenuItem sendCheckBoxMenuItem) {
         this.mainFrame = mainFrame;
         this.tweetManager = tweetManager;
         this.statusBarLabel = statusBarLabel;
@@ -255,6 +276,15 @@ public class TweetMainAction {
         this.clientNameLabel = clientNameLabel;
         this.updateLabel = updateLabel;
 
+        this.timelineCheckBoxMenuItem = timelineCheckBoxMenuItem;
+        this.timelineToggleButton = timelineToggleButton;
+        this.mentionCheckBoxMenuItem = mentionCheckBoxMenuItem;
+        this.mentionToggleButton = mentionToggleButton;
+        this.dmCheckBoxMenuItem = dmCheckBoxMenuItem;
+        this.dmToggleButton = dmToggleButton;
+        this.sendCheckBoxMenuItem = sendCheckBoxMenuItem;
+        this.sendDMToggleButton = sendToggleButton;
+
         //罰ボタンを押した時のイベントを追加
         if( this.tweetMainTab instanceof DnDTabbedPane ) {
             ((DnDTabbedPane)this.tweetMainTab).setMainAction(this);
@@ -274,6 +304,25 @@ public class TweetMainAction {
         //フレームの大きさを反映
         mainFrame.setSize(this.mainFrameWidth, this.mainFrameHeight);
         mainFrame.setPreferredSize(new Dimension(this.mainFrameWidth, this.mainFrameHeight));
+    }
+
+    /**
+     * チェックボックスの状態を更新
+     */
+    public void updateCheckboxInformation() {
+        boolean timeline = this.isExistTimelineTab();
+        boolean mention = this.isExistMentionTab();
+        boolean dm = this.isExistDirectMessageTab();
+        boolean send = this.isExistSendDirectMessageTab();
+        
+        this.timelineCheckBoxMenuItem.setSelected( timeline );
+        this.timelineToggleButton.setSelected(timeline);
+        this.mentionCheckBoxMenuItem.setSelected(mention);
+        this.mentionToggleButton.setSelected(mention);
+        this.dmCheckBoxMenuItem.setSelected(dm);
+        this.dmToggleButton.setSelected(dm);
+        this.sendCheckBoxMenuItem.setSelected(send);
+        this.sendDMToggleButton.setSelected(send);
     }
 
     /**
@@ -501,6 +550,46 @@ public class TweetMainAction {
     }
 
     /**
+     * タイムラインタブが存在しているか
+     * @return
+     */
+    public boolean isExistTimelineTab() {
+        TimerID timerID = TimerID.getInstance();
+        String id = TimerID.createTimelineID();
+        return timerID.contains(id);
+    }
+
+    /**
+     * Mentionタブが存在するか
+     * @return
+     */
+    public boolean isExistMentionTab() {
+        TimerID timerID = TimerID.getInstance();
+        String id = TimerID.createMentionID();
+        return timerID.contains(id);
+    }
+
+    /**
+     * DMタブが存在するか
+     * @return
+     */
+    public boolean isExistDirectMessageTab() {
+        TimerID timerID = TimerID.getInstance();
+        String id = TimerID.createDirectMessageID();
+        return timerID.contains(id);
+    }
+
+    /**
+     * 送信済みDMタブが存在するか
+     * @return
+     */
+    public boolean isExistSendDirectMessageTab() {
+        TimerID timerID = TimerID.getInstance();
+        String id = TimerID.createSendDirectMessageID();
+        return timerID.contains(id);
+    }
+
+    /**
      * 基本設定ダイアログを開く
      */
     public void actionBasicSettingDialog() {
@@ -580,6 +669,14 @@ public class TweetMainAction {
     }
 
     /**
+     * 詳細情報ボタンが表示されているか
+     * @return
+     */
+    public boolean isDetailInfoPanelVisible() {
+        return detailInfoPanel.isVisible();
+    }
+
+    /**
      * 書き込みメッセージボックスの表示ONOFFボタンを押した時の動作
      * @param e
      */
@@ -592,6 +689,13 @@ public class TweetMainAction {
     }
 
     /**
+     * 書き込みメッセージボックス領域が表示されているか
+     */
+    public boolean isShowTweetBoxVisible() {
+        return this.tweetBoxRegionPane.isVisible();
+    }
+
+    /**
      * 選択しているタブを削除
      */
     public void actionRemoveFocusedTabbedTable() {
@@ -600,12 +704,44 @@ public class TweetMainAction {
     }
 
     /**
+     * 指定したIDのタブを削除
+     * @param timerID
+     */
+    public void actionRemoveTabbedTable(String timerID) {
+        int deleteTabIndex = -1;
+        
+        for(int i=0 ; i < tweetTabbedTableList.size(); i++ ) {
+            TweetTabbedTable table = tweetTabbedTableList.get(i);
+            if( table.getTimerID().equals(timerID) ) {
+                //消したいタブが見つかった
+                deleteTabIndex = i;
+                break;
+            }
+        }
+
+        if( deleteTabIndex >= 0 ) {
+            int selected = this.tweetTabbedTableList.get(deleteTabIndex).getTabSetNum();
+            //タブを削除
+            this.tweetMainTab.remove(selected);
+            //削除
+            this.tweetTabbedTableList.remove(deleteTabIndex);
+            //自動更新しているタブを削除
+            this.tweetTaskManager.shutdownTask( timerID );
+            //ID削除
+            TimerID idManager = TimerID.getInstance();
+            idManager.removeID(timerID);
+
+            //checkboxの状態更新
+            this.updateCheckboxInformation();
+        }
+    }
+
+    /**
      * 指定した場所にあるタブを削除
      * @param removeTabIndex
      */
     public void actionRemoveTabbedTable(int removeTabIndex) {
         int selected = removeTabIndex;
-        Component c = this.tweetMainTab.getComponentAt( removeTabIndex );
         //タブの何番目に消したいテーブルがあるのかと，tweetTabbedTableListの何番目に消したいテーブルがあるのかは違う
         //これを探してくる必要がある
 
@@ -632,6 +768,9 @@ public class TweetMainAction {
             //ID削除
             TimerID idManager = TimerID.getInstance();
             idManager.removeID(timerID);
+
+            //checkboxの状態更新
+            this.updateCheckboxInformation();
         }
     }
 
@@ -1009,16 +1148,18 @@ public class TweetMainAction {
     public void actionFocusedTableUpdate() {
         int selected = this.tweetMainTab.getSelectedIndex();
         try {
-            //タブ上に存在するテーブルの情報を更新
-            TweetTabbedTable t = this.tweetTabbedTableList.get(selected);
-            String timerID = t.getTimerID();
-            this.tweetTaskManager.resetTask(timerID, true);
-            // API残り回数を取得
-            int remainingHits = tweetManager.getRateLimitStatus().getRemainingHits();
-            // 取得したコメント数をステータスバーに表示
-            information(t.getTitle() + "タブのツイートを" + t.getUncheckedTweet() +
-                    "件取得しました. (APIリクエスト残数は" + remainingHits
-                    + "回です)");
+            if( selected >= 0 ) {
+                //タブ上に存在するテーブルの情報を更新
+                TweetTabbedTable t = this.tweetTabbedTableList.get(selected);
+                String timerID = t.getTimerID();
+                this.tweetTaskManager.resetTask(timerID, true);
+                // API残り回数を取得
+                int remainingHits = tweetManager.getRateLimitStatus().getRemainingHits();
+                // 取得したコメント数をステータスバーに表示
+                information(t.getTitle() + "タブのツイートを" + t.getUncheckedTweet()
+                        + "件取得しました. (APIリクエスト残数は" + remainingHits
+                        + "回です)");
+            }
         } catch (Exception e1) {
             e1.printStackTrace();
         }
