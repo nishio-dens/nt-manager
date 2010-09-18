@@ -1004,6 +1004,27 @@ public class TweetMainAction {
     }
 
     /**
+     * 選択しているタブにあるテーブル情報だけを更新
+     */
+    public void actionFocusedTableUpdate() {
+        int selected = this.tweetMainTab.getSelectedIndex();
+        try {
+            //タブ上に存在するテーブルの情報を更新
+            TweetTabbedTable t = this.tweetTabbedTableList.get(selected);
+            String timerID = t.getTimerID();
+            this.tweetTaskManager.resetTask(timerID, true);
+            // API残り回数を取得
+            int remainingHits = tweetManager.getRateLimitStatus().getRemainingHits();
+            // 取得したコメント数をステータスバーに表示
+            information(t.getTitle() + "タブのツイートを" + t.getUncheckedTweet() +
+                    "件取得しました. (APIリクエスト残数は" + remainingHits
+                    + "回です)");
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    /**
      * つぶやける残り文字数の更新
      *
      * @param e
