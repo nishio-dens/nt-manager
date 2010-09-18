@@ -435,10 +435,10 @@ public class TweetTabbedTable {
             rightClickPopup.add(replyAllMenuItem);
             //公式RT
             rightClickPopup.add(retweetMenuItem);
-            //QT
-            rightClickPopup.add(quoteMenuItem);
             //非公式RT
             rightClickPopup.add(unofficialRetweetMenuItem);
+            //QT
+            rightClickPopup.add(quoteMenuItem);
             //ダイレクトメッセージ
             rightClickPopup.add(directMessageMenuItem);
             //発言をブラウザで開く
