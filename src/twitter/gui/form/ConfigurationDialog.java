@@ -1,87 +1,45 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * ConfigurationDialog2.java
+ *
+ * Created on 2010/09/18, 1:41:32
+ */
+
 package twitter.gui.form;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridBagLayout;
-import java.awt.Rectangle;
 import java.io.IOException;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-
 import twitter.gui.action.TweetMainAction;
 
-public class ConfigurationDialog extends JDialog {
+/**
+ *
+ * @author nishio
+ */
+public class ConfigurationDialog extends javax.swing.JDialog {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel jContentPane = null;
-	private JLabel jLabel = null;
-	private JLabel jLabel1 = null;
-	private JTextField jTextField = null;
-	private JLabel jLabel2 = null;
-	private JTextField jTextField1 = null;
-	private JLabel jLabel3 = null;
-	private JLabel jLabel4 = null;
-	private JTextField jTextField2 = null;
-	private JLabel jLabel5 = null;
-	private JLabel jLabel6 = null;
-	private JLabel jLabel7 = null;
-	private JTextField jTextField3 = null;
-	private JTextField jTextField4 = null;
-	private JLabel jLabel8 = null;
-	private JLabel jLabel9 = null;
-	private JPanel jPanel = null;
-	private JLabel jLabel11 = null;
-	private JLabel jLabel12 = null;
-	private JButton jButton = null;
-	private JButton jButton1 = null;
-	private TweetMainAction mainAction = null;
-	private JTabbedPane jTabbedPane = null;
+    /** Creates new form ConfigurationDialog2 */
+    public ConfigurationDialog(java.awt.Frame parent, boolean modal, TweetMainAction mainAction) {
+        super(parent, modal);
+        initComponents();
 
-	private final JDialog myself = this; // @jve:decl-index=0:visual-constraint="10,50"
-	private JPanel jPanel1 = null;
-	private JLabel jLabel10 = null;
-	private JComboBox jComboBox = null;
+        this.mainAction = mainAction;
+        init();
+    }
 
-	// 利用可能なフォント一覧
-	private String[] fonts = null;
-	// フォント一覧コンボボックスのモデル
-	private final DefaultComboBoxModel fontModel = new DefaultComboBoxModel();
-	private final DefaultComboBoxModel fontModel2 = new DefaultComboBoxModel();
-	// フォントサイズコンボボックスのモデル
-	private final DefaultComboBoxModel fontSizeModel = new DefaultComboBoxModel();
-	private final DefaultComboBoxModel fontSizeModel2 = new DefaultComboBoxModel();
-	private JLabel jLabel13 = null;
-	private JComboBox jComboBox1 = null;
-	private JPanel jPanel2 = null;
-	private JPanel jPanel3 = null;
-	private JLabel jLabel14 = null;
-	private JComboBox jComboBox2 = null;
-	private JLabel jLabel15 = null;
-	private JComboBox jComboBox3 = null;
-	private JPanel jPanel4 = null;
-	private JLabel jLabel16 = null;
-	private JSlider jSlider = null;
-
-	/**
-	 * @param owner
-	 */
-	public ConfigurationDialog(Frame owner, TweetMainAction mainAction) {
-		super(owner);
-		initialize();
-		this.mainAction = mainAction;
-
-		// 利用可能なフォント一覧を取得しておく
+    /**
+     * 初期化
+     */
+    public void init() {
+        // 利用可能なフォント一覧を取得しておく
 		this.fonts = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getAvailableFontFamilyNames();
 		// 利用可能なフォント一覧を設定しておく
@@ -98,447 +56,512 @@ public class ConfigurationDialog extends JDialog {
 			fontSizeModel.addElement(f);
 			fontSizeModel2.addElement(f);
 		}
-	}
 
-	@Override
-	public void setVisible(boolean b) {
-		super.setVisible(b);
-		try {
-			jLabel12.setBackground(mainAction.getNewTableColor());
+        //読み込んだ情報を反映
+        applyLoadInformation();
+    }
+
+    /**
+     * 読み込んだ情報を反映
+     */
+    public void applyLoadInformation() {
+        try {
+            // 画面が見えたときに情報更新
+            jSpinner1.setValue( mainAction.getGetTimelinePeriod() );
+            jSpinner2.setValue( mainAction.getGetMentionPeriod() );
+            jSpinner3.setValue( mainAction.getGetDirectMessagePeriod() );
+            jSpinner4.setValue( mainAction.getGetSendDirectMessagePeriod() );
+
+			jLabel10.setBackground(mainAction.getNewTableColor());
 
 			// font関係
 			if (mainAction.getTlFontName() != null) {
-				jComboBox.setSelectedItem(mainAction.getTlFontName());
+				jComboBox1.setSelectedItem(mainAction.getTlFontName());
 			}
 			if (mainAction.getDetailFontName() != null) {
-				jComboBox1.setSelectedItem(mainAction.getDetailFontName());
+				jComboBox2.setSelectedItem(mainAction.getDetailFontName());
 			}
-			jComboBox2.setSelectedItem(mainAction.getTlFontSize() + "");
-			jComboBox3.setSelectedItem(mainAction.getDetailFontSize() + "");
+			jComboBox3.setSelectedItem(mainAction.getTlFontSize() + "");
+			jComboBox4.setSelectedItem(mainAction.getDetailFontSize() + "");
 
 			// 表示
-			jSlider.setValue(mainAction.getTableElementHeight());
+			jSpinner5.setValue(mainAction.getTableElementHeight());
+
+            
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    }
+
+    /**
+     * 
+     */
+    @Override
+	public void setVisible(boolean b) {
+		super.setVisible(b);
+        applyLoadInformation();
 	}
 
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
-	private void initialize() {
-		this.setSize(610, 80);
-		this.setTitle("Twitter Configuration");
-		this.setContentPane(getJContentPane());
-	}
 
-	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJContentPane() {
-		if (jContentPane == null) {
-			myself.setSize(new Dimension(447, 367));
-			myself.setSize(new Dimension(450, 361));
-			myself.setSize(new Dimension(444, 361));
-			myself.setSize(new Dimension(446, 368));
-			myself.setSize(new Dimension(456, 361));
-			myself.setSize(new Dimension(459, 363));
-			myself.setSize(new Dimension(458, 365));
-			myself.setSize(new Dimension(460, 368));
-			myself.setSize(new Dimension(462, 365));
-			jLabel12 = new JLabel();
-			jLabel12.setBackground(Color.black);
-			jLabel12.setText("");
-			jLabel12.setBounds(new Rectangle(128, 12, 242, 16));
-			jLabel12.setOpaque(true);
-			jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
-				@Override
-				public void mouseClicked(java.awt.event.MouseEvent e) {
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-					Color c = JColorChooser.showDialog(myself, "テーブルカラーの選択",
-							mainAction.getNewTableColor());
-					if (c != null) {
-						jLabel12.setBackground(c);
-					}
-				}
-			});
-			jLabel11 = new JLabel();
-			jLabel11.setText("最新情報の背景色");
-			jLabel11.setBounds(new Rectangle(10, 11, 114, 19));
-			jLabel9 = new JLabel();
-			jLabel9.setText("回に１回更新");
-			jLabel9.setBounds(new Rectangle(297, 140, 104, 20));
-			jLabel8 = new JLabel();
-			jLabel8.setText("回に１回更新");
-			jLabel8.setBounds(new Rectangle(297, 108, 104, 20));
-			jLabel7 = new JLabel();
-			jLabel7.setText("送信したDMの更新間隔");
-			jLabel7.setBounds(new Rectangle(1, 140, 151, 20));
-			jLabel6 = new JLabel();
-			jLabel6.setText("DM更新間隔");
-			jLabel6.setBounds(new Rectangle(1, 108, 151, 20));
-			jLabel5 = new JLabel();
-			jLabel5.setText("分間隔で更新");
-			jLabel5.setBounds(new Rectangle(297, 12, 104, 20));
-			jLabel4 = new JLabel();
-			jLabel4.setText("情報更新間隔");
-			jLabel4.setBounds(new Rectangle(1, 12, 151, 20));
-			jLabel3 = new JLabel();
-			jLabel3.setText("回に１回更新");
-			jLabel3.setBounds(new Rectangle(297, 76, 104, 20));
-			jLabel2 = new JLabel();
-			jLabel2.setText("回に１回更新");
-			jLabel2.setBounds(new Rectangle(297, 44, 104, 20));
-			jLabel1 = new JLabel();
-			jLabel1.setText("Mention更新間隔");
-			jLabel1.setBounds(new Rectangle(1, 76, 151, 20));
-			jLabel = new JLabel();
-			jLabel.setText("タイムライン更新間隔");
-			jLabel.setBounds(new Rectangle(1, 44, 151, 20));
-			jContentPane = new JPanel();
-			jContentPane.setLayout(null);
-			jContentPane.add(getJButton(), null);
-			jContentPane.add(getJButton1(), null);
-			jContentPane.add(getJTabbedPane(), null);
-		}
-		return jContentPane;
-	}
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
+        jLabel2 = new javax.swing.JLabel();
+        jSpinner2 = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        jSpinner3 = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
+        jSpinner4 = new javax.swing.JSpinner();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jComboBox2 = new javax.swing.JComboBox();
+        jComboBox3 = new javax.swing.JComboBox();
+        jComboBox4 = new javax.swing.JComboBox();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jSpinner5 = new javax.swing.JSpinner();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
-	/**
-	 * This method initializes jTextField
-	 * 
-	 * @return javax.swing.JTextField
-	 */
-	private JTextField getJTextField() {
-		if (jTextField == null) {
-			jTextField = new JTextField();
-			jTextField.setBounds(new Rectangle(161, 44, 129, 20));
-		}
-		return jTextField;
-	}
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("基本設定");
 
-	/**
-	 * This method initializes jTextField1
-	 * 
-	 * @return javax.swing.JTextField
-	 */
-	private JTextField getJTextField1() {
-		if (jTextField1 == null) {
-			jTextField1 = new JTextField();
-			jTextField1.setBounds(new Rectangle(161, 76, 129, 20));
-		}
-		return jTextField1;
-	}
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(318, 341));
 
-	/**
-	 * This method initializes jTextField2
-	 * 
-	 * @return javax.swing.JTextField
-	 */
-	private JTextField getJTextField2() {
-		if (jTextField2 == null) {
-			jTextField2 = new JTextField();
-			jTextField2.setBounds(new Rectangle(161, 12, 129, 20));
-		}
-		return jTextField2;
-	}
+        jLabel1.setText("タイムライン更新間隔 [秒]");
 
-	/**
-	 * This method initializes jTextField3
-	 * 
-	 * @return javax.swing.JTextField
-	 */
-	private JTextField getJTextField3() {
-		if (jTextField3 == null) {
-			jTextField3 = new JTextField();
-			jTextField3.setBounds(new Rectangle(161, 108, 129, 20));
-		}
-		return jTextField3;
-	}
+        jSpinner1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner1StateChanged(evt);
+            }
+        });
 
-	/**
-	 * This method initializes jTextField4
-	 * 
-	 * @return javax.swing.JTextField
-	 */
-	private JTextField getJTextField4() {
-		if (jTextField4 == null) {
-			jTextField4 = new JTextField();
-			jTextField4.setBounds(new Rectangle(161, 140, 129, 20));
-		}
-		return jTextField4;
-	}
+        jLabel2.setText("Mention更新間隔 [秒]");
 
-	/**
-	 * This method initializes jPanel
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanel() {
-		if (jPanel == null) {
-			jPanel = new JPanel();
-			jPanel.setLayout(null);
-			jPanel.add(jLabel4, null);
-			jPanel.add(getJTextField2(), null);
-			jPanel.add(jLabel5, null);
-			jPanel.add(jLabel2, null);
-			jPanel.add(getJTextField(), null);
-			jPanel.add(jLabel, null);
-			jPanel.add(jLabel1, null);
-			jPanel.add(getJTextField1(), null);
-			jPanel.add(jLabel3, null);
-			jPanel.add(jLabel8, null);
-			jPanel.add(getJTextField3(), null);
-			jPanel.add(jLabel6, null);
-			jPanel.add(jLabel7, null);
-			jPanel.add(getJTextField4(), null);
-			jPanel.add(jLabel9, null);
-		}
-		return jPanel;
-	}
+        jSpinner2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner2StateChanged(evt);
+            }
+        });
 
-	/**
-	 * This method initializes jButton
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButton() {
-		if (jButton == null) {
-			jButton = new JButton();
-			jButton.setBounds(new Rectangle(208, 295, 110, 32));
-			jButton.setText("設定を保存");
-			jButton.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					try {
-						mainAction.setNewTableColor(jLabel12.getBackground());
+        jLabel3.setText("ダイレクトメッセージ更新間隔 [秒]");
 
-						// フォント情報
-						mainAction.setTlFontName((String) jComboBox
-								.getSelectedItem());
-						mainAction.setDetailFontName((String) jComboBox1
-								.getSelectedItem());
-						mainAction
-								.setTlFontSize(Integer
-										.parseInt((String) jComboBox2
-												.getSelectedItem()));
-						mainAction
-								.setDetailFontSize(Integer
-										.parseInt((String) jComboBox3
-												.getSelectedItem()));
-						// フォント情報反映
-						mainAction.updateFontInformationToComponent();
+        jSpinner3.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner3StateChanged(evt);
+            }
+        });
 
-						// 表示
-						mainAction.setTableElementHeight(jSlider.getValue());
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
+        jLabel4.setText("送信済みダイレクトメッセージ更新間隔 [秒]");
 
-					try {
-						mainAction.saveProperties();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-					// 閉じる
-					myself.setVisible(false);
-				}
-			});
-		}
-		return jButton;
-	}
+        jSpinner4.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner4StateChanged(evt);
+            }
+        });
 
-	/**
-	 * This method initializes jButton1
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private JButton getJButton1() {
-		if (jButton1 == null) {
-			jButton1 = new JButton();
-			jButton1.setBounds(new Rectangle(336, 295, 110, 32));
-			jButton1.setText("キャンセル");
-			jButton1.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					// 閉じる
-					myself.setVisible(false);
-				}
-			});
-		}
-		return jButton1;
-	}
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(175, Short.MAX_VALUE))
+        );
 
-	/**
-	 * This method initializes jTabbedPane
-	 * 
-	 * @return javax.swing.JTabbedPane
-	 */
-	private JTabbedPane getJTabbedPane() {
-		if (jTabbedPane == null) {
-			jTabbedPane = new JTabbedPane();
-			jTabbedPane.setBounds(new Rectangle(1, 3, 452, 286));
-			jTabbedPane.addTab("更新間隔設定", null, getJPanel(), null);
-			jTabbedPane.addTab("フォント", null, getJPanel1(), null);
-			jTabbedPane.addTab("カラー", null, getJPanel2(), null);
-			jTabbedPane.addTab("表示", null, getJPanel4(), null);
-		}
-		return jTabbedPane;
-	}
+        jTabbedPane1.addTab("更新間隔設定", jPanel1);
 
-	/**
-	 * This method initializes jPanel1
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanel1() {
-		if (jPanel1 == null) {
-			jLabel15 = new JLabel();
-			jLabel15.setBounds(new Rectangle(11, 168, 188, 26));
-			jLabel15.setText("詳細情報のフォントサイズ");
-			jLabel14 = new JLabel();
-			jLabel14.setBounds(new Rectangle(9, 136, 189, 25));
-			jLabel14.setText("タイムラインのフォントサイズ");
-			jLabel13 = new JLabel();
-			jLabel13.setBounds(new Rectangle(8, 71, 190, 25));
-			jLabel13.setText("詳細情報のフォント");
-			jLabel10 = new JLabel();
-			jLabel10.setBounds(new Rectangle(8, 9, 190, 25));
-			jLabel10.setText("タイムラインのフォント");
-			jPanel1 = new JPanel();
-			jPanel1.setLayout(null);
-			jPanel1.add(jLabel10, null);
-			jPanel1.add(getJComboBox(), null);
-			jPanel1.add(jLabel13, null);
-			jPanel1.add(getJComboBox1(), null);
-			jPanel1.add(jLabel14, null);
-			jPanel1.add(getJComboBox2(), null);
-			jPanel1.add(jLabel15, null);
-			jPanel1.add(getJComboBox3(), null);
-		}
-		return jPanel1;
-	}
+        jLabel5.setText("タイムラインのフォント");
 
-	/**
-	 * This method initializes jComboBox
-	 * 
-	 * @return javax.swing.JComboBox
-	 */
-	private JComboBox getJComboBox() {
-		if (jComboBox == null) {
-			jComboBox = new JComboBox(fontModel);
-			jComboBox.setBounds(new Rectangle(8, 38, 425, 25));
-		}
-		return jComboBox;
-	}
+        jLabel6.setText("詳細情報のフォント");
 
-	/**
-	 * This method initializes jComboBox1
-	 * 
-	 * @return javax.swing.JComboBox
-	 */
-	private JComboBox getJComboBox1() {
-		if (jComboBox1 == null) {
-			jComboBox1 = new JComboBox(fontModel2);
-			jComboBox1.setBounds(new Rectangle(8, 104, 427, 25));
-		}
-		return jComboBox1;
-	}
+        jLabel7.setText("タイムラインのフォントサイズ");
 
-	/**
-	 * This method initializes jPanel2
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanel2() {
-		if (jPanel2 == null) {
-			jPanel2 = new JPanel();
-			jPanel2.setLayout(null);
-			jPanel2.add(getJPanel3(), null);
-			jPanel2.add(jLabel11, null);
-			jPanel2.add(jLabel12, null);
-		}
-		return jPanel2;
-	}
+        jLabel8.setText("詳細情報のフォントサイズ");
 
-	/**
-	 * This method initializes jPanel3
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanel3() {
-		if (jPanel3 == null) {
-			jPanel3 = new JPanel();
-			jPanel3.setLayout(new GridBagLayout());
-			jPanel3.setBounds(new Rectangle(0, 0, 0, 0));
-		}
-		return jPanel3;
-	}
+        jComboBox1.setModel(fontModel);
 
-	/**
-	 * This method initializes jComboBox2
-	 * 
-	 * @return javax.swing.JComboBox
-	 */
-	private JComboBox getJComboBox2() {
-		if (jComboBox2 == null) {
-			jComboBox2 = new JComboBox(fontSizeModel);
-			jComboBox2.setBounds(new Rectangle(210, 135, 225, 24));
-		}
-		return jComboBox2;
-	}
+        jComboBox2.setModel(fontModel2);
 
-	/**
-	 * This method initializes jComboBox3
-	 * 
-	 * @return javax.swing.JComboBox
-	 */
-	private JComboBox getJComboBox3() {
-		if (jComboBox3 == null) {
-			jComboBox3 = new JComboBox(fontSizeModel2);
-			jComboBox3.setBounds(new Rectangle(210, 168, 225, 24));
-		}
-		return jComboBox3;
-	}
+        jComboBox3.setModel(fontSizeModel);
 
-	/**
-	 * This method initializes jPanel4
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJPanel4() {
-		if (jPanel4 == null) {
-			jLabel16 = new JLabel();
-			jLabel16.setBounds(new Rectangle(12, 12, 198, 49));
-			jLabel16.setText("タイムラインのテーブルの高さ");
-			jPanel4 = new JPanel();
-			jPanel4.setLayout(null);
-			jPanel4.add(jLabel16, null);
-			jPanel4.add(getJSlider(), null);
-		}
-		return jPanel4;
-	}
+        jComboBox4.setModel(fontSizeModel2);
 
-	/**
-	 * This method initializes jSlider
-	 * 
-	 * @return javax.swing.JSlider
-	 */
-	private JSlider getJSlider() {
-		if (jSlider == null) {
-			jSlider = new JSlider();
-			jSlider.setBounds(new Rectangle(216, 12, 222, 49));
-			jSlider.setMaximum(200);
-			jSlider.setMinimum(1);
-			jSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-				public void stateChanged(javax.swing.event.ChangeEvent e) {
-					// テーブルの高さを更新
-					mainAction.updateTableHeight(jSlider.getValue());
-				}
-			});
-		}
-		return jSlider;
-	}
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(57, 57, 57)
+                        .addComponent(jComboBox1, 0, 197, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(70, 70, 70)
+                        .addComponent(jComboBox2, 0, 197, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(23, 23, 23)
+                        .addComponent(jComboBox3, 0, 197, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(36, 36, 36)
+                        .addComponent(jComboBox4, 0, 197, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(157, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("フォント", jPanel2);
+
+        jLabel9.setText("最新情報の背景色");
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel10.setBackground(java.awt.Color.black);
+        jLabel10.setOpaque(true);
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("カラー", jPanel3);
+
+        jLabel11.setText("タイムラインのテーブルの高さ");
+
+        jSpinner5.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner5StateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSpinner5, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSpinner5, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(265, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("表示", jPanel4);
+
+        jButton1.setText("設定を保存");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("キャンセル");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(163, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        Color c = JColorChooser.showDialog(this, "テーブルカラーの選択",
+                mainAction.getNewTableColor());
+        if (c != null) {
+            jLabel10.setBackground(c);
+        }
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jSpinner5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner5StateChanged
+        	// テーブルの高さを更新
+        Integer val = Integer.parseInt( jSpinner5.getValue().toString() );
+        if( val == null ) {
+            val = 50;
+        }
+        if( val < 0 ) {
+            val = 0;
+            jSpinner5.setValue(0);
+        }
+        mainAction.updateTableHeight( val );
+    }//GEN-LAST:event_jSpinner5StateChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // 更新間隔情報
+            mainAction.setGetTimelinePeriod(Integer.parseInt(jSpinner1.getValue().toString()));
+            mainAction.setGetMentionPeriod(Integer.parseInt(jSpinner2.getValue().toString()));
+            mainAction.setGetDirectMessagePeriod(Integer.parseInt(jSpinner3.getValue().toString()));
+            mainAction.setGetSendDirectMessagePeriod(Integer.parseInt(jSpinner4.getValue().toString()));
+
+            mainAction.setNewTableColor(jLabel10.getBackground());
+
+            // フォント情報
+            mainAction.setTlFontName((String) jComboBox1.getSelectedItem());
+            mainAction.setDetailFontName((String) jComboBox2.getSelectedItem());
+            mainAction.setTlFontSize(Integer.parseInt((String) jComboBox3.getSelectedItem()));
+            mainAction.setDetailFontSize(Integer.parseInt((String) jComboBox4.getSelectedItem()));
+            // フォント情報反映
+            mainAction.updateFontInformationToComponent();
+
+            //更新間隔反映
+            mainAction.updatePeriodInformationToComponent();
+
+            // 表示
+            mainAction.setTableElementHeight(Integer.parseInt( jSpinner5.getValue().toString() ));
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+        try {
+            //設定保存
+            mainAction.saveProperties();
+        } catch (IOException ex) {
+            Logger.getLogger(ConfigurationDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
+        Integer val = Integer.parseInt(jSpinner1.getValue().toString());
+        if (val == null) {
+            //最小値30
+            val = MIN_PERIOD * 2;
+        }
+        if (val < MIN_PERIOD) {
+            val = MIN_PERIOD;
+            jSpinner1.setValue(MIN_PERIOD);
+        }
+    }//GEN-LAST:event_jSpinner1StateChanged
+
+    private void jSpinner2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner2StateChanged
+        Integer val = Integer.parseInt(jSpinner2.getValue().toString());
+        if (val == null) {
+            //最小値30
+            val = MIN_PERIOD * 2;
+        }
+        if (val < MIN_PERIOD) {
+            val = MIN_PERIOD;
+            jSpinner2.setValue(MIN_PERIOD);
+        }
+    }//GEN-LAST:event_jSpinner2StateChanged
+
+    private void jSpinner3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner3StateChanged
+        Integer val = Integer.parseInt(jSpinner3.getValue().toString());
+        if (val == null) {
+            //最小値30
+            val = MIN_PERIOD * 2;
+        }
+        if (val < MIN_PERIOD) {
+            val = MIN_PERIOD;
+            jSpinner3.setValue(MIN_PERIOD);
+        }
+    }//GEN-LAST:event_jSpinner3StateChanged
+
+    private void jSpinner4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner4StateChanged
+        Integer val = Integer.parseInt(jSpinner4.getValue().toString());
+        if (val == null) {
+            //最小値30
+            val = MIN_PERIOD * 2;
+        }
+        if (val < MIN_PERIOD) {
+            val = MIN_PERIOD;
+            jSpinner4.setValue(MIN_PERIOD);
+        }
+    }//GEN-LAST:event_jSpinner4StateChanged
+
+    //twitter
+    private TweetMainAction mainAction;
+    // 利用可能なフォント一覧
+	private String[] fonts = null;
+    // フォント一覧コンボボックスのモデル
+	private final DefaultComboBoxModel fontModel = new DefaultComboBoxModel();
+	private final DefaultComboBoxModel fontModel2 = new DefaultComboBoxModel();
+	// フォントサイズコンボボックスのモデル
+	private final DefaultComboBoxModel fontSizeModel = new DefaultComboBoxModel();
+	private final DefaultComboBoxModel fontSizeModel2 = new DefaultComboBoxModel();
+
+    //情報更新最小値
+    private final int MIN_PERIOD = 30;
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSpinner2;
+    private javax.swing.JSpinner jSpinner3;
+    private javax.swing.JSpinner jSpinner4;
+    private javax.swing.JSpinner jSpinner5;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    // End of variables declaration//GEN-END:variables
+
 }

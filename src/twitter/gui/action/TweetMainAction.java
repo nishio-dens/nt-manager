@@ -57,7 +57,6 @@ import twitter.gui.component.TweetTableModel;
 import twitter.gui.form.AboutDialog;
 import twitter.gui.form.AccountDialog;
 import twitter.gui.form.ConfigurationDialog;
-import twitter.gui.form.ConfigurationDialog2;
 import twitter.gui.form.DirectMessageDialog;
 import twitter.gui.form.KeywordSearchDialog;
 import twitter.manage.TweetConfiguration;
@@ -105,7 +104,7 @@ public class TweetMainAction {
     // twitterの公式URL
     private static final String TWITTER_URL = "http://twitter.com/";
     // 基本設定用ダイアログ
-    private ConfigurationDialog2 configurationDialog = null;
+    private ConfigurationDialog configurationDialog = null;
     // 現在選択しているStatus情報
     private Status currentStatus = null;
     // reply予定のStatus
@@ -508,7 +507,7 @@ public class TweetMainAction {
         // ダイレクトメッセージ送信用ダイアログを開く
         Point loc = getConfigurationDialog().getLocation();
         loc.translate(20, 20);
-        ConfigurationDialog2 dialog = getConfigurationDialog();
+        ConfigurationDialog dialog = getConfigurationDialog();
         dialog.setLocation(loc);
         dialog.setVisible(true);
     }
@@ -1027,9 +1026,9 @@ public class TweetMainAction {
      *
      * @return
      */
-    public ConfigurationDialog2 getConfigurationDialog() {
+    public ConfigurationDialog getConfigurationDialog() {
         if (configurationDialog == null) {
-            configurationDialog = new ConfigurationDialog2(mainFrame, true, this);
+            configurationDialog = new ConfigurationDialog(mainFrame, true, this);
         }
         return configurationDialog;
     }
