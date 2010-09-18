@@ -363,6 +363,17 @@ public class TweetTabbedTable {
                 mainAction.actionOpenStatusURL();
             }
         });
+
+        JMenuItem userMenuItem = new JMenuItem("この人の発言を別タブで開く(U)");
+        userMenuItem.setMnemonic('U');
+        userMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 指定した人の発言を開く
+                mainAction.actionSelectedUserTimeline();
+            }
+        });
         
         JMenuItem createFavMenuItem = new JMenuItem(
                 "この発言をお気に入りに追加(F)");
@@ -394,7 +405,7 @@ public class TweetTabbedTable {
             Status st = mainAction.getTweetTableInformation(table, table.getModel());
 
             JMenuItem openBrowserUserInformationMenuItem = new JMenuItem(
-                    "この人のTimelineをブラウザで開く(B)");
+                    "この人の発言をブラウザで開く(B)");
             openBrowserUserInformationMenuItem.setMnemonic('B');
             openBrowserUserInformationMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
@@ -432,6 +443,8 @@ public class TweetTabbedTable {
             rightClickPopup.add(directMessageMenuItem);
             //発言をブラウザで開く
             rightClickPopup.add(statusBrowserMenuItem);
+            //この人の発言を別タブで開く
+            rightClickPopup.add(userMenuItem);
             //この人のtimelineを開く
             rightClickPopup.add(openBrowserUserInformationMenuItem);
             //この人のfavを開く

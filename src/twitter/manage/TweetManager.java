@@ -731,6 +731,47 @@ public class TweetManager {
     }
 
     /**
+     * 指定したユーザの発言を取得
+     * @param num
+     * @param userID
+     * @return
+     * @throws TwitterException
+     */
+    public List<Status> getUserTimeline(int num, int userID) throws TwitterException {
+        List<Status> statuses = twitter.getUserTimeline(userID, new Paging(1, num));
+
+        //tweet逆転
+        if (statuses != null && statuses.size() > 0) {
+            Collections.reverse(statuses);
+        }
+        
+        return statuses;
+    }
+
+    /**
+     * 指定したユーザの最新の発言を取得
+     * @param userID
+     * @param sinceID
+     * @return
+     * @throws TwitterException
+     */
+    public List<Status> getNewUserTimeline(int userID, long sinceID) throws TwitterException {
+        // 一度もデータを取得していないとき
+        if (sinceID == 0) {
+            return getUserTimeline(MAX_TWEET_NUM, userID);
+        }
+
+        List<Status> statuses = twitter.getUserTimeline(userID, new Paging(sinceID));
+
+        //tweet逆転
+        if (statuses != null && statuses.size() > 0) {
+            Collections.reverse(statuses);
+        }
+
+        return statuses;
+    }
+
+    /**
      * Twitterへログイン
      */
     public void loginTwitter() throws FileNotFoundException, IOException {

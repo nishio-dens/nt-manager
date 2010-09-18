@@ -118,4 +118,13 @@ public class TimerID {
     public static String createSendDirectMessageID() {
         return "SENDDIRECTMESSAGE";
     }
+
+    /**
+     * ユーザのタイムラインIDを生成
+     * @param userID
+     * @return
+     */
+    public static String createUserTimelineID(long userID) {
+        return "USERTIMELINE:" + userID;
+    }
 }

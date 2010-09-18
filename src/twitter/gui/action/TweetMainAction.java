@@ -1,13 +1,11 @@
 package twitter.gui.action;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,7 +33,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
@@ -52,6 +49,7 @@ import twitter.action.TweetMentionGetter;
 import twitter.action.TweetSearchResultGetter;
 import twitter.action.TweetSendDirectMessageGetter;
 import twitter.action.TweetTimelineGetter;
+import twitter.action.TweetUserTimelineGetter;
 import twitter.gui.component.DnDTabbedPane;
 
 import twitter.gui.component.TweetTabbedTable;
@@ -550,6 +548,27 @@ public class TweetMainAction {
     }
 
     /**
+     * 指定したユーザの発言を表示
+     * @param username タブのタイトルにつけるユーザ名
+     * @param userID ユーザID
+     * @param period 更新周期[sec]
+     */
+    public void actionAddUserTimelineTab(String username, int userID, int period) {
+        TimerID timerID = TimerID.getInstance();
+        String id = TimerID.createUserTimelineID(userID);
+        try {
+            //既にIDが存在していたらここで例外発生
+            timerID.addID(id);
+            //検索結果を表示するタブを生成
+            actionAddTab(id, period, new TweetUserTimelineGetter(tweetManager, userID),
+                    username + "の発言");
+        } catch (ExistTimerIDException ex) {
+            JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
      * タイムラインタブが存在しているか
      * @return
      */
@@ -953,6 +972,22 @@ public class TweetMainAction {
     public void actionResetUncheckedTimelineTweetCount() {
         uncheckedTimelineTweetCount = 0;
         tweetMainTab.setTitleAt(0, TAB_TIMELINE_STRING);
+    }
+
+    /**
+     * 選択したユーザの発言を開く
+     */
+    public void actionSelectedUserTimeline() {
+        Status status = null;
+        if( this.getCurrentStatus().isRetweet() ) {
+            status = this.getCurrentStatus().getRetweetedStatus();
+        }else {
+            status = this.getCurrentStatus();
+        }
+        String username = status.getUser().getScreenName();
+        int userID = status.getUser().getId();
+        //ユーザ
+        actionAddUserTimelineTab(username, userID, this.getGetTimelinePeriod());
     }
 
     /**
