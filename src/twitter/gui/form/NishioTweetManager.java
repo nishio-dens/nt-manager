@@ -151,6 +151,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         statusBar = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
+        jToggleButton1 = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jTextPane = new javax.swing.JTextPane();
@@ -379,6 +380,12 @@ public class NishioTweetManager extends javax.swing.JFrame {
         );
 
         jToolBar1.setRollover(true);
+
+        jToggleButton1.setText("jToggleButton1");
+        jToggleButton1.setFocusable(false);
+        jToggleButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jToggleButton1);
 
         jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane9.setMaximumSize(new java.awt.Dimension(32767, 80));
@@ -816,6 +823,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextPane jTextPane;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel locationLabel;
     private javax.swing.JLabel statusBar;
