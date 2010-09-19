@@ -11,16 +11,38 @@
 
 package twitter.gui.form;
 
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.SortedSet;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import twitter.gui.action.TweetMainAction;
+import twitter.hashtag.HashtagSearcher;
+import twitter.manage.TweetManager;
+import twitter.util.MultiSortedMap;
+
 /**
  *
  * @author nishio
  */
 public class HashtagSearchDialog extends javax.swing.JDialog {
 
+    private TweetMainAction mainAction;
+    private TweetManager tweetManager;
+
+    private DefaultListModel listModel = new DefaultListModel();
+
+    //キーワードの出現頻度を保存しておくもの
+    private List<Integer> keywordAppearance = new ArrayList<Integer>();
+
     /** Creates new form HashtagSearchDialog */
-    public HashtagSearchDialog(java.awt.Frame parent, boolean modal) {
+    public HashtagSearchDialog(java.awt.Frame parent, boolean modal,
+            TweetMainAction mainAction, TweetManager tweetManager) {
         super(parent, modal);
         initComponents();
+        this.mainAction = mainAction;
+        this.tweetManager = tweetManager;
     }
 
     /** This method is called from within the constructor to
@@ -49,8 +71,30 @@ public class HashtagSearchDialog extends javax.swing.JDialog {
 
         jLabel1.setText("キーワードを入力してください");
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+
         jLabel2.setText("キーワードに関連するハッシュタグ一覧");
 
+        jList1.setModel(listModel);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
+        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList1ValueChanged(evt);
+            }
+        });
+        jList1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jList1KeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jLabel3.setText("出現回数");
@@ -58,12 +102,35 @@ public class HashtagSearchDialog extends javax.swing.JDialog {
         jLabel4.setText("0");
 
         jButton1.setText("キャンセル");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("検索");
+        jButton2.setMnemonic('S');
+        jButton2.setText("検索(S)");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("ハッシュタグ検索");
+        jButton3.setMnemonic('H');
+        jButton3.setText("ハッシュタグ検索(H)");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("クリア");
+        jButton4.setMnemonic('C');
+        jButton4.setText("クリア(C)");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,22 +187,85 @@ public class HashtagSearchDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                HashtagSearchDialog dialog = new HashtagSearchDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        jTextField1.setText("");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String searchWord = jTextField1.getText();
+        if( searchWord == null || searchWord.length() == 0 ) {
+            JOptionPane.showMessageDialog(null, "キーワードを入力してください",
+                    "Search Error", JOptionPane.ERROR_MESSAGE);
+        }else {
+            //リストモデルの中身を消す
+            this.listModel.clear();
+
+            HashtagSearcher hashtagSearcher = new HashtagSearcher(tweetManager);
+            MultiSortedMap<Integer, String> result =
+                    hashtagSearcher.getDescendantHashtagCount(searchWord);
+            if( result == null ) {
+                JOptionPane.showMessageDialog(null,
+                        "指定したキーワードに関連するハッシュタグは見つかりませんでした",
+                        "Search Result", JOptionPane.OK_OPTION);
+            }else {
+                this.keywordAppearance = new ArrayList<Integer>();
+
+                for (Integer key : result.getKeys()) {
+                    SortedSet<String> resultStrings = result.get(key);
+                    for(String s : resultStrings ) {
+                        this.listModel.addElement(s);
+                        keywordAppearance.add( key );
                     }
-                });
-                dialog.setVisible(true);
+                }
+
+                //リスト選択
+                jList1.setSelectedIndex(0);
+                //フォーカス移動
+                jList1.requestFocus();
             }
-        });
-    }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if( evt.getKeyCode() == KeyEvent.VK_ENTER ) {
+            jButton3ActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int selected = jList1.getSelectedIndex();
+        if( selected >= 0 ) {
+            String searchWord = (String) listModel.getElementAt(selected);
+            this.setVisible(false);
+            this.mainAction.actionShowKeywordSearchDialog(searchWord);
+        }else {
+            JOptionPane.showMessageDialog(null,
+                        "検索したいハッシュタグをリストから選択してください",
+                        "Error", JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        int selected = jList1.getSelectedIndex();
+        if( selected >= 0 ) {
+            jLabel4.setText( this.keywordAppearance.get(selected) + "");
+        }
+    }//GEN-LAST:event_jList1ValueChanged
+
+    private void jList1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jList1KeyPressed
+        if( evt.getKeyCode() == KeyEvent.VK_ENTER ) {
+            jButton2ActionPerformed(null);
+        }
+    }//GEN-LAST:event_jList1KeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

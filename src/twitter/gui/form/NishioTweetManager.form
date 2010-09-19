@@ -323,6 +323,18 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem6ActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem23">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+H"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="75"/>
+                <Property name="text" type="java.lang.String" value="&#x30ad;&#x30fc;&#x30ef;&#x30fc;&#x30c9;&#x306b;&#x95a2;&#x9023;&#x3059;&#x308b;&#x30cf;&#x30c3;&#x30b7;&#x30e5;&#x30bf;&#x30b0;&#x3092;&#x691c;&#x7d22;(K)"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem23ActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
@@ -887,7 +899,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jButton4" alignment="0" pref="38" max="32767" attributes="1"/>
+                      <Component id="jButton4" alignment="0" pref="34" max="32767" attributes="1"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>

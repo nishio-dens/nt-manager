@@ -89,6 +89,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField1KeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -101,10 +104,15 @@
       <SubComponents>
         <Component class="javax.swing.JList" name="jList1">
           <Properties>
-            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="0"/>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="listModel" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jList1MouseClicked"/>
+            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="jList1ValueChanged"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jList1KeyPressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -122,21 +130,36 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x30ad;&#x30e3;&#x30f3;&#x30bb;&#x30eb;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x691c;&#x7d22;"/>
+        <Property name="mnemonic" type="int" value="83"/>
+        <Property name="text" type="java.lang.String" value="&#x691c;&#x7d22;(S)"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x30cf;&#x30c3;&#x30b7;&#x30e5;&#x30bf;&#x30b0;&#x691c;&#x7d22;"/>
+        <Property name="mnemonic" type="int" value="72"/>
+        <Property name="text" type="java.lang.String" value="&#x30cf;&#x30c3;&#x30b7;&#x30e5;&#x30bf;&#x30b0;&#x691c;&#x7d22;(H)"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x30af;&#x30ea;&#x30a2;"/>
+        <Property name="mnemonic" type="int" value="67"/>
+        <Property name="text" type="java.lang.String" value="&#x30af;&#x30ea;&#x30a2;(C)"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -58,6 +58,7 @@ import twitter.gui.form.AboutDialog;
 import twitter.gui.form.AccountDialog;
 import twitter.gui.form.ConfigurationDialog;
 import twitter.gui.form.DirectMessageDialog;
+import twitter.gui.form.HashtagSearchDialog;
 import twitter.gui.form.KeywordSearchDialog;
 import twitter.manage.TweetConfiguration;
 import twitter.manage.TweetManager;
@@ -115,6 +116,8 @@ public class TweetMainAction {
     private DirectMessageDialog directMessageDialog = null;
     //Twitter全体からキーワード検索ダイアログ
     private KeywordSearchDialog keywordSearchDialog = null;
+    //hashtag search dialog
+    private HashtagSearchDialog hashtagSearchDialog = null;
     // 新しく取得した部分のテーブルカラー
     private Color newTableColor = new Color(224, 255, 255);
     // TLのフォント名
@@ -1153,6 +1156,29 @@ public class TweetMainAction {
     public void actionShowKeywordSearchDialog() {
         Point loc = getDirectMessageDialog().getLocation();
         KeywordSearchDialog dialog = getKeywordSearchDialog();
+        dialog.setSearchWord("");
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }
+
+    /**
+     * Twitter全体からキーワード検索ダイアログを表示
+     * @param searchWord searchwordボックスに予め設定するワード
+     */
+    public void actionShowKeywordSearchDialog(String searchWord) {
+        Point loc = getDirectMessageDialog().getLocation();
+        KeywordSearchDialog dialog = getKeywordSearchDialog();
+        dialog.setSearchWord(searchWord);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }
+
+    /**
+     * ハッシュタグ検索ダイアログを表示
+     */
+    public void actionShowHashtagSearchDialog() {
+        Point loc = getDirectMessageDialog().getLocation();
+        HashtagSearchDialog dialog = getHashtagSearchDialog();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
@@ -1258,6 +1284,17 @@ public class TweetMainAction {
             keywordSearchDialog = new KeywordSearchDialog(mainFrame, true, this);
         }
         return keywordSearchDialog;
+    }
+
+    /**
+     * hashtag検索ダイアログ
+     * @return
+     */
+    public HashtagSearchDialog getHashtagSearchDialog() {
+        if( hashtagSearchDialog == null ) {
+            hashtagSearchDialog = new HashtagSearchDialog(mainFrame, true, this, tweetManager);
+        }
+        return hashtagSearchDialog;
     }
 
     /**

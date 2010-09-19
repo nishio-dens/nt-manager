@@ -211,6 +211,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem23 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -574,7 +575,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -848,6 +849,16 @@ public class NishioTweetManager extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jMenuItem6);
+
+        jMenuItem23.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem23.setMnemonic('K');
+        jMenuItem23.setText("キーワードに関連するハッシュタグを検索(K)");
+        jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem23ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem23);
 
         jMenuBar1.add(jMenu5);
 
@@ -1152,6 +1163,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
         this.mainAction.actionDestroyFavorite();
     }//GEN-LAST:event_jMenuItem20ActionPerformed
 
+    private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
+        this.mainAction.actionShowHashtagSearchDialog();
+    }//GEN-LAST:event_jMenuItem23ActionPerformed
+
     /**
      *
      */
@@ -1278,6 +1293,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
+    private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
