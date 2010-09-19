@@ -1235,6 +1235,16 @@ public class TweetMainAction {
     }
 
     /**
+     * 指定した番号のタブにフォーカスを移す
+     * @param index
+     */
+    public void actionRequestFocusToTab(int index) {
+        if( index >= 0 ) {
+            this.tweetMainTab.setSelectedIndex(index);
+        }
+    }
+
+    /**
      * 選択しているタブにあるテーブル情報だけを更新
      */
     public void actionFocusedTableUpdate() {
