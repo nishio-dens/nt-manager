@@ -31,6 +31,14 @@ public class KeywordSearchDialog extends javax.swing.JDialog {
         this.mainAction = mainAction;
     }
 
+    /**
+     * 検索ワード入力欄に検索ワードをセット
+     * @param searchWord
+     */
+    public void setSearchWord(String searchWord) {
+        jTextField1.setText(searchWord);
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
