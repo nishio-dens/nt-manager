@@ -418,6 +418,8 @@ public class TweetMainAction {
                 //タブリストに追加
                 this.tweetTabbedTableList.add(table);
                 //searchTable.updateTweetTable();
+                //フォーカスを新しいタブに移す
+                this.actionRequestForusToLastTab();
             } catch (TweetTaskException ex) {
                 Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1219,6 +1221,16 @@ public class TweetMainAction {
                     + "回です)");
         } catch (Exception e1) {
             e1.printStackTrace();
+        }
+    }
+
+    /**
+     * 新しく追加したタブにフォーカスを移す
+     */
+    public void actionRequestForusToLastTab() {
+        int lasttab = this.tweetMainTab.getTabCount() - 1;
+        if( lasttab >= 0 ) {
+            this.tweetMainTab.setSelectedIndex(lasttab);
         }
     }
 
