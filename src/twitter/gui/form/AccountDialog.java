@@ -150,8 +150,15 @@ public class AccountDialog extends javax.swing.JDialog {
         }
         try {
             this.tweetManager.loginTwitter();
-            //TODO: ここにツイート情報を更新する動作を追加 この下の行はいささか不安
-            this.mainAction.actionUpdateButton(null);
+            //TLなどを表示するタブを追加
+            //自動更新も開始
+            //TODO:TL, Mention, DMのタブを表示するかしないかの設定を読み込んで反映するように
+            this.mainAction.actionAddTimelineTab( this.mainAction.getGetTimelinePeriod() );
+            this.mainAction.actionAddMentionTab( this.mainAction.getGetMentionPeriod() );
+            this.mainAction.actionAddDirectMessageTab( this.mainAction.getGetDirectMessagePeriod() );
+            //this.mainAction.actionAddSendDirectMessageTab( this.mainAction.getGetSendDirectMessagePeriod() );
+            //フォーカスを一番初めのテーブルに移す
+            this.mainAction.actionRequestFocusToTab(0);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AccountDialog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

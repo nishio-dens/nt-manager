@@ -478,6 +478,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jToolBar1.add(jSeparator3);
 
         jToggleButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/timeline.PNG"))); // NOI18N
+        jToggleButton3.setSelected(true);
         jToggleButton3.setFocusable(false);
         jToggleButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jToggleButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
