@@ -67,6 +67,7 @@ import twitter.task.TimerID;
 import twitter.task.TweetTaskException;
 import twitter.task.TweetTaskManager;
 import twitter.task.TweetUpdateTask;
+import twitter.util.HTMLEncode;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 
@@ -1359,6 +1360,8 @@ public class TweetMainAction {
                 st = st.getRetweetedStatus();
             }
             infoMessage = st.getText();
+            //メッセージのHTMLエンコードを行う
+            infoMessage = HTMLEncode.encode(infoMessage);
             // tweetMessageBox内のURLをhtmlリンクへ変換
             infoMessage = actionReplaceTweetMessageBoxURLLink(infoMessage);
             // @ユーザ情報をhtmlリンクへ変換
