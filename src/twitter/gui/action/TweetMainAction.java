@@ -17,6 +17,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -902,9 +903,7 @@ public class TweetMainAction {
         Pattern userPtn = Pattern.compile("#[0-9A-Z_]+",
                 Pattern.CASE_INSENSITIVE);
         Matcher matcher = userPtn.matcher(message);
-        /*
-         * if( matcher.matches() ) { matcher. }
-         */
+        
         // #で始まる情報一覧を抜き出す
         Set<String> findList = new TreeSet<String>();
         while (matcher.find()) {
@@ -913,10 +912,14 @@ public class TweetMainAction {
         // 指定した情報をすべてリンクへ変更
         for (String f : findList) {
             try {
-                message = message.replaceAll(f, "<a href=\""
+                message = message.replaceAll(
+                          f + "$|"
+                        + f + "\\s"
+                        ,
+                        "<a href=\""
                         + SEARCH_TWITTER_URL + SEARCH_QUERY
                         + URLEncoder.encode(f, DEFAULT_CHARACTER_ENCODING)
-                        + "\">" + f + "</a>");
+                        + "\">" + "$0</a>");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
