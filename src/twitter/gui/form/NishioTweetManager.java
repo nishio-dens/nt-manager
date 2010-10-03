@@ -218,6 +218,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nishio Tweet Manager");
 
         jTabbedPane1.addContainerListener(new java.awt.event.ContainerAdapter() {
