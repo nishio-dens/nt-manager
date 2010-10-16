@@ -779,6 +779,22 @@ public class TweetManager {
     }
 
     /**
+     * 指定したリストのツイートを取得
+     * @param userScreenName ユーザ名
+     * @param listID リストID
+     * @param num 取得ツイート数
+     * @return
+     * @throws TwitterException
+     */
+    public List<Status> getUserListStatuses(String userScreenName, int listID, int num)
+            throws TwitterException {
+        List<Status> tweetList = 
+                this.twitter.getUserListStatuses(userScreenName, listID, new Paging(1, num));
+        Collections.reverse(tweetList);
+        return tweetList;
+    }
+
+    /**
      * 指定したユーザの最新の発言を取得
      * @param userID
      * @param sinceID

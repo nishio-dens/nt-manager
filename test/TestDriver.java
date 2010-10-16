@@ -95,6 +95,13 @@ public class TestDriver {
             for(UserList u : userlist ) {
                 System.out.println( u );
             }
+            System.out.println("---");
+            List<Status> status = manager.getUserListStatuses("applegarden_01", 22406196, 100);
+            for(Status s : status) {
+                System.out.println( s );
+            }
+        } catch (TwitterException ex) {
+            Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
