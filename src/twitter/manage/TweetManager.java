@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 import twitter.log.TwitterLogManager;
 import twitter4j.DirectMessage;
 import twitter4j.GeoLocation;
+import twitter4j.PagableResponseList;
 import twitter4j.Paging;
 import twitter4j.Place;
 import twitter4j.Query;
@@ -31,6 +33,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
+import twitter4j.UserList;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.http.AccessToken;
@@ -746,6 +749,33 @@ public class TweetManager {
         }
         
         return statuses;
+    }
+
+    /**
+     * 指定したユーザが保持しているリスト一覧を取得
+     * @param userScreenName
+     * @return
+     */
+    public List<UserList> getUserLists(String userScreenName) {
+        List<UserList> userlist = new ArrayList<UserList>();
+        long cursor = -1;
+        try {
+            for (;;) {
+                //ユーザリスト取得
+                PagableResponseList<UserList> list = this.twitter.getUserLists(userScreenName, cursor);
+                userlist.addAll( list );
+
+                if( list.hasNext() ) {
+                    //次のカーソルを取得
+                    cursor = list.getNextCursor();
+                }else {
+                    break;
+                }
+            }
+        } catch (TwitterException ex) {
+            Logger.getLogger(TweetManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userlist;
     }
 
     /**

@@ -18,6 +18,7 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.UserList;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.http.AccessToken;
@@ -87,40 +88,18 @@ public class TestDriver {
     }
 
     public static void main(String[] args) {
-        TweetTaskManager manager = new TweetTaskManager();
+        TweetManager manager = new TweetManager();
         try {
-            manager.addTask("TEST1", new TweetUpdateTask() {
-
-                @Override
-                public void runTask() throws TweetTaskException {
-                    System.out.println("TASK1 execute");
-                }
-            });
-
-            manager.addTask("TEST2", new TweetUpdateTask() {
-
-                @Override
-                public void runTask() throws TweetTaskException {
-                    System.out.println("TASK2 execute");
-                }
-            });
-            
-            manager.startTask("TEST1", 1000);
-            manager.startTask("TEST2", 1500);
-
-            Thread.sleep(3000);
-            manager.shutdownTask("TEST1");
-
-            Thread.sleep(3000);
-            manager.shutdownTask("TEST2");
-
-            Thread.sleep(3000);
-            manager.shutdownTask("TESTTEST");
-        } catch (InterruptedException ex) {
+            manager.loginTwitter();
+            List<UserList> userlist = manager.getUserLists("applegarden_01");
+            for(UserList u : userlist ) {
+                System.out.println( u );
+            }
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (TweetTaskException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 }
