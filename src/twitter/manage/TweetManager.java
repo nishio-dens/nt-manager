@@ -790,7 +790,32 @@ public class TweetManager {
             throws TwitterException {
         List<Status> tweetList = 
                 this.twitter.getUserListStatuses(userScreenName, listID, new Paging(1, num));
-        Collections.reverse(tweetList);
+        //tweet逆転
+        if( tweetList != null && tweetList.size() > 0 ) {
+            Collections.reverse(tweetList);
+        }
+        return tweetList;
+    }
+
+    /**
+     * 指定したリストの最新情報を取得
+     * @param userScreenName ユーザ名
+     * @param listID リストID
+     * @param sinceID
+     * @return
+     * @throws TwitterException
+     */
+    public List<Status> getNewUserListStatuses(String userScreenName, int listID, long sinceID)
+            throws TwitterException {
+        if( sinceID == 0 ) {
+            return getUserListStatuses(userScreenName, listID, MAX_TWEET_NUM);
+        }
+        List<Status> tweetList = this.twitter.getUserListStatuses(
+                userScreenName, listID, new Paging(sinceID) );
+        //tweet逆転
+        if( tweetList != null && tweetList.size() > 0 ) {
+            Collections.reverse(tweetList);
+        }
         return tweetList;
     }
 

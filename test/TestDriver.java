@@ -96,13 +96,16 @@ public class TestDriver {
                 System.out.println( u );
             }
             System.out.println("---");
-            List<Status> status = manager.getUserListStatuses("applegarden_01", 22406196, 100);
+            //List<Status> status = manager.getUserListStatuses("applegarden_01", 22406196, 99);
+            List<Status> status = manager.getNewUserListStatuses("applegarden_01", 22406196, 27543444817L);
+            //List<Status> status = manager.getNewSearchResult(333L, "test");
             for(Status s : status) {
                 System.out.println( s );
+                //System.out.println( s.getId() );
             }
         } catch (TwitterException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (FileNotFoundException ex) {
+        }catch (FileNotFoundException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(TestDriver.class.getName()).log(Level.SEVERE, null, ex);
