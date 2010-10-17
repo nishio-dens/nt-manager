@@ -51,6 +51,11 @@ import twitter.action.TweetSearchResultGetter;
 import twitter.action.TweetSendDirectMessageGetter;
 import twitter.action.TweetTimelineGetter;
 import twitter.action.TweetUserTimelineGetter;
+import twitter.action.list.ListGetterSelection;
+import twitter.action.list.UserListGetter;
+import twitter.action.list.UserListMembershipsGetter;
+import twitter.action.list.UserListSpecificUserListsGetter;
+import twitter.action.list.UserListSubscriptionGetter;
 import twitter.gui.component.DnDTabbedPane;
 
 import twitter.gui.component.TweetTabbedTable;
@@ -1196,9 +1201,12 @@ public class TweetMainAction {
     /**
      * リストダイアログを表示
      * @param listUserName リストを保持しているユーザの名前
+     * @param selection CREATED: 指定したユーザが作成したリスト
+     *  SUBSCRIPTION: 指定したユーザがフォローしているリスト
+     *  MEMBERSHIPS:  指定したユーザが追加されているリスト
      */
-    public void actionShowUserListDialog(String listUserName) {
-        UserListDialog dialog = getUserListDialog( listUserName );
+    public void actionShowUserListDialog(String listUserName, ListGetterSelection selection) {
+        UserListDialog dialog = getUserListDialog( listUserName, selection );
         Point loc = dialog.getLocation();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
@@ -1319,10 +1327,24 @@ public class TweetMainAction {
     /**
      * リストダイアログを取得
      * @param listUserName リストを保持しているユーザの名前
+     * @param selection
      * @return
      */
-    public UserListDialog getUserListDialog(String listUserName) {
-        userListDialog = new UserListDialog(mainFrame, true, this, tweetManager, listUserName);
+    public UserListDialog getUserListDialog(String listUserName, ListGetterSelection selection) {
+        UserListGetter getter = null;
+        switch( selection ) {
+            case CREATED:
+                getter = new UserListSpecificUserListsGetter(tweetManager);
+                break;
+            case MEMBERSHIPS:
+                getter = new UserListMembershipsGetter(tweetManager);
+                break;
+            case SUBSCRIPTION: /* fall through */
+            default:
+                getter = new UserListSubscriptionGetter(tweetManager);
+                break;
+        }
+        userListDialog = new UserListDialog(mainFrame, true, this, getter, listUserName);
         return userListDialog;
     }
 

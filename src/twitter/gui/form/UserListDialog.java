@@ -21,6 +21,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import twitter.action.TweetUserTimelineGetter;
+import twitter.action.list.UserListGetter;
 import twitter.gui.action.TweetMainAction;
 import twitter.gui.component.TweetListTableModel;
 import twitter.manage.TweetManager;
@@ -34,8 +35,8 @@ public class UserListDialog extends javax.swing.JDialog {
 
     //メインアクション
     private TweetMainAction mainAction = null;
-    //tweetmanager
-    private TweetManager tweetManager = null;
+    //Userlist
+    private UserListGetter userListGetter = null;
     //リストを取得するユーザの名前
     private String listUserName = null;
     //リストモデル
@@ -45,13 +46,12 @@ public class UserListDialog extends javax.swing.JDialog {
 
     /** Creates new form UserListDialog */
     public UserListDialog(java.awt.Frame parent, boolean modal, TweetMainAction mainAction,
-            TweetManager tweetManager, String listUserName) {
+            UserListGetter userListGetter, String listUserName) {
         super(parent, modal);
         initComponents();
-        this.tweetManager = tweetManager;
         this.mainAction = mainAction;
         this.listUserName = listUserName;
-
+        this.userListGetter = userListGetter;
         addUserListToTable(listUserName);
     }
 
@@ -62,8 +62,8 @@ public class UserListDialog extends javax.swing.JDialog {
     public void addUserListToTable(String username) {
         this.listTableModel.clearStatus();
         this.setTableEnvironment();
-        if( this.tweetManager != null ) {
-            List<UserList> list = this.tweetManager.getUserLists(username);
+        if( this.userListGetter != null ) {
+            List<UserList> list = this.userListGetter.getUserLists(username);
             for(UserList u : list ) {
                 this.listTableModel.insertUserList(u);
             }

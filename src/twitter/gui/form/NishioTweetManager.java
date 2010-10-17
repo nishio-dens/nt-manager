@@ -34,6 +34,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
+import twitter.action.list.ListGetterSelection;
 import twitter.gui.action.TweetMainAction;
 import twitter.gui.component.TweetHashtagHyperlinkHandler;
 import twitter.gui.component.TweetHyperlinkHandler;
@@ -989,7 +990,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        mainAction.actionShowUserListDialog("yumi_rua");
+        mainAction.actionShowUserListDialog("yumi_rua", ListGetterSelection.MEMBERSHIPS);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jTextPaneCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextPaneCaretUpdate
