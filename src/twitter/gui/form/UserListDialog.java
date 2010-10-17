@@ -187,6 +187,11 @@ public class UserListDialog extends javax.swing.JDialog {
         jButton1.setText("OK");
 
         jButton2.setText("キャンセル");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -205,9 +210,9 @@ public class UserListDialog extends javax.swing.JDialog {
 
         jLabel6.setText("NULL");
 
-        jLabel7.setText("NULL");
+        jLabel7.setText("0");
 
-        jLabel8.setText("NULL");
+        jLabel8.setText("0");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -294,6 +299,10 @@ public class UserListDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
