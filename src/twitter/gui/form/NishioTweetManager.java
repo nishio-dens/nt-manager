@@ -990,7 +990,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        mainAction.actionShowUserListDialog("yumi_rua", ListGetterSelection.MEMBERSHIPS);
+        mainAction.actionShowUserListDialog("nishio_dens", ListGetterSelection.MEMBERSHIPS);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jTextPaneCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextPaneCaretUpdate
