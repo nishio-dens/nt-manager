@@ -217,6 +217,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuItem25 = new javax.swing.JMenuItem();
         jMenuItem24 = new javax.swing.JMenuItem();
         jMenuItem26 = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem27 = new javax.swing.JMenuItem();
+        jMenuItem28 = new javax.swing.JMenuItem();
+        jMenuItem29 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -872,7 +876,9 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenu7.setMnemonic('L');
         jMenu7.setText("リスト(L)");
 
-        jMenuItem25.setText("自分が作成したリスト一覧");
+        jMenuItem25.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem25.setMnemonic('C');
+        jMenuItem25.setText("自分が作成したリスト一覧(C)");
         jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem25ActionPerformed(evt);
@@ -880,7 +886,9 @@ public class NishioTweetManager extends javax.swing.JFrame {
         });
         jMenu7.add(jMenuItem25);
 
-        jMenuItem24.setText("購読しているリスト一覧");
+        jMenuItem24.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem24.setMnemonic('S');
+        jMenuItem24.setText("購読しているリスト一覧(S)");
         jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem24ActionPerformed(evt);
@@ -888,13 +896,40 @@ public class NishioTweetManager extends javax.swing.JFrame {
         });
         jMenu7.add(jMenuItem24);
 
-        jMenuItem26.setText("自分がフォローされているリスト一覧");
+        jMenuItem26.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem26.setMnemonic('F');
+        jMenuItem26.setText("自分がフォローされているリスト一覧(F)");
         jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem26ActionPerformed(evt);
             }
         });
         jMenu7.add(jMenuItem26);
+        jMenu7.add(jSeparator7);
+
+        jMenuItem27.setText("選択したユーザが作成したリスト一覧");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem27);
+
+        jMenuItem28.setText("選択したユーザが購読しているリスト一覧");
+        jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem28ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem28);
+
+        jMenuItem29.setText("選択したユーザがフォローされているリスト一覧");
+        jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem29ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem29);
 
         jMenuBar1.add(jMenu7);
 
@@ -1218,6 +1253,18 @@ public class NishioTweetManager extends javax.swing.JFrame {
                 ListGetterSelection.MEMBERSHIPS);
     }//GEN-LAST:event_jMenuItem26ActionPerformed
 
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+        this.mainAction.actionShowSelectedUserList(ListGetterSelection.CREATED);
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
+
+    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
+        this.mainAction.actionShowSelectedUserList(ListGetterSelection.SUBSCRIPTION);
+    }//GEN-LAST:event_jMenuItem28ActionPerformed
+
+    private void jMenuItem29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem29ActionPerformed
+        this.mainAction.actionShowSelectedUserList(ListGetterSelection.MEMBERSHIPS);
+    }//GEN-LAST:event_jMenuItem29ActionPerformed
+
     /**
      *
      */
@@ -1351,6 +1398,9 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
+    private javax.swing.JMenuItem jMenuItem27;
+    private javax.swing.JMenuItem jMenuItem28;
+    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -1372,6 +1422,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextPane jTextPane;
     private javax.swing.JToggleButton jToggleButton1;

@@ -158,7 +158,9 @@ public class UserListDialog extends javax.swing.JDialog {
         int index = table.convertRowIndexToModel(table.getSelectedRow());
         UserList info = null;
         if (model instanceof TweetListTableModel) {
-            info = ((TweetListTableModel) model).getUserList(index);
+            if( index >= 0 ) {
+                info = ((TweetListTableModel) model).getUserList(index);
+            }
         }
         return info;
     }

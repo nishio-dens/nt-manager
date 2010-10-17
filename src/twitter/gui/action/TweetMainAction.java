@@ -911,6 +911,7 @@ public class TweetMainAction {
         }
     }
 
+
     /**
      * Tweet取得時間情報を更新
      */
@@ -1028,6 +1029,21 @@ public class TweetMainAction {
         int userID = status.getUser().getId();
         //ユーザ
         actionAddUserTimelineTab(username, userID, this.getGetTimelinePeriod());
+    }
+
+    /**
+     * 選択したユーザが作成したリスト一覧を表示
+     * @param selection
+     */
+    public void actionShowSelectedUserList(ListGetterSelection selection) {
+        Status status = null;
+        if( this.getCurrentStatus().isRetweet() ) {
+            status = this.getCurrentStatus().getRetweetedStatus();
+        }else {
+            status = this.getCurrentStatus();
+        }
+        String username = status.getUser().getScreenName();
+        actionShowUserListDialog(status.getUser().getScreenName(), selection);
     }
 
     /**
