@@ -61,6 +61,7 @@ import twitter.gui.form.ConfigurationDialog;
 import twitter.gui.form.DirectMessageDialog;
 import twitter.gui.form.HashtagSearchDialog;
 import twitter.gui.form.KeywordSearchDialog;
+import twitter.gui.form.UserListDialog;
 import twitter.manage.TweetConfiguration;
 import twitter.manage.TweetManager;
 import twitter.task.ExistTimerIDException;
@@ -193,6 +194,9 @@ public class TweetMainAction {
     private List<TweetTabbedTable> tweetTabbedTableList = new ArrayList<TweetTabbedTable>();
     //ツイートテーブルの情報を一定間隔で更新するクラスを作成
     private TweetTaskManager tweetTaskManager = new TweetTaskManager();
+
+    //リストダイアログ
+    private UserListDialog userListDialog = null;
 
     //情報更新間隔[sec]
     private int getTimelinePeriod = 60;
@@ -1190,6 +1194,17 @@ public class TweetMainAction {
     }
 
     /**
+     * リストダイアログを表示
+     * @param listUserName リストを保持しているユーザの名前
+     */
+    public void actionShowUserListDialog(String listUserName) {
+        UserListDialog dialog = getUserListDialog( listUserName );
+        Point loc = dialog.getLocation();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }
+
+    /**
      * tweetBoxPaneに書かれた文字をつぶやく
      */
     public void actionTweet() {
@@ -1299,6 +1314,16 @@ public class TweetMainAction {
             configurationDialog = new ConfigurationDialog(mainFrame, true, this);
         }
         return configurationDialog;
+    }
+
+    /**
+     * リストダイアログを取得
+     * @param listUserName リストを保持しているユーザの名前
+     * @return
+     */
+    public UserListDialog getUserListDialog(String listUserName) {
+        userListDialog = new UserListDialog(mainFrame, true, this, tweetManager, listUserName);
+        return userListDialog;
     }
 
     /**

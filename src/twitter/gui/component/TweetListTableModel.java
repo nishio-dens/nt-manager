@@ -32,7 +32,7 @@ public class TweetListTableModel extends DefaultTableModel {
 	}
 
 	private static final ColumnContext[] columnArray = {
-        new ColumnContext("UserIcon", ImageIcon.class, false),
+        new ColumnContext("User", ImageIcon.class, false),
         new ColumnContext("ListName", String.class, false),
         new ColumnContext("ListUser", String.class, false),
         new ColumnContext("Description", String.class, false),
@@ -77,7 +77,7 @@ public class TweetListTableModel extends DefaultTableModel {
 	 * @param row
 	 * @return
 	 */
-	public UserList getTweetStatus(int row) {
+	public UserList getUserList(int row) {
         UserList s = null;
         try {
             s = listInfo.get(row);
@@ -92,7 +92,7 @@ public class TweetListTableModel extends DefaultTableModel {
 	 *
 	 * @param t
 	 */
-	public void insertTweet(UserList t) {
+	public void insertUserList(UserList t) {
         Object[] obj = {
             new ImageIcon(t.getUser().getProfileImageURL()),
             new String(t.getName()),
@@ -113,7 +113,7 @@ public class TweetListTableModel extends DefaultTableModel {
 	 *
 	 * @return
 	 */
-	public int getTweetTableSize() {
+	public int getTableSize() {
 		return this.listInfo.size();
 	}
 

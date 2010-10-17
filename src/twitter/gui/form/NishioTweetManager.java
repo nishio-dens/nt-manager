@@ -989,7 +989,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        mainAction.information("とても長い文章のテストとても長い文章のテストとても長い文章のテストとても長い文章のテストとても長い文章のテストとても長い文章のテスト");
+        mainAction.actionShowUserListDialog("yumi_rua");
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jTextPaneCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextPaneCaretUpdate
