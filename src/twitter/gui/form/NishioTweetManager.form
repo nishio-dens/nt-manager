@@ -337,6 +337,38 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu7">
+          <Properties>
+            <Property name="mnemonic" type="int" value="76"/>
+            <Property name="text" type="java.lang.String" value="&#x30ea;&#x30b9;&#x30c8;(L)"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem25">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x81ea;&#x5206;&#x304c;&#x4f5c;&#x6210;&#x3057;&#x305f;&#x30ea;&#x30b9;&#x30c8;&#x4e00;&#x89a7;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem25ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem24">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x8cfc;&#x8aad;&#x3057;&#x3066;&#x3044;&#x308b;&#x30ea;&#x30b9;&#x30c8;&#x4e00;&#x89a7;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem24ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem26">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x81ea;&#x5206;&#x304c;&#x30d5;&#x30a9;&#x30ed;&#x30fc;&#x3055;&#x308c;&#x3066;&#x3044;&#x308b;&#x30ea;&#x30b9;&#x30c8;&#x4e00;&#x89a7;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem26ActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
             <Property name="mnemonic" type="int" value="79"/>
@@ -912,7 +944,7 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jScrollPane9" min="-2" pref="53" max="-2" attributes="0"/>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

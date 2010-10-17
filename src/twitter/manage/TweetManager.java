@@ -1032,4 +1032,19 @@ public class TweetManager {
     public RateLimitStatus getRateLimitStatus() throws TwitterException {
         return twitter.getRateLimitStatus();
     }
+
+    /**
+     * 自分自身のスクリーン名を返す
+     * @return
+     */
+    public String getScreenName() {
+        try {
+            if (twitter != null) {
+                return twitter.getScreenName();
+            }
+        }catch(TwitterException e) {
+            
+        }
+        return null;
+    }
 }

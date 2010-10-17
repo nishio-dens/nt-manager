@@ -1349,6 +1349,14 @@ public class TweetMainAction {
     }
 
     /**
+     * 自身のスクリーン名を取得
+     * @return
+     */
+    public String getScreenName() {
+        return tweetManager.getScreenName();
+    }
+
+    /**
      * twitter全体からキーワード検索ダイアログを表示
      * @return
      */
