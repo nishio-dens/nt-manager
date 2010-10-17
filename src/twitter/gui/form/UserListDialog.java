@@ -18,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -185,6 +186,11 @@ public class UserListDialog extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("キャンセル");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -303,6 +309,29 @@ public class UserListDialog extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        UserList info = getTweetTableInformation(jTable1, listTableModel);
+        if( info == null ) {
+            JOptionPane.showMessageDialog(null, "リストを選択してください",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String listName = info.getName();
+        String userName = info.getUser().getScreenName();
+        int id = info.getId();
+        String fullName = info.getFullName();
+
+        if( listName == null || userName == null || fullName == null ) {
+            JOptionPane.showMessageDialog(null, "選択できないリストです",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //TODO: 更新間隔をリスト毎に設定できるようにするべきか検討
+        this.mainAction.actionAddListTab(userName, id, fullName, this.mainAction.getGetTimelinePeriod());
+        //終了
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -127,4 +127,14 @@ public class TimerID {
     public static String createUserTimelineID(long userID) {
         return "USERTIMELINE:" + userID;
     }
+
+    /**
+     * リストID生成
+     * @param username
+     * @param listID
+     * @return
+     */
+    public static String createUserListID(String username, long listID) {
+        return "LIST:" + username + ":" + listID;
+    }
 }

@@ -46,6 +46,7 @@ import javax.swing.text.html.StyleSheet;
 import twitter.action.TweetDirectMessageGetter;
 import twitter.action.TweetFavoriteGetter;
 import twitter.action.TweetGetter;
+import twitter.action.TweetListGetter;
 import twitter.action.TweetMentionGetter;
 import twitter.action.TweetSearchResultGetter;
 import twitter.action.TweetSendDirectMessageGetter;
@@ -537,6 +538,27 @@ public class TweetMainAction {
             //検索結果を表示するタブを生成
             actionAddTab(id, period, new TweetSendDirectMessageGetter(tweetManager),
                     TweetMainAction.TAB_SEND_DIRECT_MESSAGE_STRING);
+        } catch (ExistTimerIDException ex) {
+            JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * 指定したリストをタブに追加
+     * @param username
+     * @param listID
+     * @param listFullname
+     * @param period
+     */
+    public void actionAddListTab(String username, int listID, String listFullname, int period) {
+        TimerID timerID = TimerID.getInstance();
+        String id = TimerID.createUserListID(username, listID);
+        try {
+            //既にIDが存在していたらここで例外発生
+            timerID.addID(id);
+            //検索結果を表示するタブを生成
+            actionAddTab(id, period, new TweetListGetter(tweetManager, username, listID), listFullname);
         } catch (ExistTimerIDException ex) {
             JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
                     "Error", JOptionPane.ERROR_MESSAGE);

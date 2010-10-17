@@ -840,10 +840,13 @@ public class TweetManager {
      * @return
      * @throws TwitterException
      */
-    public List<Status> getUserListStatuses(String userScreenName, int listID, int num)
-            throws TwitterException {
-        List<Status> tweetList = 
-                this.twitter.getUserListStatuses(userScreenName, listID, new Paging(1, num));
+    public List<Status> getUserListStatuses(String userScreenName, int listID, int num) {
+        List<Status> tweetList = null;
+        try {
+            tweetList = this.twitter.getUserListStatuses(userScreenName, listID, new Paging(1, num));
+        } catch (TwitterException ex) {
+            Logger.getLogger(TweetManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //tweet逆転
         if( tweetList != null && tweetList.size() > 0 ) {
             Collections.reverse(tweetList);
@@ -857,15 +860,17 @@ public class TweetManager {
      * @param listID リストID
      * @param sinceID
      * @return
-     * @throws TwitterException
      */
-    public List<Status> getNewUserListStatuses(String userScreenName, int listID, long sinceID)
-            throws TwitterException {
+    public List<Status> getNewUserListStatuses(String userScreenName, int listID, long sinceID) {
         if( sinceID == 0 ) {
             return getUserListStatuses(userScreenName, listID, MAX_TWEET_NUM);
         }
-        List<Status> tweetList = this.twitter.getUserListStatuses(
-                userScreenName, listID, new Paging(sinceID) );
+        List<Status> tweetList = null;
+        try {
+            tweetList = this.twitter.getUserListStatuses(userScreenName, listID, new Paging(sinceID));
+        } catch (TwitterException ex) {
+            Logger.getLogger(TweetManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //tweet逆転
         if( tweetList != null && tweetList.size() > 0 ) {
             Collections.reverse(tweetList);
