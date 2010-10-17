@@ -55,7 +55,16 @@ public class UserListDialog extends javax.swing.JDialog {
         this.mainAction = mainAction;
         this.listUserName = listUserName;
         this.userListGetter = userListGetter;
-        addUserListToTable(listUserName);
+
+        final String username = listUserName;
+        //スレッドにリスト挿入作業をさせる
+        new Thread() {
+
+            @Override
+            public void run() {
+                addUserListToTable(username);
+            }
+        }.start();
     }
 
     /**
