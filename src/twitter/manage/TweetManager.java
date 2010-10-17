@@ -779,6 +779,60 @@ public class TweetManager {
     }
 
     /**
+     * 指定したユーザをフォローしているリストを返す
+     * @param userScreenName
+     * @return
+     */
+    public List<UserList> getUserListSubscriptions(String userScreenName) {
+        List<UserList> userlist = new ArrayList<UserList>();
+        long cursor = -1;
+        try {
+            for (;;) {
+                //ユーザリスト取得
+                PagableResponseList<UserList> list = this.twitter.getUserListSubscriptions(userScreenName, cursor);
+                userlist.addAll( list );
+
+                if( list.hasNext() ) {
+                    //次のカーソルを取得
+                    cursor = list.getNextCursor();
+                }else {
+                    break;
+                }
+            }
+        } catch (TwitterException ex) {
+            Logger.getLogger(TweetManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userlist;
+    }
+
+    /**
+     * 指定したユーザが追加されているリストを返す
+     * @param userScreenName
+     * @return
+     */
+    public List<UserList> getUserListMemberships(String userScreenName) {
+        List<UserList> userlist = new ArrayList<UserList>();
+        long cursor = -1;
+        try {
+            for (;;) {
+                //ユーザリスト取得
+                PagableResponseList<UserList> list = this.twitter.getUserListMemberships(userScreenName, cursor);
+                userlist.addAll( list );
+
+                if( list.hasNext() ) {
+                    //次のカーソルを取得
+                    cursor = list.getNextCursor();
+                }else {
+                    break;
+                }
+            }
+        } catch (TwitterException ex) {
+            Logger.getLogger(TweetManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userlist;
+    }
+
+    /**
      * 指定したリストのツイートを取得
      * @param userScreenName ユーザ名
      * @param listID リストID

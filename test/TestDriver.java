@@ -91,7 +91,7 @@ public class TestDriver {
         TweetManager manager = new TweetManager();
         try {
             manager.loginTwitter();
-            List<UserList> userlist = manager.getUserLists("yumi_rua");
+            List<UserList> userlist = manager.getUserListMemberships("nishio_dens");
             for(UserList u : userlist ) {
                 System.out.println( u );
             }
