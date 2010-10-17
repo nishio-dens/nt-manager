@@ -894,6 +894,14 @@ public class TweetMainAction {
     }
 
     /**
+     * 自分自身のFavを開く
+     */
+    public void actionOpenFav() {
+        String username = this.tweetManager.getScreenName();
+        this.actionAddFavoriteTab(username);
+    }
+
+    /**
      * 選択したユーザ情報をブラウザで開く
      */
     public void actionOpenUserURL() {
