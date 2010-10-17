@@ -46,7 +46,7 @@ public class AboutDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About Nishio Tweet Manager");
 
-        jLabel1.setText("Nishio Tweet Manager version 0.2");
+        jLabel1.setText("Nishio Tweet Manager version 0.3");
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +94,8 @@ public class AboutDialog extends javax.swing.JDialog {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        jLabel1.getAccessibleContext().setAccessibleName("Nishio Tweet Manager version 0.3");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
