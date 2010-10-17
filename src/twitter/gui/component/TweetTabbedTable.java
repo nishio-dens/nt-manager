@@ -24,6 +24,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import twitter.action.TweetGetter;
+import twitter.action.list.ListGetterSelection;
 import twitter.gui.action.TweetMainAction;
 import twitter.manage.TweetManager;
 import twitter4j.Status;
@@ -398,6 +399,40 @@ public class TweetTabbedTable {
             }
         });
 
+        JMenuItem createdListMenuItem = new JMenuItem(
+                "このユーザが作成したリスト一覧");
+        createdListMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのユーザ情報をブラウザで開く
+                mainAction.actionShowSelectedUserList(ListGetterSelection.CREATED);
+            }
+        });
+
+        JMenuItem subscriptionListMenuItem = new JMenuItem(
+                "このユーザが購読しているリスト一覧");
+        subscriptionListMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのユーザ情報をブラウザで開く
+                mainAction.actionShowSelectedUserList(ListGetterSelection.SUBSCRIPTION);
+            }
+        });
+
+        JMenuItem membershipsListMenuItem = new JMenuItem(
+                "このユーザがフォローされているリスト一覧");
+        membershipsListMenuItem.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // 選択したセルのユーザ情報をブラウザで開く
+                mainAction.actionShowSelectedUserList(ListGetterSelection.MEMBERSHIPS);
+            }
+        });
+
+
 
         //指定した発言がRTかどうか判定
         int sc = table.getSelectedRowCount();
@@ -449,6 +484,12 @@ public class TweetTabbedTable {
             rightClickPopup.add(openBrowserUserInformationMenuItem);
             //この人のfavを開く
             rightClickPopup.add(openFavMenuItem);
+            //この人が作成したリスト
+            rightClickPopup.add(createdListMenuItem);
+            //この人が購読しているリスト
+            rightClickPopup.add(subscriptionListMenuItem);
+            //この人がフォローされているリスト一覧
+            rightClickPopup.add(membershipsListMenuItem);
 
             try {
                 if (st.isRetweet()) {
