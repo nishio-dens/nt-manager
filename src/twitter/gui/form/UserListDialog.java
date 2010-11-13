@@ -128,6 +128,10 @@ public class UserListDialog extends javax.swing.JDialog {
      */
     public void setDetailInformation(JTable table) {
         UserList userList = getTweetTableInformation(table, listTableModel);
+        //情報が存在しないとき
+        if( userList == null ) {
+            return;
+        }
         String listName = userList.getName();
         String userName = userList.getUser().getName();
         int subscriber = userList.getSubscriberCount();
