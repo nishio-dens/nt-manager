@@ -185,7 +185,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem30">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Shift+O"/>
+                  <KeyStroke key="Shift+Ctrl+O"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x81ea;&#x5206;&#x306e;&#x304a;&#x6c17;&#x306b;&#x5165;&#x308a;&#x3092;&#x958b;&#x304f;"/>
               </Properties>
@@ -218,9 +218,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem20">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Shift+Ctrl+O"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="&#x9078;&#x629e;&#x3057;&#x305f;&#x767a;&#x8a00;&#x3092;&#x304a;&#x6c17;&#x306b;&#x5165;&#x308a;&#x304b;&#x3089;&#x524a;&#x9664;"/>
               </Properties>
               <Events>
@@ -381,7 +378,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem26">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Shift+L"/>
+                  <KeyStroke key="Shift+Ctrl+L"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="70"/>
                 <Property name="text" type="java.lang.String" value="&#x81ea;&#x5206;&#x304c;&#x30d5;&#x30a9;&#x30ed;&#x30fc;&#x3055;&#x308c;&#x3066;&#x3044;&#x308b;&#x30ea;&#x30b9;&#x30c8;&#x4e00;&#x89a7;(F)"/>

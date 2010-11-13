@@ -739,7 +739,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenu6.add(jMenuItem21);
         jMenu6.add(jSeparator6);
 
-        jMenuItem30.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem30.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem30.setText("自分のお気に入りを開く");
         jMenuItem30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -767,7 +767,6 @@ public class NishioTweetManager extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem19);
 
-        jMenuItem20.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem20.setText("選択した発言をお気に入りから削除");
         jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -906,7 +905,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         });
         jMenu7.add(jMenuItem24);
 
-        jMenuItem26.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem26.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem26.setMnemonic('F');
         jMenuItem26.setText("自分がフォローされているリスト一覧(F)");
         jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
