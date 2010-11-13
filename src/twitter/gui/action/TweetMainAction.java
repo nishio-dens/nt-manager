@@ -5,6 +5,7 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -167,6 +168,9 @@ public class TweetMainAction {
     private JLabel tweetMessageCountLabel = null;
     private int uncheckedDirectMessageCount = 0;
     private int uncheckedMentionTweetCount = 0;
+    //自分宛のメッセージを通知バーに表示するか
+    private boolean isNotifyMentionMessage = true;
+    private boolean isNotifyDirectMessage = true;
 
     //Tweetの詳細情報を表示する部分
     private JLabel userImageLabel = null;
@@ -179,6 +183,8 @@ public class TweetMainAction {
     private JLabel updateLabel = null;
     private JEditorPane userIntroBox = null;
     private JEditorPane userWebBox = null;
+    //トレイアイコン
+    private TrayIcon trayIcon = null;
 
     //checkbox関係
     private javax.swing.JToggleButton timelineToggleButton;
@@ -266,7 +272,8 @@ public class TweetMainAction {
             JCheckBoxMenuItem timelineCheckBoxMenuItem,
             JCheckBoxMenuItem mentionCheckBoxMenuItem,
             JCheckBoxMenuItem dmCheckBoxMenuItem,
-            JCheckBoxMenuItem sendCheckBoxMenuItem) {
+            JCheckBoxMenuItem sendCheckBoxMenuItem,
+            TrayIcon trayIcon) {
         this.mainFrame = mainFrame;
         this.tweetManager = tweetManager;
         this.statusBarLabel = statusBarLabel;
@@ -297,6 +304,9 @@ public class TweetMainAction {
         this.dmToggleButton = dmToggleButton;
         this.sendCheckBoxMenuItem = sendCheckBoxMenuItem;
         this.sendDMToggleButton = sendToggleButton;
+
+        //トレイアイコン
+        this.trayIcon = trayIcon;
 
         //罰ボタンを押した時のイベントを追加
         if( this.tweetMainTab instanceof DnDTabbedPane ) {
@@ -454,8 +464,14 @@ public class TweetMainAction {
             //既にIDが存在していたらここで例外発生
             timerID.addID(id);
             //検索結果を表示するタブを生成
-            actionAddTab(id, period, new TweetMentionGetter(tweetManager),
-                    TweetMainAction.TAB_MENTION_STRING);
+            if( this.isNotifyMentionMessage ) {
+                //メッセージが到着したら通知を行う
+                actionAddTab(id, period, new TweetMentionGetter(tweetManager, this.trayIcon),
+                        TweetMainAction.TAB_MENTION_STRING);
+            }else {
+                actionAddTab(id, period, new TweetMentionGetter(tweetManager),
+                        TweetMainAction.TAB_MENTION_STRING);
+            }
         } catch (ExistTimerIDException ex) {
             JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -517,8 +533,13 @@ public class TweetMainAction {
             //既にIDが存在していたらここで例外発生
             timerID.addID(id);
             //検索結果を表示するタブを生成
-            actionAddTab(id, period, new TweetDirectMessageGetter(tweetManager),
-                    TweetMainAction.TAB_DIRECT_MESSAGE_STRING);
+            if( this.isNotifyDirectMessage == true ) {
+                actionAddTab(id, period, new TweetDirectMessageGetter(tweetManager, this.trayIcon),
+                        TweetMainAction.TAB_DIRECT_MESSAGE_STRING);
+            }else {
+                actionAddTab(id, period, new TweetDirectMessageGetter(tweetManager),
+                        TweetMainAction.TAB_DIRECT_MESSAGE_STRING);
+            }
         } catch (ExistTimerIDException ex) {
             JOptionPane.showMessageDialog(null, "そのタブは既に存在しています",
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -1579,6 +1600,10 @@ public class TweetMainAction {
         String mfw = this.property.getProperty("mainFrameWidth");
         String mfh = this.property.getProperty("mainFrameHeight");
 
+        //メッセージ通知を行うか
+        String nm = this.property.getProperty("notifyMessage");
+        String ndm = this.property.getProperty("notifyDirectMessage");
+
         try {
             this.newTableColor = new Color(Integer.parseInt(ntrgb));
             this.tlFontSize = Integer.parseInt(tfs);
@@ -1592,6 +1617,10 @@ public class TweetMainAction {
             this.getMentionPeriod = Integer.parseInt(gmp);
             this.getDirectMessagePeriod = Integer.parseInt(gdmp);
             this.getSendDirectMessagePeriod = Integer.parseInt(gsdmp);
+
+            //通知関係
+            this.isNotifyMentionMessage = Boolean.parseBoolean(nm);
+            this.isNotifyMentionMessage = Boolean.parseBoolean(ndm);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
@@ -1638,6 +1667,11 @@ public class TweetMainAction {
         }
         this.property.setProperty("mainFrameWidth", this.mainFrameWidth + "");
         this.property.setProperty("mainFrameHeight", this.mainFrameHeight + "");
+
+        //メッセージ通知を行うか
+        this.property.setProperty("notifyMention", this.isNotifyMentionMessage + "");
+        this.property.setProperty("notifyDirectMessage", this.isNotifyDirectMessage + "");
+
         // プロパティのリストを保存
         property.store(new FileOutputStream("./" + PROPERTIES_DIRECTORY + "/"
                 + BASIC_SETTING_FILENAME), null);

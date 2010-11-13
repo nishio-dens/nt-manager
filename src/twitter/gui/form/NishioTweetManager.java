@@ -1325,7 +1325,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
                 userNameLabel, updateTimeLabel, followerLabel, followingLabel, locationLabel,
                 clientNameLabel, updateLabel, userIntroBox, userWebBox, 
                 jToggleButton3, jToggleButton4, jToggleButton5, jToggleButton6,
-                jCheckBoxMenuItem3,jCheckBoxMenuItem4, jCheckBoxMenuItem5, jCheckBoxMenuItem6);
+                jCheckBoxMenuItem3,jCheckBoxMenuItem4, jCheckBoxMenuItem5, jCheckBoxMenuItem6, trayIcon);
         //ハッシュタグ用のハイパーリンクリスナーにアクション登録
         this.hashTagHyperlinkListener.setMainAction(mainAction);
         //もしログインに失敗したら，アカウント設定画面を出す
