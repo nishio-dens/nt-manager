@@ -15,7 +15,7 @@ import twitter4j.User;
  */
 public class SimpleUser implements User {
 
-    private int id;
+    private long id;
     private String name;
     private String screenName;
     private String location;
@@ -90,7 +90,7 @@ public class SimpleUser implements User {
      *
      * @return id
      */
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -226,32 +226,26 @@ public class SimpleUser implements User {
         return statusesCount;
     }
 
-    @Override
     public long getStatusId() {
         return status.getId();
     }
 
-    @Override
     public String getStatusInReplyToScreenName() {
         return status.getInReplyToScreenName();
     }
 
-    @Override
     public long getStatusInReplyToStatusId() {
         return status.getInReplyToStatusId();
     }
 
-    @Override
-    public int getStatusInReplyToUserId() {
+    public long getStatusInReplyToUserId() {
         return status.getInReplyToUserId();
     }
 
-    @Override
     public String getStatusSource() {
         return status.getSource();
     }
 
-    @Override
     public String getStatusText() {
         return status.getText();
     }
@@ -328,12 +322,10 @@ public class SimpleUser implements User {
         return isProtected;
     }
 
-    @Override
     public boolean isStatusFavorited() {
         return status.isFavorited();
     }
 
-    @Override
     public boolean isStatusTruncated() {
         return status.isTruncated();
     }
@@ -420,11 +412,11 @@ public class SimpleUser implements User {
     /**
      * idを設定します。
      *
-     * @param id
+     * @param l
      *            id
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setId(long l) {
+        this.id = l;
     }
 
     /**
@@ -653,4 +645,34 @@ public class SimpleUser implements User {
     public int compareTo(User t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+	@Override
+	public int getListedCount() {
+		// TODO 自動生成されたメソッド・スタブ
+		return 0;
+	}
+
+	@Override
+	public boolean isFollowRequestSent() {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
+
+	@Override
+	public boolean isProfileUseBackgroundImage() {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
+
+	@Override
+	public boolean isShowAllInlineMedia() {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
+
+	@Override
+	public boolean isTranslator() {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
 }

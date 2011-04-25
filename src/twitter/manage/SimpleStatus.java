@@ -3,11 +3,15 @@ package twitter.manage;
 import java.util.Arrays;
 import java.util.Date;
 
+import twitter4j.Annotations;
 import twitter4j.GeoLocation;
+import twitter4j.HashtagEntity;
 import twitter4j.Place;
 import twitter4j.RateLimitStatus;
 import twitter4j.Status;
+import twitter4j.URLEntity;
 import twitter4j.User;
+import twitter4j.UserMentionEntity;
 
 public class SimpleStatus implements Status {
 
@@ -86,7 +90,7 @@ public class SimpleStatus implements Status {
      *
      * @return inReplyToUserId
      */
-    public int getInReplyToUserId() {
+    public long getInReplyToUserId() {
         return inReplyToUserId;
     }
 
@@ -334,4 +338,40 @@ public class SimpleStatus implements Status {
     public int compareTo(Status t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+	@Override
+	public Annotations getAnnotations() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public HashtagEntity[] getHashtagEntities() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public long getRetweetCount() {
+		// TODO 自動生成されたメソッド・スタブ
+		return 0;
+	}
+
+	@Override
+	public URLEntity[] getURLEntities() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public UserMentionEntity[] getUserMentionEntities() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public boolean isRetweetedByMe() {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
 }

@@ -97,7 +97,7 @@ public class StatusXMLConverter {
 		long id = status.getId();
 		String replyToScreenName = status.getInReplyToScreenName();
 		long replyStatusID = status.getInReplyToStatusId();
-		int replyUserID = status.getInReplyToUserId();
+		long replyUserID = status.getInReplyToUserId();
 		String place = null;
 		if (status.getPlace() != null) {
 			place = status.getPlace().toString();

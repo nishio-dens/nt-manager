@@ -21,18 +21,18 @@ public class TweetUserTimelineGetter implements TweetGetter{
     //tweet管理用
     private TweetManager tweetManager;
     //検索したいユーザ
-    private int userID;
+    private long userID;
     //sinceid
     private long sinceID;
 
     /**
      *
      * @param tweetManager
-     * @param userID
+     * @param userID2
      */
-    public TweetUserTimelineGetter(TweetManager tweetManager, int userID) {
+    public TweetUserTimelineGetter(TweetManager tweetManager, long userID2) {
         this.tweetManager = tweetManager;
-        this.userID = userID;
+        this.userID = userID2;
     }
 
     /**

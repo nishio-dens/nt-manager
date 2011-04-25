@@ -141,6 +141,7 @@ public class AccountDialog extends javax.swing.JDialog {
         boolean auth = false;
         try {
             //アクセストークンを取得
+        	//TODO: password filendにgetTextは使用してはいけない．直す
             this.tweetManager.getAccessToken(this.userNameField.getText(), this.passwordField.getText());
             auth = true;
         } catch (Exception ex) {
