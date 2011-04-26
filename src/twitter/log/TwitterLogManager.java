@@ -78,6 +78,53 @@ public class TwitterLogManager {
 		osw.close();
 		fos.close();
 	}
+	
+	/**
+	 * ログをファイルに保存する
+	 * @param statuses
+	 */
+	public void add(List<Status> statuses) throws IOException {
+		// ログディレクトリを作成
+		File logDir = new File("./" + LOG_DIRECTORY);
+		if (!logDir.exists()) {
+			// ディレクトリが存在しないので作成する
+			if (logDir.mkdir() == false) {
+				throw new IOException(LOG_DIRECTORY + "ディレクトリを作成できませんでした．");
+			}
+		}
+		// タイムライン保存用ディレクトリを作成
+		String timelineDirName = "./" + LOG_DIRECTORY + "/"
+				+ TIMELINE_DIRECTORY;
+		File timelineDir = new File(timelineDirName);
+		if (!timelineDir.exists()) {
+			// ディレクトリが存在しないので作成する
+			if (timelineDir.mkdir() == false) {
+				throw new IOException(TIMELINE_DIRECTORY + "ディレクトリを作成できませんでした．");
+			}
+		}
+
+		// 保存するデータのファイル名は年_月_日.log
+		String filename = timelineDirName + "/" + CurrentTime.getCurrentYear()
+				+ "_" + CurrentTime.getCurrentMonth() + "_"
+				+ CurrentTime.getCurrentDay() + ".log";
+
+		FileOutputStream fos = new FileOutputStream(filename, true);
+		OutputStreamWriter osw = new OutputStreamWriter(fos, CHARACTER_ENCODING);
+		BufferedWriter bw = new BufferedWriter(osw);
+
+		// ファイル書き込みデータ
+		StringBuffer writeData = new StringBuffer("");
+		for( Status s : statuses ) {
+			writeData.append(StatusXMLConverter.convertStatusToXML(s) + "\n");
+		}
+		
+		// ファイル書き込み
+		bw.write(writeData.toString());
+		// ファイルを閉じる
+		bw.close();
+		osw.close();
+		fos.close();
+	}
 
 	/**
 	 * 指定した件数分のTweet情報を取得する

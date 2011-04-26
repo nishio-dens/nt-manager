@@ -636,9 +636,10 @@ public class TweetManager {
 		}
 		// ログ保存
 		try {
-			for (Status s : tweetList) {
-				logManager.add(s);
-			}
+//			for (Status s : tweetList) {
+//				logManager.add(s);
+//			}
+			logManager.add( tweetList );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
