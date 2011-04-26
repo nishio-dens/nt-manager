@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -342,7 +341,7 @@ public class TweetManager {
 		List<DirectMessage> directMessages = twitter
 				.getDirectMessages(new Paging(1, num));
 		// Tweetの一覧
-		List<Status> messageList = new LinkedList<Status>();
+		List<Status> messageList = new ArrayList<Status>();
 
 		if (directMessages != null && directMessages.size() > 0) {
 			// tweetIDを保存しておく
@@ -375,7 +374,7 @@ public class TweetManager {
 		List<DirectMessage> directMessages = twitter
 				.getSentDirectMessages(new Paging(1, num));
 		// Tweetの一覧
-		List<Status> messageList = new LinkedList<Status>();
+		List<Status> messageList = new ArrayList<Status>();
 		if (directMessages != null && directMessages.size() > 0) {
 			// tweetIDを保存しておく
 			this.sinceSendDirectMessageID = directMessages.get(0).getId();
@@ -405,7 +404,7 @@ public class TweetManager {
 	public List<Status> getMentions(int num) throws TwitterException {
 		List<Status> statuses = twitter.getMentions(new Paging(1, num));
 		// Tweetの一覧
-		List<Status> tweetList = new LinkedList<Status>();
+		List<Status> tweetList = new ArrayList<Status>();
 		if (statuses != null && statuses.size() > 0) {
 			// tweetIDを保存しておく
 			this.sinceMentionID = statuses.get(0).getId();
@@ -448,7 +447,7 @@ public class TweetManager {
 			}
 		}
 		// Tweetの一覧
-		List<Status> messageList = new LinkedList<Status>();
+		List<Status> messageList = new ArrayList<Status>();
 		if (directMessages != null && directMessages.size() > 0) {
 			// tweetIDを保存しておく
 			this.sinceDirectMessageID = directMessages.get(0).getId();
@@ -492,7 +491,7 @@ public class TweetManager {
 			}
 		}
 		// Tweetの一覧
-		List<Status> messageList = new LinkedList<Status>();
+		List<Status> messageList = new ArrayList<Status>();
 		if (directMessages != null && directMessages.size() > 0) {
 			// tweetIDを保存しておく
 			this.sinceSendDirectMessageID = directMessages.get(0).getId();
@@ -538,7 +537,7 @@ public class TweetManager {
 		}
 
 		// Tweetの一覧
-		List<Status> tweetList = new LinkedList<Status>();
+		List<Status> tweetList = new ArrayList<Status>();
 		if (statuses != null && statuses.size() > 0) {
 			// tweetIDを保存しておく
 			sinceMentionID = statuses.get(0).getId();
@@ -584,7 +583,7 @@ public class TweetManager {
 			}
 		}
 		// Tweetの一覧
-		List<Status> tweetList = new LinkedList<Status>();
+		List<Status> tweetList = new ArrayList<Status>();
 		if (statuses != null && statuses.size() > 0) {
 			// tweetIDを保存しておく
 			sinceTweetID = statuses.get(0).getId();
@@ -623,15 +622,17 @@ public class TweetManager {
 		// getFriendsTimelineではRetweetは表示されないので注意
 		List<Status> statuses = twitter.getHomeTimeline(new Paging(1, num));
 		// Tweetの一覧
-		List<Status> tweetList = new LinkedList<Status>();
+		List<Status> tweetList = new ArrayList<Status>();
 		if (statuses != null && statuses.size() > 0) {
 			// tweetIDを保存しておく
 			sinceTweetID = statuses.get(0).getId();
 
 			// 一番新しいtweetを一番したに持ってくる
-			for (Status status : statuses) {
-				tweetList.add(0, status);
-			}
+			//for (Status status : statuses) {
+			//	tweetList.add(0, status);
+			//}
+			Collections.reverse( statuses );
+			tweetList.addAll( statuses );
 		}
 		// ログ保存
 		try {
@@ -681,7 +682,7 @@ public class TweetManager {
 			ex.printStackTrace();
 		}
 
-		List<Status> tweetList = new LinkedList<Status>();
+		List<Status> tweetList = new ArrayList<Status>();
 
 		if (queryResult != null) {
 			for (Tweet tweet : queryResult.getTweets()) {
@@ -744,7 +745,7 @@ public class TweetManager {
 			ex.printStackTrace();
 		}
 
-		List<Status> tweetList = new LinkedList<Status>();
+		List<Status> tweetList = new ArrayList<Status>();
 
 		if (queryResult != null) {
 			for (Tweet tweet : queryResult.getTweets()) {
