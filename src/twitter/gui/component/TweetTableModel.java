@@ -110,7 +110,6 @@ public class TweetTableModel extends DefaultTableModel {
 	 * @return
 	 */
 	public Status getTweetStatus(int row) {
-		// TODO:リンクリストだと行数が多くなると読み込み遅くなりそう 改良を検討
         Status s = null;
         try {
             s = tweetStatus.get(row);
@@ -169,7 +168,7 @@ public class TweetTableModel extends DefaultTableModel {
 				this.tweetStatus.remove(tweetStatus.size() - 1);
 				super.removeRow(tweetStatus.size());
 			}
-			// TODO: check用 あとでここの部分を検討 たまにテーブルサイズとlistのサイズが違うことがある
+			// check用 あとでここの部分を検討 たまにテーブルサイズとlistのサイズが違うことがある
 			if (this.tweetStatus.size() != super.getRowCount()) {
 				System.err
 						.println("Tweet Table List Size and Table Size are different.");
