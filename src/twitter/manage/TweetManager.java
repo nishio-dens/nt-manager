@@ -409,9 +409,11 @@ public class TweetManager {
 			// tweetIDを保存しておく
 			this.sinceMentionID = statuses.get(0).getId();
 			// 一番新しいtweetを一番したに持ってくる
-			for (Status status : statuses) {
-				tweetList.add(0, status);
-			}
+//			for (Status status : statuses) {
+//				tweetList.add(0, status);
+//			}
+			Collections.reverse( statuses );
+			tweetList.addAll( statuses );
 		}
 		try {
 			saveProperties();
@@ -543,9 +545,11 @@ public class TweetManager {
 			sinceMentionID = statuses.get(0).getId();
 
 			// 一番新しいtweetを一番したに持ってくる
-			for (Status status : statuses) {
+			/*for (Status status : statuses) {
 				tweetList.add(0, status);
-			}
+			}*/
+			Collections.reverse( statuses );
+			tweetList.addAll( statuses );
 		}
 		try {
 			saveProperties();
@@ -589,15 +593,18 @@ public class TweetManager {
 			sinceTweetID = statuses.get(0).getId();
 
 			// 一番新しいtweetを一番したに持ってくる
-			for (Status status : statuses) {
+			/*for (Status status : statuses) {
 				tweetList.add(0, status);
-			}
+			}*/
+			Collections.reverse( statuses );
+			tweetList.addAll( statuses );
 		}
 		// ログ保存
 		try {
-			for (Status s : tweetList) {
+			/*for (Status s : tweetList) {
 				logManager.add(s);
-			}
+			}*/
+			logManager.add( tweetList );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
