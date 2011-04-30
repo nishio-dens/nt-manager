@@ -183,9 +183,9 @@ public class TweetTabbedTable {
         });
         // MouseEventを追加
         table.addMouseListener(commentRenderer);
-        table.addMouseMotionListener(commentRenderer);
+        //table.addMouseMotionListener(commentRenderer);
         table.addMouseListener(infoRenderer);
-        table.addMouseMotionListener(infoRenderer);
+        //table.addMouseMotionListener(infoRenderer);
     }
 
     /**
