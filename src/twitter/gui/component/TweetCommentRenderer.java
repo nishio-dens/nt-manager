@@ -111,7 +111,8 @@ public class TweetCommentRenderer extends JEditorPane implements
 	 * マウスがある位置のセルをrepaint
 	 */
 	public void mouseMoved(MouseEvent e) {
-		JTable table = (JTable) e.getSource();
+		//この部分は処理が重いのでカットすることとした
+		/*JTable table = (JTable) e.getSource();
 		Point pt = e.getPoint();
 		row = table.rowAtPoint(pt);
 		col = table.columnAtPoint(pt);
@@ -119,7 +120,7 @@ public class TweetCommentRenderer extends JEditorPane implements
 			row = -1;
 			col = -1;
 		}
-		table.repaint();
+		table.repaint();*/
 	}
 
 	/**
