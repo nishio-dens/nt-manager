@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
+import twitter.cache.TwitterImageCache;
 import twitter.util.HTMLEncode;
 import twitter4j.Status;
 
@@ -128,9 +130,12 @@ public class TweetTableModel extends DefaultTableModel {
 		// 1:ユーザのイメージ
 		// 2:ユーザのつぶやき
 		// 3.つぶやいた時間，つぶやいたクライアントなど
+		
+		//イメージデータをキャッシュから取得
+		TwitterImageCache imageCache = TwitterImageCache.getInstance();
 
 		Object[] obj = {
-				new ImageIcon(t.getUser().getProfileImageURL()),
+				imageCache.getProfileImage( t.getUser().getProfileImageURL().toString() ),
 				"<b>" + t.getUser().getScreenName() + "</b> "
 						+ HTMLEncode.encode(t.getText()),
 				tweetDateFormat.format(t.getCreatedAt()) + "<br> "
@@ -142,6 +147,42 @@ public class TweetTableModel extends DefaultTableModel {
 			e.printStackTrace();
 		}
 		// super.addRow(obj);
+	}
+	
+	/**
+	 * Tweetをテーブルに追加
+	 * @param list
+	 */
+	public void insertTweet(List<Status> list) {
+		//イメージデータをキャッシュから取得
+		TwitterImageCache imageCache = TwitterImageCache.getInstance();
+		
+		//イメージだけあらかじめ取得しておく
+		ImageIcon[] icons = new ImageIcon[ list.size() ];
+		int i=0;
+		for(Status t : list ) {
+			icons[i] = imageCache.getProfileImage( t.getUser().getProfileImageURL().toString() );
+			i++;
+		}
+		
+		int j=0;
+		for(Status t : list ) {
+			//キャッシュを使ってイメージを取得
+			Object[] obj = {
+					icons[j],
+					"<b>" + t.getUser().getScreenName() + "</b> "
+							+ HTMLEncode.encode(t.getText()),
+					tweetDateFormat.format(t.getCreatedAt()) + "<br> "
+							+ t.getSource() + "から" };
+			System.out.println( t.getUser().getProfileImageURL() );
+			try {
+				super.insertRow(0, obj);
+				tweetStatus.add(0, t);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			j++;
+		}
 	}
 
 	/**

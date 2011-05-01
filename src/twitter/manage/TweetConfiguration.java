@@ -9,6 +9,8 @@ package twitter.manage;
 public class TweetConfiguration {
 	// ログを保存するディレクトリ名
 	public static final String LOG_DIRECTORY = "log";
+	// キャッシュデータを保存するディレクトリ名
+	public static final String CACHE_DIRECTORY = "cache";
 	// タイムラインを保存するディレクトリ名
 	public static final String TIMELINE_DIRECTORY = "timeline";
 	// 文字コード
@@ -21,8 +23,8 @@ public class TweetConfiguration {
 	public static final String TWEET_INFO_FILENAME = "previnfo.properties";
 	// 基本設定を保存するファイル名
 	public static final String BASIC_SETTING_FILENAME = "setting.properties";
-    //アカウント情報を保存するファイル名
-    public static final String ACCOUNT_INFORMATION_FILENAME = "account.properties";
-    // search twitterのURL
-    public static final String SEARCH_TWITTER_HOSTNAME = "search.twitter.com";
+	// アカウント情報を保存するファイル名
+	public static final String ACCOUNT_INFORMATION_FILENAME = "account.properties";
+	// search twitterのURL
+	public static final String SEARCH_TWITTER_HOSTNAME = "search.twitter.com";
 }
