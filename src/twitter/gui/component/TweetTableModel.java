@@ -174,7 +174,7 @@ public class TweetTableModel extends DefaultTableModel {
 							+ HTMLEncode.encode(t.getText()),
 					tweetDateFormat.format(t.getCreatedAt()) + "<br> "
 							+ t.getSource() + "から" };
-			System.out.println( t.getUser().getProfileImageURL() );
+
 			try {
 				super.insertRow(0, obj);
 				tweetStatus.add(0, t);
