@@ -58,6 +58,7 @@ import twitter.action.list.UserListGetter;
 import twitter.action.list.UserListMembershipsGetter;
 import twitter.action.list.UserListSpecificUserListsGetter;
 import twitter.action.list.UserListSubscriptionGetter;
+import twitter.cache.TwitterImageCache;
 import twitter.gui.component.DnDTabbedPane;
 
 import twitter.gui.component.TweetTabbedTable;
@@ -1546,8 +1547,9 @@ public class TweetMainAction {
 			// 詳細情報にテーブルで選択した人のツイート情報を表示
 			tweetMessageBox.setText(infoMessage);
 			// user icon
-			userImageLabel.setIcon(new ImageIcon(st.getUser()
-					.getProfileImageURL()));
+			//アイコンをキャッシュから取得
+			ImageIcon icon = TwitterImageCache.getInstance().getProfileImage( st.getUser().getProfileImageURL().toString() );
+			userImageLabel.setIcon( icon );
 			// user name and id
 			userNameLabel.setText(st.getUser().getName() + " / "
 					+ st.getUser().getScreenName());
