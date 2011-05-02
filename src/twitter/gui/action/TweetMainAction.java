@@ -1421,11 +1421,22 @@ public class TweetMainAction {
 	 */
 	public void actionUpdateTweetMessageCount() {
 		int len = 140 - (tweetBoxPane.getText().length());
+		boolean over = false;
 		if (len < 0) {
-			len = 0;
+			//len = 0;
+			over = true;
 		}
-		tweetMessageCountLabel.setText(len + "");
-
+		
+		if( over ) {
+			tweetMessageCountLabel.setForeground( Color.RED );
+			//オーバーしたことを伝える
+			tweetMessageCountLabel.setText("Over(" + len + ")" );
+		}else {
+			tweetMessageCountLabel.setForeground( Color.BLACK );
+			//残り文字数
+			tweetMessageCountLabel.setText(len + "");
+		}
+		
 		// 残りつぶやき数140の場合，reply状態も解除する
 		if (len == 140) {
 			this.setReplyStatus(null);
