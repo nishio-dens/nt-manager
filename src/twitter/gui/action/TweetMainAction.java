@@ -1321,16 +1321,29 @@ public class TweetMainAction {
 	 * tweetBoxPaneに書かれた文字をつぶやく
 	 */
 	public void actionTweet() {
-		if (this.replyStatus != null) {
-			tweetManager.replyTweet(tweetBoxPane.getText(), this.replyStatus
-					.getId());
-		} else {
-			tweetManager.tweet(tweetBoxPane.getText());
+		boolean isTweet = false;
+		try {
+			if (this.replyStatus != null) {
+				tweetManager.replyTweet(tweetBoxPane.getText(), this.replyStatus
+						.getId());
+			} else {
+				tweetManager.tweet(tweetBoxPane.getText());
+			}
+			isTweet = true;
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		// ツイートした旨を表示
-		this.information("メッセージをつぶやきました. 発言:" + tweetBoxPane.getText());
-
-		tweetBoxPane.setText(""); // テキストをクリア
+		
+		if( isTweet ) {
+			// ツイートした旨を表示
+			this.information("メッセージをつぶやきました. 発言:" + tweetBoxPane.getText());
+			tweetBoxPane.setText(""); // テキストをクリア
+		}else {
+			this.information("つぶやきに失敗しました");
+			JOptionPane.showMessageDialog(null, "つぶやきに失敗しました。文字数がオーバーしているか、ツイッターに接続ができませんでした。",
+					"Tweet Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 
 	}
 

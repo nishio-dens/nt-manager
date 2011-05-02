@@ -409,11 +409,11 @@ public class TweetManager {
 			// tweetIDを保存しておく
 			this.sinceMentionID = statuses.get(0).getId();
 			// 一番新しいtweetを一番したに持ってくる
-//			for (Status status : statuses) {
-//				tweetList.add(0, status);
-//			}
-			Collections.reverse( statuses );
-			tweetList.addAll( statuses );
+			// for (Status status : statuses) {
+			// tweetList.add(0, status);
+			// }
+			Collections.reverse(statuses);
+			tweetList.addAll(statuses);
 		}
 		try {
 			saveProperties();
@@ -545,11 +545,11 @@ public class TweetManager {
 			sinceMentionID = statuses.get(0).getId();
 
 			// 一番新しいtweetを一番したに持ってくる
-			/*for (Status status : statuses) {
-				tweetList.add(0, status);
-			}*/
-			Collections.reverse( statuses );
-			tweetList.addAll( statuses );
+			/*
+			 * for (Status status : statuses) { tweetList.add(0, status); }
+			 */
+			Collections.reverse(statuses);
+			tweetList.addAll(statuses);
 		}
 		try {
 			saveProperties();
@@ -593,18 +593,18 @@ public class TweetManager {
 			sinceTweetID = statuses.get(0).getId();
 
 			// 一番新しいtweetを一番したに持ってくる
-			/*for (Status status : statuses) {
-				tweetList.add(0, status);
-			}*/
-			Collections.reverse( statuses );
-			tweetList.addAll( statuses );
+			/*
+			 * for (Status status : statuses) { tweetList.add(0, status); }
+			 */
+			Collections.reverse(statuses);
+			tweetList.addAll(statuses);
 		}
 		// ログ保存
 		try {
-			/*for (Status s : tweetList) {
-				logManager.add(s);
-			}*/
-			logManager.add( tweetList );
+			/*
+			 * for (Status s : tweetList) { logManager.add(s); }
+			 */
+			logManager.add(tweetList);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -635,18 +635,18 @@ public class TweetManager {
 			sinceTweetID = statuses.get(0).getId();
 
 			// 一番新しいtweetを一番したに持ってくる
-			//for (Status status : statuses) {
-			//	tweetList.add(0, status);
-			//}
-			Collections.reverse( statuses );
-			tweetList.addAll( statuses );
+			// for (Status status : statuses) {
+			// tweetList.add(0, status);
+			// }
+			Collections.reverse(statuses);
+			tweetList.addAll(statuses);
 		}
 		// ログ保存
 		try {
-//			for (Status s : tweetList) {
-//				logManager.add(s);
-//			}
-			logManager.add( tweetList );
+			// for (Status s : tweetList) {
+			// logManager.add(s);
+			// }
+			logManager.add(tweetList);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1056,7 +1056,8 @@ public class TweetManager {
 		Configuration conf = this.getTwitterConfiguration();
 		twitter = new TwitterFactory(conf).getInstance();
 		// access token取得
-		AccessToken oAuthAccessToken = twitter.getOAuthAccessToken(username, password);
+		AccessToken oAuthAccessToken = twitter.getOAuthAccessToken(username,
+				password);
 		this.accessToken = oAuthAccessToken.getToken();
 		this.secretToken = oAuthAccessToken.getTokenSecret();
 
@@ -1072,15 +1073,11 @@ public class TweetManager {
 	 * メッセージをつぶやく
 	 * 
 	 * @param message
+	 * @throws TwitterException
 	 */
-	public void tweet(String message) {
+	public void tweet(String message) throws TwitterException {
 		twitter4j.Status status;
-		try {
-			status = twitter.updateStatus(message);
-		} catch (TwitterException e) {
-			// TODO: エラー処理
-			e.printStackTrace();
-		}
+		status = twitter.updateStatus(message);
 	}
 
 	/**
@@ -1088,18 +1085,14 @@ public class TweetManager {
 	 * 
 	 * @param message
 	 * @param replyToStatusID
+	 * @throws TwitterException 
 	 */
-	public void replyTweet(String message, long replyToStatusID) {
+	public void replyTweet(String message, long replyToStatusID) throws TwitterException {
 		twitter4j.Status status;
-		try {
-			// status = twitter.updateStatus(message, replyToStatusID);
-			StatusUpdate updateMsg = new StatusUpdate(message);
-			updateMsg.setInReplyToStatusId(replyToStatusID);
-			status = twitter.updateStatus( updateMsg );
-		} catch (TwitterException e) {
-			// TODO: エラー処理
-			e.printStackTrace();
-		}
+		// status = twitter.updateStatus(message, replyToStatusID);
+		StatusUpdate updateMsg = new StatusUpdate(message);
+		updateMsg.setInReplyToStatusId(replyToStatusID);
+		status = twitter.updateStatus(updateMsg);
 	}
 
 	/**
