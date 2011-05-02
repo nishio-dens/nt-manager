@@ -46,7 +46,7 @@ public class AboutDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About Nishio Tweet Manager");
 
-        jLabel1.setText("Nishio Tweet Manager version 0.3");
+        jLabel1.setText("Nishio Tweet Manager version 0.4");
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
