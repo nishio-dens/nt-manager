@@ -173,6 +173,11 @@ public class TweetMainAction {
 	// 自分宛のメッセージを通知バーに表示するか
 	private boolean isNotifyMentionMessage = true;
 	private boolean isNotifyDirectMessage = true;
+	//前回開いていたタブの情報を復活する際に利用する（最初の一回だけ利用）
+	private boolean isTempOpenedTimelineTab = true;
+	private boolean isTempOpenedMentionTab = true;
+	private boolean isTempOpenedDMTab = true;
+	private boolean isTempOpenedSendDMTab = true;
 
 	// Tweetの詳細情報を表示する部分
 	private JLabel userImageLabel = null;
@@ -442,12 +447,16 @@ public class TweetMainAction {
 				table.addTableToTab();
 				// タブリストに追加
 				this.tweetTabbedTableList.add(table);
+				//設定を保存
+				this.saveProperties();
 				// searchTable.updateTweetTable();
 				// フォーカスを新しいタブに移す
 				this.actionRequestForusToLastTab();
 			} catch (TweetTaskException ex) {
 				Logger.getLogger(TweetMainAction.class.getName()).log(
 						Level.SEVERE, null, ex);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -864,6 +873,12 @@ public class TweetMainAction {
 
 			// checkboxの状態更新
 			this.updateCheckboxInformation();
+			//設定保存
+			try {
+				saveProperties();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -904,6 +919,12 @@ public class TweetMainAction {
 
 			// checkboxの状態更新
 			this.updateCheckboxInformation();
+			//設定保存
+			try {
+				saveProperties();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -1644,6 +1665,38 @@ public class TweetMainAction {
 	}
 
 	/**
+	 * 前回タイムラインタブを開いていたか
+	 * @return
+	 */
+	public boolean isTempOpenedTimelineTab() {
+		return isTempOpenedTimelineTab;
+	}
+
+	/**
+	 * 前回メンションタブを開いていたか
+	 * @return
+	 */
+	public boolean isTempOpenedMentionTab() {
+		return isTempOpenedMentionTab;
+	}
+
+	/**
+	 * 前回DMタブを開いていたか
+	 * @return
+	 */
+	public boolean isTempOpenedDMTab() {
+		return isTempOpenedDMTab;
+	}
+
+	/**
+	 * 前回SendDMタブを開いていたか
+	 * @return
+	 */
+	public boolean isTempOpenedSendDMTab() {
+		return isTempOpenedSendDMTab;
+	}
+
+	/**
 	 * 設定ファイルを読み込む
 	 * 
 	 * @throws IOException
@@ -1677,6 +1730,12 @@ public class TweetMainAction {
 		// メッセージ通知を行うか
 		String nm = this.property.getProperty("notifyMention");
 		String ndm = this.property.getProperty("notifyDirectMessage");
+		
+		//前回開いていたタブの情報
+		String ptl = this.property.getProperty("openTimelineTab");
+		String pm = this.property.getProperty("openMentionTab");
+		String podm = this.property.getProperty("openDirectMessageTab");
+		String posdmt = this.property.getProperty("openSendDirectMessageTab");
 
 		try {
 			this.newTableColor = new Color(Integer.parseInt(ntrgb));
@@ -1695,6 +1754,12 @@ public class TweetMainAction {
 			// 通知関係
 			this.isNotifyMentionMessage = Boolean.parseBoolean(nm);
 			this.isNotifyDirectMessage = Boolean.parseBoolean(ndm);
+			
+			//前回開いていたタブ情報
+			this.isTempOpenedTimelineTab = Boolean.parseBoolean(ptl);
+			this.isTempOpenedMentionTab = Boolean.parseBoolean(pm);
+			this.isTempOpenedDMTab = Boolean.parseBoolean(podm);
+			this.isTempOpenedSendDMTab = Boolean.parseBoolean(posdmt);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
@@ -1751,6 +1816,12 @@ public class TweetMainAction {
 				+ "");
 		this.property.setProperty("notifyDirectMessage",
 				this.isNotifyDirectMessage + "");
+		
+		//タブの保存
+		this.property.setProperty("openTimelineTab", this.isExistTimelineTab() + "");
+		this.property.setProperty("openMentionTab", this.isExistMentionTab() + "");
+		this.property.setProperty("openDirectMessageTab", this.isExistDirectMessageTab() + "");
+		this.property.setProperty("openSendDirectMessageTab", this.isExistSendDirectMessageTab() + "");
 
 		// プロパティのリストを保存
 		property.store(new FileOutputStream("./" + PROPERTIES_DIRECTORY + "/"

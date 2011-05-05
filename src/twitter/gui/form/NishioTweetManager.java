@@ -1696,15 +1696,36 @@ public class NishioTweetManager extends javax.swing.JFrame {
 		} else {
 			// TLなどを表示するタブを追加
 			// 自動更新も開始
-			// TODO:TL, Mention, DMのタブを表示するかしないかの設定を読み込んで反映するように
-			this.mainAction.actionAddTimelineTab(this.mainAction
-					.getGetTimelinePeriod());
-			this.mainAction.actionAddMentionTab(this.mainAction
-					.getGetMentionPeriod());
-			this.mainAction.actionAddDirectMessageTab(this.mainAction
-					.getGetDirectMessagePeriod());
-			// this.mainAction.actionAddSendDirectMessageTab(
-			// this.mainAction.getGetSendDirectMessagePeriod() );
+			//タブがひとつもないかどうか
+			boolean isNoTab = true;
+			// TL, Mention, DMのタブなどを表示するかしないかの設定を読み込んで反映するようにする
+			if( this.mainAction.isTempOpenedTimelineTab() ) {
+				this.mainAction.actionAddTimelineTab(this.mainAction
+						.getGetTimelinePeriod());
+				isNoTab = false;
+			}
+			if( this.mainAction.isTempOpenedMentionTab() ) {
+				this.mainAction.actionAddMentionTab(this.mainAction
+						.getGetMentionPeriod());
+				isNoTab = false;
+			}
+			if( this.mainAction.isTempOpenedDMTab() ) {
+				this.mainAction.actionAddDirectMessageTab(this.mainAction
+						.getGetDirectMessagePeriod());
+				isNoTab = false;
+			}
+			if( this.mainAction.isTempOpenedSendDMTab() ) {
+				this.mainAction.actionAddSendDirectMessageTab(
+				 this.mainAction.getGetSendDirectMessagePeriod() );
+				isNoTab = false;
+			}
+
+			//タブがひとつもないとき
+			if( isNoTab == true ) {
+				//Timelineタブを追加
+				this.mainAction.actionAddTimelineTab(this.mainAction
+						.getGetTimelinePeriod());				
+			}
 			// フォーカスを一番初めのテーブルに移す
 			this.mainAction.actionRequestFocusToTab(0);
 		}
