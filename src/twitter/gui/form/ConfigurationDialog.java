@@ -86,7 +86,8 @@ public class ConfigurationDialog extends javax.swing.JDialog {
 
 			// 表示
 			jSpinner5.setValue(mainAction.getTableElementHeight());
-
+                        jCheckBox1.setSelected( mainAction.getNotifyMention() );
+                        jCheckBox2.setSelected( mainAction.getNotifyDirectMessage() );
             
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,6 +139,8 @@ public class ConfigurationDialog extends javax.swing.JDialog {
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jSpinner5 = new javax.swing.JSpinner();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -338,15 +341,30 @@ public class ConfigurationDialog extends javax.swing.JDialog {
             }
         });
 
+        jCheckBox1.setSelected(true);
+        jCheckBox1.setText("自分宛のMentionメッセージをタスクバーから通知する");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox2.setSelected(true);
+        jCheckBox2.setText("自分宛のDirectメッセージをタスクバーから通知する");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner5, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner5, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
+                    .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                    .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -356,7 +374,11 @@ public class ConfigurationDialog extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSpinner5, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(268, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox2)
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("表示", jPanel4);
@@ -451,6 +473,8 @@ public class ConfigurationDialog extends javax.swing.JDialog {
 
             // 表示
             mainAction.setTableElementHeight(Integer.parseInt( jSpinner5.getValue().toString() ));
+            mainAction.setNotifyMention( jCheckBox1.isSelected() );
+            mainAction.setNotifyDirectMessage( jCheckBox2.isSelected() );
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -513,6 +537,10 @@ public class ConfigurationDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jSpinner4StateChanged
 
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
     //twitter
     private TweetMainAction mainAction;
     // 利用可能なフォント一覧
@@ -530,6 +558,8 @@ public class ConfigurationDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;

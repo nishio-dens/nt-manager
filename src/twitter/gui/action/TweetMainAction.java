@@ -1324,25 +1324,25 @@ public class TweetMainAction {
 		boolean isTweet = false;
 		try {
 			if (this.replyStatus != null) {
-				tweetManager.replyTweet(tweetBoxPane.getText(), this.replyStatus
-						.getId());
+				tweetManager.replyTweet(tweetBoxPane.getText(),
+						this.replyStatus.getId());
 			} else {
 				tweetManager.tweet(tweetBoxPane.getText());
 			}
 			isTweet = true;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		if( isTweet ) {
+
+		if (isTweet) {
 			// ツイートした旨を表示
 			this.information("メッセージをつぶやきました. 発言:" + tweetBoxPane.getText());
 			tweetBoxPane.setText(""); // テキストをクリア
-		}else {
+		} else {
 			this.information("つぶやきに失敗しました");
-			JOptionPane.showMessageDialog(null, "つぶやきに失敗しました。文字数がオーバーしているか、ツイッターに接続ができませんでした。",
-					"Tweet Error",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,
+					"つぶやきに失敗しました。文字数がオーバーしているか、ツイッターに接続ができませんでした。",
+					"Tweet Error", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -1423,20 +1423,20 @@ public class TweetMainAction {
 		int len = 140 - (tweetBoxPane.getText().length());
 		boolean over = false;
 		if (len < 0) {
-			//len = 0;
+			// len = 0;
 			over = true;
 		}
-		
-		if( over ) {
-			tweetMessageCountLabel.setForeground( Color.RED );
-			//オーバーしたことを伝える
-			tweetMessageCountLabel.setText("Over(" + len + ")" );
-		}else {
-			tweetMessageCountLabel.setForeground( Color.BLACK );
-			//残り文字数
+
+		if (over) {
+			tweetMessageCountLabel.setForeground(Color.RED);
+			// オーバーしたことを伝える
+			tweetMessageCountLabel.setText("Over(" + len + ")");
+		} else {
+			tweetMessageCountLabel.setForeground(Color.BLACK);
+			// 残り文字数
 			tweetMessageCountLabel.setText(len + "");
 		}
-		
+
 		// 残りつぶやき数140の場合，reply状態も解除する
 		if (len == 140) {
 			this.setReplyStatus(null);
@@ -1571,9 +1571,10 @@ public class TweetMainAction {
 			// 詳細情報にテーブルで選択した人のツイート情報を表示
 			tweetMessageBox.setText(infoMessage);
 			// user icon
-			//アイコンをキャッシュから取得
-			ImageIcon icon = TwitterImageCache.getInstance().getProfileImage( st.getUser().getProfileImageURL().toString() );
-			userImageLabel.setIcon( icon );
+			// アイコンをキャッシュから取得
+			ImageIcon icon = TwitterImageCache.getInstance().getProfileImage(
+					st.getUser().getProfileImageURL().toString());
+			userImageLabel.setIcon(icon);
 			// user name and id
 			userNameLabel.setText(st.getUser().getName() + " / "
 					+ st.getUser().getScreenName());
@@ -1674,7 +1675,7 @@ public class TweetMainAction {
 		String mfh = this.property.getProperty("mainFrameHeight");
 
 		// メッセージ通知を行うか
-		String nm = this.property.getProperty("notifyMessage");
+		String nm = this.property.getProperty("notifyMention");
 		String ndm = this.property.getProperty("notifyDirectMessage");
 
 		try {
@@ -1693,7 +1694,7 @@ public class TweetMainAction {
 
 			// 通知関係
 			this.isNotifyMentionMessage = Boolean.parseBoolean(nm);
-			this.isNotifyMentionMessage = Boolean.parseBoolean(ndm);
+			this.isNotifyDirectMessage = Boolean.parseBoolean(ndm);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
@@ -1875,6 +1876,39 @@ public class TweetMainAction {
 	 */
 	public int getGetTimelinePeriod() {
 		return getTimelinePeriod;
+	}
+
+	/**
+	 * 
+	 * @param notify
+	 */
+	public void setNotifyMention(boolean notify) {
+		this.isNotifyMentionMessage = notify;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean getNotifyMention() {
+		return this.isNotifyMentionMessage;
+	}
+
+	/**
+	 * 
+	 * @param notify
+	 * @return
+	 */
+	public void setNotifyDirectMessage(boolean notify) {
+		this.isNotifyDirectMessage = notify;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean getNotifyDirectMessage() {
+		return this.isNotifyDirectMessage;
 	}
 
 	/**

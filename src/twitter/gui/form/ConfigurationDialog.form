@@ -368,11 +368,17 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jSpinner5" pref="228" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jSpinner5" pref="228" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="jCheckBox1" alignment="0" pref="427" max="32767" attributes="0"/>
+                          <Component id="jCheckBox2" alignment="0" pref="427" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -385,7 +391,11 @@
                           <Component id="jLabel11" alignment="0" max="32767" attributes="1"/>
                           <Component id="jSpinner5" alignment="0" max="32767" attributes="1"/>
                       </Group>
-                      <EmptySpace pref="268" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="208" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -400,6 +410,21 @@
               <Events>
                 <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSpinner5StateChanged"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="&#x81ea;&#x5206;&#x5b9b;&#x306e;Mention&#x30e1;&#x30c3;&#x30bb;&#x30fc;&#x30b8;&#x3092;&#x30bf;&#x30b9;&#x30af;&#x30d0;&#x30fc;&#x304b;&#x3089;&#x901a;&#x77e5;&#x3059;&#x308b;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="jCheckBox2">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="&#x81ea;&#x5206;&#x5b9b;&#x306e;Direct&#x30e1;&#x30c3;&#x30bb;&#x30fc;&#x30b8;&#x3092;&#x30bf;&#x30b9;&#x30af;&#x30d0;&#x30fc;&#x304b;&#x3089;&#x901a;&#x77e5;&#x3059;&#x308b;"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
