@@ -5,11 +5,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.DateFormat;
 import java.util.List;
 
 import org.xml.sax.SAXParseException;
+
+import au.com.bytecode.opencsv.CSVWriter;
 
 import twitter.manage.StatusXMLConverter;
 import twitter.manage.TweetConfiguration;
@@ -78,9 +82,10 @@ public class TwitterLogManager {
 		osw.close();
 		fos.close();
 	}
-	
+
 	/**
 	 * ログをファイルに保存する
+	 * 
 	 * @param statuses
 	 */
 	public void add(List<Status> statuses) throws IOException {
@@ -114,10 +119,10 @@ public class TwitterLogManager {
 
 		// ファイル書き込みデータ
 		StringBuffer writeData = new StringBuffer("");
-		for( Status s : statuses ) {
+		for (Status s : statuses) {
 			writeData.append(StatusXMLConverter.convertStatusToXML(s) + "\n");
 		}
-		
+
 		// ファイル書き込み
 		bw.write(writeData.toString());
 		// ファイルを閉じる
@@ -146,7 +151,7 @@ public class TwitterLogManager {
 				+ day + ".log";
 		return get(num, filename);
 	}
-	
+
 	/**
 	 * 指定したlogのTweet情報を取得する
 	 * 
@@ -157,8 +162,8 @@ public class TwitterLogManager {
 	 * @throws SAXParseException
 	 * 
 	 */
-	public List<Status> get( int year, int month, int day)
-			throws IOException, SAXParseException {
+	public List<Status> get(int year, int month, int day) throws IOException,
+			SAXParseException {
 		// 読み出しログ名
 		String timelineDirName = "./" + LOG_DIRECTORY + "/"
 				+ TIMELINE_DIRECTORY;
@@ -166,18 +171,18 @@ public class TwitterLogManager {
 				+ day + ".log";
 		return get(filename);
 	}
-	
+
 	/**
 	 * 指定したファイルの件数分のTweet情報を取得する
 	 * 
 	 * @param num
-	 *  @param path
+	 * @param path
 	 * @throws IOException
 	 * @throws SAXParseException
 	 * 
 	 */
-	public List<Status> get(int num, String path)
-			throws IOException, SAXParseException {
+	public List<Status> get(int num, String path) throws IOException,
+			SAXParseException {
 		String filename = path;
 		// tweet情報を保存するリスト
 		List<Status> tweetData = get(path);
@@ -191,17 +196,16 @@ public class TwitterLogManager {
 
 		return tweetData.subList(from, to);
 	}
-	
+
 	/**
 	 * 指定したファイルの件数分のTweet情報を取得する
 	 * 
-	 *  @param path
+	 * @param path
 	 * @throws IOException
 	 * @throws SAXParseException
 	 * 
 	 */
-	public List<Status> get(String path)
-			throws IOException, SAXParseException {
+	public List<Status> get(String path) throws IOException, SAXParseException {
 		String filename = path;
 		// tweet情報を保存するリスト
 		List<Status> tweetData = null;
@@ -226,7 +230,6 @@ public class TwitterLogManager {
 
 		return tweetData;
 	}
-	
 
 	/**
 	 * 今日のtweet情報を取得する
@@ -242,7 +245,7 @@ public class TwitterLogManager {
 		int day = CurrentTime.getCurrentDay();
 		return this.get(num, year, month, day);
 	}
-	
+
 	/**
 	 * 今日のtweet情報を取得する
 	 * 
@@ -256,5 +259,148 @@ public class TwitterLogManager {
 		int month = CurrentTime.getCurrentMonth();
 		int day = CurrentTime.getCurrentDay();
 		return this.get(year, month, day);
+	}
+
+
+	/**
+	 * logをcsvとして保存
+	 * @param filepath
+	 * @param status
+	 * @param showUsername
+	 * @param showScreenName
+	 * @param showText
+	 * @param showUpdateTime
+	 * @param showClient
+	 * @param showUserDescription
+	 * @param showFollowing
+	 * @param showFollower
+	 * @param showUpdateCount
+	 * @param showUserURL
+	 * @param showProfileImageURL
+	 * @throws IOException
+	 */
+	public void outputCSVLog(String filepath, List<Status> status,
+			boolean showUsername, boolean showScreenName,
+			boolean showText, 
+			boolean showUpdateTime, boolean showClient,
+			boolean showUserDescription,
+			boolean showFollowing, boolean showFollower,
+			boolean showUpdateCount, boolean showUserURL,
+			boolean showProfileImageURL) throws IOException {
+		// CSV保存
+		CSVWriter writer = new CSVWriter(new FileWriter( filepath ));
+		
+		int col = 0;
+		String[] title = new String[11];
+		
+		if( showUsername ) {
+			title[col++] = "Username";
+		}
+		if( showScreenName ) {
+			title[col++] = "ScreenName";
+		}
+		if( showText ) {
+			title[col++] = "Tweet";
+		}
+		if( showUpdateTime ) {
+			title[col++] = "UpdateTime";
+		}
+		if( showClient ) {
+			title[col++] = "Source";
+		}
+		if( showUserDescription ) {
+			title[col++] = "UserDescription";
+		}
+		if( showFollowing ) {
+			title[col++] = "Following";
+		}
+		if( showFollower ) {
+			title[col++] = "Follower";
+		}
+		if( showUpdateCount ) {
+			title[col++] = "UpdateCount";
+		}
+		if( showUserURL ) {
+			title[col++] = "URL";
+		}
+		if( showProfileImageURL ) {
+			title[col++] = "UserImageURL";
+		}
+		//タイトル書き込み
+		writer.writeNext(title);
+		
+		for (Status s : status) {
+			//retweetの場合、retween者の情報を保存
+			if (s.isRetweet()) {
+				s = s.getRetweetedStatus();
+			}
+			// ユーザ名
+			String username = s.getUser().getName();
+			// screen名
+			String screenName = s.getUser().getScreenName();
+			// メッセージ
+			String text = s.getText();
+			// 更新日
+			String updateTime = DateFormat.getInstance().format(
+					s.getCreatedAt());
+			// ユーザが利用しているクライアント
+			String client = s.getSource();
+			// ユーザ紹介文
+			String userDescription = s.getUser().getDescription();
+			// ユーザフォロー数
+			int following = s.getUser().getFriendsCount();
+			// ユーザフォロワー数
+			int follower = s.getUser().getFollowersCount();
+			// 更新数
+			int updateCount = s.getUser().getStatusesCount();
+			// ユーザのURL
+			String userURL = "";
+			try {
+				userURL = s.getUser().getURL().toString();
+			}catch(Exception e) {}
+			// ユーザのprofile imageのURL
+			String profileImageURL = s.getUser().getProfileImageURL()
+					.toString();
+			
+			//書きこむデータ
+			col = 0;
+			String[] data = new String[11];
+			
+			if( showUsername ) {
+				data[col++] = username;
+			}
+			if( showScreenName ) {
+				data[col++] = screenName;
+			}
+			if( showText ) {
+				data[col++] = text;
+			}
+			if( showUpdateTime ) {
+				data[col++] = updateTime;
+			}
+			if( showClient ) {
+				data[col++] = client;
+			}
+			if( showUserDescription ) {
+				data[col++] = userDescription;
+			}
+			if( showFollowing ) {
+				data[col++] = following + "";
+			}
+			if( showFollower ) {
+				data[col++] = follower + "";
+			}
+			if( showUpdateCount ) {
+				data[col++] = updateCount + "";
+			}
+			if( showUserURL ) {
+				data[col++] = userURL;
+			}
+			if( showProfileImageURL ) {
+				data[col++] = profileImageURL;
+			}
+			writer.writeNext(data);
+		}
+		writer.close();
 	}
 }

@@ -1485,9 +1485,7 @@ public class TweetMainAction {
 		TwitterLogManager logManager = new TwitterLogManager();
 		try {
 			List<Status> statuses = logManager.get();
-			for(Status s : statuses) {
-				System.out.println(s);
-			}
+			logManager.outputCSVLog("./test.csv", statuses, true, true, true, true, true, false, false, false, true, true, true);
 		} catch (SAXParseException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
