@@ -242,4 +242,19 @@ public class TwitterLogManager {
 		int day = CurrentTime.getCurrentDay();
 		return this.get(num, year, month, day);
 	}
+	
+	/**
+	 * 今日のtweet情報を取得する
+	 * 
+	 * @param num
+	 * @return
+	 * @throws SAXParseException
+	 * @throws IOException
+	 */
+	public List<Status> get() throws SAXParseException, IOException {
+		int year = CurrentTime.getCurrentYear();
+		int month = CurrentTime.getCurrentMonth();
+		int day = CurrentTime.getCurrentDay();
+		return this.get(year, month, day);
+	}
 }
