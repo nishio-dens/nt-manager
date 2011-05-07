@@ -228,6 +228,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem32 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -975,6 +977,19 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu8.setMnemonic('M');
+        jMenu8.setText("ログ管理(M)");
+
+        jMenuItem32.setText("ログをCSV形式として保存");
+        jMenuItem32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem32ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem32);
+
+        jMenuBar1.add(jMenu8);
+
         jMenu3.setMnemonic('H');
         jMenu3.setText("ヘルプ(H)");
 
@@ -1021,6 +1036,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
         private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed
             mainAction.actionShowUserSearchDialog();
         }//GEN-LAST:event_jMenuItem31ActionPerformed
+
+        private void jMenuItem32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem32ActionPerformed
+            mainAction.actionShowOutputCSVLogDialog();
+        }//GEN-LAST:event_jMenuItem32ActionPerformed
 
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
 		// メッセージをつぶやく
@@ -1448,6 +1467,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -1474,6 +1494,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;
+    private javax.swing.JMenuItem jMenuItem32;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;

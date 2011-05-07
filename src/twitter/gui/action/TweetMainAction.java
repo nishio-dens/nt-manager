@@ -73,6 +73,7 @@ import twitter.gui.form.ConfigurationDialog;
 import twitter.gui.form.DirectMessageDialog;
 import twitter.gui.form.HashtagSearchDialog;
 import twitter.gui.form.KeywordSearchDialog;
+import twitter.gui.form.OutputCSVLogDialog;
 import twitter.gui.form.UserListDialog;
 import twitter.gui.form.UserSearchDialog;
 import twitter.log.TwitterLogManager;
@@ -224,6 +225,8 @@ public class TweetMainAction {
 	private UserListDialog userListDialog = null;
         //ユーザサーチダイアログ
         private UserSearchDialog userSearchDialog = null;
+        //CSVログ出力ダイアログ
+        private OutputCSVLogDialog outputCSVLogDialog = null;
 
 	// 情報更新間隔[sec]
 	private int getTimelinePeriod = 60;
@@ -1325,6 +1328,15 @@ public class TweetMainAction {
             dialog.setVisible(true);
         }
 
+        /**
+         * CSVログ出力ダイアログを表示
+         */
+        public void actionShowOutputCSVLogDialog() {
+            OutputCSVLogDialog dialog = getOutputCSVLogDialog();
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }
+
 	/**
 	 * ハッシュタグ検索ダイアログを表示
 	 */
@@ -1493,6 +1505,40 @@ public class TweetMainAction {
 		}
 	}
 
+        /**
+         * ログデータを保存
+         * @param logFilePath
+         * @param outputFilePath
+         * @param showUsername
+         * @param showScreenName
+         * @param showText
+         * @param showUpdateTime
+         * @param showClient
+         * @param showUserDescription
+         * @param showFollowing
+         * @param showFollower
+         * @param showUpdateCount
+         * @param showUserURL
+         * @param showProfileImageURL
+         * @throws SAXParseException
+         * @throws IOException
+         */
+        public void outputLogToCSV(String logFilePath, String outputFilePath,
+                boolean showUsername, boolean showScreenName,
+			boolean showText,
+			boolean showUpdateTime, boolean showClient,
+			boolean showUserDescription,
+			boolean showFollowing, boolean showFollower,
+			boolean showUpdateCount, boolean showUserURL,
+			boolean showProfileImageURL) throws SAXParseException, IOException {
+            TwitterLogManager logManager = new TwitterLogManager();
+            List<Status> statuses = logManager.get(logFilePath);
+            logManager.outputCSVLog( outputFilePath, statuses, showUsername, showScreenName,
+                    showText, showUpdateTime, showClient,
+                    showUserDescription, showFollowing, showFollower,
+                    showUpdateCount, showUserURL,showProfileImageURL);
+        }
+
 	/**
 	 * 基本設定用ダイアログを取得
 	 * 
@@ -1563,6 +1609,17 @@ public class TweetMainAction {
                 this.userSearchDialog = new UserSearchDialog(mainFrame, true, this);
             }
             return this.userSearchDialog;
+        }
+
+        /**
+         * CSVログ出力ダイアログを表示
+         * @return
+         */
+        public OutputCSVLogDialog getOutputCSVLogDialog() {
+            if( this.outputCSVLogDialog == null ) {
+                this.outputCSVLogDialog = new OutputCSVLogDialog(mainFrame, true, this);
+            }
+            return this.outputCSVLogDialog;
         }
 
 	/**
