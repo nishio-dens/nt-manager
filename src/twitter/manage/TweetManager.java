@@ -833,6 +833,28 @@ public class TweetManager {
 
 		return statuses;
 	}
+	
+	/**
+	 * 指定したユーザの発言を取得
+	 * 
+	 * @param num
+	 * @param screenName
+	 * @return
+	 * @throws TwitterException
+	 */
+	public List<Status> getUserTimeline(int num, String screenName)
+			throws TwitterException {
+		List<Status> statuses = twitter.getUserTimeline(screenName, new Paging(1,
+				num));
+
+		// tweet逆転
+		if (statuses != null && statuses.size() > 0) {
+			Collections.reverse(statuses);
+		}
+
+		return statuses;
+	}
+	
 
 	/**
 	 * 指定したユーザが保持しているリスト一覧を取得
@@ -999,6 +1021,32 @@ public class TweetManager {
 		}
 
 		List<Status> statuses = twitter.getUserTimeline(userID, new Paging(
+				sinceID));
+
+		// tweet逆転
+		if (statuses != null && statuses.size() > 0) {
+			Collections.reverse(statuses);
+		}
+
+		return statuses;
+	}
+	
+	/**
+	 * 指定したユーザの最新の発言を取得
+	 * 
+	 * @param screenName
+	 * @param sinceID
+	 * @return
+	 * @throws TwitterException
+	 */
+	public List<Status> getNewUserTimeline(String screenName, long sinceID)
+			throws TwitterException {
+		// 一度もデータを取得していないとき
+		if (sinceID == 0) {
+			return getUserTimeline(MAX_TWEET_NUM, screenName);
+		}
+
+		List<Status> statuses = twitter.getUserTimeline(screenName, new Paging(
 				sinceID));
 
 		// tweet逆転
