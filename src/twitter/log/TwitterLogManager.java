@@ -130,6 +130,9 @@ public class TwitterLogManager {
 	 * 指定した件数分のTweet情報を取得する
 	 * 
 	 * @param num
+	 * @param year
+	 * @param month
+	 * @param day
 	 * @throws IOException
 	 * @throws SAXParseException
 	 * 
@@ -141,12 +144,67 @@ public class TwitterLogManager {
 				+ TIMELINE_DIRECTORY;
 		String filename = timelineDirName + "/" + year + "_" + month + "_"
 				+ day + ".log";
+		return get(num, filename);
+	}
+	
+	/**
+	 * 指定したlogのTweet情報を取得する
+	 * 
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @throws IOException
+	 * @throws SAXParseException
+	 * 
+	 */
+	public List<Status> get( int year, int month, int day)
+			throws IOException, SAXParseException {
+		// 読み出しログ名
+		String timelineDirName = "./" + LOG_DIRECTORY + "/"
+				+ TIMELINE_DIRECTORY;
+		String filename = timelineDirName + "/" + year + "_" + month + "_"
+				+ day + ".log";
+		return get(filename);
+	}
+	
+	/**
+	 * 指定したファイルの件数分のTweet情報を取得する
+	 * 
+	 * @param num
+	 *  @param path
+	 * @throws IOException
+	 * @throws SAXParseException
+	 * 
+	 */
+	public List<Status> get(int num, String path)
+			throws IOException, SAXParseException {
+		String filename = path;
+		// tweet情報を保存するリスト
+		List<Status> tweetData = get(path);
+
+		int from = tweetData.size() - num;
+		int to = tweetData.size();
+
+		if (from < 0) {
+			from = 0;
+		}
+
+		return tweetData.subList(from, to);
+	}
+	
+	/**
+	 * 指定したファイルの件数分のTweet情報を取得する
+	 * 
+	 *  @param path
+	 * @throws IOException
+	 * @throws SAXParseException
+	 * 
+	 */
+	public List<Status> get(String path)
+			throws IOException, SAXParseException {
+		String filename = path;
 		// tweet情報を保存するリスト
 		List<Status> tweetData = null;
-		// 引数が０以下はありえない
-		if (num < 0) {
-			throw new IndexOutOfBoundsException();
-		}
 		try {
 			File f = new File(filename);
 			byte[] b = new byte[(int) f.length()];
@@ -166,15 +224,9 @@ public class TwitterLogManager {
 			throw new IOException("ファイルが見つかりませんでした.");
 		}
 
-		int from = tweetData.size() - num;
-		int to = tweetData.size();
-
-		if (from < 0) {
-			from = 0;
-		}
-
-		return tweetData.subList(from, to);
+		return tweetData;
 	}
+	
 
 	/**
 	 * 今日のtweet情報を取得する
