@@ -414,7 +414,7 @@ public class StatusXMLConverter {
 					status.setInReplyToStatusId(Long.parseLong(replyStatusID));
 				}
 				if (replyUserID != null) {
-					status.setInReplyToUserId(Integer.parseInt(replyUserID));
+					status.setInReplyToUserId(Long.parseLong(replyUserID));
 				}
 				// TODO: Place
 				// TODO: RetweetStatus ここは実装可能

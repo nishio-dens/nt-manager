@@ -45,6 +45,9 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
+
+import org.xml.sax.SAXParseException;
+
 import twitter.action.TweetDirectMessageGetter;
 import twitter.action.TweetFavoriteGetter;
 import twitter.action.TweetGetter;
@@ -72,6 +75,7 @@ import twitter.gui.form.HashtagSearchDialog;
 import twitter.gui.form.KeywordSearchDialog;
 import twitter.gui.form.UserListDialog;
 import twitter.gui.form.UserSearchDialog;
+import twitter.log.TwitterLogManager;
 import twitter.manage.TweetConfiguration;
 import twitter.manage.TweetManager;
 import twitter.task.ExistTimerIDException;
@@ -1471,6 +1475,23 @@ public class TweetMainAction {
 		// 残りつぶやき数140の場合，reply状態も解除する
 		if (len == 140) {
 			this.setReplyStatus(null);
+		}
+	}
+	
+	/**
+	 * デバッグ用
+	 */
+	public void debug() {
+		TwitterLogManager logManager = new TwitterLogManager();
+		try {
+			List<Status> statuses = logManager.get();
+			for(Status s : statuses) {
+				System.out.println(s);
+			}
+		} catch (SAXParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

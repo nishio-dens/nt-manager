@@ -21,7 +21,7 @@ public class SimpleStatus implements Status {
     private long id = 0;
     private String inReplyToScreenName = null;
     private long inReplyToStatusId = 0;
-    private int inReplyToUserId = 0;
+    private long inReplyToUserId = 0;
     private Place place = null;
     private Status retweetedStatus = null;
     private String source = null;
@@ -245,11 +245,11 @@ public class SimpleStatus implements Status {
     /**
      * inReplyToUserIdを設定します。
      *
-     * @param inReplyToUserId
+     * @param l
      *            inReplyToUserId
      */
-    public void setInReplyToUserId(int inReplyToUserId) {
-        this.inReplyToUserId = inReplyToUserId;
+    public void setInReplyToUserId(long l) {
+        this.inReplyToUserId = l;
     }
 
     /**
