@@ -129,6 +129,15 @@ public class TimerID {
     }
 
     /**
+     * 指定したユーザのタイムラインIDを生成
+     * @param screenName
+     * @return
+     */
+    public static String createUserTimelineID(String screenName) {
+        return "USERTIMELINE:" + screenName;
+    }
+
+    /**
      * リストID生成
      * @param username
      * @param listID

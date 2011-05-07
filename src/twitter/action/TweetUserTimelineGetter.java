@@ -21,7 +21,7 @@ public class TweetUserTimelineGetter implements TweetGetter{
     //tweet管理用
     private TweetManager tweetManager;
     //検索したいユーザ
-    private long userID;
+    private String screenName;
     //sinceid
     private long sinceID;
 
@@ -30,9 +30,9 @@ public class TweetUserTimelineGetter implements TweetGetter{
      * @param tweetManager
      * @param userID2
      */
-    public TweetUserTimelineGetter(TweetManager tweetManager, long userID2) {
+    public TweetUserTimelineGetter(TweetManager tweetManager, String screenName) {
         this.tweetManager = tweetManager;
-        this.userID = userID2;
+        this.screenName = screenName;
     }
 
     /**
@@ -44,7 +44,7 @@ public class TweetUserTimelineGetter implements TweetGetter{
     public List<Status> getTweetData(int num) {
         List<Status> status = null;
         try {
-            status = tweetManager.getUserTimeline(num, userID);
+            status = tweetManager.getUserTimeline(num, screenName);
         } catch (TwitterException ex) {
             Logger.getLogger(TweetUserTimelineGetter.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,7 +67,7 @@ public class TweetUserTimelineGetter implements TweetGetter{
     public List<Status> getNewTweetData() {
         List<Status> status = null;
         try {
-            status = tweetManager.getNewUserTimeline(userID, sinceID);
+            status = tweetManager.getNewUserTimeline(screenName, sinceID);
         } catch (TwitterException ex) {
             Logger.getLogger(TweetUserTimelineGetter.class.getName()).log(Level.SEVERE, null, ex);
         }

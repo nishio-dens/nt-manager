@@ -20,6 +20,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -70,6 +71,7 @@ import twitter.gui.form.DirectMessageDialog;
 import twitter.gui.form.HashtagSearchDialog;
 import twitter.gui.form.KeywordSearchDialog;
 import twitter.gui.form.UserListDialog;
+import twitter.gui.form.UserSearchDialog;
 import twitter.manage.TweetConfiguration;
 import twitter.manage.TweetManager;
 import twitter.task.ExistTimerIDException;
@@ -216,6 +218,8 @@ public class TweetMainAction {
 
 	// リストダイアログ
 	private UserListDialog userListDialog = null;
+        //ユーザサーチダイアログ
+        private UserSearchDialog userSearchDialog = null;
 
 	// 情報更新間隔[sec]
 	private int getTimelinePeriod = 60;
@@ -641,21 +645,19 @@ public class TweetMainAction {
 	 * 
 	 * @param username
 	 *            タブのタイトルにつけるユーザ名
-	 * @param userID
-	 *            ユーザID
 	 * @param period
 	 *            更新周期[sec]
 	 */
-	public void actionAddUserTimelineTab(String username, long userID,
+	public void actionAddUserTimelineTab(String username,
 			int period) {
 		TimerID timerID = TimerID.getInstance();
-		String id = TimerID.createUserTimelineID(userID);
+		String id = TimerID.createUserTimelineID(username);
 		try {
 			// 既にIDが存在していたらここで例外発生
 			timerID.addID(id);
 			// 検索結果を表示するタブを生成
 			actionAddTab(id, period, new TweetUserTimelineGetter(tweetManager,
-					userID), username + "の発言");
+					username), username + "の発言");
 		} catch (ExistTimerIDException ex) {
 			JOptionPane.showMessageDialog(null, "そのタブは既に存在しています", "Error",
 					JOptionPane.ERROR_MESSAGE);
@@ -1107,9 +1109,8 @@ public class TweetMainAction {
 			status = this.getCurrentStatus();
 		}
 		String username = status.getUser().getScreenName();
-		long userID = status.getUser().getId();
 		// ユーザ
-		actionAddUserTimelineTab(username, userID, this.getGetTimelinePeriod());
+		actionAddUserTimelineTab(username, this.getGetTimelinePeriod());
 	}
 
 	/**
@@ -1310,6 +1311,15 @@ public class TweetMainAction {
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 	}
+
+        /**
+         * 指定したユーザ検索ダイアログを表示
+         */
+        public void actionShowUserSearchDialog() {
+            UserSearchDialog dialog = getUserSearchDialog();
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }
 
 	/**
 	 * ハッシュタグ検索ダイアログを表示
@@ -1524,6 +1534,17 @@ public class TweetMainAction {
 		}
 		return keywordSearchDialog;
 	}
+
+        /**
+         * ユーザ検索ダイアログを表示
+         * @return
+         */
+        public UserSearchDialog getUserSearchDialog() {
+            if( this.userSearchDialog == null ) {
+                this.userSearchDialog = new UserSearchDialog(mainFrame, true, this);
+            }
+            return this.userSearchDialog;
+        }
 
 	/**
 	 * hashtag検索ダイアログ

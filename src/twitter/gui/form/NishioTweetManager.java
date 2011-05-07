@@ -135,1221 +135,892 @@ public class NishioTweetManager extends javax.swing.JFrame {
 	 */
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed"
-	// desc="Generated Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
-
-		jTabbedPane1 = new twitter.gui.component.DnDTabbedPane();
-		jPanel1 = new javax.swing.JPanel();
-		userImageLabel = new javax.swing.JLabel();
-		jScrollPane5 = new javax.swing.JScrollPane();
-		tweetMessageBox = new javax.swing.JEditorPane();
-		jLabel3 = new javax.swing.JLabel();
-		jLabel4 = new javax.swing.JLabel();
-		jLabel5 = new javax.swing.JLabel();
-		userNameLabel = new javax.swing.JLabel();
-		updateTimeLabel = new javax.swing.JLabel();
-		locationLabel = new javax.swing.JLabel();
-		jLabel9 = new javax.swing.JLabel();
-		followingLabel = new javax.swing.JLabel();
-		followerLabel = new javax.swing.JLabel();
-		jLabel12 = new javax.swing.JLabel();
-		jLabel13 = new javax.swing.JLabel();
-		updateLabel = new javax.swing.JLabel();
-		jScrollPane6 = new javax.swing.JScrollPane();
-		userIntroBox = new javax.swing.JEditorPane();
-		jScrollPane7 = new javax.swing.JScrollPane();
-		userWebBox = new javax.swing.JEditorPane();
-		jScrollPane8 = new javax.swing.JScrollPane();
-		clientNameLabel = new javax.swing.JEditorPane();
-		jPanel2 = new javax.swing.JPanel();
-		statusBar = new javax.swing.JLabel();
-		jToolBar1 = new javax.swing.JToolBar();
-		jButton1 = new javax.swing.JButton();
-		jSeparator1 = new javax.swing.JToolBar.Separator();
-		jButton2 = new javax.swing.JButton();
-		jSeparator2 = new javax.swing.JToolBar.Separator();
-		jToggleButton1 = new javax.swing.JToggleButton();
-		jToggleButton2 = new javax.swing.JToggleButton();
-		jSeparator3 = new javax.swing.JToolBar.Separator();
-		jToggleButton3 = new javax.swing.JToggleButton();
-		jToggleButton4 = new javax.swing.JToggleButton();
-		jToggleButton5 = new javax.swing.JToggleButton();
-		jToggleButton6 = new javax.swing.JToggleButton();
-		jPanel3 = new javax.swing.JPanel();
-		jScrollPane9 = new javax.swing.JScrollPane();
-		jTextPane = new javax.swing.JTextPane();
-		jButton4 = new javax.swing.JButton();
-		tweetLengthLabel = new javax.swing.JLabel();
-		jLabel15 = new javax.swing.JLabel();
-		jMenuBar1 = new javax.swing.JMenuBar();
-		jMenu1 = new javax.swing.JMenu();
-		jMenuItem1 = new javax.swing.JMenuItem();
-		jMenu6 = new javax.swing.JMenu();
-		jMenuItem10 = new javax.swing.JMenuItem();
-		jMenuItem7 = new javax.swing.JMenuItem();
-		jMenuItem8 = new javax.swing.JMenuItem();
-		jSeparator4 = new javax.swing.JPopupMenu.Separator();
-		jMenuItem11 = new javax.swing.JMenuItem();
-		jMenuItem12 = new javax.swing.JMenuItem();
-		jMenuItem13 = new javax.swing.JMenuItem();
-		jMenuItem15 = new javax.swing.JMenuItem();
-		jMenuItem14 = new javax.swing.JMenuItem();
-		jMenuItem16 = new javax.swing.JMenuItem();
-		jSeparator5 = new javax.swing.JPopupMenu.Separator();
-		jMenuItem17 = new javax.swing.JMenuItem();
-		jMenuItem18 = new javax.swing.JMenuItem();
-		jMenuItem21 = new javax.swing.JMenuItem();
-		jSeparator6 = new javax.swing.JPopupMenu.Separator();
-		jMenuItem30 = new javax.swing.JMenuItem();
-		jMenuItem22 = new javax.swing.JMenuItem();
-		jMenuItem19 = new javax.swing.JMenuItem();
-		jMenuItem20 = new javax.swing.JMenuItem();
-		jMenu4 = new javax.swing.JMenu();
-		jMenuItem5 = new javax.swing.JMenuItem();
-		jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-		jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
-		jCheckBoxMenuItem3 = new javax.swing.JCheckBoxMenuItem();
-		jCheckBoxMenuItem4 = new javax.swing.JCheckBoxMenuItem();
-		jCheckBoxMenuItem5 = new javax.swing.JCheckBoxMenuItem();
-		jCheckBoxMenuItem6 = new javax.swing.JCheckBoxMenuItem();
-		jMenuItem9 = new javax.swing.JMenuItem();
-		jMenu5 = new javax.swing.JMenu();
-		jMenuItem6 = new javax.swing.JMenuItem();
-		jMenuItem23 = new javax.swing.JMenuItem();
-		jMenu7 = new javax.swing.JMenu();
-		jMenuItem25 = new javax.swing.JMenuItem();
-		jMenuItem24 = new javax.swing.JMenuItem();
-		jMenuItem26 = new javax.swing.JMenuItem();
-		jSeparator7 = new javax.swing.JPopupMenu.Separator();
-		jMenuItem27 = new javax.swing.JMenuItem();
-		jMenuItem28 = new javax.swing.JMenuItem();
-		jMenuItem29 = new javax.swing.JMenuItem();
-		jMenu2 = new javax.swing.JMenu();
-		jMenuItem2 = new javax.swing.JMenuItem();
-		jMenuItem4 = new javax.swing.JMenuItem();
-		jMenu3 = new javax.swing.JMenu();
-		jMenuItem3 = new javax.swing.JMenuItem();
-
-		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-		setTitle("Nishio Tweet Manager");
-
-		jTabbedPane1
-				.addContainerListener(new java.awt.event.ContainerAdapter() {
-					public void componentRemoved(
-							java.awt.event.ContainerEvent evt) {
-						jTabbedPane1ComponentRemoved(evt);
-					}
-				});
-
-		jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-		userImageLabel.setBackground(java.awt.Color.black);
-		userImageLabel.setOpaque(true);
-
-		jScrollPane5.setHorizontalScrollBar(null);
-
-		tweetMessageBox.setContentType("text/html");
-		tweetMessageBox.setEditable(false);
-		tweetMessageBox
-				.addComponentListener(new java.awt.event.ComponentAdapter() {
-					public void componentResized(
-							java.awt.event.ComponentEvent evt) {
-						tweetMessageBoxComponentResized(evt);
-					}
-				});
-		tweetMessageBox.addHyperlinkListener(hashTagHyperlinkListener);
-		jScrollPane5.setViewportView(tweetMessageBox);
-
-		jLabel3.setText("ユーザ名");
-
-		jLabel4.setText("更新日");
-
-		jLabel5.setText("現在地");
-
-		userNameLabel.setText("UserName");
-
-		updateTimeLabel.setText("Date");
-
-		locationLabel.setText("Information");
-
-		jLabel9.setText("Following");
-
-		followingLabel.setText("0");
-
-		followerLabel.setText("0");
-
-		jLabel12.setText("Follower");
-
-		jLabel13.setText("更新回数");
-
-		updateLabel.setText("0");
-
-		jScrollPane6
-				.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-		userIntroBox.setContentType("text/html");
-		userIntroBox.setEditable(false);
-		userIntroBox.setMinimumSize(new java.awt.Dimension(120, 20));
-		jScrollPane6.setViewportView(userIntroBox);
-
-		jScrollPane7.setBorder(null);
-		jScrollPane7
-				.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		jScrollPane7
-				.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-		userWebBox.setBorder(null);
-		userWebBox.setContentType("text/html");
-		userWebBox.setEditable(false);
-		userWebBox.setEditable(false);
-		userWebBox.addHyperlinkListener(new TweetHyperlinkHandler());
-		try {
-			// htmlフォント変更
-			HTMLDocument doc = (HTMLDocument) userWebBox.getDocument();
-			StyleSheet[] style = doc.getStyleSheet().getStyleSheets();
-			for (int i = style.length - 1; i >= 0; i--) {
-				Style body = style[i].getStyle("body");
-				if (body != null) {
-					// TODO: change default font size
-					StyleConstants.setFontSize(body, 13);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		jScrollPane7.setViewportView(userWebBox);
-
-		jScrollPane8.setBorder(null);
-		jScrollPane8
-				.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		jScrollPane8
-				.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-		clientNameLabel.setBorder(null);
-		clientNameLabel.setContentType("text/html");
-		clientNameLabel.setEditable(false);
-		clientNameLabel.setEditable(false);
-		clientNameLabel.addHyperlinkListener(new TweetHyperlinkHandler());
-		try {
-			// htmlフォント変更
-			HTMLDocument doc = (HTMLDocument) clientNameLabel.getDocument();
-			StyleSheet[] style = doc.getStyleSheet().getStyleSheets();
-			for (int i = style.length - 1; i >= 0; i--) {
-				Style body = style[i].getStyle("body");
-				if (body != null) {
-					// TODO: default font size
-					StyleConstants.setFontSize(body, 13);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		jScrollPane8.setViewportView(clientNameLabel);
-
-		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(
-				jPanel1);
-		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout
-				.setHorizontalGroup(jPanel1Layout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								jPanel1Layout
-										.createSequentialGroup()
-										.addComponent(
-												userImageLabel,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												48,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGap(3, 3, 3)
-										.addComponent(
-												jScrollPane5,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												656, Short.MAX_VALUE))
-						.addGroup(
-								jPanel1Layout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(
-																jPanel1Layout
-																		.createSequentialGroup()
-																		.addGroup(
-																				jPanel1Layout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING,
-																								false)
-																						.addComponent(
-																								jLabel5,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								jLabel4,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								jLabel3,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE))
-																		.addGap(
-																				18,
-																				18,
-																				18)
-																		.addGroup(
-																				jPanel1Layout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING)
-																						.addComponent(
-																								locationLabel,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								183,
-																								javax.swing.GroupLayout.PREFERRED_SIZE)
-																						.addComponent(
-																								userNameLabel,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								183,
-																								javax.swing.GroupLayout.PREFERRED_SIZE)
-																						.addComponent(
-																								updateTimeLabel,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								183,
-																								javax.swing.GroupLayout.PREFERRED_SIZE))
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addGroup(
-																				jPanel1Layout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING,
-																								false)
-																						.addComponent(
-																								jLabel13,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								jLabel12,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								jLabel9))
-																		.addGap(
-																				18,
-																				18,
-																				18)
-																		.addGroup(
-																				jPanel1Layout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING,
-																								false)
-																						.addComponent(
-																								updateLabel,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								followerLabel,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								68,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								followingLabel,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)))
-														.addGroup(
-																jPanel1Layout
-																		.createSequentialGroup()
-																		.addComponent(
-																				jScrollPane7,
-																				javax.swing.GroupLayout.PREFERRED_SIZE,
-																				220,
-																				javax.swing.GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addComponent(
-																				jScrollPane8,
-																				javax.swing.GroupLayout.PREFERRED_SIZE,
-																				189,
-																				javax.swing.GroupLayout.PREFERRED_SIZE)))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												jScrollPane6,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												274, Short.MAX_VALUE)));
-		jPanel1Layout
-				.setVerticalGroup(jPanel1Layout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								jPanel1Layout
-										.createSequentialGroup()
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addComponent(
-																userImageLabel,
-																javax.swing.GroupLayout.PREFERRED_SIZE,
-																48,
-																javax.swing.GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																jScrollPane5,
-																javax.swing.GroupLayout.PREFERRED_SIZE,
-																70,
-																javax.swing.GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(
-																jPanel1Layout
-																		.createSequentialGroup()
-																		.addGroup(
-																				jPanel1Layout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.TRAILING)
-																						.addGroup(
-																								jPanel1Layout
-																										.createSequentialGroup()
-																										.addGroup(
-																												jPanel1Layout
-																														.createParallelGroup(
-																																javax.swing.GroupLayout.Alignment.BASELINE)
-																														.addComponent(
-																																jLabel3)
-																														.addComponent(
-																																userNameLabel))
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																										.addGroup(
-																												jPanel1Layout
-																														.createParallelGroup(
-																																javax.swing.GroupLayout.Alignment.BASELINE)
-																														.addComponent(
-																																jLabel4)
-																														.addComponent(
-																																updateTimeLabel))
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																										.addGroup(
-																												jPanel1Layout
-																														.createParallelGroup(
-																																javax.swing.GroupLayout.Alignment.BASELINE)
-																														.addComponent(
-																																jLabel5)
-																														.addComponent(
-																																locationLabel)))
-																						.addGroup(
-																								jPanel1Layout
-																										.createSequentialGroup()
-																										.addGroup(
-																												jPanel1Layout
-																														.createParallelGroup(
-																																javax.swing.GroupLayout.Alignment.BASELINE)
-																														.addComponent(
-																																jLabel9)
-																														.addComponent(
-																																followingLabel))
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																										.addGroup(
-																												jPanel1Layout
-																														.createParallelGroup(
-																																javax.swing.GroupLayout.Alignment.BASELINE)
-																														.addComponent(
-																																jLabel12)
-																														.addComponent(
-																																followerLabel))
-																										.addPreferredGap(
-																												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																										.addGroup(
-																												jPanel1Layout
-																														.createParallelGroup(
-																																javax.swing.GroupLayout.Alignment.BASELINE)
-																														.addComponent(
-																																jLabel13)
-																														.addComponent(
-																																updateLabel))))
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addGroup(
-																				jPanel1Layout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING)
-																						.addComponent(
-																								jScrollPane8,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								25,
-																								javax.swing.GroupLayout.PREFERRED_SIZE)
-																						.addComponent(
-																								jScrollPane7,
-																								javax.swing.GroupLayout.PREFERRED_SIZE,
-																								25,
-																								javax.swing.GroupLayout.PREFERRED_SIZE)))
-														.addComponent(
-																jScrollPane6,
-																javax.swing.GroupLayout.PREFERRED_SIZE,
-																85,
-																javax.swing.GroupLayout.PREFERRED_SIZE))
-										.addContainerGap(
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)));
-
-		jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-		statusBar.setText("Status");
-		statusBar.setBorder(null);
-		statusBar
-				.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-					public void propertyChange(
-							java.beans.PropertyChangeEvent evt) {
-						statusBarPropertyChange(evt);
-					}
-				});
-
-		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(
-				jPanel2);
-		jPanel2.setLayout(jPanel2Layout);
-		jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				statusBar, javax.swing.GroupLayout.PREFERRED_SIZE, 707,
-				javax.swing.GroupLayout.PREFERRED_SIZE));
-		jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				statusBar, javax.swing.GroupLayout.Alignment.TRAILING,
-				javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE));
-
-		jToolBar1.setRollover(true);
-
-		jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-				"/toolbarButtonGraphics/general/Refresh24.gif"))); // NOI18N
-		jButton1.setToolTipText("今すぐ更新");
-		jButton1.setFocusable(false);
-		jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-		jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-		jButton1.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton1ActionPerformed(evt);
-			}
-		});
-		jToolBar1.add(jButton1);
-		jToolBar1.add(jSeparator1);
-
-		jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource(
-				"/toolbarButtonGraphics/general/Find24.gif"))); // NOI18N
-		jButton2.setFocusable(false);
-		jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-		jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-		jButton2.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton2ActionPerformed(evt);
-			}
-		});
-		jToolBar1.add(jButton2);
-		jToolBar1.add(jSeparator2);
-
-		jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass()
-				.getResource("/resource/syousai.PNG"))); // NOI18N
-		jToggleButton1.setSelected(true);
-		jToggleButton1.setFocusable(false);
-		jToggleButton1
-				.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-		jToggleButton1
-				.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-		jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jToggleButton1ActionPerformed(evt);
-			}
-		});
-		jToolBar1.add(jToggleButton1);
-
-		jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass()
-				.getResource("/resource/write.PNG"))); // NOI18N
-		jToggleButton2.setSelected(true);
-		jToggleButton2.setFocusable(false);
-		jToggleButton2
-				.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-		jToggleButton2
-				.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-		jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jToggleButton2ActionPerformed(evt);
-			}
-		});
-		jToolBar1.add(jToggleButton2);
-		jToolBar1.add(jSeparator3);
-
-		jToggleButton3.setIcon(new javax.swing.ImageIcon(getClass()
-				.getResource("/resource/timeline.PNG"))); // NOI18N
-		jToggleButton3.setSelected(true);
-		jToggleButton3.setFocusable(false);
-		jToggleButton3
-				.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-		jToggleButton3
-				.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-		jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jToggleButton3ActionPerformed(evt);
-			}
-		});
-		jToolBar1.add(jToggleButton3);
-
-		jToggleButton4.setIcon(new javax.swing.ImageIcon(getClass()
-				.getResource("/resource/mention.PNG"))); // NOI18N
-		jToggleButton4.setFocusable(false);
-		jToggleButton4
-				.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-		jToggleButton4
-				.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-		jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jToggleButton4ActionPerformed(evt);
-			}
-		});
-		jToolBar1.add(jToggleButton4);
-
-		jToggleButton5.setIcon(new javax.swing.ImageIcon(getClass()
-				.getResource("/resource/directmessage.PNG"))); // NOI18N
-		jToggleButton5.setFocusable(false);
-		jToggleButton5
-				.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-		jToggleButton5
-				.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-		jToggleButton5.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jToggleButton5ActionPerformed(evt);
-			}
-		});
-		jToolBar1.add(jToggleButton5);
-
-		jToggleButton6.setIcon(new javax.swing.ImageIcon(getClass()
-				.getResource("/resource/sendMessage.PNG"))); // NOI18N
-		jToggleButton6.setFocusable(false);
-		jToggleButton6
-				.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-		jToggleButton6
-				.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-		jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jToggleButton6ActionPerformed(evt);
-			}
-		});
-		jToolBar1.add(jToggleButton6);
-
-		jScrollPane9
-				.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		jScrollPane9.setMaximumSize(new java.awt.Dimension(32767, 80));
-		jScrollPane9.setMinimumSize(new java.awt.Dimension(26, 80));
-
-		jTextPane.setMaximumSize(new java.awt.Dimension(2147483647, 20));
-		jTextPane.addCaretListener(new javax.swing.event.CaretListener() {
-			public void caretUpdate(javax.swing.event.CaretEvent evt) {
-				jTextPaneCaretUpdate(evt);
-			}
-		});
-		jTextPane.addFocusListener(new java.awt.event.FocusAdapter() {
-			public void focusGained(java.awt.event.FocusEvent evt) {
-				jTextPaneFocusGained(evt);
-			}
-
-			public void focusLost(java.awt.event.FocusEvent evt) {
-				jTextPaneFocusLost(evt);
-			}
-		});
-		jTextPane.addKeyListener(new java.awt.event.KeyAdapter() {
-			public void keyReleased(java.awt.event.KeyEvent evt) {
-				jTextPaneKeyReleased(evt);
-			}
-		});
-		jScrollPane9.setViewportView(jTextPane);
-
-		jButton4.setText("つぶやく");
-		jButton4.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton4ActionPerformed(evt);
-			}
-		});
-
-		tweetLengthLabel.setText("140");
-
-		jLabel15.setText("残り文字数");
-
-		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(
-				jPanel3);
-		jPanel3.setLayout(jPanel3Layout);
-		jPanel3Layout
-				.setHorizontalGroup(jPanel3Layout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								javax.swing.GroupLayout.Alignment.TRAILING,
-								jPanel3Layout
-										.createSequentialGroup()
-										.addComponent(
-												jScrollPane9,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												498, Short.MAX_VALUE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(
-												jPanel3Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addComponent(jLabel15)
-														.addComponent(
-																tweetLengthLabel))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												jButton4,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												115,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addContainerGap()));
-		jPanel3Layout
-				.setVerticalGroup(jPanel3Layout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								jPanel3Layout
-										.createSequentialGroup()
-										.addGroup(
-												jPanel3Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.TRAILING)
-														.addComponent(
-																jButton4,
-																javax.swing.GroupLayout.Alignment.LEADING,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																34,
-																Short.MAX_VALUE)
-														.addGroup(
-																javax.swing.GroupLayout.Alignment.LEADING,
-																jPanel3Layout
-																		.createSequentialGroup()
-																		.addComponent(
-																				jLabel15)
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addComponent(
-																				tweetLengthLabel)))
-										.addGap(48, 48, 48))
-						.addGroup(
-								jPanel3Layout
-										.createSequentialGroup()
-										.addComponent(
-												jScrollPane9,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												53,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)));
-
-		jMenu1.setMnemonic('F');
-		/*
-		 * org.openide.awt.Mnemonics.setLocalizedText(jMenu1, "ファイル(F)");
-		 */
-		jMenu1.setText("ファイル(F)");
-
-		jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_Q,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem1.setMnemonic('X');
-		jMenuItem1.setText("終了(X)");
-		jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem1ActionPerformed(evt);
-			}
-		});
-		jMenu1.add(jMenuItem1);
-
-		jMenuBar1.add(jMenu1);
-
-		jMenu6.setMnemonic('O');
-		jMenu6.setText("操作(O)");
-
-		jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_F5, 0));
-		jMenuItem10.setMnemonic('U');
-		jMenuItem10.setText("今すぐ更新(U)");
-		jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem10ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem10);
-
-		jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_F5,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem7.setMnemonic('A');
-		jMenuItem7.setText("すべての情報を今すぐ更新(A)");
-		jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem7ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem7);
-
-		jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_F5,
-				java.awt.event.InputEvent.ALT_MASK));
-		jMenuItem8.setMnemonic('I');
-		jMenuItem8.setText("時間情報を更新(I)");
-		jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem8ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem8);
-		jMenu6.add(jSeparator4);
-
-		jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_R,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem11.setMnemonic('R');
-		jMenuItem11.setText("発言に返信(Reply)");
-		jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem11ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem11);
-
-		jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_R,
-				java.awt.event.InputEvent.SHIFT_MASK
-						| java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem12.setMnemonic('A');
-		jMenuItem12.setText("発言に返信(Reply All)");
-		jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem12ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem12);
-
-		jMenuItem13.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_T,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem13.setMnemonic('T');
-		jMenuItem13.setText("発言を公式リツイート(RT)");
-		jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem13ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem13);
-
-		jMenuItem15.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_T,
-				java.awt.event.InputEvent.SHIFT_MASK
-						| java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem15.setText("発言をコメント付リツイート(非公式RT)");
-		jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem15ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem15);
-
-		jMenuItem14.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_Q,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem14.setMnemonic('Q');
-		jMenuItem14.setText("発言を引用ツイート(QT)");
-		jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem14ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem14);
-
-		jMenuItem16.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_D,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem16.setMnemonic('D');
-		jMenuItem16.setText("ダイレクトメッセージを送信(D)");
-		jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem16ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem16);
-		jMenu6.add(jSeparator5);
-
-		jMenuItem17.setText("選択した発言をブラウザで開く");
-		jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem17ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem17);
-
-		jMenuItem18.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_S,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem18.setMnemonic('S');
-		jMenuItem18.setText("選択した人の発言を別タブで開く(S)");
-		jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem18ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem18);
-
-		jMenuItem21.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_B,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem21.setMnemonic('B');
-		jMenuItem21.setText("選択した人の発言をブラウザで開く(B)");
-		jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem21ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem21);
-		jMenu6.add(jSeparator6);
-
-		jMenuItem30.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_O,
-				java.awt.event.InputEvent.SHIFT_MASK
-						| java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem30.setText("自分のお気に入りを開く");
-		jMenuItem30.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem30ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem30);
-
-		jMenuItem22.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_O,
-				java.awt.event.InputEvent.ALT_MASK));
-		jMenuItem22.setText("選択したユーザのお気に入りを開く");
-		jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem22ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem22);
-
-		jMenuItem19.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_O,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem19.setMnemonic('F');
-		jMenuItem19.setText("選択した発言をお気に入りに追加(F)");
-		jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem19ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem19);
-
-		jMenuItem20.setText("選択した発言をお気に入りから削除");
-		jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem20ActionPerformed(evt);
-			}
-		});
-		jMenu6.add(jMenuItem20);
-
-		jMenuBar1.add(jMenu6);
-
-		jMenu4.setMnemonic('V');
-		jMenu4.setText("表示(V)");
-
-		jMenuItem5.setMnemonic('D');
-		jMenuItem5.setText("選択しているタブを削除(D)");
-		jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem5ActionPerformed(evt);
-			}
-		});
-		jMenu4.add(jMenuItem5);
-
-		jCheckBoxMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_I,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jCheckBoxMenuItem1.setMnemonic('I');
-		jCheckBoxMenuItem1.setSelected(true);
-		jCheckBoxMenuItem1.setText("詳細情報ボタンの表示(I)");
-		jCheckBoxMenuItem1
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						jCheckBoxMenuItem1ActionPerformed(evt);
-					}
-				});
-		jMenu4.add(jCheckBoxMenuItem1);
-
-		jCheckBoxMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_W,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jCheckBoxMenuItem2.setMnemonic('W');
-		jCheckBoxMenuItem2.setSelected(true);
-		jCheckBoxMenuItem2.setText("書き込みボタンの表示(W)");
-		jCheckBoxMenuItem2
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						jCheckBoxMenuItem2ActionPerformed(evt);
-					}
-				});
-		jMenu4.add(jCheckBoxMenuItem2);
-
-		jCheckBoxMenuItem3.setSelected(true);
-		jCheckBoxMenuItem3.setText("Timelineタブを表示");
-		jCheckBoxMenuItem3
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						jCheckBoxMenuItem3ActionPerformed(evt);
-					}
-				});
-		jMenu4.add(jCheckBoxMenuItem3);
-
-		jCheckBoxMenuItem4.setSelected(true);
-		jCheckBoxMenuItem4.setText("Mentionタブを表示");
-		jCheckBoxMenuItem4
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						jCheckBoxMenuItem4ActionPerformed(evt);
-					}
-				});
-		jMenu4.add(jCheckBoxMenuItem4);
-
-		jCheckBoxMenuItem5.setSelected(true);
-		jCheckBoxMenuItem5.setText("ダイレクトメッセージタブを表示");
-		jCheckBoxMenuItem5
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						jCheckBoxMenuItem5ActionPerformed(evt);
-					}
-				});
-		jMenu4.add(jCheckBoxMenuItem5);
-
-		jCheckBoxMenuItem6.setSelected(true);
-		jCheckBoxMenuItem6.setText("送信済みメッセージタブの表示");
-		jCheckBoxMenuItem6
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						jCheckBoxMenuItem6ActionPerformed(evt);
-					}
-				});
-		jMenu4.add(jCheckBoxMenuItem6);
-
-		jMenuItem9.setText("Debug");
-		jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem9ActionPerformed(evt);
-			}
-		});
-		jMenu4.add(jMenuItem9);
-
-		jMenuBar1.add(jMenu4);
-
-		jMenu5.setMnemonic('S');
-		jMenu5.setText("検索(S)");
-
-		jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_F,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem6.setMnemonic('A');
-		jMenuItem6.setText("キーワードでTwitter全体を検索(A)");
-		jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem6ActionPerformed(evt);
-			}
-		});
-		jMenu5.add(jMenuItem6);
-
-		jMenuItem23.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_H,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem23.setMnemonic('K');
-		jMenuItem23.setText("キーワードに関連するハッシュタグを検索(K)");
-		jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem23ActionPerformed(evt);
-			}
-		});
-		jMenu5.add(jMenuItem23);
-
-		jMenuBar1.add(jMenu5);
-
-		jMenu7.setMnemonic('L');
-		jMenu7.setText("リスト(L)");
-
-		jMenuItem25.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_L,
-				java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem25.setMnemonic('C');
-		jMenuItem25.setText("自分が作成したリスト一覧(C)");
-		jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem25ActionPerformed(evt);
-			}
-		});
-		jMenu7.add(jMenuItem25);
-
-		jMenuItem24.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_L,
-				java.awt.event.InputEvent.ALT_MASK));
-		jMenuItem24.setMnemonic('S');
-		jMenuItem24.setText("購読しているリスト一覧(S)");
-		jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem24ActionPerformed(evt);
-			}
-		});
-		jMenu7.add(jMenuItem24);
-
-		jMenuItem26.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_L,
-				java.awt.event.InputEvent.SHIFT_MASK
-						| java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem26.setMnemonic('F');
-		jMenuItem26.setText("自分がフォローされているリスト一覧(F)");
-		jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem26ActionPerformed(evt);
-			}
-		});
-		jMenu7.add(jMenuItem26);
-		jMenu7.add(jSeparator7);
-
-		jMenuItem27.setText("選択したユーザが作成したリスト一覧");
-		jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem27ActionPerformed(evt);
-			}
-		});
-		jMenu7.add(jMenuItem27);
-
-		jMenuItem28.setText("選択したユーザが購読しているリスト一覧");
-		jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem28ActionPerformed(evt);
-			}
-		});
-		jMenu7.add(jMenuItem28);
-
-		jMenuItem29.setText("選択したユーザがフォローされているリスト一覧");
-		jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem29ActionPerformed(evt);
-			}
-		});
-		jMenu7.add(jMenuItem29);
-
-		jMenuBar1.add(jMenu7);
-
-		jMenu2.setMnemonic('O');
-		jMenu2.setText("設定(O)");
-
-		jMenuItem2.setText("基本設定");
-		jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem2ActionPerformed(evt);
-			}
-		});
-		jMenu2.add(jMenuItem2);
-
-		jMenuItem4.setText("アカウント設定");
-		jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem4ActionPerformed(evt);
-			}
-		});
-		jMenu2.add(jMenuItem4);
-
-		jMenuBar1.add(jMenu2);
-
-		jMenu3.setMnemonic('H');
-		jMenu3.setText("ヘルプ(H)");
-
-		jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(
-				java.awt.event.KeyEvent.VK_F1, 0));
-		jMenuItem3.setText("このプログラムについて");
-		jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jMenuItem3ActionPerformed(evt);
-			}
-		});
-		jMenu3.add(jMenuItem3);
-
-		jMenuBar1.add(jMenu3);
-
-		setJMenuBar(jMenuBar1);
-
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
-				getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE,
-				javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-				.addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE,
-						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-				.addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE,
-						711, Short.MAX_VALUE).addComponent(jPanel1,
-						javax.swing.GroupLayout.DEFAULT_SIZE,
-						javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-				.addComponent(jTabbedPane1,
-						javax.swing.GroupLayout.DEFAULT_SIZE, 711,
-						Short.MAX_VALUE));
-		layout
-				.setVerticalGroup(layout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								javax.swing.GroupLayout.Alignment.TRAILING,
-								layout
-										.createSequentialGroup()
-										.addComponent(
-												jTabbedPane1,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												321, Short.MAX_VALUE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												jPanel1,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												jToolBar1,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												25,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												jPanel3,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												58,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												jPanel2,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.PREFERRED_SIZE)));
-
-		pack();
-	}// </editor-fold>//GEN-END:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jTabbedPane1 = new twitter.gui.component.DnDTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        userImageLabel = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tweetMessageBox = new javax.swing.JEditorPane();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        userNameLabel = new javax.swing.JLabel();
+        updateTimeLabel = new javax.swing.JLabel();
+        locationLabel = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        followingLabel = new javax.swing.JLabel();
+        followerLabel = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        updateLabel = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        userIntroBox = new javax.swing.JEditorPane();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        userWebBox = new javax.swing.JEditorPane();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        clientNameLabel = new javax.swing.JEditorPane();
+        jPanel2 = new javax.swing.JPanel();
+        statusBar = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        jButton2 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        jToggleButton3 = new javax.swing.JToggleButton();
+        jToggleButton4 = new javax.swing.JToggleButton();
+        jToggleButton5 = new javax.swing.JToggleButton();
+        jToggleButton6 = new javax.swing.JToggleButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTextPane = new javax.swing.JTextPane();
+        jButton4 = new javax.swing.JButton();
+        tweetLengthLabel = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem21 = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem30 = new javax.swing.JMenuItem();
+        jMenuItem22 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem20 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem3 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem4 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem5 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem6 = new javax.swing.JCheckBoxMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem23 = new javax.swing.JMenuItem();
+        jMenuItem31 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem25 = new javax.swing.JMenuItem();
+        jMenuItem24 = new javax.swing.JMenuItem();
+        jMenuItem26 = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem27 = new javax.swing.JMenuItem();
+        jMenuItem28 = new javax.swing.JMenuItem();
+        jMenuItem29 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Nishio Tweet Manager");
+
+        jTabbedPane1.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentRemoved(java.awt.event.ContainerEvent evt) {
+                jTabbedPane1ComponentRemoved(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        userImageLabel.setBackground(java.awt.Color.black);
+        userImageLabel.setOpaque(true);
+
+        jScrollPane5.setHorizontalScrollBar(null);
+
+        tweetMessageBox.setContentType("text/html");
+        tweetMessageBox.setEditable(false);
+        tweetMessageBox.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                tweetMessageBoxComponentResized(evt);
+            }
+        });
+        tweetMessageBox.addHyperlinkListener(hashTagHyperlinkListener);
+        jScrollPane5.setViewportView(tweetMessageBox);
+
+        jLabel3.setText("ユーザ名");
+
+        jLabel4.setText("更新日");
+
+        jLabel5.setText("現在地");
+
+        userNameLabel.setText("UserName");
+
+        updateTimeLabel.setText("Date");
+
+        locationLabel.setText("Information");
+
+        jLabel9.setText("Following");
+
+        followingLabel.setText("0");
+
+        followerLabel.setText("0");
+
+        jLabel12.setText("Follower");
+
+        jLabel13.setText("更新回数");
+
+        updateLabel.setText("0");
+
+        jScrollPane6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        userIntroBox.setContentType("text/html");
+        userIntroBox.setEditable(false);
+        userIntroBox.setMinimumSize(new java.awt.Dimension(120, 20));
+        jScrollPane6.setViewportView(userIntroBox);
+
+        jScrollPane7.setBorder(null);
+        jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane7.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        userWebBox.setBorder(null);
+        userWebBox.setContentType("text/html");
+        userWebBox.setEditable(false);
+        userWebBox.setEditable(false);
+        userWebBox.addHyperlinkListener(new TweetHyperlinkHandler());
+        try {
+            // htmlフォント変更
+            HTMLDocument doc = (HTMLDocument) userWebBox.getDocument();
+            StyleSheet[] style = doc.getStyleSheet().getStyleSheets();
+            for (int i = style.length - 1; i >= 0; i--) {
+                Style body = style[i].getStyle("body");
+                if (body != null) {
+                    // TODO: change default font size
+                    StyleConstants.setFontSize(body, 13);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jScrollPane7.setViewportView(userWebBox);
+
+        jScrollPane8.setBorder(null);
+        jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane8.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        clientNameLabel.setBorder(null);
+        clientNameLabel.setContentType("text/html");
+        clientNameLabel.setEditable(false);
+        clientNameLabel.setEditable(false);
+        clientNameLabel.addHyperlinkListener(new TweetHyperlinkHandler());
+        try {
+            // htmlフォント変更
+            HTMLDocument doc = (HTMLDocument) clientNameLabel.getDocument();
+            StyleSheet[] style = doc.getStyleSheet().getStyleSheets();
+            for (int i = style.length - 1; i >= 0; i--) {
+                Style body = style[i].getStyle("body");
+                if (body != null) {
+                    // TODO: default font size
+                    StyleConstants.setFontSize(body, 13);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jScrollPane8.setViewportView(clientNameLabel);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(userImageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(locationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(updateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(followerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                            .addComponent(followingLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userImageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(userNameLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(updateTimeLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(locationLabel)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel9)
+                                    .addComponent(followingLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(followerLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(updateLabel))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        statusBar.setText("Status");
+        statusBar.setBorder(null);
+        statusBar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                statusBarPropertyChange(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(statusBar, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(statusBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+        );
+
+        jToolBar1.setRollover(true);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Refresh24.gif"))); // NOI18N
+        jButton1.setToolTipText("今すぐ更新");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton1);
+        jToolBar1.add(jSeparator1);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Find24.gif"))); // NOI18N
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton2);
+        jToolBar1.add(jSeparator2);
+
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/syousai.PNG"))); // NOI18N
+        jToggleButton1.setSelected(true);
+        jToggleButton1.setFocusable(false);
+        jToggleButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton1);
+
+        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/write.PNG"))); // NOI18N
+        jToggleButton2.setSelected(true);
+        jToggleButton2.setFocusable(false);
+        jToggleButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton2);
+        jToolBar1.add(jSeparator3);
+
+        jToggleButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/timeline.PNG"))); // NOI18N
+        jToggleButton3.setSelected(true);
+        jToggleButton3.setFocusable(false);
+        jToggleButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton3);
+
+        jToggleButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/mention.PNG"))); // NOI18N
+        jToggleButton4.setFocusable(false);
+        jToggleButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton4ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton4);
+
+        jToggleButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/directmessage.PNG"))); // NOI18N
+        jToggleButton5.setFocusable(false);
+        jToggleButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton5ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton5);
+
+        jToggleButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/sendMessage.PNG"))); // NOI18N
+        jToggleButton6.setFocusable(false);
+        jToggleButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton6ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jToggleButton6);
+
+        jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane9.setMaximumSize(new java.awt.Dimension(32767, 80));
+        jScrollPane9.setMinimumSize(new java.awt.Dimension(26, 80));
+
+        jTextPane.setMaximumSize(new java.awt.Dimension(2147483647, 20));
+        jTextPane.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextPaneCaretUpdate(evt);
+            }
+        });
+        jTextPane.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextPaneFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextPaneFocusLost(evt);
+            }
+        });
+        jTextPane.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextPaneKeyReleased(evt);
+            }
+        });
+        jScrollPane9.setViewportView(jTextPane);
+
+        jButton4.setText("つぶやく");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        tweetLengthLabel.setText("140");
+
+        jLabel15.setText("残り文字数");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(tweetLengthLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tweetLengthLabel)))
+                .addGap(48, 48, 48))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jMenu1.setMnemonic('F');
+        /*
+        org.openide.awt.Mnemonics.setLocalizedText(jMenu1, "ファイル(F)");
+        */
+        jMenu1.setText("ファイル(F)");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setMnemonic('X');
+        jMenuItem1.setText("終了(X)");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu6.setMnemonic('O');
+        jMenu6.setText("操作(O)");
+
+        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem10.setMnemonic('U');
+        jMenuItem10.setText("今すぐ更新(U)");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem10);
+
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem7.setMnemonic('A');
+        jMenuItem7.setText("すべての情報を今すぐ更新(A)");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem7);
+
+        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem8.setMnemonic('I');
+        jMenuItem8.setText("時間情報を更新(I)");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem8);
+        jMenu6.add(jSeparator4);
+
+        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem11.setMnemonic('R');
+        jMenuItem11.setText("発言に返信(Reply)");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem11);
+
+        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem12.setMnemonic('A');
+        jMenuItem12.setText("発言に返信(Reply All)");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem12);
+
+        jMenuItem13.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem13.setMnemonic('T');
+        jMenuItem13.setText("発言を公式リツイート(RT)");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem13);
+
+        jMenuItem15.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem15.setText("発言をコメント付リツイート(非公式RT)");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem15);
+
+        jMenuItem14.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem14.setMnemonic('Q');
+        jMenuItem14.setText("発言を引用ツイート(QT)");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem14);
+
+        jMenuItem16.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem16.setMnemonic('D');
+        jMenuItem16.setText("ダイレクトメッセージを送信(D)");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem16);
+        jMenu6.add(jSeparator5);
+
+        jMenuItem17.setText("選択した発言をブラウザで開く");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem17);
+
+        jMenuItem18.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem18.setMnemonic('S');
+        jMenuItem18.setText("選択した人の発言を別タブで開く(S)");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem18);
+
+        jMenuItem21.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem21.setMnemonic('B');
+        jMenuItem21.setText("選択した人の発言をブラウザで開く(B)");
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem21);
+        jMenu6.add(jSeparator6);
+
+        jMenuItem30.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem30.setText("自分のお気に入りを開く");
+        jMenuItem30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem30ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem30);
+
+        jMenuItem22.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem22.setText("選択したユーザのお気に入りを開く");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem22);
+
+        jMenuItem19.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem19.setMnemonic('F');
+        jMenuItem19.setText("選択した発言をお気に入りに追加(F)");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem19);
+
+        jMenuItem20.setText("選択した発言をお気に入りから削除");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem20);
+
+        jMenuBar1.add(jMenu6);
+
+        jMenu4.setMnemonic('V');
+        jMenu4.setText("表示(V)");
+
+        jMenuItem5.setMnemonic('D');
+        jMenuItem5.setText("選択しているタブを削除(D)");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem5);
+
+        jCheckBoxMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jCheckBoxMenuItem1.setMnemonic('I');
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("詳細情報ボタンの表示(I)");
+        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem1);
+
+        jCheckBoxMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        jCheckBoxMenuItem2.setMnemonic('W');
+        jCheckBoxMenuItem2.setSelected(true);
+        jCheckBoxMenuItem2.setText("書き込みボタンの表示(W)");
+        jCheckBoxMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem2);
+
+        jCheckBoxMenuItem3.setSelected(true);
+        jCheckBoxMenuItem3.setText("Timelineタブを表示");
+        jCheckBoxMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem3);
+
+        jCheckBoxMenuItem4.setSelected(true);
+        jCheckBoxMenuItem4.setText("Mentionタブを表示");
+        jCheckBoxMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem4);
+
+        jCheckBoxMenuItem5.setSelected(true);
+        jCheckBoxMenuItem5.setText("ダイレクトメッセージタブを表示");
+        jCheckBoxMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem5);
+
+        jCheckBoxMenuItem6.setSelected(true);
+        jCheckBoxMenuItem6.setText("送信済みメッセージタブの表示");
+        jCheckBoxMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem6);
+
+        jMenuItem9.setText("Debug");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem9);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setMnemonic('S');
+        jMenu5.setText("検索(S)");
+
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem6.setMnemonic('A');
+        jMenuItem6.setText("キーワードでTwitter全体を検索(A)");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem6);
+
+        jMenuItem23.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem23.setMnemonic('K');
+        jMenuItem23.setText("キーワードに関連するハッシュタグを検索(K)");
+        jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem23ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem23);
+
+        jMenuItem31.setMnemonic('U');
+        jMenuItem31.setText("指定したユーザを検索(U)");
+        jMenuItem31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem31ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem31);
+
+        jMenuBar1.add(jMenu5);
+
+        jMenu7.setMnemonic('L');
+        jMenu7.setText("リスト(L)");
+
+        jMenuItem25.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem25.setMnemonic('C');
+        jMenuItem25.setText("自分が作成したリスト一覧(C)");
+        jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem25ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem25);
+
+        jMenuItem24.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem24.setMnemonic('S');
+        jMenuItem24.setText("購読しているリスト一覧(S)");
+        jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem24ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem24);
+
+        jMenuItem26.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem26.setMnemonic('F');
+        jMenuItem26.setText("自分がフォローされているリスト一覧(F)");
+        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem26ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem26);
+        jMenu7.add(jSeparator7);
+
+        jMenuItem27.setText("選択したユーザが作成したリスト一覧");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem27);
+
+        jMenuItem28.setText("選択したユーザが購読しているリスト一覧");
+        jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem28ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem28);
+
+        jMenuItem29.setText("選択したユーザがフォローされているリスト一覧");
+        jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem29ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem29);
+
+        jMenuBar1.add(jMenu7);
+
+        jMenu2.setMnemonic('O');
+        jMenu2.setText("設定(O)");
+
+        jMenuItem2.setText("基本設定");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem4.setText("アカウント設定");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setMnemonic('H');
+        jMenu3.setText("ヘルプ(H)");
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jMenuItem3.setText("このプログラムについて");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+        private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed
+            mainAction.actionShowUserSearchDialog();
+        }//GEN-LAST:event_jMenuItem31ActionPerformed
 
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
 		// メッセージをつぶやく
@@ -1751,97 +1422,98 @@ public class NishioTweetManager extends javax.swing.JFrame {
 	private TweetMainAction mainAction = null;
 	// TweetManager
 	private TweetManager tweetManager = new TweetManager();
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JEditorPane clientNameLabel;
-	private javax.swing.JLabel followerLabel;
-	private javax.swing.JLabel followingLabel;
-	private javax.swing.JButton jButton1;
-	private javax.swing.JButton jButton2;
-	private javax.swing.JButton jButton4;
-	private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-	private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
-	private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
-	private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem4;
-	private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem5;
-	private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem6;
-	private javax.swing.JLabel jLabel12;
-	private javax.swing.JLabel jLabel13;
-	private javax.swing.JLabel jLabel15;
-	private javax.swing.JLabel jLabel3;
-	private javax.swing.JLabel jLabel4;
-	private javax.swing.JLabel jLabel5;
-	private javax.swing.JLabel jLabel9;
-	private javax.swing.JMenu jMenu1;
-	private javax.swing.JMenu jMenu2;
-	private javax.swing.JMenu jMenu3;
-	private javax.swing.JMenu jMenu4;
-	private javax.swing.JMenu jMenu5;
-	private javax.swing.JMenu jMenu6;
-	private javax.swing.JMenu jMenu7;
-	private javax.swing.JMenuBar jMenuBar1;
-	private javax.swing.JMenuItem jMenuItem1;
-	private javax.swing.JMenuItem jMenuItem10;
-	private javax.swing.JMenuItem jMenuItem11;
-	private javax.swing.JMenuItem jMenuItem12;
-	private javax.swing.JMenuItem jMenuItem13;
-	private javax.swing.JMenuItem jMenuItem14;
-	private javax.swing.JMenuItem jMenuItem15;
-	private javax.swing.JMenuItem jMenuItem16;
-	private javax.swing.JMenuItem jMenuItem17;
-	private javax.swing.JMenuItem jMenuItem18;
-	private javax.swing.JMenuItem jMenuItem19;
-	private javax.swing.JMenuItem jMenuItem2;
-	private javax.swing.JMenuItem jMenuItem20;
-	private javax.swing.JMenuItem jMenuItem21;
-	private javax.swing.JMenuItem jMenuItem22;
-	private javax.swing.JMenuItem jMenuItem23;
-	private javax.swing.JMenuItem jMenuItem24;
-	private javax.swing.JMenuItem jMenuItem25;
-	private javax.swing.JMenuItem jMenuItem26;
-	private javax.swing.JMenuItem jMenuItem27;
-	private javax.swing.JMenuItem jMenuItem28;
-	private javax.swing.JMenuItem jMenuItem29;
-	private javax.swing.JMenuItem jMenuItem3;
-	private javax.swing.JMenuItem jMenuItem30;
-	private javax.swing.JMenuItem jMenuItem4;
-	private javax.swing.JMenuItem jMenuItem5;
-	private javax.swing.JMenuItem jMenuItem6;
-	private javax.swing.JMenuItem jMenuItem7;
-	private javax.swing.JMenuItem jMenuItem8;
-	private javax.swing.JMenuItem jMenuItem9;
-	private javax.swing.JPanel jPanel1;
-	private javax.swing.JPanel jPanel2;
-	private javax.swing.JPanel jPanel3;
-	private javax.swing.JScrollPane jScrollPane5;
-	private javax.swing.JScrollPane jScrollPane6;
-	private javax.swing.JScrollPane jScrollPane7;
-	private javax.swing.JScrollPane jScrollPane8;
-	private javax.swing.JScrollPane jScrollPane9;
-	private javax.swing.JToolBar.Separator jSeparator1;
-	private javax.swing.JToolBar.Separator jSeparator2;
-	private javax.swing.JToolBar.Separator jSeparator3;
-	private javax.swing.JPopupMenu.Separator jSeparator4;
-	private javax.swing.JPopupMenu.Separator jSeparator5;
-	private javax.swing.JPopupMenu.Separator jSeparator6;
-	private javax.swing.JPopupMenu.Separator jSeparator7;
-	private javax.swing.JTabbedPane jTabbedPane1;
-	private javax.swing.JTextPane jTextPane;
-	private javax.swing.JToggleButton jToggleButton1;
-	private javax.swing.JToggleButton jToggleButton2;
-	private javax.swing.JToggleButton jToggleButton3;
-	private javax.swing.JToggleButton jToggleButton4;
-	private javax.swing.JToggleButton jToggleButton5;
-	private javax.swing.JToggleButton jToggleButton6;
-	private javax.swing.JToolBar jToolBar1;
-	private javax.swing.JLabel locationLabel;
-	private javax.swing.JLabel statusBar;
-	private javax.swing.JLabel tweetLengthLabel;
-	private javax.swing.JEditorPane tweetMessageBox;
-	private javax.swing.JLabel updateLabel;
-	private javax.swing.JLabel updateTimeLabel;
-	private javax.swing.JLabel userImageLabel;
-	private javax.swing.JEditorPane userIntroBox;
-	private javax.swing.JLabel userNameLabel;
-	private javax.swing.JEditorPane userWebBox;
-	// End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JEditorPane clientNameLabel;
+    private javax.swing.JLabel followerLabel;
+    private javax.swing.JLabel followingLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem4;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem5;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem6;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
+    private javax.swing.JMenuItem jMenuItem23;
+    private javax.swing.JMenuItem jMenuItem24;
+    private javax.swing.JMenuItem jMenuItem25;
+    private javax.swing.JMenuItem jMenuItem26;
+    private javax.swing.JMenuItem jMenuItem27;
+    private javax.swing.JMenuItem jMenuItem28;
+    private javax.swing.JMenuItem jMenuItem29;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem30;
+    private javax.swing.JMenuItem jMenuItem31;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextPane jTextPane;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JToggleButton jToggleButton5;
+    private javax.swing.JToggleButton jToggleButton6;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel locationLabel;
+    private javax.swing.JLabel statusBar;
+    private javax.swing.JLabel tweetLengthLabel;
+    private javax.swing.JEditorPane tweetMessageBox;
+    private javax.swing.JLabel updateLabel;
+    private javax.swing.JLabel updateTimeLabel;
+    private javax.swing.JLabel userImageLabel;
+    private javax.swing.JEditorPane userIntroBox;
+    private javax.swing.JLabel userNameLabel;
+    private javax.swing.JEditorPane userWebBox;
+    // End of variables declaration//GEN-END:variables
 }
