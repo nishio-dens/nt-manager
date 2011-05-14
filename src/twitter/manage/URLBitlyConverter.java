@@ -38,21 +38,28 @@ public class URLBitlyConverter {
 	private static final String BITLY_USER_APIKEY = "R_684abae6ae215105939c8b79effa1077";
 	
 	/**
-	 * URLをbitlyに変換
+	 * URLをbitlyに変換, 変換できないときはそのままURLを返す
 	 * @param url
 	 * @return
 	 */
 	public static String convertUrlToBitly(String url) {
-		String convertUrl = null;
+		String convertUrl = url;
 		//urlがhttpで始まるかどうか
 		if( url.startsWith("http://") || url.startsWith("https://") ) {
 			String requestURL = new String( BITLY_SHORTEN_API_URL + BITLY_APIKEY + "=" + BITLY_USER_APIKEY);
-	System.out.println(" request :" + requestURL );		
+
 			requestURL = addURLAddressParameter(requestURL, BITLY_LOGIN, BITLY_USER_ACCOUNT );
 			requestURL = addURLAddressParameter(requestURL, BITLY_FORMAT, BITLY_FORMAT_TEXT );
 			requestURL = addURLAddressParameter(requestURL, BITLY_LONGURL, url );
-			System.out.println(" request :" + requestURL );		
-			convertUrl = getResultFromWeb( requestURL );
+
+			String result = getResultFromWeb( requestURL );
+			if( result != null ) {
+				//一行だけ抜き出す
+				String[] lines = result.split("\n");
+				if( lines.length > 0 ) {
+					convertUrl = lines[0];
+				}
+			}
 		}
 		return convertUrl;
 	}

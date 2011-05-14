@@ -18,6 +18,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -1059,6 +1060,32 @@ public class TweetMainAction {
 		Matcher matcher = convURLLinkPtn.matcher(message);
 		return matcher.replaceAll("<a href=\"$0\">$0</a>");
 	}
+	
+	/**
+	 * メッセージ内にあるURLをBitlyに変換する
+	 * @param message
+	 * @return
+	 */
+	public String actionConvertURLToBitly(String message) {
+		String result = new String( message );
+		//URLをbitlyに変換
+		Matcher matcher = convURLLinkPtn.matcher(message);
+		while( matcher.find() ) {
+			String source = matcher.group();
+			String conv = URLBitlyConverter.convertUrlToBitly( source );
+			result = result.replaceAll( source , conv );
+		}
+		return result;
+	}
+	
+	/**
+	 * つぶやきボックス内のURLをbitlyに変換
+	 */
+	public void actionConvertTweetBoxURLToBitly() {
+		String message = this.tweetBoxPane.getText();
+		String conv = actionConvertURLToBitly(message);
+		this.tweetBoxPane.setText( conv );
+	}
 
 	/**
 	 * @ユーザ名の部分をa hrefリンクに変換
@@ -1495,8 +1522,11 @@ public class TweetMainAction {
 	 * デバッグ用
 	 */
 	public void debug() {
-		String url = "http://densan-labs.net";
-		System.out.println("bitly url:" + URLBitlyConverter.convertUrlToBitly(url));
+/*		String message = "こんにちは http://densan-labs.net/でした。 http://google.com/ あいうえお";
+		System.out.println( this.actionConvertURLToBitly( message ));*/
+		this.actionConvertTweetBoxURLToBitly();
+//		String url = "http://google.com";
+//		System.out.println( URLBitlyConverter.convertUrlToBitly(url));
 	}
 
         /**
