@@ -204,6 +204,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuItem22 = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
         jMenuItem20 = new javax.swing.JMenuItem();
+        jMenuItem33 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
@@ -780,6 +781,16 @@ public class NishioTweetManager extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem20);
 
+        jMenuItem33.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem33.setMnemonic('C');
+        jMenuItem33.setText("つぶやき内のURLをbit.ly短縮URLに変換(C)");
+        jMenuItem33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem33ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem33);
+
         jMenuBar1.add(jMenu6);
 
         jMenu4.setMnemonic('V');
@@ -1040,6 +1051,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
         private void jMenuItem32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem32ActionPerformed
             mainAction.actionShowOutputCSVLogDialog();
         }//GEN-LAST:event_jMenuItem32ActionPerformed
+
+        private void jMenuItem33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem33ActionPerformed
+            mainAction.actionConvertTweetBoxURLToBitly();
+        }//GEN-LAST:event_jMenuItem33ActionPerformed
 
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
 		// メッセージをつぶやく
@@ -1495,6 +1510,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;
     private javax.swing.JMenuItem jMenuItem32;
+    private javax.swing.JMenuItem jMenuItem33;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
