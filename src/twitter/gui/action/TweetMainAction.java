@@ -79,6 +79,7 @@ import twitter.gui.form.UserSearchDialog;
 import twitter.log.TwitterLogManager;
 import twitter.manage.TweetConfiguration;
 import twitter.manage.TweetManager;
+import twitter.manage.URLBitlyConverter;
 import twitter.task.ExistTimerIDException;
 import twitter.task.TimerID;
 import twitter.task.TweetTaskException;
@@ -1494,15 +1495,8 @@ public class TweetMainAction {
 	 * デバッグ用
 	 */
 	public void debug() {
-		TwitterLogManager logManager = new TwitterLogManager();
-		try {
-			List<Status> statuses = logManager.get();
-			logManager.outputCSVLog("./test.csv", statuses, true, true, true, true, true, false, false, false, true, true, true);
-		} catch (SAXParseException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		String url = "http://densan-labs.net";
+		System.out.println("bitly url:" + URLBitlyConverter.convertUrlToBitly(url));
 	}
 
         /**
