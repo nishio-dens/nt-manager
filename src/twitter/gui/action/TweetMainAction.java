@@ -72,6 +72,7 @@ import twitter.gui.form.AboutDialog;
 import twitter.gui.form.AccountDialog;
 import twitter.gui.form.ConfigurationDialog;
 import twitter.gui.form.DirectMessageDialog;
+import twitter.gui.form.FollowingFollowerDialog;
 import twitter.gui.form.HashtagSearchDialog;
 import twitter.gui.form.KeywordSearchDialog;
 import twitter.gui.form.OutputCSVLogDialog;
@@ -230,6 +231,8 @@ public class TweetMainAction {
         private UserSearchDialog userSearchDialog = null;
         //CSVログ出力ダイアログ
         private OutputCSVLogDialog outputCSVLogDialog = null;
+        //following follower表示ダイアログ
+        private FollowingFollowerDialog followingFollowerDialog = null;
 
 	// 情報更新間隔[sec]
 	private int getTimelinePeriod = 60;
@@ -1366,6 +1369,15 @@ public class TweetMainAction {
             dialog.setVisible(true);
         }
 
+        /**
+         * following follower表示ダイアログを表示
+         */
+        public void actionShowFollowingFollowerDialog() {
+            FollowingFollowerDialog dialog = getFollowingFollowerDialog();
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }
+
 	/**
 	 * ハッシュタグ検索ダイアログを表示
 	 */
@@ -1518,7 +1530,7 @@ public class TweetMainAction {
 			this.setReplyStatus(null);
 		}
 	}
-	
+        
 	/**
 	 * デバッグ用
 	 */
@@ -1653,6 +1665,18 @@ public class TweetMainAction {
                 this.outputCSVLogDialog = new OutputCSVLogDialog(mainFrame, true, this);
             }
             return this.outputCSVLogDialog;
+        }
+
+        /**
+         * Following follower表示ダイアログ
+         * @return
+         */
+        public FollowingFollowerDialog getFollowingFollowerDialog() {
+            if( this.followingFollowerDialog == null ) {
+                this.followingFollowerDialog =
+                        new FollowingFollowerDialog(mainFrame, true, this.tweetManager);
+            }
+            return this.followingFollowerDialog;
         }
 
 	/**

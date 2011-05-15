@@ -218,6 +218,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem23 = new javax.swing.JMenuItem();
         jMenuItem31 = new javax.swing.JMenuItem();
+        jMenuItem34 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem25 = new javax.swing.JMenuItem();
         jMenuItem24 = new javax.swing.JMenuItem();
@@ -905,6 +906,14 @@ public class NishioTweetManager extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem31);
 
+        jMenuItem34.setText("指定したユーザのFollowing/Followerを表示");
+        jMenuItem34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem34ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem34);
+
         jMenuBar1.add(jMenu5);
 
         jMenu7.setMnemonic('L');
@@ -1055,6 +1064,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
         private void jMenuItem33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem33ActionPerformed
             mainAction.actionConvertTweetBoxURLToBitly();
         }//GEN-LAST:event_jMenuItem33ActionPerformed
+
+        private void jMenuItem34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem34ActionPerformed
+            mainAction.actionShowFollowingFollowerDialog();
+        }//GEN-LAST:event_jMenuItem34ActionPerformed
 
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
 		// メッセージをつぶやく
@@ -1511,6 +1524,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem31;
     private javax.swing.JMenuItem jMenuItem32;
     private javax.swing.JMenuItem jMenuItem33;
+    private javax.swing.JMenuItem jMenuItem34;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;

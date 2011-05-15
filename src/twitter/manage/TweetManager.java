@@ -224,6 +224,8 @@ public class TweetManager {
 	
 	//following IDリスト keyはユーザ名, valueはユーザがfollowingしているid
 	private Map<String, List<Long>> followingUserIDList = new HashMap<String, List<Long>>();
+        //follower
+        private Map<String, List<Long>> followerUserIDList = new HashMap<String, List<Long>>();
 
 	public TweetManager() {
 		logManager = new TwitterLogManager();
@@ -1267,6 +1269,57 @@ public class TweetManager {
 		}
 		return result;
 	}
+
+        /**
+	 * 指定したユーザのfollowerユーザ一覧の詳細情報を取得
+	 * @param screenName 取得したいユーザ
+	 * @param page ページ1あたり100件の情報を取得
+	 * @return
+	 */
+	public List<User> getFollowerUser(String screenName, int page) {
+		if( !this.followerUserIDList.containsKey(screenName) ) {
+			//まだscreenNameがfollowingしているユーザ情報を取得していない
+			List<Long> follower = this.getFollowerUserID(screenName);
+			this.followerUserIDList.put(screenName, follower);
+		}
+		//followingユーザ一覧id取得
+		List<Long> getFollowerUserIds = null;
+		List<Long> followerList = this.followerUserIDList.get(screenName);
+		if( followerList != null && followerList.size() > 0 ) {
+			//データ存在しない
+			if( followerList.size() < page * 100 ) {
+				return null;
+			}
+			int to = page * 100 + 99;
+			if( followerList.size() < to){
+				to = to - (to - followerList.size());
+			}
+			getFollowerUserIds = followerList.subList(page * 100, to);
+		}
+
+		//結果
+		List<User> result = new ArrayList<User>();
+
+		int getDataSize = getFollowerUserIds.size();
+		if( getDataSize > 0 ) {
+			long[] ids = new long[ getDataSize ];
+			for( int i=0; i < ids.length; i++) {
+				ids[i] = getFollowerUserIds.get( i );
+			}
+
+			//idsのユーザ一覧取得
+			try {
+				ResponseList<User> users = twitter.lookupUsers( ids );
+				for(User u : users) {
+					result.add( u );
+				}
+			} catch (TwitterException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return result;
+	}
 	
 	
 	/**
@@ -1300,6 +1353,39 @@ public class TweetManager {
 			e.printStackTrace();
 		}
 		return result;		
+	}
+
+        /**
+	 * Friendのfollewer ID一覧を取得する
+	 * @param screenName
+	 * @return
+	 */
+	public List<Long> getFollowerUserID(String screenName) {
+		long cursor = -1;
+		IDs ids = null;
+		long[] friendIds = null;
+		//id一覧
+		List<Long> result = new ArrayList<Long>();
+
+		try {
+			//friend一覧をすべて取得
+			do {
+				ids = twitter.getFollowersIDs( screenName, cursor );
+				//screenNameのフレンドid一覧を取得
+				friendIds = ids.getIDs();
+				if( friendIds.length > 0 ) {
+					for(long id : friendIds ) {
+						result.add( id );
+					}
+				}
+				//次のカーソルに移動
+				cursor = ids.getNextCursor();
+			}while( cursor != 0 );
+
+		}catch(TwitterException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 }
