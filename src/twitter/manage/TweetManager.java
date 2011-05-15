@@ -1233,7 +1233,15 @@ public class TweetManager {
 		List<Long> getFollowingUserIds = null;
 		List<Long> followingList = this.followingUserIDList.get(screenName);
 		if( followingList != null && followingList.size() > 0 ) {
-			getFollowingUserIds = followingList.subList(page * 100, page * 100 + 99);
+			//データ存在しない
+			if( followingList.size() < page * 100 ) {
+				return null;
+			}
+			int to = page * 100 + 99;
+			if( followingList.size() < to){
+				to = to - (to - followingList.size());
+			}
+			getFollowingUserIds = followingList.subList(page * 100, to);
 		}
 		
 		//結果

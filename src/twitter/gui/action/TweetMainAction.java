@@ -1528,8 +1528,10 @@ public class TweetMainAction {
 		//this.actionConvertTweetBoxURLToBitly();
 		for(int i=0; i < 5; i++) {
 			List<User> lists = this.tweetManager.getFollowingUser("nishio_dens", i);
-			for(User u : lists) {
-				System.out.println( u );
+			if( lists != null) {
+				for(User u : lists) {
+					System.out.println( u );
+				}
 			}
 		}
 //		String url = "http://google.com";
