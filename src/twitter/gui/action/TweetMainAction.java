@@ -89,6 +89,7 @@ import twitter.task.TweetUpdateTask;
 import twitter.util.HTMLEncode;
 import twitter4j.Status;
 import twitter4j.TwitterException;
+import twitter4j.User;
 
 /**
  * GUIのアクション部分
@@ -1524,7 +1525,13 @@ public class TweetMainAction {
 	public void debug() {
 /*		String message = "こんにちは http://densan-labs.net/でした。 http://google.com/ あいうえお";
 		System.out.println( this.actionConvertURLToBitly( message ));*/
-		this.actionConvertTweetBoxURLToBitly();
+		//this.actionConvertTweetBoxURLToBitly();
+		for(int i=0; i < 5; i++) {
+			List<User> lists = this.tweetManager.getFollowingUser("nishio_dens", i);
+			for(User u : lists) {
+				System.out.println( u );
+			}
+		}
 //		String url = "http://google.com";
 //		System.out.println( URLBitlyConverter.convertUrlToBitly(url));
 	}
