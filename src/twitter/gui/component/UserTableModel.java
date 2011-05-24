@@ -51,6 +51,7 @@ public class UserTableModel extends DefaultTableModel {
      */
     public void clearStatus() {
         listInfo.clear();
+        super.setRowCount(0);
     }
 
     @Override
