@@ -458,6 +458,30 @@ public class TweetTabbedTable {
 					}
 				});
 
+                JMenuItem followingUserMenuItem = new JMenuItem(
+				"このユーザがフォローしているユーザ一覧");
+		followingUserMenuItem
+				.addActionListener(new java.awt.event.ActionListener() {
+
+					@Override
+					public void actionPerformed(java.awt.event.ActionEvent e) {
+						// 選択したセルのユーザ情報をブラウザで開く
+						mainAction.actionOpenFollowing();
+					}
+				});
+
+                JMenuItem followerUserMenuItem = new JMenuItem(
+				"このユーザがフォローされているユーザ一覧");
+		followerUserMenuItem
+				.addActionListener(new java.awt.event.ActionListener() {
+
+					@Override
+					public void actionPerformed(java.awt.event.ActionEvent e) {
+						// 選択したセルのユーザ情報をブラウザで開く
+						mainAction.actionOpenFollower();
+					}
+				});
+
 		// 指定した発言がRTかどうか判定
 		int sc = table.getSelectedRowCount();
 		if (sc == 1 && table != null) {
@@ -509,6 +533,10 @@ public class TweetTabbedTable {
 			rightClickPopup.add(openBrowserUserInformationMenuItem);
 			// この人のfavを開く
 			rightClickPopup.add(openFavMenuItem);
+                        //この人のfollowing開く
+                        rightClickPopup.add(followingUserMenuItem);
+                        //この人のfollower開く
+                        rightClickPopup.add(followerUserMenuItem);
 			// この人が作成したリスト
 			rightClickPopup.add(createdListMenuItem);
 			// この人が購読しているリスト

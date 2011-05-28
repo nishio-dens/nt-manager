@@ -970,6 +970,32 @@ public class TweetMainAction {
 		}
 	}
 
+        /**
+         * 選択したユーザのfollowingを表示
+         */
+        public void actionOpenFollowing() {
+            // ユーザ名
+            try {
+                String userName = this.getCurrentStatus().getUser().getScreenName();
+                this.actionShowFollowingFollowerDialog(userName, true);
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        /**
+         * 選択したユーザのfollowingを表示
+         */
+        public void actionOpenFollower() {
+            try {
+                // ユーザ名
+                String userName = this.getCurrentStatus().getUser().getScreenName();
+                this.actionShowFollowingFollowerDialog(userName, false);
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
 	/**
 	 * 選択したユーザのFavを開く
 	 */
@@ -1378,6 +1404,20 @@ public class TweetMainAction {
             dialog.setVisible(true);
         }
 
+        /**
+         * following follower表示ダイアログを表示
+         * @param username 取得したいユーザ
+         * @param ff trueでfollowing/ falseでfollower取得
+         */
+        public void actionShowFollowingFollowerDialog(String username, boolean ff) {
+            FollowingFollowerDialog dialog = getFollowingFollowerDialog();
+            //following follower取得開始
+            dialog.actionUserSearch(username, ff);
+
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }
+
 	/**
 	 * ハッシュタグ検索ダイアログを表示
 	 */
@@ -1535,19 +1575,7 @@ public class TweetMainAction {
 	 * デバッグ用
 	 */
 	public void debug() {
-/*		String message = "こんにちは http://densan-labs.net/でした。 http://google.com/ あいうえお";
-		System.out.println( this.actionConvertURLToBitly( message ));*/
-		//this.actionConvertTweetBoxURLToBitly();
-		for(int i=0; i < 5; i++) {
-			List<User> lists = this.tweetManager.getFollowingUser("nishio_dens", i);
-			if( lists != null) {
-				for(User u : lists) {
-					System.out.println( u );
-				}
-			}
-		}
-//		String url = "http://google.com";
-//		System.out.println( URLBitlyConverter.convertUrlToBitly(url));
+            //this.actionShowFollowingFollowerDialog("nishio_dens", false);
 	}
 
         /**

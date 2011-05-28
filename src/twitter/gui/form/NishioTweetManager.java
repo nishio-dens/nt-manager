@@ -199,6 +199,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenuItem21 = new javax.swing.JMenuItem();
+        jMenuItem35 = new javax.swing.JMenuItem();
+        jMenuItem36 = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jMenuItem30 = new javax.swing.JMenuItem();
         jMenuItem22 = new javax.swing.JMenuItem();
@@ -727,7 +729,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
         jMenuItem18.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem18.setMnemonic('S');
-        jMenuItem18.setText("選択した人の発言を別タブで開く(S)");
+        jMenuItem18.setText("選択したユーザの発言を別タブで開く(S)");
         jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem18ActionPerformed(evt);
@@ -737,13 +739,29 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
         jMenuItem21.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem21.setMnemonic('B');
-        jMenuItem21.setText("選択した人の発言をブラウザで開く(B)");
+        jMenuItem21.setText("選択したユーザの発言をブラウザで開く(B)");
         jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem21ActionPerformed(evt);
             }
         });
         jMenu6.add(jMenuItem21);
+
+        jMenuItem35.setText("選択したユーザがフォローしているユーザ一覧を開く");
+        jMenuItem35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem35ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem35);
+
+        jMenuItem36.setText("選択したユーザがフォローされているユーザ一覧を開く");
+        jMenuItem36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem36ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem36);
         jMenu6.add(jSeparator6);
 
         jMenuItem30.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -1068,6 +1086,14 @@ public class NishioTweetManager extends javax.swing.JFrame {
         private void jMenuItem34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem34ActionPerformed
             mainAction.actionShowFollowingFollowerDialog();
         }//GEN-LAST:event_jMenuItem34ActionPerformed
+
+        private void jMenuItem35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem35ActionPerformed
+            mainAction.actionOpenFollowing();
+        }//GEN-LAST:event_jMenuItem35ActionPerformed
+
+        private void jMenuItem36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem36ActionPerformed
+            mainAction.actionOpenFollower();
+        }//GEN-LAST:event_jMenuItem36ActionPerformed
 
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
 		// メッセージをつぶやく
@@ -1525,6 +1551,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem32;
     private javax.swing.JMenuItem jMenuItem33;
     private javax.swing.JMenuItem jMenuItem34;
+    private javax.swing.JMenuItem jMenuItem35;
+    private javax.swing.JMenuItem jMenuItem36;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;

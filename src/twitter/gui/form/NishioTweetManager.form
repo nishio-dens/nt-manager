@@ -162,7 +162,7 @@
                   <KeyStroke key="Ctrl+S"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="83"/>
-                <Property name="text" type="java.lang.String" value="&#x9078;&#x629e;&#x3057;&#x305f;&#x4eba;&#x306e;&#x767a;&#x8a00;&#x3092;&#x5225;&#x30bf;&#x30d6;&#x3067;&#x958b;&#x304f;(S)"/>
+                <Property name="text" type="java.lang.String" value="&#x9078;&#x629e;&#x3057;&#x305f;&#x30e6;&#x30fc;&#x30b6;&#x306e;&#x767a;&#x8a00;&#x3092;&#x5225;&#x30bf;&#x30d6;&#x3067;&#x958b;&#x304f;(S)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem18ActionPerformed"/>
@@ -174,10 +174,26 @@
                   <KeyStroke key="Ctrl+B"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="66"/>
-                <Property name="text" type="java.lang.String" value="&#x9078;&#x629e;&#x3057;&#x305f;&#x4eba;&#x306e;&#x767a;&#x8a00;&#x3092;&#x30d6;&#x30e9;&#x30a6;&#x30b6;&#x3067;&#x958b;&#x304f;(B)"/>
+                <Property name="text" type="java.lang.String" value="&#x9078;&#x629e;&#x3057;&#x305f;&#x30e6;&#x30fc;&#x30b6;&#x306e;&#x767a;&#x8a00;&#x3092;&#x30d6;&#x30e9;&#x30a6;&#x30b6;&#x3067;&#x958b;&#x304f;(B)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem21ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem35">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x9078;&#x629e;&#x3057;&#x305f;&#x30e6;&#x30fc;&#x30b6;&#x304c;&#x30d5;&#x30a9;&#x30ed;&#x30fc;&#x3057;&#x3066;&#x3044;&#x308b;&#x30e6;&#x30fc;&#x30b6;&#x4e00;&#x89a7;&#x3092;&#x958b;&#x304f;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem35ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem36">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x9078;&#x629e;&#x3057;&#x305f;&#x30e6;&#x30fc;&#x30b6;&#x304c;&#x30d5;&#x30a9;&#x30ed;&#x30fc;&#x3055;&#x308c;&#x3066;&#x3044;&#x308b;&#x30e6;&#x30fc;&#x30b6;&#x4e00;&#x89a7;&#x3092;&#x958b;&#x304f;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem36ActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator6">

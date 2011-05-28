@@ -99,28 +99,32 @@ public class FollowingFollowerDialog extends javax.swing.JDialog {
                 //データプログレス表示
                 InsertProgressListener progressListener = new InsertProgressListener(jProgressBar1);
 
-                if (userName != null && userName.length() > 0) {
-                    boolean update = false;
-                    switch (ffIndex) {
-                        case 0:
-                            //following
-                            update = addFollowingToTable(userName, numOfPage, progressListener);
-                            break;
-                        default:
-                            //follewer
-                            update = addFollowerToTable(userName, numOfPage, progressListener);
-                            break;
+                try {
+                    if (userName != null && userName.length() > 0) {
+                        boolean update = false;
+                        switch (ffIndex) {
+                            case 0:
+                                //following
+                                update = addFollowingToTable(userName, numOfPage, progressListener);
+                                break;
+                            default:
+                                //follewer
+                                update = addFollowerToTable(userName, numOfPage, progressListener);
+                                break;
+                        }
+                        if (update == true) {
+                            numOfPage++;
+                            jLabel2.setText((numOfPage * 100) + "");
+                        }
+                        //前回取得情報
+                        prevUsername = userName;
+                        prevGetFollowingFollower = ffIndex;
                     }
-                    if (update == true) {
-                        numOfPage++;
-                        jLabel2.setText((numOfPage * 100) + "");
-                    }
-                    //前回取得情報
-                    prevUsername = userName;
-                    prevGetFollowingFollower = ffIndex;
+                    //データ取得完了を表示
+                    setInformation("データ取得が完了しました");
+                }catch(Exception e) {
+                    setInformation("データ取得に失敗しました。指定したユーザは存在しない可能性があります。");
                 }
-                //データ取得完了を表示
-                setInformation("データ取得が完了しました");
             }
         };
     }
@@ -240,12 +244,12 @@ public class FollowingFollowerDialog extends javax.swing.JDialog {
         String screenName = user.getScreenName();
         //update time
         String updateTime = "";
-        if( user.getStatus().getCreatedAt() != null ) {
+        if( user.getStatus() != null ) {
             updateTime = user.getStatus().getCreatedAt().toString();
         }
         //location
         String location = "";
-        if( user.getStatus().getPlace() != null ) {
+        if( user.getLocation() != null ) {
             location = user.getLocation().toString();
         }
         //following
@@ -260,9 +264,13 @@ public class FollowingFollowerDialog extends javax.swing.JDialog {
             url = user.getURL().toString();
         }
         //client
-        String client = user.getStatus().getSource();
-        //最後の更新テキスト
-        String text = user.getStatus().getText();
+        String client = "";
+        String text = "";
+        if( user.getStatus() != null ) {
+            client = user.getStatus().getSource();
+            //最後の更新テキスト
+            text = user.getStatus().getText();
+        }
         //profile
         String profile = user.getDescription();
 
@@ -713,6 +721,25 @@ public class FollowingFollowerDialog extends javax.swing.JDialog {
             setInformation("現在データを取得中です");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    /**
+     * Userのサーチを開始する
+     * @param username 取得したいユーザ
+     * @param ff trueでfollowing/ falseでfollowerを取得
+     */
+    public void actionUserSearch(String username, boolean ff) {
+        if( username != null ) {
+            jTextField1.setText(username);
+        }
+        if( ff == true ) {
+            //following
+            jComboBox1.setSelectedIndex(0);
+        }else {
+            //follower
+            jComboBox1.setSelectedIndex(1);
+        }
+        jButton2ActionPerformed( null );
+    }
 
     /**
      * 現在の状態をラベルに表示する
