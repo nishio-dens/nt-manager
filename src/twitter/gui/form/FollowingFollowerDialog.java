@@ -239,11 +239,14 @@ public class FollowingFollowerDialog extends javax.swing.JDialog {
         String username = user.getName();
         String screenName = user.getScreenName();
         //update time
-        String updateTime = user.getStatus().getCreatedAt().toString();
+        String updateTime = "";
+        if( user.getStatus().getCreatedAt() != null ) {
+            updateTime = user.getStatus().getCreatedAt().toString();
+        }
         //location
         String location = "";
         if( user.getStatus().getPlace() != null ) {
-            location = user.getStatus().getPlace().toString();
+            location = user.getLocation().toString();
         }
         //following
         String following = user.getFriendsCount() + "";
