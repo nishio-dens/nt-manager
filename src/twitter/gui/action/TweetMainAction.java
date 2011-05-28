@@ -1103,7 +1103,7 @@ public class TweetMainAction {
 		while( matcher.find() ) {
 			String source = matcher.group();
 			String conv = URLBitlyConverter.convertUrlToBitly( source );
-			result = result.replaceAll( source , conv );
+			result = result.replace( source , conv );
 		}
 		return result;
 	}
