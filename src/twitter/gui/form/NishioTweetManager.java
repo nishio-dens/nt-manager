@@ -38,6 +38,7 @@ import twitter.action.list.ListGetterSelection;
 import twitter.gui.action.TweetMainAction;
 import twitter.gui.component.TweetHashtagHyperlinkHandler;
 import twitter.gui.component.TweetHyperlinkHandler;
+import twitter.gui.component.TweetTextFieldPopupMenu;
 import twitter.manage.TweetManager;
 import twitter.task.TimerID;
 
@@ -126,6 +127,10 @@ public class NishioTweetManager extends javax.swing.JFrame {
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}
+		
+		//tweet発言するボックスの右クリック対応
+		this.jTextPane.setComponentPopupMenu(
+				new TweetTextFieldPopupMenu( this.jTextPane ) );
 	}
 
 	/**
