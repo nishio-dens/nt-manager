@@ -27,4 +27,8 @@ public class TweetConfiguration {
 	public static final String ACCOUNT_INFORMATION_FILENAME = "account.properties";
 	// search twitterのURL
 	public static final String SEARCH_TWITTER_HOSTNAME = "search.twitter.com";
+	//データベース接続文字列
+	public static final String DATABASE = "org.sqlite.JDBC";
+	//ツイートを保存するデータベース名
+	public static final String DATABASE_CONNECTION = "jdbc:sqlite:" + LOG_DIRECTORY + "/tweet.db";
 }
