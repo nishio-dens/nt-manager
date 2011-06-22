@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import twitter.manage.TweetConfiguration;
 
@@ -105,6 +110,58 @@ public class TwitterLogDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 新規データの挿入
+	 * @param o
+	 * @throws SQLException 
+	 */
+	public void insert( TweetDBObject o ) throws SQLException {
+		Connection con = DriverManager.getConnection(DATABASE_CONNECTION);		
+		QueryRunner qr = new QueryRunner();
+		//データ挿入
+		try {
+			qr.update(con, insertDataSql, 
+					o.getId(),
+					o.getFollowing(),
+					o.getDate(),
+					o.getReplyStatusID(),
+					o.getReplyUserID(),
+					o.getText(),
+					o.getCreated(),
+					o.getDescription(),
+					o.getUserFavorite(),
+					o.getFollowers(),
+					o.getFriend(),
+					o.getUserId(),
+					o.getLang(),
+					o.getLocation(),
+					o.getName(),
+					o.getProfileBackgroundColor(),
+					o.getProfileBackgroundImageURL(),
+					o.getProfileImageURL(),
+					o.getProfileSidebarBorderColor(),
+					o.getProfileSidebarFillColor(),
+					o.getProfileTextColor(),
+					o.getScreenName(),
+					o.getStatusesCount(),
+					o.getTimeZone(),
+					o.getUrl(),
+					o.getUtc(),
+					o.getContributorsEnable(),
+					o.getGeoEnable(),
+					o.getProfileBackgroundTiled(),
+					o.getIsProtected(),
+					o.getVerified(),
+					o.getSource(),
+					o.getFavorite(),
+					o.getRetweet(),
+					o.getTruncated() );
+		}catch(SQLException e) {
+			//挿入ではなく更新にする
+		}
+		con.close();
 	}
 	
 	public static void main(String[] args) {

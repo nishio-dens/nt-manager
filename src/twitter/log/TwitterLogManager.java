@@ -88,7 +88,7 @@ public class TwitterLogManager {
 	 * 
 	 * @param statuses
 	 */
-	public void add(List<Status> statuses) throws IOException {
+	/*public void add(List<Status> statuses) throws IOException {
 		// ログディレクトリを作成
 		File logDir = new File("./" + LOG_DIRECTORY);
 		if (!logDir.exists()) {
@@ -129,6 +129,35 @@ public class TwitterLogManager {
 		bw.close();
 		osw.close();
 		fos.close();
+	}*/
+	
+	/**
+	 * ログをファイルに保存する
+	 * 
+	 * @param statuses
+	 */
+	public void add(List<Status> statuses) throws IOException {
+		// ログディレクトリを作成
+		File logDir = new File("./" + LOG_DIRECTORY);
+		if (!logDir.exists()) {
+			// ディレクトリが存在しないので作成する
+			if (logDir.mkdir() == false) {
+				throw new IOException(LOG_DIRECTORY + "ディレクトリを作成できませんでした．");
+			}
+		}
+		//sql関係
+		TwitterLogDao dao = new TwitterLogDao();
+		try {
+			dao.connectDB();
+			dao.createTable();
+			for(Status s : statuses ) {
+				TweetDBObject o = StatusDBObjectConverter.convertStatusToDBObject(s, true);
+				dao.insert( o );
+			}
+			dao.closeDB();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

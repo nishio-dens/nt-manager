@@ -10,6 +10,7 @@ public class TweetDBObject {
 	private long replyUserID;
 	private String text;
 	private String created;
+	private String description;
 	private long userFavorite;
 	private long followers;
 	private long friend;
@@ -267,5 +268,11 @@ public class TweetDBObject {
 	}
 	
 	public TweetDBObject() {
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getDescription() {
+		return description;
 	}
 }
