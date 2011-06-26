@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.xml.sax.SAXParseException;
@@ -148,15 +149,21 @@ public class TwitterLogManager {
 		//sql関係
 		TwitterLogDao dao = new TwitterLogDao();
 		try {
+			//DB作成
 			dao.connectDB();
 			dao.createTable();
-			long time = System.currentTimeMillis();
+			//long time = System.currentTimeMillis();
+			//DBにツイート保存
+			List<TweetDBObject> objects = new ArrayList<TweetDBObject>();
 			for(Status s : statuses ) {
 				TweetDBObject o = StatusDBObjectConverter.convertStatusToDBObject(s, true);
-				dao.insert( o );
+				objects.add(o);
 			}
-			time = System.currentTimeMillis() - time;
-			System.out.println("DB INSERT TIME:" + time);
+			if( objects != null && objects.size() > 0 ) {
+				dao.insert( objects );
+			}
+			/*time = System.currentTimeMillis() - time;
+			System.out.println("DB INSERT TIME:" + time);*/
 			dao.closeDB();
 		}catch(Exception e) {
 			e.printStackTrace();
