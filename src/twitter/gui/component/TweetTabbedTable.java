@@ -59,7 +59,8 @@ public class TweetTabbedTable {
 	// 新しく取得した部分のテーブルの色
 	private Color newTableColor = null;
 	// テーブルに追加できる要素の最大数
-	private int tableElementMaxSize = 200;
+	//TODO: ここを変更できるようにする
+	private int tableElementMaxSize = 500;
 	// 自動更新に使うタイマーのID
 	private String timerID;
 

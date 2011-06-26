@@ -150,10 +150,13 @@ public class TwitterLogManager {
 		try {
 			dao.connectDB();
 			dao.createTable();
+			long time = System.currentTimeMillis();
 			for(Status s : statuses ) {
 				TweetDBObject o = StatusDBObjectConverter.convertStatusToDBObject(s, true);
 				dao.insert( o );
 			}
+			time = System.currentTimeMillis() - time;
+			System.out.println("DB INSERT TIME:" + time);
 			dao.closeDB();
 		}catch(Exception e) {
 			e.printStackTrace();

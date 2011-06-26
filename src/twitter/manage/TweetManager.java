@@ -206,7 +206,7 @@ public class TweetManager {
 	// アカウント情報保存ファイル名
 	private static final String ACCOUNT_INFORMATION_FILENAME = TweetConfiguration.ACCOUNT_INFORMATION_FILENAME;
 	// 一度に取得する最大のtweet数
-	private final int MAX_TWEET_NUM = 99;
+	private final int MAX_TWEET_NUM = 200;
 	// 前回取得したtweetの情報
 	private long sinceTweetID = 0;
 	// 前回取得したmentionのtweetID
@@ -1079,13 +1079,13 @@ public class TweetManager {
 		AccessToken ac = new AccessToken(accessToken, secretToken);
 		twitter.setOAuthAccessToken(ac);
 		// 設定ファイルを読み込む
-		try {
+		/*try {
 			loadProperties();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	/**
