@@ -26,10 +26,9 @@ public class TwitterLogDao {
 	private Connection databaseConnection = null;
 	
 	//データベーステーブルの定義
-	private static final String createTableSql =
+	private static final String createTweetTableSql =
 		"CREATE TABLE IF NOT EXISTS TWEET(" +
 		"		id INTEGER PRIMARY KEY,"    +
-		"		following TEXT," +
 		"		date TEXT," + 
 		"		replyStatusID INTEGER," + 
 		"		replyUserID INTEGER," + 
@@ -65,11 +64,11 @@ public class TwitterLogDao {
 		"		truncated TEXT)"  ;
 	
 	//データ挿入SQL
-	private static final String insertDataSql = 
-		"INSERT INTO TWEET VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+	private static final String insertTweetDataSql = 
+		"INSERT INTO TWEET VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 	
 	//データ取得SQL
-	private static final String selectDataSql = 
+	private static final String selectTweetDataSql = 
 		"SELECT * FROM TWEET;";
 	
 	/**
@@ -106,7 +105,7 @@ public class TwitterLogDao {
 		Statement statement;
 		try {
 			statement = this.databaseConnection.createStatement();
-			statement.execute( createTableSql );
+			statement.execute( createTweetTableSql );
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -122,9 +121,8 @@ public class TwitterLogDao {
 		QueryRunner qr = new QueryRunner();
 		//データ挿入
 		try {
-			qr.update(con, insertDataSql, 
+			qr.update(con, insertTweetDataSql, 
 					o.getId(),
-					o.getFollowing(),
 					o.getDate(),
 					o.getReplyStatusID(),
 					o.getReplyUserID(),
@@ -160,16 +158,8 @@ public class TwitterLogDao {
 					o.getTruncated() );
 		}catch(SQLException e) {
 			//挿入ではなく更新にする
+			e.printStackTrace();
 		}
 		con.close();
-	}
-	
-	public static void main(String[] args) {
-		TwitterLogDao dao = new TwitterLogDao();
-		dao.connectDB();
-		
-		dao.createTable();
-		
-		dao.closeDB();
 	}
 }

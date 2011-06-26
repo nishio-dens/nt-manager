@@ -4,7 +4,6 @@ public class TweetDBObject {
 	
 	private long id;
 
-	private String following;
 	private String date;
 	private long replyStatusID;
 	private long replyUserID;
@@ -53,9 +52,6 @@ public class TweetDBObject {
 	}
 	public long getFollowers() {
 		return followers;
-	}
-	public String getFollowing() {
-		return following;
 	}
 	public long getFriend() {
 		return friend;
@@ -156,9 +152,6 @@ public class TweetDBObject {
 	public void setFollowers(long followers) {
 		this.followers = followers;
 	}
-	public void setFollowing(String following) {
-		this.following = following;
-	}
 	public void setFriend(long friend) {
 		this.friend = friend;
 	}
@@ -247,8 +240,8 @@ public class TweetDBObject {
 	public String toString() {
 		return "TweetDBObject [contributorsEnable=" + contributorsEnable
 				+ ", created=" + created + ", date=" + date + ", favorite="
-				+ favorite + ", followers=" + followers + ", following="
-				+ following + ", friend=" + friend + ", geoEnable=" + geoEnable
+				+ favorite + ", followers=" + followers 
+				+  ", friend=" + friend + ", geoEnable=" + geoEnable
 				+ ", id=" + id + ", isProtected=" + isProtected + ", lang="
 				+ lang + ", location=" + location + ", name=" + name
 				+ ", profileBackgroundColor=" + profileBackgroundColor
