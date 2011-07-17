@@ -94,9 +94,9 @@ import twitter4j.User;
 
 /**
  * GUIのアクション部分
- * 
+ *
  * @author nishio
- * 
+ *
  */
 public class TweetMainAction {
 
@@ -241,7 +241,7 @@ public class TweetMainAction {
 	private int getSendDirectMessagePeriod = 60 * 30;
 
 	/**
-	 * 
+	 *
 	 * @param mainFrame
 	 * @param tweetManager
 	 * @param statusBarLabel
@@ -428,7 +428,7 @@ public class TweetMainAction {
 
 	/**
 	 * 新しいタブを追加
-	 * 
+	 *
 	 * @param timerID
 	 *            TimerIDクラスで生成したタイマーID
 	 * @param period
@@ -485,7 +485,7 @@ public class TweetMainAction {
 
 	/**
 	 * mentionタブを追加する
-	 * 
+	 *
 	 * @param period
 	 *            情報更新間隔[sec]
 	 */
@@ -512,7 +512,7 @@ public class TweetMainAction {
 
 	/**
 	 * お気に入りタブを追加
-	 * 
+	 *
 	 * @param screenName
 	 *            nullで自分自身を取得，指定するとscreenNameのFav取得
 	 */
@@ -539,7 +539,7 @@ public class TweetMainAction {
 
 	/**
 	 * timelineタブを追加する
-	 * 
+	 *
 	 * @param period
 	 *            [sec]
 	 */
@@ -560,7 +560,7 @@ public class TweetMainAction {
 
 	/**
 	 * ダイレクトメッセージタブを追加する
-	 * 
+	 *
 	 * @param period
 	 *            更新間隔[sec]
 	 */
@@ -588,7 +588,7 @@ public class TweetMainAction {
 
 	/**
 	 * SendDMタブを追加する
-	 * 
+	 *
 	 * @param period
 	 */
 	public void actionAddSendDirectMessageTab(int period) {
@@ -609,7 +609,7 @@ public class TweetMainAction {
 
 	/**
 	 * 指定したリストをタブに追加
-	 * 
+	 *
 	 * @param username
 	 * @param listID
 	 * @param listFullname
@@ -633,7 +633,7 @@ public class TweetMainAction {
 
 	/**
 	 * ツイート検索結果を表示するタブを新しく追加
-	 * 
+	 *
 	 * @param searchWord
 	 * @param period
 	 *            更新周期[sec] 0以下の場合は更新しない
@@ -655,7 +655,7 @@ public class TweetMainAction {
 
 	/**
 	 * 指定したユーザの発言を表示
-	 * 
+	 *
 	 * @param username
 	 *            タブのタイトルにつけるユーザ名
 	 * @param period
@@ -679,7 +679,7 @@ public class TweetMainAction {
 
 	/**
 	 * タイムラインタブが存在しているか
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isExistTimelineTab() {
@@ -690,7 +690,7 @@ public class TweetMainAction {
 
 	/**
 	 * Mentionタブが存在するか
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isExistMentionTab() {
@@ -701,7 +701,7 @@ public class TweetMainAction {
 
 	/**
 	 * DMタブが存在するか
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isExistDirectMessageTab() {
@@ -712,7 +712,7 @@ public class TweetMainAction {
 
 	/**
 	 * 送信済みDMタブが存在するか
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isExistSendDirectMessageTab() {
@@ -808,7 +808,7 @@ public class TweetMainAction {
 
 	/**
 	 * 詳細情報表示ボタンを押した時の動作
-	 * 
+	 *
 	 * @param e
 	 */
 	public void actionDetailInfoButton(ActionEvent e) {
@@ -821,7 +821,7 @@ public class TweetMainAction {
 
 	/**
 	 * 詳細情報ボタンが表示されているか
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isDetailInfoPanelVisible() {
@@ -830,7 +830,7 @@ public class TweetMainAction {
 
 	/**
 	 * 書き込みメッセージボックスの表示ONOFFボタンを押した時の動作
-	 * 
+	 *
 	 * @param e
 	 */
 	public void actionShowTweetboxButton(ActionEvent e) {
@@ -858,7 +858,7 @@ public class TweetMainAction {
 
 	/**
 	 * 指定したIDのタブを削除
-	 * 
+	 *
 	 * @param timerID
 	 */
 	public void actionRemoveTabbedTable(String timerID) {
@@ -899,7 +899,7 @@ public class TweetMainAction {
 
 	/**
 	 * 指定した場所にあるタブを削除
-	 * 
+	 *
 	 * @param removeTabIndex
 	 */
 	public void actionRemoveTabbedTable(int removeTabIndex) {
@@ -945,7 +945,7 @@ public class TweetMainAction {
 
 	/**
 	 * 終了ボタンを押した時の動作
-	 * 
+	 *
 	 * @param e
 	 */
 	public void actionExitButton(ActionEvent e) {
@@ -1053,12 +1053,12 @@ public class TweetMainAction {
 
 	/**
 	 * TweetMessageBox内にある#ハッシュタグ の部分をa hrefリンクに変換
-	 * 
+	 *
 	 * @param message
 	 */
 	public String actionReplaceTweetMessageBoxHashTab(String message) {
 		// #で始まる情報
-		Pattern userPtn = Pattern.compile("#[0-9A-Z_]+",
+		Pattern userPtn = Pattern.compile( TweetConfiguration.HASHTAG_PATTERN,
 				Pattern.CASE_INSENSITIVE);
 		Matcher matcher = userPtn.matcher(message);
 
@@ -1083,14 +1083,14 @@ public class TweetMainAction {
 
 	/**
 	 * TweetMessageBox内にあるリンクをa hrefリンクに変換
-	 * 
+	 *
 	 * @param message
 	 */
 	public String actionReplaceTweetMessageBoxURLLink(String message) {
 		Matcher matcher = convURLLinkPtn.matcher(message);
 		return matcher.replaceAll("<a href=\"$0\">$0</a>");
 	}
-	
+
 	/**
 	 * メッセージ内にあるURLをBitlyに変換する
 	 * @param message
@@ -1107,7 +1107,7 @@ public class TweetMainAction {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * つぶやきボックス内のURLをbitlyに変換
 	 */
@@ -1180,7 +1180,7 @@ public class TweetMainAction {
 
 	/**
 	 * 選択したユーザが作成したリスト一覧を表示
-	 * 
+	 *
 	 * @param selection
 	 */
 	public void actionShowSelectedUserList(ListGetterSelection selection) {
@@ -1302,7 +1302,7 @@ public class TweetMainAction {
 
 	/**
 	 * テーブルの高さを更新
-	 * 
+	 *
 	 * @param height
 	 */
 	public void updateTableHeight(int height) {
@@ -1365,7 +1365,7 @@ public class TweetMainAction {
 
 	/**
 	 * Twitter全体からキーワード検索ダイアログを表示
-	 * 
+	 *
 	 * @param searchWord
 	 *            searchwordボックスに予め設定するワード
 	 */
@@ -1430,7 +1430,7 @@ public class TweetMainAction {
 
 	/**
 	 * リストダイアログを表示
-	 * 
+	 *
 	 * @param listUserName
 	 *            リストを保持しているユーザの名前
 	 * @param selection
@@ -1477,7 +1477,7 @@ public class TweetMainAction {
 
 	/**
 	 * Tweet情報を更新
-	 * 
+	 *
 	 * @param e
 	 */
 	public void actionUpdateButton(java.awt.event.ActionEvent e) {
@@ -1510,7 +1510,7 @@ public class TweetMainAction {
 
 	/**
 	 * 指定した番号のタブにフォーカスを移す
-	 * 
+	 *
 	 * @param index
 	 */
 	public void actionRequestFocusToTab(int index) {
@@ -1544,7 +1544,7 @@ public class TweetMainAction {
 
 	/**
 	 * つぶやける残り文字数の更新
-	 * 
+	 *
 	 * @param e
 	 */
 	public void actionUpdateTweetMessageCount() {
@@ -1570,7 +1570,7 @@ public class TweetMainAction {
 			this.setReplyStatus(null);
 		}
 	}
-        
+
 	/**
 	 * デバッグ用
 	 */
@@ -1614,7 +1614,7 @@ public class TweetMainAction {
 
 	/**
 	 * 基本設定用ダイアログを取得
-	 * 
+	 *
 	 * @return
 	 */
 	public ConfigurationDialog getConfigurationDialog() {
@@ -1626,7 +1626,7 @@ public class TweetMainAction {
 
 	/**
 	 * リストダイアログを取得
-	 * 
+	 *
 	 * @param listUserName
 	 *            リストを保持しているユーザの名前
 	 * @param selection
@@ -1654,7 +1654,7 @@ public class TweetMainAction {
 
 	/**
 	 * 自身のスクリーン名を取得
-	 * 
+	 *
 	 * @return
 	 */
 	public String getScreenName() {
@@ -1663,7 +1663,7 @@ public class TweetMainAction {
 
 	/**
 	 * twitter全体からキーワード検索ダイアログを表示
-	 * 
+	 *
 	 * @return
 	 */
 	public KeywordSearchDialog getKeywordSearchDialog() {
@@ -1709,7 +1709,7 @@ public class TweetMainAction {
 
 	/**
 	 * hashtag検索ダイアログ
-	 * 
+	 *
 	 * @return
 	 */
 	public HashtagSearchDialog getHashtagSearchDialog() {
@@ -1722,7 +1722,7 @@ public class TweetMainAction {
 
 	/**
 	 * アカウント情報設定ダイアログを取得
-	 * 
+	 *
 	 * @return
 	 */
 	public AccountDialog getAccountDialog() {
@@ -1735,7 +1735,7 @@ public class TweetMainAction {
 
 	/**
 	 * ダイレクトメッセージ送信用ダイアログを取得
-	 * 
+	 *
 	 * @return
 	 */
 	public DirectMessageDialog getDirectMessageDialog() {
@@ -1748,7 +1748,7 @@ public class TweetMainAction {
 
 	/**
 	 * テーブルで選択したツイートを詳細情報としてセット
-	 * 
+	 *
 	 * @param table
 	 */
 	public void setDetailInformationFromTable(JTable table) {
@@ -1807,7 +1807,7 @@ public class TweetMainAction {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public AboutDialog getAboutDialog() {
@@ -1819,7 +1819,7 @@ public class TweetMainAction {
 
 	/**
 	 * テーブルで選択した場所のTweet情報を取得
-	 * 
+	 *
 	 * @return
 	 */
 	public Status getTweetTableInformation(JTable table, TableModel model) {
@@ -1839,7 +1839,7 @@ public class TweetMainAction {
 
 	/**
 	 * ステータスバーに情報を表示する
-	 * 
+	 *
 	 * @param message
 	 */
 	public void information(String message) {
@@ -1880,7 +1880,7 @@ public class TweetMainAction {
 
 	/**
 	 * 設定ファイルを読み込む
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
@@ -1912,7 +1912,7 @@ public class TweetMainAction {
 		// メッセージ通知を行うか
 		String nm = this.property.getProperty("notifyMention");
 		String ndm = this.property.getProperty("notifyDirectMessage");
-		
+
 		//前回開いていたタブの情報
 		String ptl = this.property.getProperty("openTimelineTab");
 		String pm = this.property.getProperty("openMentionTab");
@@ -1936,7 +1936,7 @@ public class TweetMainAction {
 			// 通知関係
 			this.isNotifyMentionMessage = Boolean.parseBoolean(nm);
 			this.isNotifyDirectMessage = Boolean.parseBoolean(ndm);
-			
+
 			//前回開いていたタブ情報
 			this.isTempOpenedTimelineTab = Boolean.parseBoolean(ptl);
 			this.isTempOpenedMentionTab = Boolean.parseBoolean(pm);
@@ -1949,7 +1949,7 @@ public class TweetMainAction {
 
 	/**
 	 * 設定ファイルを保存する
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public void saveProperties() throws IOException {
@@ -1998,7 +1998,7 @@ public class TweetMainAction {
 				+ "");
 		this.property.setProperty("notifyDirectMessage",
 				this.isNotifyDirectMessage + "");
-		
+
 		//タブの保存
 		this.property.setProperty("openTimelineTab", this.isExistTimelineTab() + "");
 		this.property.setProperty("openMentionTab", this.isExistMentionTab() + "");
@@ -2012,7 +2012,7 @@ public class TweetMainAction {
 
 	/**
 	 * newTableColorを取得します。
-	 * 
+	 *
 	 * @return newTableColor
 	 */
 	public Color getNewTableColor() {
@@ -2021,7 +2021,7 @@ public class TweetMainAction {
 
 	/**
 	 * newTableColorを設定します。
-	 * 
+	 *
 	 * @param newTableColor
 	 *            newTableColor
 	 */
@@ -2031,7 +2031,7 @@ public class TweetMainAction {
 
 	/**
 	 * tlFontNameを取得します。
-	 * 
+	 *
 	 * @return tlFontName
 	 */
 	public String getTlFontName() {
@@ -2040,7 +2040,7 @@ public class TweetMainAction {
 
 	/**
 	 * tlFontNameを設定します。
-	 * 
+	 *
 	 * @param tlFontName
 	 *            tlFontName
 	 */
@@ -2050,7 +2050,7 @@ public class TweetMainAction {
 
 	/**
 	 * tlFontSizeを取得します。
-	 * 
+	 *
 	 * @return tlFontSize
 	 */
 	public int getTlFontSize() {
@@ -2059,7 +2059,7 @@ public class TweetMainAction {
 
 	/**
 	 * tlFontSizeを設定します。
-	 * 
+	 *
 	 * @param tlFontSize
 	 *            tlFontSize
 	 */
@@ -2069,7 +2069,7 @@ public class TweetMainAction {
 
 	/**
 	 * detailFontNameを取得します。
-	 * 
+	 *
 	 * @return detailFontName
 	 */
 	public String getDetailFontName() {
@@ -2078,7 +2078,7 @@ public class TweetMainAction {
 
 	/**
 	 * detailFontNameを設定します。
-	 * 
+	 *
 	 * @param detailFontName
 	 *            detailFontName
 	 */
@@ -2088,7 +2088,7 @@ public class TweetMainAction {
 
 	/**
 	 * detailFontSizeを取得します。
-	 * 
+	 *
 	 * @return detailFontSize
 	 */
 	public int getDetailFontSize() {
@@ -2097,7 +2097,7 @@ public class TweetMainAction {
 
 	/**
 	 * detailFontSizeを設定します。
-	 * 
+	 *
 	 * @param detailFontSize
 	 *            detailFontSize
 	 */
@@ -2107,7 +2107,7 @@ public class TweetMainAction {
 
 	/**
 	 * tableElementHeightを取得します。
-	 * 
+	 *
 	 * @return tableElementHeight
 	 */
 	public int getTableElementHeight() {
@@ -2116,7 +2116,7 @@ public class TweetMainAction {
 
 	/**
 	 * tableElementHeightを設定します。
-	 * 
+	 *
 	 * @param tableElementHeight
 	 *            tableElementHeight
 	 */
@@ -2132,7 +2132,7 @@ public class TweetMainAction {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param notify
 	 */
 	public void setNotifyMention(boolean notify) {
@@ -2140,7 +2140,7 @@ public class TweetMainAction {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean getNotifyMention() {
@@ -2148,7 +2148,7 @@ public class TweetMainAction {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param notify
 	 * @return
 	 */
@@ -2157,7 +2157,7 @@ public class TweetMainAction {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean getNotifyDirectMessage() {
@@ -2233,7 +2233,7 @@ public class TweetMainAction {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public Status getReplyStatus() {
@@ -2241,7 +2241,7 @@ public class TweetMainAction {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param status
 	 * @return
 	 */

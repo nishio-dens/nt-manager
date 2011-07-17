@@ -2,9 +2,9 @@ package twitter.manage;
 
 /**
  * 設定を保存しておく
- * 
+ *
  * @author nishio
- * 
+ *
  */
 public class TweetConfiguration {
 	// ログを保存するディレクトリ名
@@ -31,4 +31,9 @@ public class TweetConfiguration {
 	public static final String DATABASE = "org.sqlite.JDBC";
 	//ツイートを保存するデータベース名
 	public static final String DATABASE_CONNECTION = "jdbc:sqlite:" + LOG_DIRECTORY + "/tweet.db";
+	//ハッシュタグ認識のパターン
+	//Thanks Real Beatさん。http://nobu666.com/2011/07/13/914.html
+	public static final String HASHTAG_PATTERN =
+		//"(?:#|＃)([\\p{InBasicLatin}_\\p{InHiragana}\\p{InKatakana}\\p{InCJKUnifiedIdeographs}]+)";
+		"(?:#|\uFF03)([a-zA-Z0-9_\u3041-\u3094\u3099-\u309C\u30A1-\u30FA\u3400-\uD7FF\uFF10-\uFF19\uFF20-\uFF3A\uFF41-\uFF5A\uFF66-\uFF9E]+)";
 }

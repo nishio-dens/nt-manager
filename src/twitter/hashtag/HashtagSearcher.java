@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import twitter.manage.TweetConfiguration;
 import twitter.manage.TweetManager;
 import twitter.util.MultiSortedMap;
 import twitter4j.Status;
@@ -27,9 +29,10 @@ public class HashtagSearcher {
     //twitter管理クラス
     private TweetManager tweetManager;
     //ハッシュタグのパターン
-    private static final String HASHTAG_PATTERN = "#[0-9A-Za-z_]+";
+    private static final String HASHTAG_PATTERN =
+    	TweetConfiguration.HASHTAG_PATTERN;
     //検索情報数
-    private static final int MAX_SEARCH_NUM = 100;
+    private static final int MAX_SEARCH_NUM = 200;
 
     /**
      *
@@ -91,7 +94,7 @@ public class HashtagSearcher {
                 Map<String, Integer> oneTweet = getHashtagCount(message);
                 //出現回数
                 Set<String> keyset = oneTweet.keySet();
-                
+
                 for(String key : keyset) {
                     //いままでその単語が出現していたかどうか
                     Integer count = counter.get(key);
@@ -120,7 +123,7 @@ public class HashtagSearcher {
         // #で始まる情報
         Pattern userPtn = Pattern.compile(HASHTAG_PATTERN);
         Matcher matcher = userPtn.matcher(message);
-        
+
         // #で始まる情報一覧を抜き出す
         Map<String, Integer> counter = new HashMap<String, Integer>();
 
