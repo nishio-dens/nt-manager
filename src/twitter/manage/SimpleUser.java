@@ -9,9 +9,9 @@ import twitter4j.User;
 
 /**
  * ユーザ情報
- * 
+ *
  * @author nishio
- * 
+ *
  */
 public class SimpleUser implements User {
 
@@ -674,5 +674,23 @@ public class SimpleUser implements User {
 	public boolean isTranslator() {
 		// TODO 自動生成されたメソッド・スタブ
 		return false;
+	}
+
+	@Override
+	public int getAccessLevel() {
+		// TODO 自動生成されたメソッド・スタブ
+		return 0;
+	}
+
+	@Override
+	public String getProfileBackgroundImageUrlHttps() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public java.net.URL getProfileImageUrlHttps() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 }

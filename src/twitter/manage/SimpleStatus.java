@@ -6,6 +6,7 @@ import java.util.Date;
 import twitter4j.Annotations;
 import twitter4j.GeoLocation;
 import twitter4j.HashtagEntity;
+import twitter4j.MediaEntity;
 import twitter4j.Place;
 import twitter4j.RateLimitStatus;
 import twitter4j.Status;
@@ -15,7 +16,7 @@ import twitter4j.UserMentionEntity;
 
 public class SimpleStatus implements Status {
 
-    private String[] contributors = null;
+    private long[] contributors = null;
     private Date createdAt = null;
     private GeoLocation geoLocation = null;
     private long id = 0;
@@ -36,7 +37,7 @@ public class SimpleStatus implements Status {
      *
      * @return contributors
      */
-    public String[] getContributors() {
+    public long[] getContributors() {
         return contributors;
     }
 
@@ -178,7 +179,7 @@ public class SimpleStatus implements Status {
      * @param contributors
      *            contributors
      */
-    public void setContributors(String[] contributors) {
+    public void setContributors(long[] contributors) {
         this.contributors = contributors;
     }
 
@@ -373,5 +374,17 @@ public class SimpleStatus implements Status {
 	public boolean isRetweetedByMe() {
 		// TODO 自動生成されたメソッド・スタブ
 		return false;
+	}
+
+	@Override
+	public int getAccessLevel() {
+		// TODO 自動生成されたメソッド・スタブ
+		return 0;
+	}
+
+	@Override
+	public MediaEntity[] getMediaEntities() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 }

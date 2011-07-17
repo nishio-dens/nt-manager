@@ -43,7 +43,7 @@ import twitter.manage.TweetManager;
 import twitter.task.TimerID;
 
 /**
- * 
+ *
  * @author nishio
  */
 public class NishioTweetManager extends javax.swing.JFrame {
@@ -127,7 +127,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}
-		
+
 		//tweet発言するボックスの右クリック対応
 		this.jTextPane.setComponentPopupMenu(
 				new TweetTextFieldPopupMenu( this.jTextPane ) );
@@ -1472,7 +1472,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
 			if( isNoTab == true ) {
 				//Timelineタブを追加
 				this.mainAction.actionAddTimelineTab(this.mainAction
-						.getGetTimelinePeriod());				
+						.getGetTimelinePeriod());
 			}
 			// フォーカスを一番初めのテーブルに移す
 			this.mainAction.actionRequestFocusToTab(0);

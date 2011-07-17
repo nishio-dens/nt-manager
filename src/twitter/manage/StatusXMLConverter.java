@@ -22,9 +22,9 @@ import twitter4j.User;
 
 /**
  * StatusをXMLに変換する
- * 
+ *
  * @author nishio
- * 
+ *
  */
 public class StatusXMLConverter {
 
@@ -79,12 +79,12 @@ public class StatusXMLConverter {
 
 	/**
 	 * StatusをXML文章に変換する
-	 * 
+	 *
 	 * @param status
 	 * @return
 	 */
 	public static String convertStatusToXML(Status status) {
-		String[] contributor = status.getContributors();
+		long[] contributor = status.getContributors();
 		String date = null;
 		if (status.getCreatedAt() != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
@@ -116,9 +116,8 @@ public class StatusXMLConverter {
 		// Contributor
 		if (contributor != null) {
 			buf.append("<" + CONTRIBUTOR_TAG + ">");
-			for (String c : contributor) {
-				buf.append(createXMLTag(CONTRIBUTOR_NAME_TAG, HTMLEncode
-						.encode(c)));
+			for (long c : contributor) {
+				buf.append(createXMLTag(CONTRIBUTOR_NAME_TAG, c));
 			}
 			buf.append("</" + CONTRIBUTOR_TAG + ">");
 		}
@@ -178,7 +177,7 @@ public class StatusXMLConverter {
 
 	/**
 	 * UserをXMLに変換する
-	 * 
+	 *
 	 * @param user
 	 * @return
 	 */
@@ -298,7 +297,7 @@ public class StatusXMLConverter {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param tag
 	 * @param data
 	 * @return
@@ -308,7 +307,7 @@ public class StatusXMLConverter {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param tag
 	 * @param data
 	 * @return
@@ -318,7 +317,7 @@ public class StatusXMLConverter {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param tag
 	 * @param data
 	 * @return
@@ -328,7 +327,7 @@ public class StatusXMLConverter {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param tag
 	 * @param data
 	 * @return
@@ -339,7 +338,7 @@ public class StatusXMLConverter {
 
 	/**
 	 * XML文章からStatusエレメントを取得
-	 * 
+	 *
 	 * @param xmlData
 	 * @return
 	 * @throws SAXParseException
@@ -455,7 +454,7 @@ public class StatusXMLConverter {
 
 	/**
 	 * NodeListからUSERを取得
-	 * 
+	 *
 	 * @param xmlData
 	 * @return
 	 * @throws SAXParseException
@@ -584,7 +583,7 @@ public class StatusXMLConverter {
 
 	/**
 	 * 指定されたエレメントから子要素の内容を取得
-	 * 
+	 *
 	 * @param element
 	 *            指定エレメント
 	 * @param tagName

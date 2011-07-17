@@ -24,6 +24,7 @@ import twitter4j.DirectMessage;
 import twitter4j.GeoLocation;
 import twitter4j.HashtagEntity;
 import twitter4j.IDs;
+import twitter4j.MediaEntity;
 import twitter4j.PagableResponseList;
 import twitter4j.Paging;
 import twitter4j.Place;
@@ -49,9 +50,9 @@ public class TweetManager {
 
 	/**
 	 * DirectMessageのユーザ情報等からステータスを生成
-	 * 
+	 *
 	 * @author nishio
-	 * 
+	 *
 	 */
 	private class DirectMessageUserStatus implements Status {
 
@@ -70,7 +71,7 @@ public class TweetManager {
 		}
 
 		@Override
-		public String[] getContributors() {
+		public long[] getContributors() {
 			return null;
 		}
 
@@ -188,6 +189,18 @@ public class TweetManager {
 			// TODO 自動生成されたメソッド・スタブ
 			return false;
 		}
+
+		@Override
+		public int getAccessLevel() {
+			// TODO 自動生成されたメソッド・スタブ
+			return 0;
+		}
+
+		@Override
+		public MediaEntity[] getMediaEntities() {
+			// TODO 自動生成されたメソッド・スタブ
+			return null;
+		}
 	}
 
 	private Twitter twitter = null;
@@ -196,9 +209,9 @@ public class TweetManager {
 	// クライアントのConsumer Secret 外部に漏れてはいけない
 	private static final String CONSUMER_SECRET = "tODurbdySLYU1pKjtB3MQTDRBGy562dHzVf7d62mm8";
 	// accessToken
-	private String accessToken = "";
+	private String accessToken = null;//"";
 	// secretToken 外部に漏れてはいけない
-	private String secretToken = "";
+	private String secretToken = null;//"";
 	// 設定ファイル保存ディレクトリ名
 	private static final String PROPERTIES_DIRECTORY = TweetConfiguration.PROPERTIES_DIRECTORY;
 	// 設定ファイル保存ファイル名
@@ -221,7 +234,7 @@ public class TweetManager {
 	private Properties accountProperty = null;
 	// ログ保存
 	private TwitterLogManager logManager = null;
-	
+
 	//following IDリスト keyはユーザ名, valueはユーザがfollowingしているid
 	private Map<String, List<Long>> followingUserIDList = new HashMap<String, List<Long>>();
         //follower
@@ -233,7 +246,7 @@ public class TweetManager {
 
 	/**
 	 * 設定ファイルを読み込む
-	 * 
+	 *
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
@@ -265,7 +278,7 @@ public class TweetManager {
 
 	/**
 	 * 設定ファイルを保存する
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public void saveProperties() throws IOException {
@@ -297,7 +310,7 @@ public class TweetManager {
 
 	/**
 	 * アカウント情報を読み込む
-	 * 
+	 *
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
@@ -315,7 +328,7 @@ public class TweetManager {
 
 	/**
 	 * アカウント情報を保存する
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public void saveAccountProperties() throws IOException {
@@ -341,7 +354,7 @@ public class TweetManager {
 
 	/**
 	 * 受信したダイレクトメッセージを取得
-	 * 
+	 *
 	 * @param num
 	 * @return
 	 * @throws TwitterException
@@ -374,7 +387,7 @@ public class TweetManager {
 
 	/**
 	 * 送信したダイレクトメッセージを取得
-	 * 
+	 *
 	 * @param num
 	 * @return
 	 * @throws TwitterException
@@ -405,7 +418,7 @@ public class TweetManager {
 
 	/**
 	 * Mentionの取得
-	 * 
+	 *
 	 * @param num
 	 * @return
 	 * @throws TwitterException
@@ -434,7 +447,7 @@ public class TweetManager {
 
 	/**
 	 * まだ取得していないDirectMessageを取得
-	 * 
+	 *
 	 * @return
 	 * @throws TwitterException
 	 */
@@ -478,7 +491,7 @@ public class TweetManager {
 
 	/**
 	 * まだ取得していないSendDirectMessageを取得
-	 * 
+	 *
 	 * @return
 	 * @throws TwitterException
 	 */
@@ -522,7 +535,7 @@ public class TweetManager {
 
 	/**
 	 * まだ取得していないMention情報を取得
-	 * 
+	 *
 	 * @return
 	 * @throws TwitterException
 	 */
@@ -570,7 +583,7 @@ public class TweetManager {
 
 	/**
 	 * まだ取得していないtweet情報を取得
-	 * 
+	 *
 	 * @return
 	 * @throws TwitterException
 	 */
@@ -628,7 +641,7 @@ public class TweetManager {
 
 	/**
 	 * タイムラインを取得 一番新しいツイートは要素の一番下に追加
-	 * 
+	 *
 	 * @param num
 	 *            指定した数だけtweetを取得
 	 * @return
@@ -669,7 +682,7 @@ public class TweetManager {
 
 	/**
 	 * 指定したワードを含むtweetを返す
-	 * 
+	 *
 	 * @param sinceID
 	 * @param searchWord
 	 * @return
@@ -739,7 +752,7 @@ public class TweetManager {
 
 	/**
 	 * 指定したワードを含むtweetを返す
-	 * 
+	 *
 	 * @param num
 	 *            指定した数だけtweetを取得
 	 * @param searchWord
@@ -803,7 +816,7 @@ public class TweetManager {
 
 	/**
 	 * 指定したユーザのお気に入りを取得
-	 * 
+	 *
 	 * @param screenName
 	 *            nullの場合，自分自身のお気に入りを取得
 	 */
@@ -824,7 +837,7 @@ public class TweetManager {
 
 	/**
 	 * 指定したユーザの発言を取得
-	 * 
+	 *
 	 * @param num
 	 * @param userID
 	 * @return
@@ -842,10 +855,10 @@ public class TweetManager {
 
 		return statuses;
 	}
-	
+
 	/**
 	 * 指定したユーザの発言を取得
-	 * 
+	 *
 	 * @param num
 	 * @param screenName
 	 * @return
@@ -863,11 +876,11 @@ public class TweetManager {
 
 		return statuses;
 	}
-	
+
 
 	/**
 	 * 指定したユーザが保持しているリスト一覧を取得
-	 * 
+	 *
 	 * @param userScreenName
 	 * @return
 	 */
@@ -897,7 +910,7 @@ public class TweetManager {
 
 	/**
 	 * 指定したユーザをフォローしているリストを返す
-	 * 
+	 *
 	 * @param userScreenName
 	 * @return
 	 */
@@ -927,7 +940,7 @@ public class TweetManager {
 
 	/**
 	 * 指定したユーザが追加されているリストを返す
-	 * 
+	 *
 	 * @param userScreenName
 	 * @return
 	 */
@@ -957,7 +970,7 @@ public class TweetManager {
 
 	/**
 	 * 指定したリストのツイートを取得
-	 * 
+	 *
 	 * @param userScreenName
 	 *            ユーザ名
 	 * @param listID
@@ -986,7 +999,7 @@ public class TweetManager {
 
 	/**
 	 * 指定したリストの最新情報を取得
-	 * 
+	 *
 	 * @param userScreenName
 	 *            ユーザ名
 	 * @param listID
@@ -1016,7 +1029,7 @@ public class TweetManager {
 
 	/**
 	 * 指定したユーザの最新の発言を取得
-	 * 
+	 *
 	 * @param userID
 	 * @param sinceID
 	 * @return
@@ -1039,10 +1052,10 @@ public class TweetManager {
 
 		return statuses;
 	}
-	
+
 	/**
 	 * 指定したユーザの最新の発言を取得
-	 * 
+	 *
 	 * @param screenName
 	 * @param sinceID
 	 * @return
@@ -1070,9 +1083,15 @@ public class TweetManager {
 	 * Twitterへログイン
 	 */
 	public void loginTwitter() throws FileNotFoundException, IOException {
-		twitter = new TwitterFactory().getInstance();
 		// アカウント情報を読み込む
 		loadAccountProperties();
+
+		if( this.accessToken == null || this.secretToken == null ||
+				this.accessToken.length() < 2 || this.secretToken.length() < 2) {
+			throw new IOException("Access Token and Secret cannot read");
+		}
+		//twitter
+		twitter = new TwitterFactory().getInstance();
 		// ConsumerKeyなどを設定
 		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
 		// ここにユーザのアクセストークンを入れる
@@ -1090,7 +1109,7 @@ public class TweetManager {
 
 	/**
 	 * Configurationを生成する
-	 * 
+	 *
 	 * @return
 	 */
 	private Configuration getTwitterConfiguration() {
@@ -1102,7 +1121,7 @@ public class TweetManager {
 
 	/**
 	 * 初回時アクセストークンを取得する際に利用する
-	 * 
+	 *
 	 * @param username
 	 * @param password
 	 * @throws TwitterException
@@ -1113,8 +1132,7 @@ public class TweetManager {
 		Configuration conf = this.getTwitterConfiguration();
 		twitter = new TwitterFactory(conf).getInstance();
 		// access token取得
-		AccessToken oAuthAccessToken = twitter.getOAuthAccessToken(username,
-				password);
+		AccessToken oAuthAccessToken = twitter.getOAuthAccessToken(username, password);
 		this.accessToken = oAuthAccessToken.getToken();
 		this.secretToken = oAuthAccessToken.getTokenSecret();
 
@@ -1128,7 +1146,7 @@ public class TweetManager {
 
 	/**
 	 * メッセージをつぶやく
-	 * 
+	 *
 	 * @param message
 	 * @throws TwitterException
 	 */
@@ -1139,10 +1157,10 @@ public class TweetManager {
 
 	/**
 	 * 返信メッセージをつぶやく
-	 * 
+	 *
 	 * @param message
 	 * @param replyToStatusID
-	 * @throws TwitterException 
+	 * @throws TwitterException
 	 */
 	public void replyTweet(String message, long replyToStatusID) throws TwitterException {
 		twitter4j.Status status;
@@ -1154,7 +1172,7 @@ public class TweetManager {
 
 	/**
 	 * ダイレクトメッセージを送信
-	 * 
+	 *
 	 * @param screenName
 	 * @param text
 	 * @throws TwitterException
@@ -1166,7 +1184,7 @@ public class TweetManager {
 
 	/**
 	 * 指定したステータスIDの発言をRetweet
-	 * 
+	 *
 	 * @param statusID
 	 * @throws TwitterException
 	 */
@@ -1176,7 +1194,7 @@ public class TweetManager {
 
 	/**
 	 * 指定した発言をお気に入りに追加
-	 * 
+	 *
 	 * @param statusID
 	 * @throws TwitterException
 	 */
@@ -1186,7 +1204,7 @@ public class TweetManager {
 
 	/**
 	 * 指定した発言のお気に入りを取り下げる
-	 * 
+	 *
 	 * @param statusID
 	 */
 	public void destroyFavorite(long statusID) throws TwitterException {
@@ -1195,7 +1213,7 @@ public class TweetManager {
 
 	/**
 	 * API制限数を取得
-	 * 
+	 *
 	 * @return
 	 * @throws TwitterException
 	 */
@@ -1205,7 +1223,7 @@ public class TweetManager {
 
 	/**
 	 * 自分自身のスクリーン名を返す
-	 * 
+	 *
 	 * @return
 	 */
 	public String getScreenName() {
@@ -1218,7 +1236,7 @@ public class TweetManager {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 指定したユーザのfollowingユーザ一覧の詳細情報を取得
 	 * @param screenName 取得したいユーザ
@@ -1245,17 +1263,17 @@ public class TweetManager {
 			}
 			getFollowingUserIds = followingList.subList(page * 100, to);
 		}
-		
+
 		//結果
 		List<User> result = new ArrayList<User>();
-		
+
 		int getDataSize = getFollowingUserIds.size();
 		if( getDataSize > 0 ) {
 			long[] ids = new long[ getDataSize ];
 			for( int i=0; i < ids.length; i++) {
 				ids[i] = getFollowingUserIds.get( i );
 			}
-			
+
 			//idsのユーザ一覧取得
 			try {
 				ResponseList<User> users = twitter.lookupUsers( ids );
@@ -1265,7 +1283,7 @@ public class TweetManager {
 			} catch (TwitterException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 		return result;
 	}
@@ -1320,10 +1338,10 @@ public class TweetManager {
 		}
 		return result;
 	}
-	
-	
+
+
 	/**
-	 * FriendのID一覧を取得する	
+	 * FriendのID一覧を取得する
 	 * @param screenName
 	 * @return
 	 */
@@ -1333,7 +1351,7 @@ public class TweetManager {
 		long[] friendIds = null;
 		//id一覧
 		List<Long> result = new ArrayList<Long>();
-		
+
 		try {
 			//friend一覧をすべて取得
 			do {
@@ -1348,11 +1366,11 @@ public class TweetManager {
 				//次のカーソルに移動
 				cursor = ids.getNextCursor();
 			}while( cursor != 0 );
-			
+
 		}catch(TwitterException e) {
 			e.printStackTrace();
 		}
-		return result;		
+		return result;
 	}
 
         /**
@@ -1387,5 +1405,5 @@ public class TweetManager {
 		}
 		return result;
 	}
-	
+
 }
