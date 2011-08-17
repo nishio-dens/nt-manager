@@ -31,7 +31,7 @@ public class TwitterLogManager {
 	private static final String CHARACTER_ENCODING = TweetConfiguration.CHARACTER_ENCODING;
 
 	/**
-	 * 
+	 *
 	 */
 	public TwitterLogManager() {
 
@@ -39,102 +39,7 @@ public class TwitterLogManager {
 
 	/**
 	 * ログをファイルに保存する
-	 * 
-	 * @param s
-	 * @throws IOException
-	 */
-	public void add(Status s) throws IOException {
-		// ログディレクトリを作成
-		File logDir = new File("./" + LOG_DIRECTORY);
-		if (!logDir.exists()) {
-			// ディレクトリが存在しないので作成する
-			if (logDir.mkdir() == false) {
-				throw new IOException(LOG_DIRECTORY + "ディレクトリを作成できませんでした．");
-			}
-		}
-		// タイムライン保存用ディレクトリを作成
-		String timelineDirName = "./" + LOG_DIRECTORY + "/"
-				+ TIMELINE_DIRECTORY;
-		File timelineDir = new File(timelineDirName);
-		if (!timelineDir.exists()) {
-			// ディレクトリが存在しないので作成する
-			if (timelineDir.mkdir() == false) {
-				throw new IOException(TIMELINE_DIRECTORY + "ディレクトリを作成できませんでした．");
-			}
-		}
-
-		// 保存するデータのファイル名は年_月_日.log
-		String filename = timelineDirName + "/" + CurrentTime.getCurrentYear()
-				+ "_" + CurrentTime.getCurrentMonth() + "_"
-				+ CurrentTime.getCurrentDay() + ".log";
-
-		FileOutputStream fos = new FileOutputStream(filename, true);
-		OutputStreamWriter osw = new OutputStreamWriter(fos, CHARACTER_ENCODING);
-		BufferedWriter bw = new BufferedWriter(osw);
-
-		// ファイル書き込みデータ
-		StringBuffer writeData = new StringBuffer("");
-		writeData.append(StatusXMLConverter.convertStatusToXML(s) + "\n");
-
-		// ファイル書き込み
-		bw.write(writeData.toString());
-		// ファイルを閉じる
-		bw.close();
-		osw.close();
-		fos.close();
-	}
-
-	/**
-	 * ログをファイルに保存する
-	 * 
-	 * @param statuses
-	 */
-	/*public void add(List<Status> statuses) throws IOException {
-		// ログディレクトリを作成
-		File logDir = new File("./" + LOG_DIRECTORY);
-		if (!logDir.exists()) {
-			// ディレクトリが存在しないので作成する
-			if (logDir.mkdir() == false) {
-				throw new IOException(LOG_DIRECTORY + "ディレクトリを作成できませんでした．");
-			}
-		}
-		// タイムライン保存用ディレクトリを作成
-		String timelineDirName = "./" + LOG_DIRECTORY + "/"
-				+ TIMELINE_DIRECTORY;
-		File timelineDir = new File(timelineDirName);
-		if (!timelineDir.exists()) {
-			// ディレクトリが存在しないので作成する
-			if (timelineDir.mkdir() == false) {
-				throw new IOException(TIMELINE_DIRECTORY + "ディレクトリを作成できませんでした．");
-			}
-		}
-
-		// 保存するデータのファイル名は年_月_日.log
-		String filename = timelineDirName + "/" + CurrentTime.getCurrentYear()
-				+ "_" + CurrentTime.getCurrentMonth() + "_"
-				+ CurrentTime.getCurrentDay() + ".log";
-
-		FileOutputStream fos = new FileOutputStream(filename, true);
-		OutputStreamWriter osw = new OutputStreamWriter(fos, CHARACTER_ENCODING);
-		BufferedWriter bw = new BufferedWriter(osw);
-
-		// ファイル書き込みデータ
-		StringBuffer writeData = new StringBuffer("");
-		for (Status s : statuses) {
-			writeData.append(StatusXMLConverter.convertStatusToXML(s) + "\n");
-		}
-
-		// ファイル書き込み
-		bw.write(writeData.toString());
-		// ファイルを閉じる
-		bw.close();
-		osw.close();
-		fos.close();
-	}*/
-	
-	/**
-	 * ログをファイルに保存する
-	 * 
+	 *
 	 * @param statuses
 	 */
 	public void add(List<Status> statuses) throws IOException {
@@ -171,135 +76,25 @@ public class TwitterLogManager {
 	}
 
 	/**
-	 * 指定した件数分のTweet情報を取得する
-	 * 
-	 * @param num
+	 * 指定した日時のtweet取得
 	 * @param year
 	 * @param month
 	 * @param day
-	 * @throws IOException
-	 * @throws SAXParseException
-	 * 
+	 * @return
 	 */
-	public List<Status> get(int num, int year, int month, int day)
-			throws IOException, SAXParseException {
-		// 読み出しログ名
-		String timelineDirName = "./" + LOG_DIRECTORY + "/"
-				+ TIMELINE_DIRECTORY;
-		String filename = timelineDirName + "/" + year + "_" + month + "_"
-				+ day + ".log";
-		return get(num, filename);
-	}
-
-	/**
-	 * 指定したlogのTweet情報を取得する
-	 * 
-	 * @param year
-	 * @param month
-	 * @param day
-	 * @throws IOException
-	 * @throws SAXParseException
-	 * 
-	 */
-	public List<Status> get(int year, int month, int day) throws IOException,
-			SAXParseException {
-		// 読み出しログ名
-		String timelineDirName = "./" + LOG_DIRECTORY + "/"
-				+ TIMELINE_DIRECTORY;
-		String filename = timelineDirName + "/" + year + "_" + month + "_"
-				+ day + ".log";
-		return get(filename);
-	}
-
-	/**
-	 * 指定したファイルの件数分のTweet情報を取得する
-	 * 
-	 * @param num
-	 * @param path
-	 * @throws IOException
-	 * @throws SAXParseException
-	 * 
-	 */
-	public List<Status> get(int num, String path) throws IOException,
-			SAXParseException {
-		String filename = path;
-		// tweet情報を保存するリスト
-		List<Status> tweetData = get(path);
-
-		int from = tweetData.size() - num;
-		int to = tweetData.size();
-
-		if (from < 0) {
-			from = 0;
-		}
-
-		return tweetData.subList(from, to);
-	}
-
-	/**
-	 * 指定したファイルの件数分のTweet情報を取得する
-	 * 
-	 * @param path
-	 * @throws IOException
-	 * @throws SAXParseException
-	 * 
-	 */
-	public List<Status> get(String path) throws IOException, SAXParseException {
-		String filename = path;
-		// tweet情報を保存するリスト
-		List<Status> tweetData = null;
+	public List<TweetDBObject> get(int year, int month, int day) {
+		TwitterLogDao dao = new TwitterLogDao();
+		List<TweetDBObject> tweet = null;
 		try {
-			File f = new File(filename);
-			byte[] b = new byte[(int) f.length()];
-			FileInputStream fi = new FileInputStream(f);
-
-			fi.read(b);
-			// 読み取ったデータ
-			String data = new String(b, CHARACTER_ENCODING);
-			fi.close();
-
-			data = "<root>" + data + "</root>";
-			tweetData = StatusXMLConverter.XMLToStatus(data);
-
-		} catch (NullPointerException e) {
-			throw new IOException("ファイルが見つかりませんでした.");
-		} catch (FileNotFoundException e) {
-			throw new IOException("ファイルが見つかりませんでした.");
+			tweet = dao.get();
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-
-		return tweetData;
+		for(TweetDBObject o : tweet) {
+			System.out.println(o);
+		}
+		return tweet;
 	}
-
-	/**
-	 * 今日のtweet情報を取得する
-	 * 
-	 * @param num
-	 * @return
-	 * @throws SAXParseException
-	 * @throws IOException
-	 */
-	public List<Status> get(int num) throws SAXParseException, IOException {
-		int year = CurrentTime.getCurrentYear();
-		int month = CurrentTime.getCurrentMonth();
-		int day = CurrentTime.getCurrentDay();
-		return this.get(num, year, month, day);
-	}
-
-	/**
-	 * 今日のtweet情報を取得する
-	 * 
-	 * @param num
-	 * @return
-	 * @throws SAXParseException
-	 * @throws IOException
-	 */
-	public List<Status> get() throws SAXParseException, IOException {
-		int year = CurrentTime.getCurrentYear();
-		int month = CurrentTime.getCurrentMonth();
-		int day = CurrentTime.getCurrentDay();
-		return this.get(year, month, day);
-	}
-
 
 	/**
 	 * logをcsvとして保存
@@ -320,7 +115,7 @@ public class TwitterLogManager {
 	 */
 	public void outputCSVLog(String filepath, List<Status> status,
 			boolean showUsername, boolean showScreenName,
-			boolean showText, 
+			boolean showText,
 			boolean showUpdateTime, boolean showClient,
 			boolean showUserDescription,
 			boolean showFollowing, boolean showFollower,
@@ -328,10 +123,10 @@ public class TwitterLogManager {
 			boolean showProfileImageURL) throws IOException {
 		// CSV保存
 		CSVWriter writer = new CSVWriter(new FileWriter( filepath ));
-		
+
 		int col = 0;
 		String[] title = new String[11];
-		
+
 		if( showUsername ) {
 			title[col++] = "Username";
 		}
@@ -367,7 +162,7 @@ public class TwitterLogManager {
 		}
 		//タイトル書き込み
 		writer.writeNext(title);
-		
+
 		for (Status s : status) {
 			//retweetの場合、retween者の情報を保存
 			if (s.isRetweet()) {
@@ -400,11 +195,11 @@ public class TwitterLogManager {
 			// ユーザのprofile imageのURL
 			String profileImageURL = s.getUser().getProfileImageURL()
 					.toString();
-			
+
 			//書きこむデータ
 			col = 0;
 			String[] data = new String[11];
-			
+
 			if( showUsername ) {
 				data[col++] = username;
 			}

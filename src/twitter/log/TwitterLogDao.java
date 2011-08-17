@@ -23,94 +23,94 @@ public class TwitterLogDao {
 	//データベース接続文字列
 	private static final String DATABASE = TweetConfiguration.DATABASE;
 	private static final String DATABASE_CONNECTION = TweetConfiguration.DATABASE_CONNECTION;
-	
+
 	//データベース接続
 	private Connection databaseConnection = null;
-	
+
 	//データベーステーブルの定義
 	private static final String createTweetTableSql =
 		"CREATE TABLE IF NOT EXISTS TWEET(" +
 		"		id INTEGER PRIMARY KEY,"    +
-		"		date TEXT," + 
-		"		replyStatusID INTEGER," + 
-		"		replyUserID INTEGER," + 
-		"		text TEXT," + 
-		"		created TEXT," + 
-		"		description TEXT," + 
-		"		userFavorite INTEGER," + 
-		"		followers INTEGER," + 
-		"		friend INTEGER," + 
-		"		userId INTEGER," + 
-		"		lang TEXT," + 
-		"		location TEXT," + 
-		"		name TEXT," + 
-		"		profileBackgroundColor TEXT," + 
-		"		profileBackgroundImageURL TEXT," + 
-		"		profileImageURL TEXT," + 
-		"		profileSidebarBorderColor TEXT," + 
-		"		profileSidebarFillColor TEXT," + 
-		"		profileTextColor TEXT," + 
-		"		screenName TEXT," + 
-		"		statusesCount INTEGER," + 
-		"		timeZone TEXT," + 
-		"		url TEXT," + 
-		"		utc INTEGER," + 
-		"		contributorsEnable TEXT," + 
-		"		geoEnable TEXT," + 
-		"		profileBackgroundTiled TEXT," + 
-		"		isProtected TEXT," + 
-		"		verified TEXT," + 
-		"		source TEXT," + 
-		"		favorite TEXT," + 
-		"		retweet TEXT," + 
+		"		date TEXT," +
+		"		replyStatusID INTEGER," +
+		"		replyUserID INTEGER," +
+		"		text TEXT," +
+		"		created TEXT," +
+		"		description TEXT," +
+		"		userFavorite INTEGER," +
+		"		followers INTEGER," +
+		"		friend INTEGER," +
+		"		userId INTEGER," +
+		"		lang TEXT," +
+		"		location TEXT," +
+		"		name TEXT," +
+		"		profileBackgroundColor TEXT," +
+		"		profileBackgroundImageURL TEXT," +
+		"		profileImageURL TEXT," +
+		"		profileSidebarBorderColor TEXT," +
+		"		profileSidebarFillColor TEXT," +
+		"		profileTextColor TEXT," +
+		"		screenName TEXT," +
+		"		statusesCount INTEGER," +
+		"		timeZone TEXT," +
+		"		url TEXT," +
+		"		utc INTEGER," +
+		"		contributorsEnable TEXT," +
+		"		geoEnable TEXT," +
+		"		profileBackgroundTiled TEXT," +
+		"		isProtected TEXT," +
+		"		verified TEXT," +
+		"		source TEXT," +
+		"		favorite TEXT," +
+		"		retweet TEXT," +
 		"		truncated TEXT)"  ;
-	
+
 	//データ挿入SQL
-	private static final String insertTweetDataSql = 
+	private static final String insertTweetDataSql =
 		"INSERT INTO TWEET VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-	
+
 	//UPDATE
-	private static final String updateTweetDataSql = 
+	private static final String updateTweetDataSql =
 		"UPDATE TWEET SET " +
-		"		date = ?," + 
-		"		replyStatusID = ?," + 
-		"		replyUserID = ?," + 
-		"		text  = ?," + 
-		"		created = ?," + 
-		"		description = ?," + 
-		"		userFavorite = ?," + 
-		"		followers = ?," + 
-		"		friend = ?," + 
-		"		userId = ?," + 
-		"		lang = ?," + 
-		"		location = ?," + 
-		"		name = ?," + 
-		"		profileBackgroundColor = ?," + 
-		"		profileBackgroundImageURL = ?," + 
-		"		profileImageURL = ?," + 
-		"		profileSidebarBorderColor = ?," + 
-		"		profileSidebarFillColor = ?," + 
-		"		profileTextColor = ?," + 
-		"		screenName = ?," + 
-		"		statusesCount = ?," + 
-		"		timeZone = ?," + 
-		"		url = ?," + 
-		"		utc = ?," + 
-		"		contributorsEnable = ?," + 
-		"		geoEnable = ?," + 
-		"		profileBackgroundTiled = ?," + 
-		"		isProtected = ?," + 
-		"		verified = ?," + 
-		"		source = ?," + 
-		"		favorite = ?," + 
-		"		retweet = ?," + 
+		"		date = ?," +
+		"		replyStatusID = ?," +
+		"		replyUserID = ?," +
+		"		text  = ?," +
+		"		created = ?," +
+		"		description = ?," +
+		"		userFavorite = ?," +
+		"		followers = ?," +
+		"		friend = ?," +
+		"		userId = ?," +
+		"		lang = ?," +
+		"		location = ?," +
+		"		name = ?," +
+		"		profileBackgroundColor = ?," +
+		"		profileBackgroundImageURL = ?," +
+		"		profileImageURL = ?," +
+		"		profileSidebarBorderColor = ?," +
+		"		profileSidebarFillColor = ?," +
+		"		profileTextColor = ?," +
+		"		screenName = ?," +
+		"		statusesCount = ?," +
+		"		timeZone = ?," +
+		"		url = ?," +
+		"		utc = ?," +
+		"		contributorsEnable = ?," +
+		"		geoEnable = ?," +
+		"		profileBackgroundTiled = ?," +
+		"		isProtected = ?," +
+		"		verified = ?," +
+		"		source = ?," +
+		"		favorite = ?," +
+		"		retweet = ?," +
 		"		truncated = ? " +
 		"WHERE id = ?;";
-	
+
 	//データ取得SQL
-	private static final String selectTweetDataSql = 
+	private static final String selectTweetDataSql =
 		"SELECT * FROM TWEET;";
-	
+
 	/**
 	 * データベース接続
 	 */
@@ -124,7 +124,7 @@ public class TwitterLogDao {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * データベースの接続を終了する
 	 */
@@ -137,7 +137,7 @@ public class TwitterLogDao {
 			}
 		}
 	}
-	
+
 	/**
 	 * テーブルを作成する
 	 */
@@ -150,14 +150,27 @@ public class TwitterLogDao {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * 全データ取得
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<TweetDBObject> get() throws SQLException{
+		Connection con = DriverManager.getConnection(DATABASE_CONNECTION);
+		QueryRunner qr = new QueryRunner();
+		ResultSetHandler<TweetDBObject> handler = new BeanListHandler(TweetDBObject.class);
+		List<TweetDBObject> tweet = (List)qr.query(con, selectTweetDataSql, handler);
+		return tweet;
+	}
+
 	/**
 	 * ツイートデータをDBに格納する
 	 * @param dbobject
 	 * @throws SQLException
 	 */
 	public void insert( List<TweetDBObject> dbobject ) throws SQLException {
-		Connection con = DriverManager.getConnection(DATABASE_CONNECTION);		
+		Connection con = DriverManager.getConnection(DATABASE_CONNECTION);
 		QueryRunner qr = new QueryRunner();
 		//トランザクション
 		con.setAutoCommit(false);
@@ -203,7 +216,7 @@ public class TwitterLogDao {
 						o.getId() );
 				//updateできない場合insertする
 				if( count == 0 ) {
-					qr.update(con, insertTweetDataSql, 
+					qr.update(con, insertTweetDataSql,
 							o.getId(),
 							o.getDate(),
 							o.getReplyStatusID(),
@@ -250,11 +263,11 @@ public class TwitterLogDao {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 新規データの挿入
 	 * @param o
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public void insert( TweetDBObject o ) throws SQLException {
 		List<TweetDBObject> objects = new ArrayList<TweetDBObject>();
