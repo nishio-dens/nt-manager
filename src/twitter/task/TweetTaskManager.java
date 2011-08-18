@@ -25,6 +25,7 @@ public class TweetTaskManager {
      */
     private class TweetTaskTimerTask implements Runnable {
         private TweetUpdateTask task;
+        private long lastUpdatedTime = 0;
 
         /**
          *
@@ -41,7 +42,15 @@ public class TweetTaskManager {
         public void run() {
             try {
                 //タスク実行
-                task.runTask();
+            	long currentUpdated = System.currentTimeMillis();
+            	if( currentUpdated - lastUpdatedTime > 5000) {
+            		//スリープから復帰後、スリープ中に行っていなかったタスクを全部実行しようとするので阻止
+            		task.runTask();
+            	}
+//            	else {
+//            		System.out.println("Update Canceled");
+//            	}
+            	lastUpdatedTime = currentUpdated;
             } catch (TweetTaskException ex) {
                 Logger.getLogger(TweetTaskManager.class.getName()).log(
                         Level.SEVERE, "TimerTask内でエラーが発生しました", ex);
