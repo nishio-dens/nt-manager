@@ -1605,12 +1605,12 @@ public class TweetMainAction {
 			boolean showUpdateCount, boolean showUserURL,
 			boolean showProfileImageURL) throws SAXParseException, IOException {
             TwitterLogManager logManager = new TwitterLogManager();
-            logManager.get(0, 0, 0);
+            List<Status> statuses = logManager.get();
 
-            /*logManager.outputCSVLog( outputFilePath, statuses, showUsername, showScreenName,
+            logManager.outputCSVLog( outputFilePath, statuses, showUsername, showScreenName,
                     showText, showUpdateTime, showClient,
                     showUserDescription, showFollowing, showFollower,
-                    showUpdateCount, showUserURL,showProfileImageURL);*/
+                    showUpdateCount, showUserURL,showProfileImageURL);
         }
 
 	/**

@@ -61,7 +61,7 @@ public class TwitterLogManager {
 			//DBにツイート保存
 			List<TweetDBObject> objects = new ArrayList<TweetDBObject>();
 			for(Status s : statuses ) {
-				TweetDBObject o = StatusDBObjectConverter.convertStatusToDBObject(s, true);
+				TweetDBObject o = StatusDBObjectConverter.convertStatusToDBObject(s);
 				objects.add(o);
 			}
 			if( objects != null && objects.size() > 0 ) {
@@ -76,24 +76,39 @@ public class TwitterLogManager {
 	}
 
 	/**
+	 * ログ全データ取得
+	 * @return
+	 */
+	public List<Status> get() {
+		TwitterLogDao dao = new TwitterLogDao();
+		List<Status> tweet = new ArrayList<Status>();
+		List<TweetDBObject> obj = null;
+		try {
+			obj = dao.get();
+			if( obj != null ) {
+				for( TweetDBObject o : obj ) {
+					Status s = StatusDBObjectConverter.convertDBObjectToStatus(o);
+					if( s != null ) {
+						tweet.add(s);
+					}
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return tweet;
+	}
+
+	/**
 	 * 指定した日時のtweet取得
 	 * @param year
 	 * @param month
 	 * @param day
 	 * @return
 	 */
-	public List<TweetDBObject> get(int year, int month, int day) {
-		TwitterLogDao dao = new TwitterLogDao();
-		List<TweetDBObject> tweet = null;
-		try {
-			tweet = dao.get();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		for(TweetDBObject o : tweet) {
-			System.out.println(o);
-		}
-		return tweet;
+	public List<Status> get(int year, int month, int day) {
+		//TODO: 日時指定をしてDBからデータ取得を行うようにする
+		return get();
 	}
 
 	/**
@@ -165,13 +180,39 @@ public class TwitterLogManager {
 
 		for (Status s : status) {
 			//retweetの場合、retween者の情報を保存
-			if (s.isRetweet()) {
+			/*if (s.isRetweet()) {
 				s = s.getRetweetedStatus();
+			}*/
+			String username = null;
+			String screenName = null;
+			int following = 0;
+			int follower = 0;
+			int updateCount = 0;
+			String userDescription = null;
+			String userURL = null;
+			String profileImageURL = null;
+
+			if( s.getUser() != null ) {
+				username = s.getUser().getName();
+				// screen名
+				screenName = s.getUser().getScreenName();
+				// ユーザフォロー数
+				following = s.getUser().getFriendsCount();
+				// ユーザフォロワー数
+				follower  = s.getUser().getFollowersCount();
+				// 更新数
+				updateCount = s.getUser().getStatusesCount();
+				// ユーザ紹介文
+				userDescription = s.getUser().getDescription();
+				// ユーザのURL
+				userURL = "";
+				try {
+					userURL = s.getUser().getURL().toString();
+				}catch(Exception e) {}
+				// ユーザのprofile imageのURL
+				profileImageURL = s.getUser().getProfileImageURL()
+						.toString();
 			}
-			// ユーザ名
-			String username = s.getUser().getName();
-			// screen名
-			String screenName = s.getUser().getScreenName();
 			// メッセージ
 			String text = s.getText();
 			// 更新日
@@ -179,23 +220,6 @@ public class TwitterLogManager {
 					s.getCreatedAt());
 			// ユーザが利用しているクライアント
 			String client = s.getSource();
-			// ユーザ紹介文
-			String userDescription = s.getUser().getDescription();
-			// ユーザフォロー数
-			int following = s.getUser().getFriendsCount();
-			// ユーザフォロワー数
-			int follower = s.getUser().getFollowersCount();
-			// 更新数
-			int updateCount = s.getUser().getStatusesCount();
-			// ユーザのURL
-			String userURL = "";
-			try {
-				userURL = s.getUser().getURL().toString();
-			}catch(Exception e) {}
-			// ユーザのprofile imageのURL
-			String profileImageURL = s.getUser().getProfileImageURL()
-					.toString();
-
 			//書きこむデータ
 			col = 0;
 			String[] data = new String[11];

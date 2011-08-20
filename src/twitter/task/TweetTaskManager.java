@@ -70,7 +70,7 @@ public class TweetTaskManager {
         private String timerID = null;
 
         /**
-         * 
+         *
          * @param task
          * @param timerID タイマー識別の為に名前を付ける
          */
