@@ -10,7 +10,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Twitter&#x5168;&#x4f53;&#x304b;&#x3089;&#x30ad;&#x30fc;&#x30ef;&#x30fc;&#x30c9;&#x691c;&#x7d22;"/>
+    <Property name="title" type="java.lang.String" value="&#x6307;&#x5b9a;&#x3057;&#x305f;&#x30e6;&#x30fc;&#x30b6;&#x306e;&#x30c4;&#x30a4;&#x30fc;&#x30c8;&#x3092;&#x53d6;&#x5f97;"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -46,10 +46,10 @@
                           <Group type="102" attributes="0">
                               <Component id="jTextField2" min="-2" pref="115" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Component id="jLabel3" pref="114" max="32767" attributes="0"/>
+                              <Component id="jLabel3" pref="151" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jButton2" pref="119" max="32767" attributes="0"/>
+                              <Component id="jButton2" pref="155" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton1" min="-2" pref="110" max="-2" attributes="0"/>
                           </Group>
@@ -145,7 +145,6 @@
       <Properties>
         <Property name="mnemonic" type="int" value="83"/>
         <Property name="text" type="java.lang.String" value="&#x53d6;&#x5f97;&#x958b;&#x59cb;(S)"/>
-        <Property name="actionCommand" type="java.lang.String" value="&#x53d6;&#x5f97;&#x958b;&#x59cb;(S)"/>
         <Property name="focusCycleRoot" type="boolean" value="true"/>
       </Properties>
       <Events>
