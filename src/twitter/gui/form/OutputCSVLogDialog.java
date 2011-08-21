@@ -46,11 +46,8 @@ public class OutputCSVLogDialog extends javax.swing.JDialog {
         jCheckBox1 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jCheckBox2 = new javax.swing.JCheckBox();
@@ -74,21 +71,12 @@ public class OutputCSVLogDialog extends javax.swing.JDialog {
 
         jLabel1.setText("保存されたログデータをCSVファイルに変換します");
 
-        jLabel2.setText("ログファイルパス（元データ）");
-
         jLabel3.setText("出力CSVファイルパス");
 
         jTextField2.setText("./output.csv");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("選択");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -171,93 +159,91 @@ public class OutputCSVLogDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))))
-                        .addContainerGap())
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                        .addGap(151, 151, 151))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addContainerGap(381, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(204, 204, 204)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox3, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox4, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox5, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox6, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCheckBox8, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox9, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox10, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox12, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))))
-                        .addGap(156, 156, 156))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                            .addComponent(jCheckBox3, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                            .addComponent(jCheckBox4, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                            .addComponent(jCheckBox5, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                            .addComponent(jCheckBox6, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                            .addComponent(jCheckBox7, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jCheckBox8, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                                            .addComponent(jCheckBox9, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                                            .addComponent(jCheckBox10, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                                            .addComponent(jCheckBox11, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                                            .addComponent(jCheckBox12, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))))
+                                .addGap(144, 144, 144)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCheckBox2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
+                        .addComponent(jCheckBox3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel4)
+                        .addComponent(jCheckBox4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBox2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox7))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBox8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox12))))
+                        .addComponent(jCheckBox5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox7))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap())
+                        .addComponent(jCheckBox8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox12)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addGap(68, 68, 68))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -268,7 +254,9 @@ public class OutputCSVLogDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -308,27 +296,12 @@ public class OutputCSVLogDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox7ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JFileChooser chooser = new JFileChooser(".");
-        //.logファイルだけ読み取れるようにする)
-        FileFilter filter1 = new ExtensionFileFilter("Nishio Tweet Manager Log(.log)", new String[] { "log" });
-        chooser.setFileFilter(filter1);
-
-        int selected = chooser.showOpenDialog(this);
-        if( selected == JFileChooser.APPROVE_OPTION ) {
-            File selectedFile = chooser.getSelectedFile();
-            String path = selectedFile.getAbsolutePath();
-            //絶対パスをセット
-            jTextField1.setText( path );
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String sourcePath = jTextField1.getText();
+
         String destPath = jTextField2.getText();
         boolean showUsername = jCheckBox2.isSelected();
         boolean showScreenName = jCheckBox3.isSelected();
@@ -343,7 +316,7 @@ public class OutputCSVLogDialog extends javax.swing.JDialog {
         boolean showProfileImageURL = jCheckBox11.isSelected();
         try {
             //CSV出力
-            this.mainAction.outputLogToCSV(sourcePath, destPath, showUsername, showScreenName,
+            this.mainAction.outputLogToCSV(destPath, showUsername, showScreenName,
                     showText, showUpdateTime, showClient, showUserDescription,
                     showFollowing, showFollower, showUpdateCount, showUserURL, showProfileImageURL);
             //ダイアログを消す
@@ -361,7 +334,6 @@ public class OutputCSVLogDialog extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -378,11 +350,9 @@ public class OutputCSVLogDialog extends javax.swing.JDialog {
     private javax.swing.JCheckBox jCheckBox8;
     private javax.swing.JCheckBox jCheckBox9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 

@@ -1580,7 +1580,6 @@ public class TweetMainAction {
 
         /**
          * ログデータを保存
-         * @param logFilePath
          * @param outputFilePath
          * @param showUsername
          * @param showScreenName
@@ -1596,7 +1595,7 @@ public class TweetMainAction {
          * @throws SAXParseException
          * @throws IOException
          */
-        public void outputLogToCSV(String logFilePath, String outputFilePath,
+        public void outputLogToCSV(String outputFilePath,
                 boolean showUsername, boolean showScreenName,
 			boolean showText,
 			boolean showUpdateTime, boolean showClient,
