@@ -189,6 +189,8 @@ public class TweetMainAction {
 	private boolean isTempOpenedMentionTab = true;
 	private boolean isTempOpenedDMTab = true;
 	private boolean isTempOpenedSendDMTab = true;
+        //ログを保存するかどうか
+        private boolean saveLog = false;
 
 	// Tweetの詳細情報を表示する部分
 	private JLabel userImageLabel = null;
@@ -1918,6 +1920,9 @@ public class TweetMainAction {
 		String pm = this.property.getProperty("openMentionTab");
 		String podm = this.property.getProperty("openDirectMessageTab");
 		String posdmt = this.property.getProperty("openSendDirectMessageTab");
+                
+                //ログ
+                String log = this.property.getProperty("saveLog");
 
 		try {
 			this.newTableColor = new Color(Integer.parseInt(ntrgb));
@@ -1942,6 +1947,9 @@ public class TweetMainAction {
 			this.isTempOpenedMentionTab = Boolean.parseBoolean(pm);
 			this.isTempOpenedDMTab = Boolean.parseBoolean(podm);
 			this.isTempOpenedSendDMTab = Boolean.parseBoolean(posdmt);
+                        
+                        //ログ
+                        this.saveLog = Boolean.parseBoolean(log);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
@@ -2004,6 +2012,9 @@ public class TweetMainAction {
 		this.property.setProperty("openMentionTab", this.isExistMentionTab() + "");
 		this.property.setProperty("openDirectMessageTab", this.isExistDirectMessageTab() + "");
 		this.property.setProperty("openSendDirectMessageTab", this.isExistSendDirectMessageTab() + "");
+                
+                //ログを保存するか
+                this.property.setProperty("saveLog", this.isSaveLog() + "");
 
 		// プロパティのリストを保存
 		property.store(new FileOutputStream("./" + PROPERTIES_DIRECTORY + "/"
@@ -2248,4 +2259,20 @@ public class TweetMainAction {
 	public void setReplyStatus(Status status) {
 		this.replyStatus = status;
 	}
+
+        /**
+         * ログを保存するかどうか
+         * @return 
+         */
+        public boolean isSaveLog() {
+            return this.saveLog;
+        }
+        
+        /**
+         * ログを保存するかどうか設定
+         * @param check 
+         */
+        public void setSaveLog(boolean check) {
+            this.saveLog = check;
+        }
 }

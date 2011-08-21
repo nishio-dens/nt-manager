@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -238,6 +239,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
+        logSaveCheckItem = new javax.swing.JCheckBoxMenuItem();
         jMenuItem32 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -385,7 +387,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,7 +434,6 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         statusBar.setText("Status");
-        statusBar.setBorder(null);
         statusBar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 statusBarPropertyChange(evt);
@@ -588,7 +589,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
@@ -601,7 +602,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1023,6 +1024,15 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenu8.setMnemonic('M');
         jMenu8.setText("ログ管理(M)");
 
+        logSaveCheckItem.setSelected(true);
+        logSaveCheckItem.setText("タイムラインをログとして保存する");
+        logSaveCheckItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logSaveCheckItemActionPerformed(evt);
+            }
+        });
+        jMenu8.add(logSaveCheckItem);
+
         jMenuItem32.setText("ログをCSV形式として保存");
         jMenuItem32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1099,6 +1109,15 @@ public class NishioTweetManager extends javax.swing.JFrame {
         private void jMenuItem36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem36ActionPerformed
             mainAction.actionOpenFollower();
         }//GEN-LAST:event_jMenuItem36ActionPerformed
+
+private void logSaveCheckItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logSaveCheckItemActionPerformed
+    mainAction.setSaveLog(this.logSaveCheckItem.getState());
+        try {
+            mainAction.saveProperties();
+        } catch (IOException ex) {
+            Logger.getLogger(NishioTweetManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}//GEN-LAST:event_logSaveCheckItemActionPerformed
 
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
 		// メッセージをつぶやく
@@ -1490,6 +1509,8 @@ public class NishioTweetManager extends javax.swing.JFrame {
 		// 書き込みボタン
 		jCheckBoxMenuItem2.setSelected(mainAction.isShowTweetBoxVisible());
 		jToggleButton2.setSelected(mainAction.isShowTweetBoxVisible());
+                //log保存
+                logSaveCheckItem.setSelected(mainAction.isSaveLog());
 		// TL表示
 		mainAction.updateCheckboxInformation();
 	}
@@ -1589,6 +1610,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel locationLabel;
+    private javax.swing.JCheckBoxMenuItem logSaveCheckItem;
     private javax.swing.JLabel statusBar;
     private javax.swing.JLabel tweetLengthLabel;
     private javax.swing.JEditorPane tweetMessageBox;
