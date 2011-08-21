@@ -46,7 +46,7 @@ public class AboutDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About Nishio Tweet Manager");
 
-        jLabel1.setText("Nishio Tweet Manager version 0.5");
+        jLabel1.setText("Nishio Tweet Manager version 0.6");
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -57,7 +57,7 @@ public class AboutDialog extends javax.swing.JDialog {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("本ソフトウェアはテスト段階のプログラムです．\n信頼性，完全性については一切保証しておりません．\n\n本ソフトウェアを利用したことにより，利用者が何らかの損害，\n不利益を被った場合でも，製作者はその責任を一切負いません．\n\nプログラムの更新情報等は下記サイトにて確認してください．\n意見要望もいつでも受け付けます．気軽に送ってください．\n\nhttp://densan-labs.net/software/ntm\n\nこのソフトウェアは以下のライブラリを利用しています.\n\nTwitter4Jを利用しています。\nCopyright (c) 2007 Yusuke Yamamoto All rights reserved. \nBSD Licenseに基づき使用を許可されています。\n\nOpenCSV http://opencsv.sourceforge.net/ を利用しています。\nApache License2.0に基づき使用を許可されています。\n\n");
+        jTextArea1.setText("本ソフトウェアはテスト段階のプログラムです。\n信頼性，完全性については一切保証しておりません。\n\n本ソフトウェアを利用したことにより、利用者が何らかの損害、\n不利益を被った場合でも、製作者はその責任を一切負いません。\n\nプログラムの更新情報等は下記サイトにて確認してください。\n意見要望もいつでも受け付けます．気軽に送ってください。\n\nhttp://densan-labs.net/software/ntm\n\nこのソフトウェアは以下のライブラリを利用しています.\n\nTwitter4Jを利用しています。\nCopyright (c) 2007 Yusuke Yamamoto All rights reserved. \nBSD Licenseに基づき使用を許可されています。\n\nOpenCSV http://opencsv.sourceforge.net/ を利用しています。\nApache License2.0に基づき使用を許可されています。\n\nApache Commons DBUtils http://commons.apache.org/dbutils/ を利用しています。\nApache License2.0に基づき使用を許可されています。");
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton2.setText("サイトへ行く");
@@ -74,12 +74,12 @@ public class AboutDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
