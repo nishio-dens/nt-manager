@@ -29,9 +29,6 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 		try {
 			userStream = new TweetUserStream(consumerKey, consumerSecret, ac, tweetManager);
 			searchStream = new TweetSearchStream(consumerKey, consumerSecret, ac, tweetManager);
-			searchStream.addSearchWord("#anime");
-			/*searchStream.addSearchWord("#manga");
-			searchStream.addSearchWord("#1kari");*/
 			this.tweetManager = tweetManager;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -44,5 +41,14 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 	 */
 	public void setTimelineListener(TweetStreamingListener listener) {
 		this.userStream.setTimelineListener(listener);
+	}
+
+	/**
+	 * 検索ワードを監視するリスナー
+	 * @param word
+	 * @param listener
+	 */
+	public void setSearchListener(String word, TweetStreamingListener listener) {
+		searchStream.addSearchWord(word, listener);
 	}
 }

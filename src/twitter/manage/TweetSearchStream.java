@@ -1,9 +1,12 @@
 package twitter.manage;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
+import twitter.action.streaming.TweetStreamingListener;
 import twitter4j.DirectMessage;
 import twitter4j.FilterQuery;
 import twitter4j.Status;
@@ -36,6 +39,8 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	private Thread workingThread = null;
 	//tweet manager
 	private TweetManager tweetManager = null;
+	//検索ワードに対応したリスナー
+	private Map<String, TweetStreamingListener> listeners = null;
 
 	/**
 	 *
@@ -52,14 +57,16 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 
 		filter = new FilterQuery();
 		filterWords = new HashSet<String>();
+		listeners = new HashMap<String, TweetStreamingListener>();
 	}
 
 	/**
 	 * 指定した単語を検索対象に加える
 	 * @param word
 	 */
-	public void addSearchWord(String word) {
+	public void addSearchWord(String word, TweetStreamingListener listener) {
 		filterWords.add(word);
+		listeners.put(word, listener);
 		updateFilter();
 	}
 
@@ -69,6 +76,7 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	 */
 	public void removeSearchWord(String word) {
 		filterWords.remove(word);
+		listeners.remove(word);
 		updateFilter();
 	}
 
@@ -90,12 +98,16 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	}
 
 	/**
-	 *
+	 *指定したワードに対応するステータスを取得
 	 */
 	@Override
 	public void onStatus(Status status) {
-		System.out.println("Search Message -- @" + status.getUser().getScreenName() + " - "
-				+ status.getText());
+		for(String word : listeners.keySet()) {
+			if( status.getText().contains( word.toString() ) ) {
+				TweetStreamingListener listener = listeners.get(word);
+				listener.update(status);
+			}
+		}
 	}
 
 	/**

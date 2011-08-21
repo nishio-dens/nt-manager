@@ -69,8 +69,9 @@ public class TweetSearchResultGetter implements TweetGetter{
 
 	@Override
 	public void setUpdateListener(TweetStreamingListener listener) {
-		// TODO 自動生成されたメソッド・スタブ
-
+		if( listener != null ) {
+			tweetManager.getStreamManager().setSearchListener(this.searchWord, listener);
+		}
 	}
 
 }
