@@ -38,6 +38,8 @@ import twitter4j.Tweet;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.TwitterStream;
+import twitter4j.TwitterStreamFactory;
 import twitter4j.URLEntity;
 import twitter4j.User;
 import twitter4j.UserList;
@@ -204,14 +206,16 @@ public class TweetManager {
 	}
 
 	private Twitter twitter = null;
+	// streaming関係
+	private TweetUserStreamManager streamManager = null;
 	// クライアントのConsumer Key
 	private static final String CONSUMER_KEY = "tbo5erit2M2ZzN6n8tEYcA";
 	// クライアントのConsumer Secret 外部に漏れてはいけない
 	private static final String CONSUMER_SECRET = "tODurbdySLYU1pKjtB3MQTDRBGy562dHzVf7d62mm8";
 	// accessToken
-	private String accessToken = null;//"";
+	private String accessToken = null;// "";
 	// secretToken 外部に漏れてはいけない
-	private String secretToken = null;//"";
+	private String secretToken = null;// "";
 	// 設定ファイル保存ディレクトリ名
 	private static final String PROPERTIES_DIRECTORY = TweetConfiguration.PROPERTIES_DIRECTORY;
 	// 設定ファイル保存ファイル名
@@ -233,10 +237,10 @@ public class TweetManager {
 	// アカウント設定ファイル
 	private Properties accountProperty = null;
 
-	//following IDリスト keyはユーザ名, valueはユーザがfollowingしているid
+	// following IDリスト keyはユーザ名, valueはユーザがfollowingしているid
 	private Map<String, List<Long>> followingUserIDList = new HashMap<String, List<Long>>();
-        //follower
-        private Map<String, List<Long>> followerUserIDList = new HashMap<String, List<Long>>();
+	// follower
+	private Map<String, List<Long>> followerUserIDList = new HashMap<String, List<Long>>();
 
 	public TweetManager() {
 	}
@@ -704,9 +708,7 @@ public class TweetManager {
 				user.setId(tweet.getFromUserId());
 				try {
 					// ユーザイメージ
-					user
-							.setProfileImageURL(new URL(tweet
-									.getProfileImageUrl()));
+					user.setProfileImageURL(new URL(tweet.getProfileImageUrl()));
 				} catch (MalformedURLException ex) {
 					Logger.getLogger(TweetManager.class.getName()).log(
 							Level.SEVERE, null, ex);
@@ -767,9 +769,7 @@ public class TweetManager {
 				user.setId(tweet.getFromUserId());
 				try {
 					// ユーザイメージ
-					user
-							.setProfileImageURL(new URL(tweet
-									.getProfileImageUrl()));
+					user.setProfileImageURL(new URL(tweet.getProfileImageUrl()));
 				} catch (MalformedURLException ex) {
 					Logger.getLogger(TweetManager.class.getName()).log(
 							Level.SEVERE, null, ex);
@@ -845,8 +845,8 @@ public class TweetManager {
 	 */
 	public List<Status> getUserTimeline(int num, String screenName)
 			throws TwitterException {
-		List<Status> statuses = twitter.getUserTimeline(screenName, new Paging(1,
-				num));
+		List<Status> statuses = twitter.getUserTimeline(screenName, new Paging(
+				1, num));
 
 		// tweet逆転
 		if (statuses != null && statuses.size() > 0) {
@@ -855,7 +855,6 @@ public class TweetManager {
 
 		return statuses;
 	}
-
 
 	/**
 	 * 指定したユーザが保持しているリスト一覧を取得
@@ -1065,25 +1064,28 @@ public class TweetManager {
 		// アカウント情報を読み込む
 		loadAccountProperties();
 
-		if( this.accessToken == null || this.secretToken == null ||
-				this.accessToken.length() < 2 || this.secretToken.length() < 2) {
+		if (this.accessToken == null || this.secretToken == null
+				|| this.accessToken.length() < 2
+				|| this.secretToken.length() < 2) {
 			throw new IOException("Access Token and Secret cannot read");
 		}
-		//twitter
+		// twitter
 		twitter = new TwitterFactory().getInstance();
 		// ConsumerKeyなどを設定
 		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
 		// ここにユーザのアクセストークンを入れる
 		AccessToken ac = new AccessToken(accessToken, secretToken);
 		twitter.setOAuthAccessToken(ac);
+
+		// streaming用
+		streamManager = new TweetUserStreamManager(CONSUMER_KEY,
+				CONSUMER_SECRET, ac);
+
 		// 設定ファイルを読み込む
-		/*try {
-			loadProperties();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
+		/*
+		 * try { loadProperties(); } catch (FileNotFoundException e) {
+		 * e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); }
+		 */
 	}
 
 	/**
@@ -1111,7 +1113,8 @@ public class TweetManager {
 		Configuration conf = this.getTwitterConfiguration();
 		twitter = new TwitterFactory(conf).getInstance();
 		// access token取得
-		AccessToken oAuthAccessToken = twitter.getOAuthAccessToken(username, password);
+		AccessToken oAuthAccessToken = twitter.getOAuthAccessToken(username,
+				password);
 		this.accessToken = oAuthAccessToken.getToken();
 		this.secretToken = oAuthAccessToken.getTokenSecret();
 
@@ -1141,7 +1144,8 @@ public class TweetManager {
 	 * @param replyToStatusID
 	 * @throws TwitterException
 	 */
-	public void replyTweet(String message, long replyToStatusID) throws TwitterException {
+	public void replyTweet(String message, long replyToStatusID)
+			throws TwitterException {
 		twitter4j.Status status;
 		// status = twitter.updateStatus(message, replyToStatusID);
 		StatusUpdate updateMsg = new StatusUpdate(message);
@@ -1218,46 +1222,49 @@ public class TweetManager {
 
 	/**
 	 * 指定したユーザのfollowingユーザ一覧の詳細情報を取得
-	 * @param screenName 取得したいユーザ
-	 * @param page ページ1あたり100件の情報を取得
+	 *
+	 * @param screenName
+	 *            取得したいユーザ
+	 * @param page
+	 *            ページ1あたり100件の情報を取得
 	 * @return
 	 */
 	public List<User> getFollowingUser(String screenName, int page) {
-		if( !this.followingUserIDList.containsKey(screenName) ) {
-			//まだscreenNameがfollowingしているユーザ情報を取得していない
+		if (!this.followingUserIDList.containsKey(screenName)) {
+			// まだscreenNameがfollowingしているユーザ情報を取得していない
 			List<Long> following = this.getFollowingUserID(screenName);
 			this.followingUserIDList.put(screenName, following);
 		}
-		//followingユーザ一覧id取得
+		// followingユーザ一覧id取得
 		List<Long> getFollowingUserIds = null;
 		List<Long> followingList = this.followingUserIDList.get(screenName);
-		if( followingList != null && followingList.size() > 0 ) {
-			//データ存在しない
-			if( followingList.size() < page * 100 ) {
+		if (followingList != null && followingList.size() > 0) {
+			// データ存在しない
+			if (followingList.size() < page * 100) {
 				return null;
 			}
 			int to = page * 100 + 99;
-			if( followingList.size() < to){
+			if (followingList.size() < to) {
 				to = to - (to - followingList.size());
 			}
 			getFollowingUserIds = followingList.subList(page * 100, to);
 		}
 
-		//結果
+		// 結果
 		List<User> result = new ArrayList<User>();
 
 		int getDataSize = getFollowingUserIds.size();
-		if( getDataSize > 0 ) {
-			long[] ids = new long[ getDataSize ];
-			for( int i=0; i < ids.length; i++) {
-				ids[i] = getFollowingUserIds.get( i );
+		if (getDataSize > 0) {
+			long[] ids = new long[getDataSize];
+			for (int i = 0; i < ids.length; i++) {
+				ids[i] = getFollowingUserIds.get(i);
 			}
 
-			//idsのユーザ一覧取得
+			// idsのユーザ一覧取得
 			try {
-				ResponseList<User> users = twitter.lookupUsers( ids );
-				for(User u : users) {
-					result.add( u );
+				ResponseList<User> users = twitter.lookupUsers(ids);
+				for (User u : users) {
+					result.add(u);
 				}
 			} catch (TwitterException e) {
 				e.printStackTrace();
@@ -1267,48 +1274,51 @@ public class TweetManager {
 		return result;
 	}
 
-        /**
+	/**
 	 * 指定したユーザのfollowerユーザ一覧の詳細情報を取得
-	 * @param screenName 取得したいユーザ
-	 * @param page ページ1あたり100件の情報を取得
+	 *
+	 * @param screenName
+	 *            取得したいユーザ
+	 * @param page
+	 *            ページ1あたり100件の情報を取得
 	 * @return
 	 */
 	public List<User> getFollowerUser(String screenName, int page) {
-		if( !this.followerUserIDList.containsKey(screenName) ) {
-			//まだscreenNameがfollowingしているユーザ情報を取得していない
+		if (!this.followerUserIDList.containsKey(screenName)) {
+			// まだscreenNameがfollowingしているユーザ情報を取得していない
 			List<Long> follower = this.getFollowerUserID(screenName);
 			this.followerUserIDList.put(screenName, follower);
 		}
-		//followingユーザ一覧id取得
+		// followingユーザ一覧id取得
 		List<Long> getFollowerUserIds = null;
 		List<Long> followerList = this.followerUserIDList.get(screenName);
-		if( followerList != null && followerList.size() > 0 ) {
-			//データ存在しない
-			if( followerList.size() < page * 100 ) {
+		if (followerList != null && followerList.size() > 0) {
+			// データ存在しない
+			if (followerList.size() < page * 100) {
 				return null;
 			}
 			int to = page * 100 + 99;
-			if( followerList.size() < to){
+			if (followerList.size() < to) {
 				to = to - (to - followerList.size());
 			}
 			getFollowerUserIds = followerList.subList(page * 100, to);
 		}
 
-		//結果
+		// 結果
 		List<User> result = new ArrayList<User>();
 
 		int getDataSize = getFollowerUserIds.size();
-		if( getDataSize > 0 ) {
-			long[] ids = new long[ getDataSize ];
-			for( int i=0; i < ids.length; i++) {
-				ids[i] = getFollowerUserIds.get( i );
+		if (getDataSize > 0) {
+			long[] ids = new long[getDataSize];
+			for (int i = 0; i < ids.length; i++) {
+				ids[i] = getFollowerUserIds.get(i);
 			}
 
-			//idsのユーザ一覧取得
+			// idsのユーザ一覧取得
 			try {
-				ResponseList<User> users = twitter.lookupUsers( ids );
-				for(User u : users) {
-					result.add( u );
+				ResponseList<User> users = twitter.lookupUsers(ids);
+				for (User u : users) {
+					result.add(u);
 				}
 			} catch (TwitterException e) {
 				e.printStackTrace();
@@ -1318,9 +1328,9 @@ public class TweetManager {
 		return result;
 	}
 
-
 	/**
 	 * FriendのID一覧を取得する
+	 *
 	 * @param screenName
 	 * @return
 	 */
@@ -1328,32 +1338,33 @@ public class TweetManager {
 		long cursor = -1;
 		IDs ids = null;
 		long[] friendIds = null;
-		//id一覧
+		// id一覧
 		List<Long> result = new ArrayList<Long>();
 
 		try {
-			//friend一覧をすべて取得
+			// friend一覧をすべて取得
 			do {
-				ids = twitter.getFriendsIDs( screenName, cursor );
-				//screenNameのフレンドid一覧を取得
+				ids = twitter.getFriendsIDs(screenName, cursor);
+				// screenNameのフレンドid一覧を取得
 				friendIds = ids.getIDs();
-				if( friendIds.length > 0 ) {
-					for(long id : friendIds ) {
-						result.add( id );
+				if (friendIds.length > 0) {
+					for (long id : friendIds) {
+						result.add(id);
 					}
 				}
-				//次のカーソルに移動
+				// 次のカーソルに移動
 				cursor = ids.getNextCursor();
-			}while( cursor != 0 );
+			} while (cursor != 0);
 
-		}catch(TwitterException e) {
+		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
 
-        /**
+	/**
 	 * Friendのfollewer ID一覧を取得する
+	 *
 	 * @param screenName
 	 * @return
 	 */
@@ -1361,28 +1372,104 @@ public class TweetManager {
 		long cursor = -1;
 		IDs ids = null;
 		long[] friendIds = null;
-		//id一覧
+		// id一覧
 		List<Long> result = new ArrayList<Long>();
 
 		try {
-			//friend一覧をすべて取得
+			// friend一覧をすべて取得
 			do {
-				ids = twitter.getFollowersIDs( screenName, cursor );
-				//screenNameのフレンドid一覧を取得
+				ids = twitter.getFollowersIDs(screenName, cursor);
+				// screenNameのフレンドid一覧を取得
 				friendIds = ids.getIDs();
-				if( friendIds.length > 0 ) {
-					for(long id : friendIds ) {
-						result.add( id );
+				if (friendIds.length > 0) {
+					for (long id : friendIds) {
+						result.add(id);
 					}
 				}
-				//次のカーソルに移動
+				// 次のカーソルに移動
 				cursor = ids.getNextCursor();
-			}while( cursor != 0 );
+			} while (cursor != 0);
 
-		}catch(TwitterException e) {
+		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	/**
+	 * sinceTweetIDを取得します。
+	 *
+	 * @return sinceTweetID
+	 */
+	public long getSinceTweetID() {
+		return sinceTweetID;
+	}
+
+	/**
+	 * sinceTweetIDを設定します。
+	 *
+	 * @param sinceTweetID
+	 *            sinceTweetID
+	 */
+	public void setSinceTweetID(long sinceTweetID) {
+		this.sinceTweetID = sinceTweetID;
+	}
+
+	/**
+	 * sinceMentionIDを取得します。
+	 *
+	 * @return sinceMentionID
+	 */
+	public long getSinceMentionID() {
+		return sinceMentionID;
+	}
+
+	/**
+	 * sinceMentionIDを設定します。
+	 *
+	 * @param sinceMentionID
+	 *            sinceMentionID
+	 */
+	public void setSinceMentionID(long sinceMentionID) {
+		this.sinceMentionID = sinceMentionID;
+	}
+
+	/**
+	 * sinceSendDirectMessageIDを取得します。
+	 *
+	 * @return sinceSendDirectMessageID
+	 */
+	public long getSinceSendDirectMessageID() {
+		return sinceSendDirectMessageID;
+	}
+
+	/**
+	 * sinceSendDirectMessageIDを設定します。
+	 *
+	 * @param sinceSendDirectMessageID
+	 *            sinceSendDirectMessageID
+	 */
+	public void setSinceSendDirectMessageID(long sinceSendDirectMessageID) {
+		this.sinceSendDirectMessageID = sinceSendDirectMessageID;
+	}
+
+	/**
+	 * sinceDirectMessageIDを取得します。
+	 *
+	 * @return sinceDirectMessageID
+	 */
+	public long getSinceDirectMessageID() {
+		return sinceDirectMessageID;
+	}
+
+	/**
+	 * sinceDirectMessageIDを設定します。
+	 *
+	 * @param sinceDirectMessageID
+	 *            sinceDirectMessageID
+	 */
+	public void setSinceDirectMessageID(long sinceDirectMessageID) {
+		this.sinceDirectMessageID = sinceDirectMessageID;
 	}
 
 }

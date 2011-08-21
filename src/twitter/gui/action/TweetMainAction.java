@@ -1920,10 +1920,10 @@ public class TweetMainAction {
 		String pm = this.property.getProperty("openMentionTab");
 		String podm = this.property.getProperty("openDirectMessageTab");
 		String posdmt = this.property.getProperty("openSendDirectMessageTab");
-                
+
                 //ログ
                 String log = this.property.getProperty("saveLog");
-                
+
                 //表示可能ツイート数
                 String nost = this.property.getProperty("numOfShowTweet");
 
@@ -1950,10 +1950,10 @@ public class TweetMainAction {
 			this.isTempOpenedMentionTab = Boolean.parseBoolean(pm);
 			this.isTempOpenedDMTab = Boolean.parseBoolean(podm);
 			this.isTempOpenedSendDMTab = Boolean.parseBoolean(posdmt);
-                        
+
                         //ログ
                         this.saveLog = Boolean.parseBoolean(log);
-                        
+
                         //表示可能ツイート数
                         this.tableElementMaxSize = Integer.parseInt(nost);
 		} catch (NumberFormatException e) {
@@ -2018,10 +2018,10 @@ public class TweetMainAction {
 		this.property.setProperty("openMentionTab", this.isExistMentionTab() + "");
 		this.property.setProperty("openDirectMessageTab", this.isExistDirectMessageTab() + "");
 		this.property.setProperty("openSendDirectMessageTab", this.isExistSendDirectMessageTab() + "");
-                
+
                 //ログを保存するか
                 this.property.setProperty("saveLog", this.isSaveLog() + "");
-                
+
                 //テーブルに表示可能なツイートの数
                 this.property.setProperty("numOfShowTweet", this.getTableElementMaxSize() + "");
 
@@ -2271,33 +2271,33 @@ public class TweetMainAction {
 
         /**
          * ログを保存するかどうか
-         * @return 
+         * @return
          */
         public boolean isSaveLog() {
             return this.saveLog;
         }
-        
+
         /**
          * ログを保存するかどうか設定
-         * @param check 
+         * @param check
          */
         public void setSaveLog(boolean check) {
             this.saveLog = check;
         }
-        
+
         /**
          * テーブルに一度に表示できる数を設定
-         * @param size 
+         * @param size
          */
         public void setTableElementMaxSize(int size) {
             if( size > 0 ) {
                 this.tableElementMaxSize = size;
             }
         }
-        
+
         /**
          * テーブルに一度に表示できる数を取得
-         * @return 
+         * @return
          */
         public int getTableElementMaxSize() {
             return this.tableElementMaxSize;
