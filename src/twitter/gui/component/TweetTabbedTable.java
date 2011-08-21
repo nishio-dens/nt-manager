@@ -12,6 +12,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -25,6 +27,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import twitter.action.TweetGetter;
 import twitter.action.list.ListGetterSelection;
+import twitter.action.streaming.TweetStreamingListener;
 import twitter.gui.action.TweetMainAction;
 import twitter.manage.TweetManager;
 import twitter4j.Status;
@@ -32,10 +35,10 @@ import twitter4j.TwitterException;
 
 /**
  * ツイートを表示するテーブルを扱うクラス
- * 
+ *
  * @author nishio
  */
-public class TweetTabbedTable {
+public class TweetTabbedTable implements TweetStreamingListener {
 	// ツイートを表示するテーブル
 	private JTable table;
 	// ツイートを表示するテーブルのモデル
@@ -59,13 +62,13 @@ public class TweetTabbedTable {
 	// 新しく取得した部分のテーブルの色
 	private Color newTableColor = null;
 	// テーブルに追加できる要素の最大数
-	//TODO: ここを変更できるようにする
+	// TODO: ここを変更できるようにする
 	private int tableElementMaxSize = 500;
 	// 自動更新に使うタイマーのID
 	private String timerID;
 
 	/**
-	 * 
+	 *
 	 * @param tweetGetter
 	 *            tweet取得時に行うアクション
 	 * @param title
@@ -103,6 +106,7 @@ public class TweetTabbedTable {
 		model = new TweetTableModel();
 		uncheckedTweet = 0;
 		scrollPane = new JScrollPane();
+		tweetGetter.setUpdateListener(this);
 	}
 
 	/**
@@ -135,7 +139,7 @@ public class TweetTabbedTable {
 
 	/**
 	 * Tweetを表示するテーブルを作成
-	 * 
+	 *
 	 * @param model
 	 * @return
 	 */
@@ -212,52 +216,14 @@ public class TweetTabbedTable {
 			}
 			// ツイート情報
 			List<Status> tweet = tweetGetter.getNewTweetData();
-			// まだ見ていないtweet数を追加
-			this.setUncheckedTweet(this.getUncheckedTweet() + tweet.size());
 
-			// まだチェックしていないtweetの数をタブにも表示
-			if (this.getUncheckedTweet() > 0) {
-				tabbedPane.setTitleAt(this.getTabSetNum(), this.title + "("
-						+ this.getUncheckedTweet() + ")");
-			}
-			// ツイートをテーブルに追加
-			this.getModel().insertTweet(tweet);
-			//テーブルの高さを整える
-			int tableHeight = getTableElementHeight();
-			for(int i=0; i < tweet.size(); i++) {
-				this.getTable().setRowHeight(i, tableHeight);
-			}
-			/*
-			for (Status t : tweet) {
-				this.getModel().insertTweet(t);
-				this.getTable().setRowHeight(0, getTableElementHeight());
-			}*/
-			// 新規した部分の背景色を変更
-			TableCellRenderer renderer = getTable().getCellRenderer(0, 2);
-			if (renderer instanceof TweetCommentRenderer) {
-				if (this.getUncheckedTweet() - 1 >= 0) {
-					((TweetCommentRenderer) renderer).updateNewCellRow(this
-							.getUncheckedTweet(), newTableColor);
-				} else {
-					((TweetCommentRenderer) renderer).updateNewCellRow(-1,
-							newTableColor);
-				}
-			}
-			// 古いデータを削除
-			getModel().removeOldTweet(getTableElementMaxSize());
-			// 時間情報リフレッシュ
-			getModel().refreshTime();
-			// 新しい情報
-			int newNum = 0;
-			if (tweet != null) {
-				newNum = tweet.size();
-			}
+			// テーブル更新
+			int newNum = updateTable(tweet);
+
 			// 情報を取得したことをステータスバーに表示
 			mainAction.information(this.getTitle() + "タブのツイートを" + newNum
 					+ "件取得しました. (APIリクエスト残数は" + remainingHits + "回です)");
 
-			// 情報間隔毎に設定を保存
-			this.mainAction.saveProperties();
 		} catch (TwitterException e1) {
 			e1.printStackTrace();
 		} catch (Exception e) {
@@ -266,8 +232,65 @@ public class TweetTabbedTable {
 	}
 
 	/**
+	 * テーブルにツイート追加
+	 *
+	 * @param tweet
+	 * @return
+	 */
+	private int updateTable(List<Status> tweet) {
+		// まだ見ていないtweet数を追加
+		this.setUncheckedTweet(this.getUncheckedTweet() + tweet.size());
+
+		// まだチェックしていないtweetの数をタブにも表示
+		if (this.getUncheckedTweet() > 0) {
+			tabbedPane.setTitleAt(this.getTabSetNum(),
+					this.title + "(" + this.getUncheckedTweet() + ")");
+		}
+		// ツイートをテーブルに追加
+		this.getModel().insertTweet(tweet);
+		// テーブルの高さを整える
+		int tableHeight = getTableElementHeight();
+		for (int i = 0; i < tweet.size(); i++) {
+			this.getTable().setRowHeight(i, tableHeight);
+		}
+		/*
+		 * for (Status t : tweet) { this.getModel().insertTweet(t);
+		 * this.getTable().setRowHeight(0, getTableElementHeight()); }
+		 */
+		// 新規した部分の背景色を変更
+		TableCellRenderer renderer = getTable().getCellRenderer(0, 2);
+		if (renderer instanceof TweetCommentRenderer) {
+			if (this.getUncheckedTweet() - 1 >= 0) {
+				((TweetCommentRenderer) renderer).updateNewCellRow(
+						this.getUncheckedTweet(), newTableColor);
+			} else {
+				((TweetCommentRenderer) renderer).updateNewCellRow(-1,
+						newTableColor);
+			}
+		}
+		// 古いデータを削除
+		getModel().removeOldTweet(getTableElementMaxSize());
+		// 時間情報リフレッシュ
+		getModel().refreshTime();
+		// 新しい情報
+		int newNum = 0;
+		if (tweet != null) {
+			newNum = tweet.size();
+		}
+		// 情報間隔毎に設定を保存
+		try {
+			this.mainAction.saveProperties();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		return newNum;
+	}
+
+	/**
 	 * マウスクリック時の動作
-	 * 
+	 *
 	 * @param evt
 	 */
 	private void jTableMousePressed(java.awt.event.MouseEvent evt) {
@@ -280,7 +303,7 @@ public class TweetTabbedTable {
 
 	/**
 	 * マウスリリース時の動作
-	 * 
+	 *
 	 * @param evt
 	 */
 	private void jTableMouseReleased(java.awt.event.MouseEvent evt) {
@@ -290,7 +313,7 @@ public class TweetTabbedTable {
 
 	/**
 	 * ポップアップメニューを作成
-	 * 
+	 *
 	 * @param e
 	 */
 	private void showPopup(MouseEvent e) {
@@ -302,7 +325,7 @@ public class TweetTabbedTable {
 
 	/**
 	 * 右クリックを押した時のポップアップメニューを取得
-	 * 
+	 *
 	 * @return
 	 */
 	private JPopupMenu getRightClickPopup() {
@@ -459,8 +482,7 @@ public class TweetTabbedTable {
 					}
 				});
 
-                JMenuItem followingUserMenuItem = new JMenuItem(
-				"このユーザがフォローしているユーザ一覧");
+		JMenuItem followingUserMenuItem = new JMenuItem("このユーザがフォローしているユーザ一覧");
 		followingUserMenuItem
 				.addActionListener(new java.awt.event.ActionListener() {
 
@@ -471,8 +493,7 @@ public class TweetTabbedTable {
 					}
 				});
 
-                JMenuItem followerUserMenuItem = new JMenuItem(
-				"このユーザがフォローされているユーザ一覧");
+		JMenuItem followerUserMenuItem = new JMenuItem("このユーザがフォローされているユーザ一覧");
 		followerUserMenuItem
 				.addActionListener(new java.awt.event.ActionListener() {
 
@@ -486,8 +507,8 @@ public class TweetTabbedTable {
 		// 指定した発言がRTかどうか判定
 		int sc = table.getSelectedRowCount();
 		if (sc == 1 && table != null) {
-			Status st = mainAction.getTweetTableInformation(table, table
-					.getModel());
+			Status st = mainAction.getTweetTableInformation(table,
+					table.getModel());
 
 			JMenuItem openBrowserUserInformationMenuItem = new JMenuItem(
 					"この人の発言をブラウザで開く(B)");
@@ -534,10 +555,10 @@ public class TweetTabbedTable {
 			rightClickPopup.add(openBrowserUserInformationMenuItem);
 			// この人のfavを開く
 			rightClickPopup.add(openFavMenuItem);
-                        //この人のfollowing開く
-                        rightClickPopup.add(followingUserMenuItem);
-                        //この人のfollower開く
-                        rightClickPopup.add(followerUserMenuItem);
+			// この人のfollowing開く
+			rightClickPopup.add(followingUserMenuItem);
+			// この人のfollower開く
+			rightClickPopup.add(followerUserMenuItem);
 			// この人が作成したリスト
 			rightClickPopup.add(createdListMenuItem);
 			// この人が購読しているリスト
@@ -583,7 +604,7 @@ public class TweetTabbedTable {
 
 	/**
 	 * 自分自信がタブのどの場所に位置しているのかを取得
-	 * 
+	 *
 	 * @return
 	 */
 	public int getTabSetNum() {
@@ -671,6 +692,16 @@ public class TweetTabbedTable {
 	 */
 	public JTable getTable() {
 		return table;
+	}
+
+	/**
+	 * streaming api側からupdateされるもの
+	 */
+	@Override
+	public void update(Status status) {
+		List<Status> tweet = new ArrayList<Status>();
+		tweet.add(status);
+		updateTable(tweet);
 	}
 
 }

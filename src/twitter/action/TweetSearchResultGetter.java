@@ -6,6 +6,8 @@
 package twitter.action;
 
 import java.util.List;
+
+import twitter.action.streaming.TweetStreamingListener;
 import twitter.manage.TweetManager;
 import twitter4j.Status;
 
@@ -64,5 +66,11 @@ public class TweetSearchResultGetter implements TweetGetter{
         }
         return status;
     }
+
+	@Override
+	public void setUpdateListener(TweetStreamingListener listener) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
 
 }

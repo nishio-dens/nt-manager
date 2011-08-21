@@ -34,14 +34,18 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	private StatusStream statusStream = null;
 	//Thread
 	private Thread workingThread = null;
+	//tweet manager
+	private TweetManager tweetManager = null;
 
 	/**
 	 *
 	 * @param consumerKey
 	 * @param consumerSecret
 	 * @param ac アクセストークン
+	 * @param tweetManager
 	 */
-	public TweetSearchStream(String consumerKey, String consumerSecret, AccessToken ac) {
+	public TweetSearchStream(String consumerKey, String consumerSecret, AccessToken ac, TweetManager tweetManager) {
+		this.tweetManager = tweetManager;
 		this.twitterStream = new TwitterStreamFactory().getInstance();
 		this.twitterStream.setOAuthConsumer(consumerKey, consumerSecret);
 		this.twitterStream.setOAuthAccessToken(ac);

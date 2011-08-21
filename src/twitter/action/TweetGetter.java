@@ -6,6 +6,8 @@
 package twitter.action;
 
 import java.util.List;
+
+import twitter.action.streaming.TweetStreamingListener;
 import twitter4j.Status;
 
 /**
@@ -13,7 +15,7 @@ import twitter4j.Status;
  * @author nishio
  */
 public interface TweetGetter {
-    
+
     /**
      * 指定したnum分だけtweetを取得
      * @param num
@@ -26,4 +28,10 @@ public interface TweetGetter {
      * @return
      */
     public List<Status> getNewTweetData();
+
+    /**
+     * streaming api有効時、アップデートを受け取るlisterをセット
+     * @param listener
+     */
+    public void setUpdateListener(TweetStreamingListener listener);
 }

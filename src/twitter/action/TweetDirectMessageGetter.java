@@ -9,6 +9,8 @@ import java.awt.TrayIcon;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import twitter.action.streaming.TweetStreamingListener;
 import twitter.manage.TweetManager;
 import twitter.manage.TweetNotifyManager;
 import twitter4j.Status;
@@ -36,7 +38,7 @@ public class TweetDirectMessageGetter implements TweetGetter{
     }
 
     /**
-     * 
+     *
      * @param tweetManager
      * @param trayIcon
      */
@@ -84,6 +86,12 @@ public class TweetDirectMessageGetter implements TweetGetter{
         }
         return status;
     }
+
+	@Override
+	public void setUpdateListener(TweetStreamingListener listener) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
 
 }
 

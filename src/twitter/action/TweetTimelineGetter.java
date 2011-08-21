@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import twitter.action.streaming.TweetStreamingListener;
 import twitter.gui.action.TweetMainAction;
 import twitter.log.TwitterLogManager;
 import twitter.manage.TweetManager;
@@ -82,6 +84,16 @@ public class TweetTimelineGetter implements TweetGetter{
         }
         return status;
     }
+
+    /**
+     * streaming apiのリスナー登録
+     */
+	@Override
+	public void setUpdateListener(TweetStreamingListener listener) {
+		if( listener != null ) {
+			tweetManager.getStreamManager().setTimelineListener(listener);
+		}
+	}
 
 }
 

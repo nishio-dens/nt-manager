@@ -1,5 +1,6 @@
 package twitter.manage;
 
+import twitter.action.streaming.TweetStreamingListener;
 import twitter4j.DirectMessage;
 import twitter4j.Status;
 import twitter4j.TwitterStream;
@@ -16,20 +17,36 @@ import twitter4j.auth.AccessToken;
 public class TweetUserStream extends UserStreamAdapter{
 	//streaming
 	private TwitterStream twitterStream = null;
+	//timeline監視listener
+	private TweetStreamingListener timelineListener = null;
+	//tweet manager
+	private TweetManager tweetManager = null;
 
 	/**
 	 *
 	 * @param consumerKey
 	 * @param consumerSecret
 	 * @param ac アクセストークン
+	 * @param tweetManager
 	 */
-	public TweetUserStream(String consumerKey, String consumerSecret, AccessToken ac) {
+	public TweetUserStream(String consumerKey, String consumerSecret, AccessToken ac, TweetManager tweetManager) {
+		this.tweetManager = tweetManager;
 		this.twitterStream = new TwitterStreamFactory().getInstance();
 		this.twitterStream.setOAuthConsumer(consumerKey, consumerSecret);
 		this.twitterStream.setOAuthAccessToken(ac);
 		this.twitterStream.addListener(this);
 		this.twitterStream.user();
+
 	}
+
+	/**
+	 * タイムライン監視
+	 * @param timelineListener
+	 */
+	public void setTimelineListener(TweetStreamingListener timelineListener) {
+		this.timelineListener = timelineListener;
+	}
+
 
 	@Override
 	public void onStatus(Status status) {
@@ -38,6 +55,12 @@ public class TweetUserStream extends UserStreamAdapter{
 		}
 		System.out.println("@" + status.getUser().getScreenName() + " - "
 				+ status.getText());
+
+		//タイムライン監視
+		if( this.timelineListener != null ) {
+			this.timelineListener.update(status);
+			this.tweetManager.setSinceTweetID(status.getId());
+		}
 	}
 
 	@Override

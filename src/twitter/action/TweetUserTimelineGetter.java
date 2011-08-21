@@ -8,6 +8,8 @@ package twitter.action;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import twitter.action.streaming.TweetStreamingListener;
 import twitter.manage.TweetManager;
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -80,5 +82,11 @@ public class TweetUserTimelineGetter implements TweetGetter{
         }
         return status;
     }
+
+	@Override
+	public void setUpdateListener(TweetStreamingListener listener) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
 
 }

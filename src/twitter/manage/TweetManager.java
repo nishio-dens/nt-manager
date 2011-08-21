@@ -1079,7 +1079,7 @@ public class TweetManager {
 
 		// streaming用
 		streamManager = new TweetUserStreamManager(CONSUMER_KEY,
-				CONSUMER_SECRET, ac);
+				CONSUMER_SECRET, ac, this);
 
 		// 設定ファイルを読み込む
 		/*
@@ -1394,6 +1394,14 @@ public class TweetManager {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	/**
+	 * streamManagerを取得します。
+	 * @return streamManager
+	 */
+	public TweetUserStreamManager getStreamManager() {
+	    return streamManager;
 	}
 
 	/**
