@@ -18,7 +18,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import twitter.log.TwitterLogManager;
+import twitter.gui.action.TweetMainAction;
 import twitter4j.Annotations;
 import twitter4j.DirectMessage;
 import twitter4j.GeoLocation;
@@ -232,8 +232,6 @@ public class TweetManager {
 	private Properties property = null;
 	// アカウント設定ファイル
 	private Properties accountProperty = null;
-	// ログ保存
-	private TwitterLogManager logManager = null;
 
 	//following IDリスト keyはユーザ名, valueはユーザがfollowingしているid
 	private Map<String, List<Long>> followingUserIDList = new HashMap<String, List<Long>>();
@@ -241,7 +239,6 @@ public class TweetManager {
         private Map<String, List<Long>> followerUserIDList = new HashMap<String, List<Long>>();
 
 	public TweetManager() {
-		logManager = new TwitterLogManager();
 	}
 
 	/**
@@ -621,15 +618,6 @@ public class TweetManager {
 			Collections.reverse(statuses);
 			tweetList.addAll(statuses);
 		}
-		// ログ保存
-		try {
-			/*
-			 * for (Status s : tweetList) { logManager.add(s); }
-			 */
-			logManager.add(tweetList);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		// 設定ファイル保存
 		try {
 			saveProperties();
@@ -662,15 +650,6 @@ public class TweetManager {
 			// }
 			Collections.reverse(statuses);
 			tweetList.addAll(statuses);
-		}
-		// ログ保存
-		try {
-			// for (Status s : tweetList) {
-			// logManager.add(s);
-			// }
-			logManager.add(tweetList);
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		try {
 			saveProperties();

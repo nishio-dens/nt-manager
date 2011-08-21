@@ -5,9 +5,12 @@
 
 package twitter.action;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import twitter.gui.action.TweetMainAction;
+import twitter.log.TwitterLogManager;
 import twitter.manage.TweetManager;
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -20,13 +23,17 @@ public class TweetTimelineGetter implements TweetGetter{
 
     //tweet管理用
     private TweetManager tweetManager;
+    private TweetMainAction mainAction = null;
+    private TwitterLogManager logManager = null;
 
     /**
      *
      * @param tweetManager
      */
-    public TweetTimelineGetter(TweetManager tweetManager) {
+    public TweetTimelineGetter(TweetManager tweetManager, TweetMainAction mainAction) {
         this.tweetManager = tweetManager;
+        this.mainAction = mainAction;
+        this.logManager = new TwitterLogManager();
     }
 
     /**
@@ -39,6 +46,14 @@ public class TweetTimelineGetter implements TweetGetter{
         List<Status> status = null;
         try {
             status = tweetManager.getTimeline(num);
+            if( mainAction.isSaveLog() == true && status != null ) {
+                try {
+                    // ログ保存
+                    logManager.add(status);
+                } catch (IOException ex) {
+                    Logger.getLogger(TweetTimelineGetter.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         } catch (TwitterException ex) {
             Logger.getLogger(TweetMentionGetter.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -54,6 +69,14 @@ public class TweetTimelineGetter implements TweetGetter{
         List<Status> status = null;
         try {
             status = tweetManager.getNewTimelineData();
+             if( mainAction.isSaveLog() == true && status != null ) {
+                try {
+                    // ログ保存
+                    logManager.add(status);
+                } catch (IOException ex) {
+                    Logger.getLogger(TweetTimelineGetter.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         } catch (TwitterException ex) {
             Logger.getLogger(TweetMentionGetter.class.getName()).log(Level.SEVERE, null, ex);
         }

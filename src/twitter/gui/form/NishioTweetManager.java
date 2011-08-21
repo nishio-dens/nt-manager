@@ -1440,8 +1440,9 @@ private void logSaveCheckItemActionPerformed(java.awt.event.ActionEvent evt) {//
 		// twitterログイン
 		boolean login = false;
 		try {
-			tweetManager.loginTwitter();
-			login = true;
+                    tweetManager = new TweetManager();
+                    tweetManager.loginTwitter();
+                    login = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1519,7 +1520,7 @@ private void logSaveCheckItemActionPerformed(java.awt.event.ActionEvent evt) {//
 	private JPopupMenu rightClickPopup = null;
 	private TweetMainAction mainAction = null;
 	// TweetManager
-	private TweetManager tweetManager = new TweetManager();
+	private TweetManager tweetManager = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JEditorPane clientNameLabel;
     private javax.swing.JLabel followerLabel;

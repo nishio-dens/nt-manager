@@ -552,7 +552,7 @@ public class TweetMainAction {
 			// 既にIDが存在していたらここで例外発生
 			timerID.addID(id);
 			// 検索結果を表示するタブを生成
-			actionAddTab(id, period, new TweetTimelineGetter(tweetManager),
+			actionAddTab(id, period, new TweetTimelineGetter(tweetManager, this),
 					TweetMainAction.TAB_TIMELINE_STRING);
 		} catch (ExistTimerIDException ex) {
 			JOptionPane.showMessageDialog(null, "そのタブは既に存在しています", "Error",
