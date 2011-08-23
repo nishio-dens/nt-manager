@@ -68,6 +68,13 @@ public class TweetSendDirectMessageGetter implements TweetGetter{
 		// TODO 自動生成されたメソッド・スタブ
 
 	}
+	
+	/**
+     * streaming api有効時のアップデートを受け取るlistenerを削除
+     */
+    public void stopUpdateListener() {
+    	//TODO
+    }
 
 }
 

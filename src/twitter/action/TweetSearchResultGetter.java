@@ -7,6 +7,8 @@ package twitter.action;
 
 import java.util.List;
 
+import javax.xml.bind.Marshaller.Listener;
+
 import twitter.action.streaming.TweetStreamingListener;
 import twitter.manage.TweetManager;
 import twitter4j.Status;
@@ -73,5 +75,12 @@ public class TweetSearchResultGetter implements TweetGetter{
 			tweetManager.getStreamManager().setSearchListener(this.searchWord, listener);
 		}
 	}
+
+	/**
+     * streaming api有効時のアップデートを受け取るlistenerを削除
+     */
+    public void stopUpdateListener() {
+    	tweetManager.getStreamManager().stopSearchListener(this.searchWord);
+    }
 
 }

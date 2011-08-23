@@ -83,4 +83,11 @@ public class TweetFavoriteGetter implements TweetGetter{
 
 	}
 
+	/**
+     * streaming api有効時のアップデートを受け取るlistenerを削除
+     */
+    public void stopUpdateListener() {
+    	//TODO
+    }
+
 }

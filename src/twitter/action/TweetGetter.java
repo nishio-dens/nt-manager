@@ -30,8 +30,13 @@ public interface TweetGetter {
     public List<Status> getNewTweetData();
 
     /**
-     * streaming api有効時、アップデートを受け取るlisterをセット
+     * streaming api有効時、アップデートを受け取るlistenerをセット
      * @param listener
      */
     public void setUpdateListener(TweetStreamingListener listener);
+
+    /**
+     * streaming api有効時のアップデートを受け取るlistenerを削除
+     */
+    public void stopUpdateListener();
 }

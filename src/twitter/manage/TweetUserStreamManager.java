@@ -44,6 +44,13 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 	}
 
 	/**
+	 * タイムライン監視リスナーを削除
+	 */
+	public void stopTimelineListener() {
+		this.userStream.setTimelineListener(null);
+	}
+
+	/**
 	 * Mentionを監視するリスナー
 	 * @param listener
 	 * @param notifyManager メッセージをバルーン通知するためのマネージャー, nullなら通知しない
@@ -54,11 +61,27 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 	}
 
 	/**
+	 * Mentionを監視するリスナーをストップ
+	 */
+	public void stopMentionListener() {
+		this.userStream.setMentionListener(null);
+		this.userStream.setMentionNotifyManager(null);
+	}
+
+	/**
 	 * 検索ワードを監視するリスナー
 	 * @param word
 	 * @param listener
 	 */
 	public void setSearchListener(String word, TweetStreamingListener listener) {
 		searchStream.addSearchWord(word, listener);
+	}
+
+	/**
+	 * 検索ワードを監視するリスナーを停止
+	 * @param word
+	 */
+	public void stopSearchListener(String word) {
+		searchStream.removeSearchWord(word);
 	}
 }

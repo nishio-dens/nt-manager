@@ -95,5 +95,11 @@ public class TweetTimelineGetter implements TweetGetter{
 		}
 	}
 
+	/**
+     * streaming api有効時のアップデートを受け取るlistenerを削除
+     */
+    public void stopUpdateListener() {
+    	this.tweetManager.getStreamManager().stopTimelineListener();
+    }
 }
 

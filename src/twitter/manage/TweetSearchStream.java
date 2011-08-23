@@ -107,6 +107,7 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 				TweetStreamingListener listener = listeners.get(word);
 				listener.update(status);
 			}
+			System.out.println("WORD:" + word + " searching -- " + status.getText());
 		}
 	}
 

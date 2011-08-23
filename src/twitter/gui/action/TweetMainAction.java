@@ -874,29 +874,7 @@ public class TweetMainAction {
 				break;
 			}
 		}
-
-		if (deleteTabIndex >= 0) {
-			int selected = this.tweetTabbedTableList.get(deleteTabIndex)
-					.getTabSetNum();
-			// タブを削除
-			this.tweetMainTab.remove(selected);
-			// 削除
-			this.tweetTabbedTableList.remove(deleteTabIndex);
-			// 自動更新しているタブを削除
-			this.tweetTaskManager.shutdownTask(timerID);
-			// ID削除
-			TimerID idManager = TimerID.getInstance();
-			idManager.removeID(timerID);
-
-			// checkboxの状態更新
-			this.updateCheckboxInformation();
-			//設定保存
-			try {
-				saveProperties();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		actionRemoveTabbedTable(deleteTabIndex);
 	}
 
 	/**
@@ -926,6 +904,16 @@ public class TweetMainAction {
 			// タブのタイマーID
 			String timerID = this.tweetTabbedTableList.get(deleteTabIndex)
 					.getTimerID();
+			// 削除
+			TweetTabbedTable table = this.tweetTabbedTableList.get(deleteTabIndex);
+			if( table != null ) {
+				//streaming api使っている場合はlistenerをストップ
+				TweetGetter getter = table.getTweetGetter();
+				if( getter != null ) {
+					//streaming apiのストップ
+					getter.stopUpdateListener();
+				}
+			}
 			// 削除
 			this.tweetTabbedTableList.remove(deleteTabIndex);
 			// 自動更新しているタブを削除

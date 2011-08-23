@@ -587,6 +587,22 @@ public class TweetTabbedTable implements TweetStreamingListener {
 	}
 
 	/**
+	 * tweetGetterを取得します。
+	 * @return tweetGetter
+	 */
+	public TweetGetter getTweetGetter() {
+	    return tweetGetter;
+	}
+
+	/**
+	 * tweetGetterを設定します。
+	 * @param tweetGetter tweetGetter
+	 */
+	public void setTweetGetter(TweetGetter tweetGetter) {
+	    this.tweetGetter = tweetGetter;
+	}
+
+	/**
 	 * @return the title
 	 */
 	public String getTitle() {
