@@ -1480,4 +1480,36 @@ public class TweetManager {
 		this.sinceDirectMessageID = sinceDirectMessageID;
 	}
 
+	/**
+	 * ログインユーザのIDを取得
+	 * @return 取得失敗時は0を返す
+	 */
+	public long getLoginUserID() {
+		long id = 0;
+		try {
+			id = this.twitter.getId();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+
+	/**
+	 * ログインユーザのスクリーン名を取得
+	 * @return
+	 */
+	public String getLoginUserScreenName() {
+		String username = null;
+		try {
+			username = this.twitter.getScreenName();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
+		return username;
+	}
+
 }

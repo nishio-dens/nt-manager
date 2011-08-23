@@ -44,6 +44,16 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 	}
 
 	/**
+	 * Mentionを監視するリスナー
+	 * @param listener
+	 * @param notifyManager メッセージをバルーン通知するためのマネージャー, nullなら通知しない
+	 */
+	public void setMentionListener(TweetStreamingListener listener, TweetNotifyManager notifyManager) {
+		this.userStream.setMentionListener(listener);
+		this.userStream.setMentionNotifyManager(notifyManager);
+	}
+
+	/**
 	 * 検索ワードを監視するリスナー
 	 * @param word
 	 * @param listener

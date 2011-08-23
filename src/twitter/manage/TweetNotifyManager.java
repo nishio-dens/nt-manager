@@ -7,6 +7,7 @@ package twitter.manage;
 
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
+import java.util.ArrayList;
 import java.util.List;
 import twitter4j.Status;
 
@@ -22,7 +23,7 @@ public class TweetNotifyManager {
     private String title = "あなた宛のメッセージ";
 
     /**
-     * 
+     *
      * @param trayIcon
      */
     public TweetNotifyManager(TrayIcon trayIcon) {
@@ -49,6 +50,16 @@ public class TweetNotifyManager {
                 this.trayIcon.displayMessage(title, name + "さんの発言: " + message, TrayIcon.MessageType.INFO);
             }
         }
+    }
+
+    /**
+     * ツイート情報を通知バーに表示
+     * @param status
+     */
+    public void showNotifyMessage(Status status) {
+    	List<Status> statuses = new ArrayList<Status>();
+    	statuses.add(status);
+    	showNotifyMessage(statuses);
     }
 
 }

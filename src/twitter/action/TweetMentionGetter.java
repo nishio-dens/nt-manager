@@ -86,10 +86,14 @@ public class TweetMentionGetter implements TweetGetter{
         return status;
     }
 
+    /**
+     * mention監視
+     */
 	@Override
 	public void setUpdateListener(TweetStreamingListener listener) {
-		// TODO 自動生成されたメソッド・スタブ
-
+		if( listener != null ) {
+			this.tweetManager.getStreamManager().setMentionListener(listener, notifyManager);
+		}
 	}
 
 }
