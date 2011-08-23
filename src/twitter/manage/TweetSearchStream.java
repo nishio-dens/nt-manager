@@ -105,12 +105,15 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	 */
 	@Override
 	public void onStatus(Status status) {
-		for(String word : listeners.keySet()) {
-			if( status.getText().contains( word.toString() ) ) {
-				TweetStreamingListener listener = listeners.get(word);
-				listener.update(status);
-				//最終更新id
-				lastUpdate.put(word, status.getId());
+		Set<String> keys = listeners.keySet();
+		synchronized (listeners) {
+			for(String word : keys) {
+				if( status.getText().contains( word.toString() ) ) {
+					TweetStreamingListener listener = listeners.get(word);
+					listener.update(status);
+					//最終更新id
+					lastUpdate.put(word, status.getId());
+				}
 			}
 		}
 	}
@@ -143,13 +146,12 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
-		for(;;) {
+		for(; statusStream != null; ) {
 			try {
-				if( statusStream != null ) {
-					statusStream.next(this);
-				}
-			} catch (TwitterException e) {
+				statusStream.next(this);
+			}catch(Exception e) {
 				e.printStackTrace();
+				break;
 			}
 		}
 	}
