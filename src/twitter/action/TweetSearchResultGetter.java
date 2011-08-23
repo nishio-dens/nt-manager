@@ -58,6 +58,12 @@ public class TweetSearchResultGetter implements TweetGetter{
      * @return
      */
     public List<Status> getNewTweetData() {
+    	//streaming利用時のsinceidを取得
+    	long streamingSinceID = tweetManager.getStreamManager().getSearchLastUpdateID(this.searchWord);
+    	if( streamingSinceID > 0 ) {
+    		sinceID = streamingSinceID;
+    	}
+
         List<Status> status = tweetManager.getNewSearchResult(this.sinceID, this.searchWord);
         if( status != null ) {
             //一番最後のtweetのsinceIDを取得する

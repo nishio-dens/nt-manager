@@ -84,4 +84,13 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 	public void stopSearchListener(String word) {
 		searchStream.removeSearchWord(word);
 	}
+
+	/**
+	 * 指定したワードの最終更新status IDを取得
+	 * @param word
+	 * @return
+	 */
+	public long getSearchLastUpdateID(String word) {
+		return searchStream.getLastUpdateID(word);
+	}
 }

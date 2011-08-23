@@ -41,6 +41,8 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	private TweetManager tweetManager = null;
 	//検索ワードに対応したリスナー
 	private Map<String, TweetStreamingListener> listeners = null;
+	//指定したワードの最終更新id
+	private Map<String, Long> lastUpdate = null;
 
 	/**
 	 *
@@ -58,6 +60,7 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 		filter = new FilterQuery();
 		filterWords = new HashSet<String>();
 		listeners = new HashMap<String, TweetStreamingListener>();
+		lastUpdate = new HashMap<String, Long>();
 	}
 
 	/**
@@ -106,9 +109,23 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 			if( status.getText().contains( word.toString() ) ) {
 				TweetStreamingListener listener = listeners.get(word);
 				listener.update(status);
+				//最終更新id
+				lastUpdate.put(word, status.getId());
 			}
-			System.out.println("WORD:" + word + " searching -- " + status.getText());
 		}
+	}
+
+	/**
+	 * 最終更新ステータスのidの取得
+	 * @param word
+	 * @return
+	 */
+	public long getLastUpdateID(String word) {
+		Long id = lastUpdate.get(word);
+		if( id == null ) {
+			return 0;
+		}
+		return id;
 	}
 
 	/**
