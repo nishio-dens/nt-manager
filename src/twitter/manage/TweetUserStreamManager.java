@@ -51,6 +51,23 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 	}
 
 	/**
+	 * Direct messageを監視するリスナー登録
+	 * @param listener
+	 * @param notifyManager
+	 */
+	public void setDirectMessageListener(TweetStreamingListener listener, TweetNotifyManager notifyManager) {
+		this.userStream.setDirectMessageListener(listener);
+		this.userStream.setDirectMessageNotifyManager(notifyManager);
+	}
+
+	/**
+	 * directmessageを監視するリスナーを削除
+	 */
+	public void stopDirectMessageListener() {
+		this.userStream.setDirectMessageListener(null);
+	}
+
+	/**
 	 * Mentionを監視するリスナー
 	 * @param listener
 	 * @param notifyManager メッセージをバルーン通知するためのマネージャー, nullなら通知しない

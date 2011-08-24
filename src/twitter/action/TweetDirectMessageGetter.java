@@ -89,15 +89,16 @@ public class TweetDirectMessageGetter implements TweetGetter{
 
 	@Override
 	public void setUpdateListener(TweetStreamingListener listener) {
-		// TODO 自動生成されたメソッド・スタブ
-
+		if( listener != null ) {
+			tweetManager.getStreamManager().setDirectMessageListener(listener, this.notifyManager);
+		}
 	}
 
 	/**
      * streaming api有効時のアップデートを受け取るlistenerを削除
      */
     public void stopUpdateListener() {
-    	//TODO
+    	tweetManager.getStreamManager().stopDirectMessageListener();
     }
 
 }

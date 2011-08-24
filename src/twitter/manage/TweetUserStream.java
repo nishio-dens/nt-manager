@@ -24,8 +24,12 @@ public class TweetUserStream extends UserStreamAdapter{
 	private TweetStreamingListener timelineListener = null;
 	//mention監視
 	private TweetStreamingListener mentionListener = null;
+	//direct message監視
+	private TweetStreamingListener directMessageListener = null;
 	//mention通知
     private TweetNotifyManager mentionNotifyManager = null;
+    //directmessage通知
+    private TweetNotifyManager directMessageNotifyManager = null;
 	//ログインユーザ名
 	private String loginUsername = null;
 	//tweet manager
@@ -66,11 +70,27 @@ public class TweetUserStream extends UserStreamAdapter{
 	}
 
 	/**
-	 * 通知バー
+	 * mention通知バー
 	 * @param notifyManager nullならmentionでは通知しない
 	 */
 	public void setMentionNotifyManager(TweetNotifyManager notifyManager) {
 		this.mentionNotifyManager = notifyManager;
+	}
+
+	/**
+	 * direct message通知バー
+	 * @param notifyManager
+	 */
+	public void setDirectMessageNotifyManager(TweetNotifyManager notifyManager) {
+		this.directMessageNotifyManager = notifyManager;
+	}
+
+	/**
+	 * ダイレクトメッセージ監視
+	 * @param directMessageListener
+	 */
+	public void setDirectMessageListener(TweetStreamingListener directMessageListener) {
+		this.directMessageListener = directMessageListener;
 	}
 
 
@@ -105,20 +125,29 @@ public class TweetUserStream extends UserStreamAdapter{
 		ex.printStackTrace();
 	}
 
+	/**
+	 * ダイレクトメッセージの通知
+	 * @param directmessage
+	 */
 	@Override
 	public void onDirectMessage(DirectMessage directmessage) {
-		System.out.println("Recipient: "
-				+ directmessage.getRecipientScreenName() + " from "
-				+ "Sender   : " + directmessage.getSenderScreenName()
-				+ " text     : " + directmessage.getText() );
+		if( this.directMessageListener != null ) {
+			User user = directmessage.getSender();
+			DirectMessageUserStatus status = new DirectMessageUserStatus(
+					directmessage, user);
+			this.directMessageListener.update(status);
+			if( directMessageNotifyManager != null ) {
+				directMessageNotifyManager.showNotifyMessage(status);
+			}
+		}
 	}
 
 	@Override
 	public void onFavorite(User source, User target, Status favoritedStatus) {
-		System.out.println(source.getScreenName() + " favorited "
+		/*System.out.println(source.getScreenName() + " favorited "
 				+ target.getScreenName() + "'s Status. StatusId: "
 				+ favoritedStatus.getId() );
-		System.out.println("FAV MESSAGE:" + favoritedStatus.getText());
+		System.out.println("FAV MESSAGE:" + favoritedStatus.getText());*/
 	}
 
 	@Override
