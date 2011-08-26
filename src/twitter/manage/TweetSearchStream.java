@@ -31,8 +31,6 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	private TwitterStream twitterStream = null;
 	//Filter query
 	private FilterQuery filter = null;
-	//登録されている検索ワード
-	private Set<String> filterWords = null;
 	//status stream
 	private StatusStream statusStream = null;
 	//Thread
@@ -41,8 +39,12 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	private TweetManager tweetManager = null;
 	//検索ワードに対応したリスナー
 	private Map<String, TweetStreamingListener> listeners = null;
+	//指定したユーザに対応したリスナー
+	private Map<Long, TweetStreamingListener> userListener = null;
 	//指定したワードの最終更新id
 	private Map<String, Long> lastUpdate = null;
+	//指定したユーザの最終更新id
+	private Map<Long, Long> userLastUpdate = null;
 
 	/**
 	 *
@@ -58,9 +60,10 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 		this.twitterStream.setOAuthAccessToken(ac);
 
 		filter = new FilterQuery();
-		filterWords = new HashSet<String>();
 		listeners = new HashMap<String, TweetStreamingListener>();
+		userListener = new HashMap<Long, TweetStreamingListener>();
 		lastUpdate = new HashMap<String, Long>();
+		userLastUpdate = new HashMap<Long, Long>();
 	}
 
 	/**
@@ -68,7 +71,6 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	 * @param word
 	 */
 	public void addSearchWord(String word, TweetStreamingListener listener) {
-		filterWords.add(word);
 		listeners.put(word, listener);
 		updateFilter();
 	}
@@ -78,16 +80,19 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	 * @param word
 	 */
 	public void removeSearchWord(String word) {
-		filterWords.remove(word);
 		listeners.remove(word);
 		updateFilter();
+	}
+
+	public void addUserSearch(Long userid, TweetStreamingListener listener) {
+
 	}
 
 	/**
 	 * filterの更新
 	 */
 	private void updateFilter() {
-		String[] words = filterWords.toArray(new String[0]);
+		String[] words = listeners.keySet().toArray(new String[0]);
 		filter.track(words);
 		try {
 			if( statusStream != null ) {
