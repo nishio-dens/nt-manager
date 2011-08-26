@@ -1357,4 +1357,22 @@ public class TweetManager {
 		return username;
 	}
 
+	/**
+	 * 指定したユーザ名からユーザidを取得する
+	 * @param screenName
+	 * @return 取得に失敗した場合は0を返す, 成功した場合はユーザidを返す
+	 */
+	public long getUserID(String screenName) {
+		long id = 0;
+		try {
+			User u = this.twitter.showUser(screenName);
+			if( u != null ) {
+				id = u.getId();
+			}
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
+
 }

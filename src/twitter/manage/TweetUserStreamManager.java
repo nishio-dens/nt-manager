@@ -103,11 +103,37 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 	}
 
 	/**
+	 * 指定したユーザを監視するリスナー
+	 * @param userid
+	 * @param listener
+	 */
+	public void setUserListener(long userid, TweetStreamingListener listener) {
+		searchStream.addSearchUser(userid, listener);
+	}
+
+	/**
+	 * 指定したユーザを監視するリスナーを停止
+	 * @param userid
+	 */
+	public void stopUserListener(long userid) {
+		searchStream.removeSearchUser(userid);
+	}
+
+	/**
 	 * 指定したワードの最終更新status IDを取得
 	 * @param word
 	 * @return
 	 */
 	public long getSearchLastUpdateID(String word) {
 		return searchStream.getLastUpdateID(word);
+	}
+
+	/**
+	 * 指定したユーザの最終更新status idを取得
+	 * @param userid
+	 * @return
+	 */
+	public long getUserLastUpdateID(long userid) {
+		return searchStream.getUserLastUpdateID(userid);
 	}
 }

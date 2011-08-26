@@ -24,6 +24,8 @@ public class TweetUserTimelineGetter implements TweetGetter{
     private TweetManager tweetManager;
     //検索したいユーザ
     private String screenName;
+    //検索したいユーザid(streaming api利用時)
+    private long userid = 0;
     //sinceid
     private long sinceID;
 
@@ -67,6 +69,12 @@ public class TweetUserTimelineGetter implements TweetGetter{
      */
     @Override
     public List<Status> getNewTweetData() {
+    	//streaming利用時のsinceidを取得
+    	long streamingSinceID = tweetManager.getStreamManager().getUserLastUpdateID(userid);
+    	if( streamingSinceID > 0 ) {
+    		sinceID = streamingSinceID;
+    	}
+
         List<Status> status = null;
         try {
             status = tweetManager.getNewUserTimeline(screenName, sinceID);
@@ -85,15 +93,17 @@ public class TweetUserTimelineGetter implements TweetGetter{
 
 	@Override
 	public void setUpdateListener(TweetStreamingListener listener) {
-		// TODO 自動生成されたメソッド・スタブ
-
+		this.userid = tweetManager.getUserID(this.screenName);
+		if( this.userid != 0 && listener != null ) {
+			tweetManager.getStreamManager().setUserListener(userid, listener);
+		}
 	}
 
 	/**
      * streaming api有効時のアップデートを受け取るlistenerを削除
      */
     public void stopUpdateListener() {
-    	//TODO
+    	tweetManager.getStreamManager().stopUserListener(userid);
     }
 
 }

@@ -69,6 +69,7 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	/**
 	 * 指定した単語を検索対象に加える
 	 * @param word
+	 * @param listener
 	 */
 	public void addSearchWord(String word, TweetStreamingListener listener) {
 		listeners.put(word, listener);
@@ -84,14 +85,39 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 		updateFilter();
 	}
 
-	public void addUserSearch(Long userid, TweetStreamingListener listener) {
+	/**
+	 * 指定したユーザを検索対象に加える
+	 * @param userid
+	 * @param listener
+	 */
+	public void addSearchUser(Long userid, TweetStreamingListener listener) {
+		userListener.put(userid, listener);
+		updateFilter();
+	}
 
+	/**
+	 * 指定したユーザを検索対象から外す
+	 * @param userid
+	 */
+	public void removeSearchUser(Long userid) {
+		userListener.remove(userid);
+		updateFilter();
 	}
 
 	/**
 	 * filterの更新
 	 */
 	private void updateFilter() {
+		//指定したユーザの情報を取得するようにする
+		Long[] users = userListener.keySet().toArray(new Long[0]);
+		if( users != null ) {
+			long[] usersLong = new long[users.length];
+			for(int i=0; i < users.length; i++) {
+				usersLong[i] = users[i];
+			}
+			filter.follow(usersLong);
+		}
+		//指定したワードの情報を取得するようにする
 		String[] words = listeners.keySet().toArray(new String[0]);
 		filter.track(words);
 		try {
@@ -110,6 +136,7 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	 */
 	@Override
 	public void onStatus(Status status) {
+		//検索ワード情報振り分け
 		Set<String> keys = listeners.keySet();
 		synchronized (listeners) {
 			for(String word : keys) {
@@ -118,6 +145,19 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 					listener.update(status);
 					//最終更新id
 					lastUpdate.put(word, status.getId());
+				}
+			}
+		}
+
+		//ユーザ情報振り分け
+		Set<Long> userKeys = userListener.keySet();
+		synchronized(userListener) {
+			for(long id : userKeys) {
+				if( status.getUser().getId() == id ) {
+					TweetStreamingListener listener = userListener.get(id);
+					listener.update(status);
+					//最終更新id
+					userLastUpdate.put(id, status.getId());
 				}
 			}
 		}
@@ -130,6 +170,19 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	 */
 	public long getLastUpdateID(String word) {
 		Long id = lastUpdate.get(word);
+		if( id == null ) {
+			return 0;
+		}
+		return id;
+	}
+
+	/**
+	 * ユーザの最終更新ステータスidの取得
+	 * @param userid
+	 * @return
+	 */
+	public long getUserLastUpdateID(long userid) {
+		Long id = userLastUpdate.get(userid);
 		if( id == null ) {
 			return 0;
 		}
