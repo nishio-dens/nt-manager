@@ -12,7 +12,7 @@ import twitter4j.Status;
 
 /**
  *
- * @author S.nishio
+ * @author nishio
  */
 public interface TweetGetter {
 
