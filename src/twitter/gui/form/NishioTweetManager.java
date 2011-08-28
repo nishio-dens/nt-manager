@@ -40,7 +40,9 @@ import twitter.gui.action.TweetMainAction;
 import twitter.gui.component.TweetHashtagHyperlinkHandler;
 import twitter.gui.component.TweetHyperlinkHandler;
 import twitter.gui.component.TweetTextFieldPopupMenu;
+import twitter.manage.ClientVersionManager;
 import twitter.manage.TweetManager;
+import twitter.manage.VersionInfo;
 import twitter.task.TimerID;
 
 /**
@@ -1497,6 +1499,18 @@ private void logSaveCheckItemActionPerformed(java.awt.event.ActionEvent evt) {//
 			// フォーカスを一番初めのテーブルに移す
 			this.mainAction.actionRequestFocusToTab(0);
 		}
+                try {
+                    ClientVersionManager version = ClientVersionManager.getInstance();
+                    VersionInfo latest = version.getLatestVersionInfo();
+                    if( latest != null && !latest.getVersion().equals( version.getCurrentversion() )) {
+                        if( this.mainAction.isUpdateNotify() ) {
+                            //最新クライアント情報を通知するかどうか
+                            this.mainAction.actionShowUpdateDialog();
+                        }
+                    }
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
 	}
 
 	/**

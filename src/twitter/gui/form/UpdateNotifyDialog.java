@@ -10,6 +10,15 @@
  */
 package twitter.gui.form;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import twitter.gui.action.TweetMainAction;
+import twitter.manage.ClientVersionManager;
+import twitter.manage.VersionInfo;
+
 /**
  *
  * @author nishio
@@ -17,9 +26,27 @@ package twitter.gui.form;
 public class UpdateNotifyDialog extends javax.swing.JDialog {
 
     /** Creates new form UpdateNotifyDialog */
-    public UpdateNotifyDialog(java.awt.Frame parent, boolean modal) {
+    public UpdateNotifyDialog(java.awt.Frame parent, boolean modal, TweetMainAction mainAction) {
         super(parent, modal);
         initComponents();
+        this.mainAction = mainAction;
+        init();
+    }
+    
+    /**
+     * 初期化
+     */
+    public void init() {
+        ClientVersionManager version = ClientVersionManager.getInstance();
+        //現在のバージョン
+        this.jLabel4.setText(version.getCurrentversion());
+        latest = version.getLatestVersionInfo();
+        if( latest != null ) {
+            String newVersion = latest.getVersion();
+            this.jLabel5.setText(newVersion);
+            String log = latest.getLog();
+            jTextArea1.setText(log);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -60,10 +87,25 @@ public class UpdateNotifyDialog extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("サイトへ移動");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("了解");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jCheckBox1.setText("次回からアップデート通知を行わない");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,49 +158,38 @@ public class UpdateNotifyDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    boolean update = jCheckBox1.isSelected();
+    this.mainAction.setUpdateNotify(!update);
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateNotifyDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateNotifyDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateNotifyDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateNotifyDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            this.mainAction.saveProperties();
+        } catch (IOException ex) {
+            Logger.getLogger(UpdateNotifyDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    this.setVisible(false);
+}//GEN-LAST:event_jButton2ActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jCheckBox1ActionPerformed
 
-            public void run() {
-                UpdateNotifyDialog dialog = new UpdateNotifyDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    try {
+        // クリック時
+        ClientVersionManager version = ClientVersionManager.getInstance();
+        URL url = new URL( version.getNishiotweetmanagerurl() );
+        // デフォルトのブラウザを使ってリンク先を表示
+        Desktop dp = Desktop.getDesktop();
+        dp.browse(url.toURI());
+    } catch (Exception ex) {
+        ex.printStackTrace();
     }
+}//GEN-LAST:event_jButton1ActionPerformed
+
+    private TweetMainAction mainAction = null;
+    //latestVersion
+    private VersionInfo latest = null;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

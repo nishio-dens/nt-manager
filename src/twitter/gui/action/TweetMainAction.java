@@ -76,6 +76,7 @@ import twitter.gui.form.FollowingFollowerDialog;
 import twitter.gui.form.HashtagSearchDialog;
 import twitter.gui.form.KeywordSearchDialog;
 import twitter.gui.form.OutputCSVLogDialog;
+import twitter.gui.form.UpdateNotifyDialog;
 import twitter.gui.form.UserListDialog;
 import twitter.gui.form.UserSearchDialog;
 import twitter.log.TwitterLogManager;
@@ -191,6 +192,8 @@ public class TweetMainAction {
 	private boolean isTempOpenedSendDMTab = true;
         //ログを保存するかどうか
         private boolean saveLog = false;
+        //update通知をするかどうか
+        private boolean isUpdateNotify = true;
 
 	// Tweetの詳細情報を表示する部分
 	private JLabel userImageLabel = null;
@@ -220,6 +223,8 @@ public class TweetMainAction {
 	// 新しく取得したtweetでまだ参照していない数
 	private int uncheckedTimelineTweetCount = 0;
 	private AboutDialog aboutDialog = null;
+        //update dialog
+        private UpdateNotifyDialog updateDialog = null;
 	// アカウント情報表示ダイアログ
 	private AccountDialog accountDialog;
 	// ツイートを表示するテーブル管理
@@ -1328,6 +1333,15 @@ public class TweetMainAction {
 		// dialog.setLocation(loc);
 		dialog.setVisible(true);
 	}
+        
+        /**
+         * 最新クライアント情報通知ダイアログを表示
+         */
+        public void actionShowUpdateDialog() {
+            UpdateNotifyDialog dialog = getUpdateNotifyDialog();
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }
 
 	/**
 	 * アカウントダイアログを表示
@@ -1806,6 +1820,17 @@ public class TweetMainAction {
 		}
 		return aboutDialog;
 	}
+        
+        /**
+         * update dialog
+         * @return 
+         */
+        public UpdateNotifyDialog getUpdateNotifyDialog() {
+            if( updateDialog == null ) {
+                updateDialog = new UpdateNotifyDialog(mainFrame, true, this);
+            }
+            return updateDialog;
+        }
 
 	/**
 	 * テーブルで選択した場所のTweet情報を取得
@@ -1914,6 +1939,12 @@ public class TweetMainAction {
 
                 //表示可能ツイート数
                 String nost = this.property.getProperty("numOfShowTweet");
+                
+                //最新クライアント情報を通知するか
+                String unt = this.property.getProperty("updateNotify");
+                if( unt == null ) {
+                    unt = this.isUpdateNotify + "";
+                }
 
 		try {
 			this.newTableColor = new Color(Integer.parseInt(ntrgb));
@@ -1944,6 +1975,9 @@ public class TweetMainAction {
 
                         //表示可能ツイート数
                         this.tableElementMaxSize = Integer.parseInt(nost);
+                        
+                        //update notify
+                        this.isUpdateNotify = Boolean.parseBoolean(unt);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
@@ -2012,6 +2046,9 @@ public class TweetMainAction {
 
                 //テーブルに表示可能なツイートの数
                 this.property.setProperty("numOfShowTweet", this.getTableElementMaxSize() + "");
+                
+                //update notify
+                this.property.setProperty("updateNotify", this.isUpdateNotify + "");
 
 		// プロパティのリストを保存
 		property.store(new FileOutputStream("./" + PROPERTIES_DIRECTORY + "/"
@@ -2163,6 +2200,20 @@ public class TweetMainAction {
 	public void setNotifyDirectMessage(boolean notify) {
 		this.isNotifyDirectMessage = notify;
 	}
+        
+        /**
+         * 最新クライアント情報を通知するかどうか
+         */
+        public boolean isUpdateNotify() {
+            return this.isUpdateNotify;
+        }
+        
+        /**
+         * 最新クライアント情報を通知するかどうか設定
+         */
+        public void setUpdateNotify(boolean notify) {
+            this.isUpdateNotify = notify;
+        }
 
 	/**
 	 *

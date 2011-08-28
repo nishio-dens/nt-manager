@@ -94,12 +94,11 @@ public class ClientVersionManager {
 	 * クライアントの最新バージョンの情報を取得する
 	 * @return
 	 */
-	public static VersionInfo getLatestVersionInfo() {
-		ClientVersionManager manager = ClientVersionManager.getInstance();
-		String log = manager.getLatestInformation();
+	public VersionInfo getLatestVersionInfo() {
+		String log = getLatestInformation();
 		VersionInfo info = null;
 		try {
-			info = manager.XMLToVersionInfo(log);
+			info = XMLToVersionInfo(log);
 		} catch (SAXParseException e) {
 			e.printStackTrace();
 		}

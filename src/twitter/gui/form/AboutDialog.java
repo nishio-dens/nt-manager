@@ -12,6 +12,7 @@ package twitter.gui.form;
 
 import java.awt.Desktop;
 import java.net.URL;
+import twitter.manage.ClientVersionManager;
 
 /**
  *
@@ -26,6 +27,8 @@ public class AboutDialog extends javax.swing.JDialog {
 
         //デフォルトボタン
         this.getRootPane().setDefaultButton(jButton1);
+        //version情報
+        this.jLabel1.setText("Nishio Tweet Manager version " + ClientVersionManager.getInstance().getCurrentversion());
     }
 
     /** This method is called from within the constructor to
@@ -46,7 +49,7 @@ public class AboutDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About Nishio Tweet Manager");
 
-        jLabel1.setText("Nishio Tweet Manager version 0.6");
+        jLabel1.setText("Version Information");
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +109,8 @@ public class AboutDialog extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             // クリック時
-            URL url = new URL("http://densan-labs.net/software/ntm");
+            String u = ClientVersionManager.getInstance().getNishiotweetmanagerurl();
+            URL url = new URL(u);
             // デフォルトのブラウザを使ってリンク先を表示
             Desktop dp = Desktop.getDesktop();
             dp.browse(url.toURI());
