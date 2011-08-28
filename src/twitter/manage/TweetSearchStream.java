@@ -120,13 +120,6 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 		//指定したワードの情報を取得するようにする
 		String[] words = listeners.keySet().toArray(new String[0]);
 		filter.track(words);
-		try {
-			if( statusStream != null ) {
-				statusStream.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		workingThread = new Thread(this);
 		workingThread.start();
 	}
@@ -200,6 +193,14 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 	@Override
 	public void run() {
 		try {
+			try {
+				if( statusStream != null ) {
+					//前回開いていたものがあったら閉じる
+					statusStream.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			statusStream = twitterStream.getFilterStream(filter);
 		} catch (TwitterException e) {
 			e.printStackTrace();
