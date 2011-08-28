@@ -88,6 +88,7 @@ public class ConfigurationDialog extends javax.swing.JDialog {
 			jSpinner5.setValue(mainAction.getTableElementHeight());
                         jCheckBox1.setSelected( mainAction.getNotifyMention() );
                         jCheckBox2.setSelected( mainAction.getNotifyDirectMessage() );
+                        jCheckBox3.setSelected( mainAction.isUpdateNotify() );
                         
                         //テーブルに表示するツイート数
                         jSpinner6.setValue(mainAction.getTableElementMaxSize());
@@ -146,6 +147,7 @@ public class ConfigurationDialog extends javax.swing.JDialog {
         jCheckBox2 = new javax.swing.JCheckBox();
         jSpinner6 = new javax.swing.JSpinner();
         jLabel12 = new javax.swing.JLabel();
+        jCheckBox3 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -361,6 +363,8 @@ public class ConfigurationDialog extends javax.swing.JDialog {
 
         jLabel12.setText("テーブルに表示するツイート数");
 
+        jCheckBox3.setText("クライアントの最新情報を通知する");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -377,7 +381,8 @@ public class ConfigurationDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSpinner5, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                            .addComponent(jSpinner6, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))))
+                            .addComponent(jSpinner6, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)))
+                    .addComponent(jCheckBox3, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -395,7 +400,9 @@ public class ConfigurationDialog extends javax.swing.JDialog {
                 .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox2)
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox3)
+                .addGap(194, 194, 194))
         );
 
         jTabbedPane1.addTab("表示", jPanel4);
@@ -492,6 +499,7 @@ public class ConfigurationDialog extends javax.swing.JDialog {
             mainAction.setTableElementHeight(Integer.parseInt( jSpinner5.getValue().toString() ));
             mainAction.setNotifyMention( jCheckBox1.isSelected() );
             mainAction.setNotifyDirectMessage( jCheckBox2.isSelected() );
+            mainAction.setUpdateNotify( jCheckBox3.isSelected() );
             
             //ツイート表示数
             mainAction.setTableElementMaxSize(Integer.parseInt( jSpinner6.getValue().toString() ));
@@ -584,6 +592,7 @@ private void jSpinner6StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIR
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
