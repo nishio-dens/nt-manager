@@ -381,7 +381,8 @@ public class TweetMainAction {
 			    // TLの周期情報更新
 			    if( isUsingStreaming ) {
 				//streaming api利用時は定期的に情報更新を行わない
-				this.tweetTaskManager.updateTaskPeriod(timerID, 0, false);
+				//更新時間をとてつもなく伸ばすことで対応することにした
+				this.tweetTaskManager.updateTaskPeriod(timerID, 100000, false);
 			    }else {
 				this.tweetTaskManager.updateTaskPeriod(timerID, this
 						.getGetTimelinePeriod(), false);
@@ -389,14 +390,14 @@ public class TweetMainAction {
 			} else if (timerID.equals(TimerID.createMentionID())) {
 			    // Mentionの周期情報更新
 			    if( isUsingStreaming ) {
-				this.tweetTaskManager.updateTaskPeriod(timerID, 0, false);
+				this.tweetTaskManager.updateTaskPeriod(timerID, 100000, false);
 			    }else {
 				this.tweetTaskManager.updateTaskPeriod(timerID, this
 					.getGetMentionPeriod(), false);
 			    }
 			} else if (timerID.equals(TimerID.createDirectMessageID())) {
 			    if( isUsingStreaming ) {
-				this.tweetTaskManager.updateTaskPeriod(timerID, 0, false);
+				this.tweetTaskManager.updateTaskPeriod(timerID, 100000, false);
 			    }else{
 				// DMの周期情報更新
 				this.tweetTaskManager.updateTaskPeriod(timerID, this
