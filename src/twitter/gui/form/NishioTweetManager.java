@@ -243,6 +243,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenu8 = new javax.swing.JMenu();
         logSaveCheckItem = new javax.swing.JCheckBoxMenuItem();
         jMenuItem32 = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -1045,6 +1046,9 @@ public class NishioTweetManager extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu8);
 
+        jMenu9.setText("ストリーミング");
+        jMenuBar1.add(jMenu9);
+
         jMenu3.setMnemonic('H');
         jMenu3.setText("ヘルプ(H)");
 
@@ -1563,6 +1567,7 @@ private void logSaveCheckItemActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;

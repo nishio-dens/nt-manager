@@ -509,6 +509,11 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu9">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x30b9;&#x30c8;&#x30ea;&#x30fc;&#x30df;&#x30f3;&#x30b0;"/>
+          </Properties>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
             <Property name="mnemonic" type="int" value="72"/>
@@ -1057,7 +1062,7 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jScrollPane9" min="-2" pref="53" max="-2" attributes="0"/>
-                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
