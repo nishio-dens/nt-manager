@@ -238,6 +238,9 @@ public class TweetTabbedTable implements TweetStreamingListener {
 	 * @return
 	 */
 	private int updateTable(List<Status> tweet) {
+		if( tweet == null ) {
+			return 0;
+		}
 		// まだ見ていないtweet数を追加
 		this.setUncheckedTweet(this.getUncheckedTweet() + tweet.size());
 
