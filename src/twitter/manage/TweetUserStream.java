@@ -109,7 +109,7 @@ public class TweetUserStream extends UserStreamAdapter{
 		}
 		//mention監視
 		if( this.mentionListener != null ) {
-			if( status.getText().contains( loginUsername ) && !status.isRetweet() ) {
+			if( loginUsername != null && status.getText().contains( loginUsername ) && !status.isRetweet() ) {
 				this.mentionListener.update(status);
 				this.tweetManager.setSinceMentionID(status.getId());
 				//mentionのバルーン通知
