@@ -194,6 +194,8 @@ public class TweetMainAction {
         private boolean saveLog = false;
         //update通知をするかどうか
         private boolean isUpdateNotify = true;
+        //streaming apiを利用するかどうか
+        private boolean isUsingStreaming = true;
 
 	// Tweetの詳細情報を表示する部分
 	private JLabel userImageLabel = null;
@@ -376,17 +378,30 @@ public class TweetMainAction {
 		for (TweetTabbedTable t : this.tweetTabbedTableList) {
 			String timerID = t.getTimerID();
 			if (timerID.equals(TimerID.createTimelineID())) {
-				// TLの周期情報更新
+			    // TLの周期情報更新
+			    if( isUsingStreaming ) {
+				//streaming api利用時は定期的に情報更新を行わない
+				this.tweetTaskManager.updateTaskPeriod(timerID, 0, false);
+			    }else {
 				this.tweetTaskManager.updateTaskPeriod(timerID, this
 						.getGetTimelinePeriod(), false);
+			    }
 			} else if (timerID.equals(TimerID.createMentionID())) {
-				// Mentionの周期情報更新
+			    // Mentionの周期情報更新
+			    if( isUsingStreaming ) {
+				this.tweetTaskManager.updateTaskPeriod(timerID, 0, false);
+			    }else {
 				this.tweetTaskManager.updateTaskPeriod(timerID, this
-						.getGetMentionPeriod(), false);
+					.getGetMentionPeriod(), false);
+			    }
 			} else if (timerID.equals(TimerID.createDirectMessageID())) {
+			    if( isUsingStreaming ) {
+				this.tweetTaskManager.updateTaskPeriod(timerID, 0, false);
+			    }else{
 				// DMの周期情報更新
 				this.tweetTaskManager.updateTaskPeriod(timerID, this
 						.getGetDirectMessagePeriod(), false);
+			    }
 			} else if (timerID.equals(TimerID.createSendDirectMessageID())) {
 				// SendDMの周期情報更新
 				this.tweetTaskManager.updateTaskPeriod(timerID, this
@@ -1945,6 +1960,12 @@ public class TweetMainAction {
                 if( unt == null ) {
                     unt = this.isUpdateNotify + "";
                 }
+		
+		//streamingを利用するか
+		String ius = this.property.getProperty("isUsingStreaming");
+		if( ius == null ) {
+		    ius = this.isUsingStreaming + "";
+		}
 
 		try {
 			this.newTableColor = new Color(Integer.parseInt(ntrgb));
@@ -1978,6 +1999,9 @@ public class TweetMainAction {
                         
                         //update notify
                         this.isUpdateNotify = Boolean.parseBoolean(unt);
+			
+			//using streaming
+			this.isUsingStreaming = Boolean.parseBoolean(ius);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
@@ -2049,6 +2073,9 @@ public class TweetMainAction {
                 
                 //update notify
                 this.property.setProperty("updateNotify", this.isUpdateNotify + "");
+		
+		//streaming
+		this.property.setProperty("isUsingStreaming", this.isUsingStreaming + "");
 
 		// プロパティのリストを保存
 		property.store(new FileOutputStream("./" + PROPERTIES_DIRECTORY + "/"
@@ -2341,4 +2368,17 @@ public class TweetMainAction {
         public int getTableElementMaxSize() {
             return this.tableElementMaxSize;
         }
+	
+	/**
+	 * ストリーミング開始
+	 */
+	public void startStreaming() {
+	    this.isUsingStreaming = true;
+	    //TODO: ここでストリーミング開始処理
+	}
+	
+	public void stopStreaming() {
+	    this.isUsingStreaming = false;
+	    //TODO: ここでストリーミング停止処理
+	}
 }
