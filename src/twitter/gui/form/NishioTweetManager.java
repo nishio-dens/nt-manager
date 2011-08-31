@@ -1581,7 +1581,7 @@ public class NishioTweetManager extends javax.swing.JFrame implements Connection
 	 * streaming api接続解除時
 	 */
 	public void onDisconnect() {
-	    System.out.println("StreamingAPI停止中");
+	    streamingLabel.setText("StreamingAPI停止中");
 	}
 	
 	/**

@@ -89,6 +89,7 @@ import twitter.task.TweetTaskException;
 import twitter.task.TweetTaskManager;
 import twitter.task.TweetUpdateTask;
 import twitter.util.HTMLEncode;
+import twitter4j.ConnectionLifeCycleListener;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.User;
@@ -99,7 +100,7 @@ import twitter4j.User;
  * @author nishio
  *
  */
-public class TweetMainAction {
+public class TweetMainAction implements ConnectionLifeCycleListener{
 
 	// 基本設定を保存するファイル名
 	public static final String BASIC_SETTING_FILENAME = TweetConfiguration.BASIC_SETTING_FILENAME;
@@ -196,6 +197,8 @@ public class TweetMainAction {
         private boolean isUpdateNotify = true;
         //streaming apiを利用するかどうか
         private boolean isUsingStreaming = true;
+	//現在streaming apiが開始されているかどうか
+	private boolean isCurrentUsingStreaming = false;
 
 	// Tweetの詳細情報を表示する部分
 	private JLabel userImageLabel = null;
@@ -349,6 +352,9 @@ public class TweetMainAction {
 		mainFrame.setSize(this.mainFrameWidth, this.mainFrameHeight);
 		mainFrame.setPreferredSize(new Dimension(this.mainFrameWidth,
 				this.mainFrameHeight));
+		
+		//streaming apiの状態listener設定
+		this.tweetManager.getStreamManager().addCollectionLifeCycleListener(this);
 	}
 
 	/**
@@ -379,7 +385,7 @@ public class TweetMainAction {
 			String timerID = t.getTimerID();
 			if (timerID.equals(TimerID.createTimelineID())) {
 			    // TLの周期情報更新
-			    if( isUsingStreaming ) {
+			    if( isCurrentUsingStreaming ) {
 				//streaming api利用時は定期的に情報更新を行わない
 				//更新時間をとてつもなく伸ばすことで対応することにした
 				this.tweetTaskManager.updateTaskPeriod(timerID, 100000, false);
@@ -389,14 +395,14 @@ public class TweetMainAction {
 			    }
 			} else if (timerID.equals(TimerID.createMentionID())) {
 			    // Mentionの周期情報更新
-			    if( isUsingStreaming ) {
+			    if( isCurrentUsingStreaming ) {
 				this.tweetTaskManager.updateTaskPeriod(timerID, 100000, false);
 			    }else {
 				this.tweetTaskManager.updateTaskPeriod(timerID, this
 					.getGetMentionPeriod(), false);
 			    }
 			} else if (timerID.equals(TimerID.createDirectMessageID())) {
-			    if( isUsingStreaming ) {
+			    if( isCurrentUsingStreaming ) {
 				this.tweetTaskManager.updateTaskPeriod(timerID, 100000, false);
 			    }else{
 				// DMの周期情報更新
@@ -2392,5 +2398,37 @@ public class TweetMainAction {
 	 */
 	public boolean isUsingStreaming() {
 	    return this.isUsingStreaming;
+	}
+
+	/**
+	 * streaming api開始
+	 */
+	public void onConnect() {
+	    this.isCurrentUsingStreaming = true;
+	    updatePeriodInformationToComponent();
+	}
+	
+	/**
+	 * streaming api stop
+	 */
+	@Override
+	public void onDisconnect() {
+	    this.isCurrentUsingStreaming = false;
+	    updatePeriodInformationToComponent();
+	}
+	
+	/**
+	 * streaming api
+	 */
+	@Override
+	public void onCleanUp() {
+	   //nothing
+	}
+	
+	/**
+	 * 現在streaming apiが起動しているかどうか
+	 */
+	public boolean isStartedStreamingAPI() {
+	    return this.isCurrentUsingStreaming;
 	}
 }
