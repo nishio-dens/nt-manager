@@ -150,13 +150,25 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 	 * streaming開始
 	 */
 	public void start() {
-	    this.userStream.start();
+	    Runnable runner = new Runnable() {
+		@Override
+		public void run() {
+		    userStream.start();
+		}
+	    };
+	    new Thread(runner).start();
 	}
 	
 	/**
 	 * streaming停止
 	 */
 	public void stop() {
-	    this.userStream.stop();
+	    Runnable runner = new Runnable() {
+		@Override
+		public void run() {
+		    userStream.stop();
+		}
+	    };
+	    new Thread(runner).start();
 	}
 }
