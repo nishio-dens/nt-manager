@@ -49,7 +49,20 @@ public class TweetUserStream extends UserStreamAdapter{
 		this.twitterStream.setOAuthConsumer(consumerKey, consumerSecret);
 		this.twitterStream.setOAuthAccessToken(ac);
 		this.twitterStream.addListener(this);
-		this.twitterStream.user();
+	}
+	
+	/**
+	 * streaming開始
+	 */
+	public void start() {
+	    this.twitterStream.user();
+	}
+	
+	/**
+	 * streaming停止
+	 */
+	public void stop() {
+	    this.twitterStream.cleanUp();
 	}
 	
 	/**

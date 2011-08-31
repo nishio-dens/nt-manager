@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import twitter.action.streaming.TweetStreamingListener;
+import twitter4j.ConnectionLifeCycleListener;
 import twitter4j.DirectMessage;
 import twitter4j.FilterQuery;
 import twitter4j.Status;
@@ -26,7 +27,7 @@ import twitter4j.auth.AccessToken;
  * @author nishio
  *
  */
-public class TweetSearchStream extends StatusAdapter implements Runnable{
+public class TweetSearchStream extends StatusAdapter implements Runnable, ConnectionLifeCycleListener{
 	//streaming
 	private TwitterStream twitterStream = null;
 	//Filter query
@@ -58,6 +59,7 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 		this.twitterStream = new TwitterStreamFactory().getInstance();
 		this.twitterStream.setOAuthConsumer(consumerKey, consumerSecret);
 		this.twitterStream.setOAuthAccessToken(ac);
+		this.twitterStream.addConnectionLifeCycleListener(this);
 
 		filter = new FilterQuery();
 		listeners = new HashMap<String, TweetStreamingListener>();
@@ -213,6 +215,21 @@ public class TweetSearchStream extends StatusAdapter implements Runnable{
 				break;
 			}
 		}
+	}
+
+	@Override
+	public void onConnect() {
+	    System.out.println("search started");
+	}
+	
+	@Override
+	public void onDisconnect() {
+	    System.out.println("search stopped");
+	}
+	
+	@Override
+	public void onCleanUp() {
+	    //nothing
 	}
 
 }

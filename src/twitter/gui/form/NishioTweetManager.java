@@ -1549,6 +1549,10 @@ public class NishioTweetManager extends javax.swing.JFrame implements Connection
 		
 		//Streaming APIを利用しているかどうかを表示
 		this.tweetManager.getStreamManager().addCollectionLifeCycleListener(this);
+		//streaming利用時はstreamingを開始する
+		if( this.mainAction.isUsingStreaming() ) {
+		    this.mainAction.startStreaming();
+		}
 	}
 
 	/**

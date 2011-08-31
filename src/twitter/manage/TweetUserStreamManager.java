@@ -145,4 +145,18 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 	public void addCollectionLifeCycleListener(ConnectionLifeCycleListener listener) {
 	    this.userStream.addConnectionLifeCycleListener(listener);
 	}
+	
+	/**
+	 * streaming開始
+	 */
+	public void start() {
+	    this.userStream.start();
+	}
+	
+	/**
+	 * streaming停止
+	 */
+	public void stop() {
+	    this.userStream.stop();
+	}
 }
