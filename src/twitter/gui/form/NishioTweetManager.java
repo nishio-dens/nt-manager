@@ -44,12 +44,13 @@ import twitter.manage.ClientVersionManager;
 import twitter.manage.TweetManager;
 import twitter.manage.VersionInfo;
 import twitter.task.TimerID;
+import twitter4j.ConnectionLifeCycleListener;
 
 /**
  *
  * @author nishio
  */
-public class NishioTweetManager extends javax.swing.JFrame {
+public class NishioTweetManager extends javax.swing.JFrame implements ConnectionLifeCycleListener{
 
 	private SystemTray systemTray;
 	private TrayIcon trayIcon;
@@ -171,6 +172,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         clientNameLabel = new javax.swing.JEditorPane();
         jPanel2 = new javax.swing.JPanel();
         statusBar = new javax.swing.JLabel();
+        streamingLabel = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -444,15 +446,25 @@ public class NishioTweetManager extends javax.swing.JFrame {
             }
         });
 
+        streamingLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        streamingLabel.setText("StreamingAPI停止中");
+        streamingLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        streamingLabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusBar, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(statusBar, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(streamingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(statusBar, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                .addComponent(streamingLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
         );
 
         jToolBar1.setRollover(true);
@@ -1080,7 +1092,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1534,6 +1546,9 @@ public class NishioTweetManager extends javax.swing.JFrame {
                 }catch(Exception e) {
                     e.printStackTrace();
                 }
+		
+		//Streaming APIを利用しているかどうかを表示
+		this.tweetManager.getStreamManager().addCollectionLifeCycleListener(this);
 	}
 
 	/**
@@ -1553,6 +1568,27 @@ public class NishioTweetManager extends javax.swing.JFrame {
 		mainAction.updateCheckboxInformation();
 		//streaming apiを利用するかどうか
 		isUsingStreamingMenuItem.setSelected(mainAction.isUsingStreaming());
+	}
+	
+	/**
+	 * streaming api接続時
+	 */
+	public void onConnect() {
+	    streamingLabel.setText("StreamingAPI開始");
+	}
+	
+	/**
+	 * streaming api接続解除時
+	 */
+	public void onDisconnect() {
+	    System.out.println("StreamingAPI停止中");
+	}
+	
+	/**
+	 * streaming apiクリーンアップ時
+	 */
+	public void onCleanUp() {
+	    //nothing
 	}
 
 	// nishio tweet manager
@@ -1654,6 +1690,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JLabel locationLabel;
     private javax.swing.JCheckBoxMenuItem logSaveCheckItem;
     private javax.swing.JLabel statusBar;
+    private javax.swing.JLabel streamingLabel;
     private javax.swing.JLabel tweetLengthLabel;
     private javax.swing.JEditorPane tweetMessageBox;
     private javax.swing.JLabel updateLabel;
@@ -1663,4 +1700,5 @@ public class NishioTweetManager extends javax.swing.JFrame {
     private javax.swing.JLabel userNameLabel;
     private javax.swing.JEditorPane userWebBox;
     // End of variables declaration//GEN-END:variables
+
 }

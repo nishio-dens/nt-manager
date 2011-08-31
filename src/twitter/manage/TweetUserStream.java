@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import twitter.action.streaming.TweetStreamingListener;
+import twitter4j.ConnectionLifeCycleListener;
 import twitter4j.DirectMessage;
 import twitter4j.Status;
 import twitter4j.TwitterStream;
@@ -49,7 +50,14 @@ public class TweetUserStream extends UserStreamAdapter{
 		this.twitterStream.setOAuthAccessToken(ac);
 		this.twitterStream.addListener(this);
 		this.twitterStream.user();
-
+	}
+	
+	/**
+	 * コネクションが接続されたときに呼び出される
+	 * @param listener 
+	 */
+	public void addConnectionLifeCycleListener(ConnectionLifeCycleListener listener) {
+	    this.twitterStream.addConnectionLifeCycleListener(listener);
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package twitter.manage;
 
 import twitter.action.streaming.TweetStreamingListener;
+import twitter4j.ConnectionLifeCycleListener;
 import twitter4j.DirectMessage;
 import twitter4j.Status;
 import twitter4j.TwitterStream;
@@ -135,5 +136,13 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 	 */
 	public long getUserLastUpdateID(long userid) {
 		return searchStream.getUserLastUpdateID(userid);
+	}
+	
+	/**
+	 * コネクションに変化が起きた時に呼び出される
+	 * @param listener 
+	 */
+	public void addCollectionLifeCycleListener(ConnectionLifeCycleListener listener) {
+	    this.userStream.addConnectionLifeCycleListener(listener);
 	}
 }
