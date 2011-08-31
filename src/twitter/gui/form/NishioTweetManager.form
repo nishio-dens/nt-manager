@@ -513,6 +513,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x30b9;&#x30c8;&#x30ea;&#x30fc;&#x30df;&#x30f3;&#x30b0;"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="isUsingStreamingMenuItem">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="&#x30b9;&#x30c8;&#x30ea;&#x30fc;&#x30df;&#x30f3;&#x30b0;API&#x3092;&#x5229;&#x7528;&#x3059;&#x308b;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="isUsingStreamingMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>

@@ -244,6 +244,7 @@ public class NishioTweetManager extends javax.swing.JFrame {
         logSaveCheckItem = new javax.swing.JCheckBoxMenuItem();
         jMenuItem32 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
+        isUsingStreamingMenuItem = new javax.swing.JCheckBoxMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -1047,6 +1048,16 @@ public class NishioTweetManager extends javax.swing.JFrame {
         jMenuBar1.add(jMenu8);
 
         jMenu9.setText("ストリーミング");
+
+        isUsingStreamingMenuItem.setSelected(true);
+        isUsingStreamingMenuItem.setText("ストリーミングAPIを利用する");
+        isUsingStreamingMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isUsingStreamingMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu9.add(isUsingStreamingMenuItem);
+
         jMenuBar1.add(jMenu9);
 
         jMenu3.setMnemonic('H');
@@ -1116,38 +1127,46 @@ public class NishioTweetManager extends javax.swing.JFrame {
             mainAction.actionOpenFollower();
         }//GEN-LAST:event_jMenuItem36ActionPerformed
 
-private void logSaveCheckItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logSaveCheckItemActionPerformed
-    mainAction.setSaveLog(this.logSaveCheckItem.getState());
+    private void logSaveCheckItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logSaveCheckItemActionPerformed
+	mainAction.setSaveLog(this.logSaveCheckItem.getState());
         try {
             mainAction.saveProperties();
         } catch (IOException ex) {
             Logger.getLogger(NishioTweetManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-}//GEN-LAST:event_logSaveCheckItemActionPerformed
+    }//GEN-LAST:event_logSaveCheckItemActionPerformed
 
-	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
-		// メッセージをつぶやく
-		mainAction.actionTweet();
-		updateLen();
-	}// GEN-LAST:event_jButton4ActionPerformed
+    private void isUsingStreamingMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isUsingStreamingMenuItemActionPerformed
+	if( mainAction.isUsingStreaming() ) {
+	    mainAction.startStreaming();
+	}else {
+	    mainAction.stopStreaming();
+	}
+    }//GEN-LAST:event_isUsingStreamingMenuItemActionPerformed
 
-	private void tweetMessageBoxComponentResized(
-			java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_tweetMessageBoxComponentResized
-	}// GEN-LAST:event_tweetMessageBoxComponentResized
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
+	// メッセージをつぶやく
+	mainAction.actionTweet();
+	updateLen();
+    }// GEN-LAST:event_jButton4ActionPerformed
 
-	private void jTextPaneKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTextPaneKeyReleased
-		// 残りつぶやける文字数情報を更新
-		mainAction.actionUpdateTweetMessageCount();
-	}// GEN-LAST:event_jTextPaneKeyReleased
+    private void tweetMessageBoxComponentResized(
+						 java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_tweetMessageBoxComponentResized
+    }// GEN-LAST:event_tweetMessageBoxComponentResized
 
-	private void jTextPaneFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTextPaneFocusGained
-		updateLen();
-	}// GEN-LAST:event_jTextPaneFocusGained
+    private void jTextPaneKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTextPaneKeyReleased
+	// 残りつぶやける文字数情報を更新
+	mainAction.actionUpdateTweetMessageCount();
+    }// GEN-LAST:event_jTextPaneKeyReleased
 
-	private void jTextPaneFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTextPaneFocusLost
-		updateLen();
-	}// GEN-LAST:event_jTextPaneFocusLost
+    private void jTextPaneFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTextPaneFocusGained
+	updateLen();
+    }// GEN-LAST:event_jTextPaneFocusGained
 
+    private void jTextPaneFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTextPaneFocusLost
+	updateLen();
+    }// GEN-LAST:event_jTextPaneFocusLost
+    
 	private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem1ActionPerformed
 		// 終了動作
 		mainAction.actionExitButton(evt);
@@ -1532,6 +1551,8 @@ private void logSaveCheckItemActionPerformed(java.awt.event.ActionEvent evt) {//
                 logSaveCheckItem.setSelected(mainAction.isSaveLog());
 		// TL表示
 		mainAction.updateCheckboxInformation();
+		//streaming apiを利用するかどうか
+		isUsingStreamingMenuItem.setSelected(mainAction.isUsingStreaming());
 	}
 
 	// nishio tweet manager
@@ -1543,6 +1564,7 @@ private void logSaveCheckItemActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JEditorPane clientNameLabel;
     private javax.swing.JLabel followerLabel;
     private javax.swing.JLabel followingLabel;
+    private javax.swing.JCheckBoxMenuItem isUsingStreamingMenuItem;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;

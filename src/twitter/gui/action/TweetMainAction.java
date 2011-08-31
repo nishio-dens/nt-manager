@@ -2378,8 +2378,19 @@ public class TweetMainAction {
 	    //TODO: ここでストリーミング開始処理
 	}
 	
+	/**
+	 * ストリーミング処理の停止
+	 */
 	public void stopStreaming() {
 	    this.isUsingStreaming = false;
 	    //TODO: ここでストリーミング停止処理
+	}
+	
+	/**
+	 * ストリーミング処理を利用するかどうか
+	 * @return 
+	 */
+	public boolean isUsingStreaming() {
+	    return this.isUsingStreaming;
 	}
 }
