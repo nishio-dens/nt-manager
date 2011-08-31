@@ -1150,9 +1150,9 @@ public class NishioTweetManager extends javax.swing.JFrame implements Connection
 
     private void isUsingStreamingMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isUsingStreamingMenuItemActionPerformed
 	if( mainAction.isUsingStreaming() ) {
-	    mainAction.startStreaming();
-	}else {
 	    mainAction.stopStreaming();
+	}else {
+	    mainAction.startStreaming();
 	}
     }//GEN-LAST:event_isUsingStreamingMenuItemActionPerformed
 

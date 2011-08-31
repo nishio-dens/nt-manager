@@ -2382,6 +2382,11 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	public void startStreaming() {
 	    this.isUsingStreaming = true;
 	    //TODO: ここでストリーミング開始処理
+	    try {
+		saveProperties();
+	    } catch (IOException ex) {
+		Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
+	    }
 	}
 	
 	/**
@@ -2390,6 +2395,11 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	public void stopStreaming() {
 	    this.isUsingStreaming = false;
 	    //TODO: ここでストリーミング停止処理
+	    try {
+		saveProperties();
+	    } catch (IOException ex) {
+		Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
+	    }
 	}
 	
 	/**
