@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import twitter.action.streaming.TweetStreamingListener;
 import twitter4j.ConnectionLifeCycleListener;
 import twitter4j.DirectMessage;
@@ -46,6 +48,8 @@ public class TweetSearchStream extends StatusAdapter implements Runnable, Connec
 	private Map<String, Long> lastUpdate = null;
 	//指定したユーザの最終更新id
 	private Map<Long, Long> userLastUpdate = null;
+	//streaming開始を行うかどうか
+	private boolean isStarted = false;
 
 	/**
 	 *
@@ -66,6 +70,29 @@ public class TweetSearchStream extends StatusAdapter implements Runnable, Connec
 		userListener = new HashMap<Long, TweetStreamingListener>();
 		lastUpdate = new HashMap<String, Long>();
 		userLastUpdate = new HashMap<Long, Long>();
+	}
+	
+	/**
+	 * 
+	 */
+	public void start() {
+	    this.isStarted = true;
+	    updateFilter();
+	}
+	
+	/**
+	 * 
+	 */
+	public void stop() {
+	    this.isStarted = false;
+	    this.twitterStream.cleanUp();
+	    if( this.statusStream != null ) {
+		try {
+		    this.statusStream.close();
+		} catch (IOException ex) {
+		    Logger.getLogger(TweetSearchStream.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	    }
 	}
 
 	/**
@@ -110,20 +137,22 @@ public class TweetSearchStream extends StatusAdapter implements Runnable, Connec
 	 * filterの更新
 	 */
 	private void updateFilter() {
+	    if( this.isStarted ) {
 		//指定したユーザの情報を取得するようにする
 		Long[] users = userListener.keySet().toArray(new Long[0]);
 		if( users != null ) {
-			long[] usersLong = new long[users.length];
-			for(int i=0; i < users.length; i++) {
-				usersLong[i] = users[i];
-			}
-			filter.follow(usersLong);
+		    long[] usersLong = new long[users.length];
+		    for(int i=0; i < users.length; i++) {
+			usersLong[i] = users[i];
+		    }
+		    filter.follow(usersLong);
 		}
 		//指定したワードの情報を取得するようにする
 		String[] words = listeners.keySet().toArray(new String[0]);
 		filter.track(words);
 		workingThread = new Thread(this);
 		workingThread.start();
+	    }
 	}
 
 	/**

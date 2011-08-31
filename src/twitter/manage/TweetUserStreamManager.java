@@ -154,6 +154,7 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 		@Override
 		public void run() {
 		    userStream.start();
+		    searchStream.start();
 		}
 	    };
 	    new Thread(runner).start();
@@ -167,6 +168,7 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 		@Override
 		public void run() {
 		    userStream.stop();
+		    searchStream.stop();
 		}
 	    };
 	    new Thread(runner).start();
