@@ -376,6 +376,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jCheckBox3" alignment="0" pref="431" max="32767" attributes="0"/>
                           <Component id="jCheckBox1" alignment="0" pref="431" max="32767" attributes="0"/>
                           <Component id="jCheckBox2" alignment="0" pref="431" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -389,7 +390,7 @@
                                   <Component id="jSpinner6" alignment="0" pref="290" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jCheckBox3" alignment="0" pref="431" max="32767" attributes="0"/>
+                          <Component id="jCheckBox4" alignment="0" pref="431" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -412,9 +413,11 @@
                       <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jCheckBox4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="194" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -458,6 +461,11 @@
             <Component class="javax.swing.JCheckBox" name="jCheckBox3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x30af;&#x30e9;&#x30a4;&#x30a2;&#x30f3;&#x30c8;&#x306e;&#x6700;&#x65b0;&#x60c5;&#x5831;&#x3092;&#x901a;&#x77e5;&#x3059;&#x308b;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="jCheckBox4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x81ea;&#x5206;&#x306e;&#x767a;&#x8a00;&#x304c;&#x304a;&#x6c17;&#x306b;&#x5165;&#x308a;&#x306b;&#x767b;&#x9332;&#x3055;&#x308c;&#x305f;&#x3089;&#x901a;&#x77e5;&#x3059;&#x308b;(&#x30b9;&#x30c8;&#x30ea;&#x30fc;&#x30df;&#x30f3;&#x30b0;API&#x5229;&#x7528;&#x6642;&#x306e;&#x307f;)"/>
               </Properties>
             </Component>
           </SubComponents>

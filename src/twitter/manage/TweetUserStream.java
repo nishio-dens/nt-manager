@@ -28,9 +28,11 @@ public class TweetUserStream extends UserStreamAdapter{
 	//direct message監視
 	private TweetStreamingListener directMessageListener = null;
 	//mention通知
-    private TweetNotifyManager mentionNotifyManager = null;
-    //directmessage通知
-    private TweetNotifyManager directMessageNotifyManager = null;
+	private TweetNotifyManager mentionNotifyManager = null;
+	//directmessage通知
+	private TweetNotifyManager directMessageNotifyManager = null;
+	//fav通知を行うかどうか
+	private TweetFavNotifyManager favNotifyManager = null;
 	//ログインユーザ名
 	private String loginUsername = null;
 	//tweet manager
@@ -96,6 +98,13 @@ public class TweetUserStream extends UserStreamAdapter{
 	 */
 	public void setMentionNotifyManager(TweetNotifyManager notifyManager) {
 		this.mentionNotifyManager = notifyManager;
+	}
+	
+	/**
+	 * お気に入り登録通知
+	 */
+	public void setFavNotifyManager(TweetFavNotifyManager notifyManager) {
+	    this.favNotifyManager = notifyManager;
 	}
 
 	/**
@@ -163,12 +172,17 @@ public class TweetUserStream extends UserStreamAdapter{
 		}
 	}
 
+	/**
+	 * お気に入り登録通知
+	 * @param source
+	 * @param target
+	 * @param favoritedStatus 
+	 */
 	@Override
 	public void onFavorite(User source, User target, Status favoritedStatus) {
-		/*System.out.println(source.getScreenName() + " favorited "
-				+ target.getScreenName() + "'s Status. StatusId: "
-				+ favoritedStatus.getId() );
-		System.out.println("FAV MESSAGE:" + favoritedStatus.getText());*/
+	    if( favNotifyManager != null ) {
+		favNotifyManager.showNotifyMessage(source, target, favoritedStatus);
+	    }
 	}
 
 	@Override

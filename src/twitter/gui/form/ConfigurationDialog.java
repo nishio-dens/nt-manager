@@ -65,37 +65,38 @@ public class ConfigurationDialog extends javax.swing.JDialog {
      * 読み込んだ情報を反映
      */
     public void applyLoadInformation() {
-        try {
-            // 画面が見えたときに情報更新
-            jSpinner1.setValue( mainAction.getGetTimelinePeriod() );
-            jSpinner2.setValue( mainAction.getGetMentionPeriod() );
-            jSpinner3.setValue( mainAction.getGetDirectMessagePeriod() );
-            jSpinner4.setValue( mainAction.getGetSendDirectMessagePeriod() );
-
-			jLabel10.setBackground(mainAction.getNewTableColor());
-
-			// font関係
-			if (mainAction.getTlFontName() != null) {
-				jComboBox1.setSelectedItem(mainAction.getTlFontName());
-			}
-			if (mainAction.getDetailFontName() != null) {
-				jComboBox2.setSelectedItem(mainAction.getDetailFontName());
-			}
-			jComboBox3.setSelectedItem(mainAction.getTlFontSize() + "");
-			jComboBox4.setSelectedItem(mainAction.getDetailFontSize() + "");
-
-			// 表示
-			jSpinner5.setValue(mainAction.getTableElementHeight());
-                        jCheckBox1.setSelected( mainAction.getNotifyMention() );
-                        jCheckBox2.setSelected( mainAction.getNotifyDirectMessage() );
-                        jCheckBox3.setSelected( mainAction.isUpdateNotify() );
-                        
-                        //テーブルに表示するツイート数
-                        jSpinner6.setValue(mainAction.getTableElementMaxSize());
-            
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	try {
+	    // 画面が見えたときに情報更新
+	    jSpinner1.setValue( mainAction.getGetTimelinePeriod() );
+	    jSpinner2.setValue( mainAction.getGetMentionPeriod() );
+	    jSpinner3.setValue( mainAction.getGetDirectMessagePeriod() );
+	    jSpinner4.setValue( mainAction.getGetSendDirectMessagePeriod() );
+	    
+	    jLabel10.setBackground(mainAction.getNewTableColor());
+	    
+	    // font関係
+	    if (mainAction.getTlFontName() != null) {
+		jComboBox1.setSelectedItem(mainAction.getTlFontName());
+	    }
+	    if (mainAction.getDetailFontName() != null) {
+		jComboBox2.setSelectedItem(mainAction.getDetailFontName());
+	    }
+	    jComboBox3.setSelectedItem(mainAction.getTlFontSize() + "");
+	    jComboBox4.setSelectedItem(mainAction.getDetailFontSize() + "");
+	    
+	    // 表示
+	    jSpinner5.setValue(mainAction.getTableElementHeight());
+	    jCheckBox1.setSelected( mainAction.getNotifyMention() );
+	    jCheckBox2.setSelected( mainAction.getNotifyDirectMessage() );
+	    jCheckBox3.setSelected( mainAction.isUpdateNotify() );
+	    jCheckBox4.setSelected( mainAction.isFavNotify() );
+	    
+	    //テーブルに表示するツイート数
+	    jSpinner6.setValue(mainAction.getTableElementMaxSize());
+	    
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
 
     /**
@@ -149,6 +150,7 @@ public class ConfigurationDialog extends javax.swing.JDialog {
         jSpinner6 = new javax.swing.JSpinner();
         jLabel12 = new javax.swing.JLabel();
         jCheckBox3 = new javax.swing.JCheckBox();
+        jCheckBox4 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -373,6 +375,8 @@ public class ConfigurationDialog extends javax.swing.JDialog {
 
         jCheckBox3.setText("クライアントの最新情報を通知する");
 
+        jCheckBox4.setText("自分の発言がお気に入りに登録されたら通知する(ストリーミングAPI利用時のみ)");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -380,6 +384,7 @@ public class ConfigurationDialog extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox3, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
                     .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
                     .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -390,7 +395,7 @@ public class ConfigurationDialog extends javax.swing.JDialog {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSpinner5, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
                             .addComponent(jSpinner6, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)))
-                    .addComponent(jCheckBox3, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
+                    .addComponent(jCheckBox4, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -408,9 +413,11 @@ public class ConfigurationDialog extends javax.swing.JDialog {
                 .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox3)
-                .addGap(194, 194, 194))
+                .addGap(171, 171, 171))
         );
 
         jTabbedPane1.addTab("表示", jPanel4);
@@ -508,6 +515,9 @@ public class ConfigurationDialog extends javax.swing.JDialog {
             mainAction.setNotifyMention( jCheckBox1.isSelected() );
             mainAction.setNotifyDirectMessage( jCheckBox2.isSelected() );
             mainAction.setUpdateNotify( jCheckBox3.isSelected() );
+	    //fav通知ウィンドウ変更
+	    mainAction.setFavNotify( jCheckBox4.isSelected());
+	    mainAction.updateNotifyInformation();
             
             //ツイート表示数
             mainAction.setTableElementMaxSize(Integer.parseInt( jSpinner6.getValue().toString() ));
@@ -601,6 +611,7 @@ private void jSpinner6StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIR
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;

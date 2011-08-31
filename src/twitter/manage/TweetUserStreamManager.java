@@ -67,6 +67,20 @@ public class TweetUserStreamManager extends UserStreamAdapter {
 	public void stopDirectMessageListener() {
 		this.userStream.setDirectMessageListener(null);
 	}
+	
+	/**
+	 * Favられた時に通知
+	 */
+	public void setFavNotifyManager(TweetFavNotifyManager notify) {
+	    this.userStream.setFavNotifyManager(notify);
+	}
+	
+	/**
+	 * Favられた時の通知をやめる
+	 */
+	public void resetFavNotifyManager() {
+	    this.userStream.setFavNotifyManager(null);
+	}
 
 	/**
 	 * Mentionを監視するリスナー

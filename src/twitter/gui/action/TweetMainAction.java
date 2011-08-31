@@ -81,6 +81,7 @@ import twitter.gui.form.UserListDialog;
 import twitter.gui.form.UserSearchDialog;
 import twitter.log.TwitterLogManager;
 import twitter.manage.TweetConfiguration;
+import twitter.manage.TweetFavNotifyManager;
 import twitter.manage.TweetManager;
 import twitter.manage.URLBitlyConverter;
 import twitter.task.ExistTimerIDException;
@@ -199,6 +200,8 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
         private boolean isUsingStreaming = true;
 	//現在streaming apiが開始されているかどうか
 	private boolean isCurrentUsingStreaming = false;
+	//favられた時に通知をするかどうか
+	private boolean favNotify = true;
 
 	// Tweetの詳細情報を表示する部分
 	private JLabel userImageLabel = null;
@@ -352,6 +355,8 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 		mainFrame.setSize(this.mainFrameWidth, this.mainFrameHeight);
 		mainFrame.setPreferredSize(new Dimension(this.mainFrameWidth,
 				this.mainFrameHeight));
+		//update通知の更新
+		updateNotifyInformation();
 		
 		//streaming apiの状態listener設定
 		this.tweetManager.getStreamManager().addCollectionLifeCycleListener(this);
@@ -453,6 +458,16 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * notify通知ウィンドウ情報の更新
+	 */
+	public void updateNotifyInformation() {
+	    //streaming api利用時、fav通知
+	    if( this.favNotify ) {
+		this.tweetManager.getStreamManager().setFavNotifyManager(new TweetFavNotifyManager(this.trayIcon));
+	    }
 	}
 
 	/**
@@ -1973,6 +1988,11 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 		if( ius == null ) {
 		    ius = this.isUsingStreaming + "";
 		}
+		
+		String fav = this.property.getProperty("isFavNotify");
+		if( fav == null ) {
+		    fav = this.favNotify + "";
+		}
 
 		try {
 			this.newTableColor = new Color(Integer.parseInt(ntrgb));
@@ -2009,6 +2029,9 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 			
 			//using streaming
 			this.isUsingStreaming = Boolean.parseBoolean(ius);
+			
+			//fav
+			this.favNotify = Boolean.parseBoolean(fav);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
@@ -2083,6 +2106,9 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 		
 		//streaming
 		this.property.setProperty("isUsingStreaming", this.isUsingStreaming + "");
+		
+		//fav通知
+		this.property.setProperty("isFavNotify", this.favNotify + "");
 
 		// プロパティのリストを保存
 		property.store(new FileOutputStream("./" + PROPERTIES_DIRECTORY + "/"
@@ -2440,5 +2466,20 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	 */
 	public boolean isStartedStreamingAPI() {
 	    return this.isCurrentUsingStreaming;
+	}
+	
+	/**
+	 * Fav通知を行うかどうか
+	 * @return 
+	 */
+	public boolean isFavNotify() {
+	    return this.favNotify;
+	}
+	
+	/**
+	 * fav通知を行うかどうか設定
+	 */
+	public void setFavNotify(boolean notify) {
+	    this.favNotify = notify;
 	}
 }
