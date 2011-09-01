@@ -57,8 +57,6 @@ public class TweetTabbedTable implements TweetStreamingListener {
 	private TweetManager tweetManager;
 	// メインアクション
 	private TweetMainAction mainAction;
-	// テーブルの高さ
-	private int tableElementHeight;
 	// 新しく取得した部分のテーブルの色
 	private Color newTableColor = null;
 	// テーブルに追加できる要素の最大数
@@ -75,8 +73,6 @@ public class TweetTabbedTable implements TweetStreamingListener {
 	 *            　タブに表示するタイトル
 	 * @param tabbedPane
 	 *            　テーブルを追加するタブ
-	 * @param tableElementHeight
-	 *            テーブルの高さ
 	 * @param tweetManager
 	 *            　ツイート管理クラス
 	 * @param mainAction
@@ -89,7 +85,7 @@ public class TweetTabbedTable implements TweetStreamingListener {
 	 *            自動更新につかうタイマーのID
 	 */
 	public TweetTabbedTable(TweetGetter tweetGetter, String title,
-			JTabbedPane tabbedPane, int tableElementHeight,
+			JTabbedPane tabbedPane,
 			TweetManager tweetManager, TweetMainAction mainAction,
 			Color newTableColor, int tableElementMaxSize, String timerID) {
 		this.tweetGetter = tweetGetter;
@@ -97,7 +93,6 @@ public class TweetTabbedTable implements TweetStreamingListener {
 		this.tabbedPane = tabbedPane;
 		this.tweetManager = tweetManager;
 		this.mainAction = mainAction;
-		this.tableElementHeight = tableElementHeight;
 		this.newTableColor = newTableColor;
 		this.tableElementMaxSize = tableElementMaxSize;
 		this.timerID = timerID;
@@ -160,13 +155,12 @@ public class TweetTabbedTable implements TweetStreamingListener {
 		col.setCellRenderer(infoRenderer);
 		col.setMaxWidth(200);
 		col.setMinWidth(150);
-		// TODO:とりあえず幅指定した部分
-		// あとでファイルに幅情報などを保存しておき，それを読み込んで設定するような仕様に変更する
 		// ユーザImageを表示する部分
 		col = mdl.getColumn(0);
 		col.setCellRenderer(new UserImageRenderer());
-		col.setMinWidth(50);
-		col.setMaxWidth(50);
+		//テーブルの高さ調節
+		col.setMinWidth(mainAction.getTableElementHeight());
+		col.setMaxWidth(mainAction.getTableElementHeight());
 		// 選択したセルの情報をDetailInfoへと表示
 		// JTableを右クリックでも選択できるようにする
 		// また，同じ行を２回クリックできるようにする
@@ -252,7 +246,7 @@ public class TweetTabbedTable implements TweetStreamingListener {
 		// ツイートをテーブルに追加
 		this.getModel().insertTweet(tweet);
 		// テーブルの高さを整える
-		int tableHeight = getTableElementHeight();
+		int tableHeight = mainAction.getTableElementHeight();
 		for (int i = 0; i < tweet.size(); i++) {
 			this.getTable().setRowHeight(i, tableHeight);
 		}
@@ -637,21 +631,6 @@ public class TweetTabbedTable implements TweetStreamingListener {
 			}
 		}
 		return 0;
-	}
-
-	/**
-	 * @return the tableElementHeight
-	 */
-	public int getTableElementHeight() {
-		return tableElementHeight;
-	}
-
-	/**
-	 * @param tableElementHeight
-	 *            the tableElementHeight to set
-	 */
-	public void setTableElementHeight(int tableElementHeight) {
-		this.tableElementHeight = tableElementHeight;
 	}
 
 	/**

@@ -147,15 +147,15 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	// 新しく取得した部分のテーブルカラー
 	private Color newTableColor = new Color(224, 255, 255);
 	// TLのフォント名
-	private String tlFontName = "Takao Pゴシック";
+	private String tlFontName = "MS Pゴシック";
 	// TLのフォントサイズ
 	private int tlFontSize = 13;
 	// 詳細情報のフォント名
-	private String detailFontName = "Takao Pゴシック";
+	private String detailFontName = "MS Pゴシック";
 	// 詳細情報のフォントサイズ
 	private int detailFontSize = 13;
 	// テーブル１要素の高さ
-	private int tableElementHeight = 50;
+	private int tableElementHeight = 40;
 	// メインフレームの幅
 	private int mainFrameWidth = 729;
 	// メインフレームの高さ
@@ -357,7 +357,7 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 				this.mainFrameHeight));
 		//update通知の更新
 		updateNotifyInformation();
-		
+
 		//streaming apiの状態listener設定
 		this.tweetManager.getStreamManager().addCollectionLifeCycleListener(this);
 	}
@@ -459,7 +459,7 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * notify通知ウィンドウ情報の更新
 	 */
@@ -490,7 +490,7 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 				// テーブルを作成
 				final TweetTabbedTable table = new TweetTabbedTable(
 						tweetGetter, tabTitle, this.tweetMainTab,
-						this.tableElementHeight, this.tweetManager, this,
+						this.tweetManager, this,
 						newTableColor, this.tableElementMaxSize, timerID);
 
 				this.tweetTaskManager.addTask(timerID, new TweetUpdateTask() {
@@ -1370,7 +1370,7 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 		// dialog.setLocation(loc);
 		dialog.setVisible(true);
 	}
-        
+
         /**
          * 最新クライアント情報通知ダイアログを表示
          */
@@ -1857,10 +1857,10 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 		}
 		return aboutDialog;
 	}
-        
+
         /**
          * update dialog
-         * @return 
+         * @return
          */
         public UpdateNotifyDialog getUpdateNotifyDialog() {
             if( updateDialog == null ) {
@@ -1976,19 +1976,19 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 
                 //表示可能ツイート数
                 String nost = this.property.getProperty("numOfShowTweet");
-                
+
                 //最新クライアント情報を通知するか
                 String unt = this.property.getProperty("updateNotify");
                 if( unt == null ) {
                     unt = this.isUpdateNotify + "";
                 }
-		
+
 		//streamingを利用するか
 		String ius = this.property.getProperty("isUsingStreaming");
 		if( ius == null ) {
 		    ius = this.isUsingStreaming + "";
 		}
-		
+
 		String fav = this.property.getProperty("isFavNotify");
 		if( fav == null ) {
 		    fav = this.favNotify + "";
@@ -2023,13 +2023,13 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 
                         //表示可能ツイート数
                         this.tableElementMaxSize = Integer.parseInt(nost);
-                        
+
                         //update notify
                         this.isUpdateNotify = Boolean.parseBoolean(unt);
-			
+
 			//using streaming
 			this.isUsingStreaming = Boolean.parseBoolean(ius);
-			
+
 			//fav
 			this.favNotify = Boolean.parseBoolean(fav);
 		} catch (NumberFormatException e) {
@@ -2100,13 +2100,13 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 
                 //テーブルに表示可能なツイートの数
                 this.property.setProperty("numOfShowTweet", this.getTableElementMaxSize() + "");
-                
+
                 //update notify
                 this.property.setProperty("updateNotify", this.isUpdateNotify + "");
-		
+
 		//streaming
 		this.property.setProperty("isUsingStreaming", this.isUsingStreaming + "");
-		
+
 		//fav通知
 		this.property.setProperty("isFavNotify", this.favNotify + "");
 
@@ -2260,14 +2260,14 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	public void setNotifyDirectMessage(boolean notify) {
 		this.isNotifyDirectMessage = notify;
 	}
-        
+
         /**
          * 最新クライアント情報を通知するかどうか
          */
         public boolean isUpdateNotify() {
             return this.isUpdateNotify;
         }
-        
+
         /**
          * 最新クライアント情報を通知するかどうか設定
          */
@@ -2401,7 +2401,7 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
         public int getTableElementMaxSize() {
             return this.tableElementMaxSize;
         }
-	
+
 	/**
 	 * ストリーミング開始
 	 */
@@ -2414,7 +2414,7 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 		Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
 	    }
 	}
-	
+
 	/**
 	 * ストリーミング処理の停止
 	 */
@@ -2427,10 +2427,10 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 		Logger.getLogger(TweetMainAction.class.getName()).log(Level.SEVERE, null, ex);
 	    }
 	}
-	
+
 	/**
 	 * ストリーミング処理を利用するかどうか
-	 * @return 
+	 * @return
 	 */
 	public boolean isUsingStreaming() {
 	    return this.isUsingStreaming;
@@ -2443,7 +2443,7 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	    this.isCurrentUsingStreaming = true;
 	    updatePeriodInformationToComponent();
 	}
-	
+
 	/**
 	 * streaming api stop
 	 */
@@ -2452,7 +2452,7 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	    this.isCurrentUsingStreaming = false;
 	    updatePeriodInformationToComponent();
 	}
-	
+
 	/**
 	 * streaming api
 	 */
@@ -2460,22 +2460,22 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	public void onCleanUp() {
 	   //nothing
 	}
-	
+
 	/**
 	 * 現在streaming apiが起動しているかどうか
 	 */
 	public boolean isStartedStreamingAPI() {
 	    return this.isCurrentUsingStreaming;
 	}
-	
+
 	/**
 	 * Fav通知を行うかどうか
-	 * @return 
+	 * @return
 	 */
 	public boolean isFavNotify() {
 	    return this.favNotify;
 	}
-	
+
 	/**
 	 * fav通知を行うかどうか設定
 	 */
