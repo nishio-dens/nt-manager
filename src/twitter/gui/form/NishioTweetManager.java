@@ -134,7 +134,11 @@ public class NishioTweetManager extends javax.swing.JFrame implements Connection
 
 		//tweet発言するボックスの右クリック対応
 		this.jTextPane.setComponentPopupMenu(
-				new TweetTextFieldPopupMenu( this.jTextPane ) );
+				new TweetTextFieldPopupMenu( this.jTextPane, false ) );
+		this.tweetMessageBox.setComponentPopupMenu(
+				new TweetTextFieldPopupMenu( this.tweetMessageBox, true) );
+		this.userIntroBox.setComponentPopupMenu(
+				new TweetTextFieldPopupMenu(this.userIntroBox, true));
 	}
 
 	/**
@@ -1178,7 +1182,7 @@ public class NishioTweetManager extends javax.swing.JFrame implements Connection
     private void jTextPaneFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTextPaneFocusLost
 	updateLen();
     }// GEN-LAST:event_jTextPaneFocusLost
-    
+
 	private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem1ActionPerformed
 		// 終了動作
 		mainAction.actionExitButton(evt);
@@ -1546,7 +1550,7 @@ public class NishioTweetManager extends javax.swing.JFrame implements Connection
                 }catch(Exception e) {
                     e.printStackTrace();
                 }
-		
+
 		//Streaming APIを利用しているかどうかを表示
 		this.tweetManager.getStreamManager().addCollectionLifeCycleListener(this);
 		//streaming利用時はstreamingを開始する
@@ -1573,21 +1577,21 @@ public class NishioTweetManager extends javax.swing.JFrame implements Connection
 		//streaming apiを利用するかどうか
 		isUsingStreamingMenuItem.setSelected(mainAction.isUsingStreaming());
 	}
-	
+
 	/**
 	 * streaming api接続時
 	 */
 	public void onConnect() {
 	    streamingLabel.setText("StreamingAPI開始");
 	}
-	
+
 	/**
 	 * streaming api接続解除時
 	 */
 	public void onDisconnect() {
 	    streamingLabel.setText("StreamingAPI停止中");
 	}
-	
+
 	/**
 	 * streaming apiクリーンアップ時
 	 */

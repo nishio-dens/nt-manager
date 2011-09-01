@@ -20,22 +20,24 @@ public class TweetTextFieldPopupMenu extends JPopupMenu {
 	private final Action cutAction = new DefaultEditorKit.CutAction();
 	private final Action copyAction = new DefaultEditorKit.CopyAction();
 	private final Action pasteAction = new DefaultEditorKit.PasteAction();
-	
-	public TweetTextFieldPopupMenu(JEditorPane field) {
+
+	public TweetTextFieldPopupMenu(JEditorPane field, boolean readonly) {
 		super();
 		this.field = field;
-		
-		cutAction.putValue(Action.NAME, "切り取り");
+
 		copyAction.putValue(Action.NAME, "コピー");
-		pasteAction.putValue(Action.NAME, "貼り付け");
-		add(cutAction);
 		add(copyAction);
-		add(pasteAction);
+		if( !readonly ) {
+			cutAction.putValue(Action.NAME, "切り取り");
+			pasteAction.putValue(Action.NAME, "貼り付け");
+			add(cutAction);
+			add(pasteAction);
+		}
 		this.field.add( this );
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public void show(Component c, int x, int y) {
 		JEditorPane field = (JEditorPane) c;
