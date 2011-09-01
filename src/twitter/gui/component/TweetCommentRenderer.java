@@ -19,9 +19,9 @@ import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
 
 /**
- * 
+ *
  * @author nishio
- * 
+ *
  */
 public class TweetCommentRenderer extends JEditorPane implements
 		TableCellRenderer, MouseListener, MouseMotionListener {
@@ -31,12 +31,12 @@ public class TweetCommentRenderer extends JEditorPane implements
 	// デフォルトのテーブルカラー
 	private final Color currentTableColor = Color.WHITE;
 	// あたらしく取得したTweetのセルを塗りつぶす色
-	private Color newTableColor = new Color(224, 255, 255);
+	private Color newTableColor = new Color(230, 230, 250);
 	// あたらしく取得したセルが何行目までか
 	private int newTableRow = -1;
 
 	/**
-	 * 
+	 *
 	 */
 	public TweetCommentRenderer() {
 		super();
@@ -56,12 +56,24 @@ public class TweetCommentRenderer extends JEditorPane implements
 		 * setForeground(table.getForeground());
 		 * setBackground(table.getBackground()); }
 		 */
+
+
+		//一行ずつTableの色を変更する
+		//TODO: ここも後で色を変更できるようにする
+		if( row % 2 == 0 ) {
+			setBackground(new Color(240,240,255));
+		}else {
+			setBackground(Color.white);
+		}
+
 		// TODO: あとでここのカラーを変える
 		// NewCell
-		if (this.newTableRow >= 0 && row < this.newTableRow) {
-			setBackground(newTableColor);
-		} else {
-			setBackground(currentTableColor);
+		if( column >= 2 ) {
+			if (this.newTableRow >= 0 && row < this.newTableRow) {
+				setBackground(newTableColor);
+			} else {
+				setBackground(currentTableColor);
+			}
 		}
 
 		// フォントを変更
@@ -96,7 +108,7 @@ public class TweetCommentRenderer extends JEditorPane implements
 
 	/**
 	 * 何行目までのセルを新しいセルとしてnewTableColorで塗りつぶすか
-	 * 
+	 *
 	 * @param row
 	 *            0以上の値で新しいセルとして指定した行を塗りつぶす
 	 * @param newTableColor

@@ -237,6 +237,8 @@ public class TweetTabbedTable implements TweetStreamingListener {
 		}
 		// まだ見ていないtweet数を追加
 		this.setUncheckedTweet(this.getUncheckedTweet() + tweet.size());
+		//grid線を削除する
+		this.getTable().setShowGrid(false);
 
 		// まだチェックしていないtweetの数をタブにも表示
 		if (this.getUncheckedTweet() > 0) {

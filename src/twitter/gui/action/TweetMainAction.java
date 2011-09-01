@@ -145,7 +145,7 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	// hashtag search dialog
 	private HashtagSearchDialog hashtagSearchDialog = null;
 	// 新しく取得した部分のテーブルカラー
-	private Color newTableColor = new Color(224, 255, 255);
+	private Color newTableColor = new Color(230,230,250);
 	// TLのフォント名
 	private String tlFontName = "MS Pゴシック";
 	// TLのフォントサイズ
@@ -1971,17 +1971,17 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 		String podm = this.property.getProperty("openDirectMessageTab");
 		String posdmt = this.property.getProperty("openSendDirectMessageTab");
 
-                //ログ
-                String log = this.property.getProperty("saveLog");
+		// ログ
+		String log = this.property.getProperty("saveLog");
 
-                //表示可能ツイート数
-                String nost = this.property.getProperty("numOfShowTweet");
+		// 表示可能ツイート数
+		String nost = this.property.getProperty("numOfShowTweet");
 
-                //最新クライアント情報を通知するか
-                String unt = this.property.getProperty("updateNotify");
-                if( unt == null ) {
-                    unt = this.isUpdateNotify + "";
-                }
+		// 最新クライアント情報を通知するか
+		String unt = this.property.getProperty("updateNotify");
+		if (unt == null) {
+			unt = this.isUpdateNotify + "";
+		}
 
 		//streamingを利用するか
 		String ius = this.property.getProperty("isUsingStreaming");
@@ -2018,14 +2018,14 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 			this.isTempOpenedDMTab = Boolean.parseBoolean(podm);
 			this.isTempOpenedSendDMTab = Boolean.parseBoolean(posdmt);
 
-                        //ログ
-                        this.saveLog = Boolean.parseBoolean(log);
+			// ログ
+			this.saveLog = Boolean.parseBoolean(log);
 
-                        //表示可能ツイート数
-                        this.tableElementMaxSize = Integer.parseInt(nost);
+			// 表示可能ツイート数
+			this.tableElementMaxSize = Integer.parseInt(nost);
 
-                        //update notify
-                        this.isUpdateNotify = Boolean.parseBoolean(unt);
+			// update notify
+			this.isUpdateNotify = Boolean.parseBoolean(unt);
 
 			//using streaming
 			this.isUsingStreaming = Boolean.parseBoolean(ius);
