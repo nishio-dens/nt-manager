@@ -147,13 +147,13 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	// 新しく取得した部分のテーブルカラー
 	private Color newTableColor = new Color(230,230,250);
 	// TLのフォント名
-	private String tlFontName = "MS Pゴシック";
+	private String tlFontName = "ＭＳ Ｐゴシック";
 	// TLのフォントサイズ
-	private int tlFontSize = 13;
+	private int tlFontSize = 12;
 	// 詳細情報のフォント名
-	private String detailFontName = "MS Pゴシック";
+	private String detailFontName = "ＭＳ Ｐゴシック";
 	// 詳細情報のフォントサイズ
-	private int detailFontSize = 13;
+	private int detailFontSize = 12;
 	// テーブル１要素の高さ
 	private int tableElementHeight = 40;
 	// メインフレームの幅
