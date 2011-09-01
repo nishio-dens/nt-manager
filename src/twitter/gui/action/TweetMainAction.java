@@ -145,7 +145,11 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	// hashtag search dialog
 	private HashtagSearchDialog hashtagSearchDialog = null;
 	// 新しく取得した部分のテーブルカラー
-	private Color newTableColor = new Color(230,230,250);
+	private Color newTableColor = new Color(230,230,255);
+	// Tweet表示テーブルodd(奇数)の色
+	private Color oddTableColor = new Color(243,243,250);
+	// tweet表示テーブルevenの色
+	private Color evenTableColor = new Color(255,255,255);
 	// TLのフォント名
 	private String tlFontName = "ＭＳ Ｐゴシック";
 	// TLのフォントサイズ
@@ -1949,6 +1953,8 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 		String gsdmp = this.property.getProperty("getSendDirectMessagePeriod");
 
 		String ntrgb = this.property.getProperty("newTableColorRGB");
+		String odd = this.property.getProperty("oddTableColorRGB");
+		String even = this.property.getProperty("evenTableColorRGB");
 
 		this.tlFontName = this.property.getProperty("tlFontName");
 		this.detailFontName = this.property.getProperty("detailFontName");
@@ -1996,6 +2002,8 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 
 		try {
 			this.newTableColor = new Color(Integer.parseInt(ntrgb));
+			this.setEvenTableColor(new Color(Integer.parseInt(even)));
+			this.setOddTableColor(new Color(Integer.parseInt(odd)));
 			this.tlFontSize = Integer.parseInt(tfs);
 			this.detailFontSize = Integer.parseInt(dfs);
 			this.tableElementHeight = Integer.parseInt(teh);
@@ -2068,6 +2076,8 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 
 		this.property.setProperty("newTableColorRGB", newTableColor.getRGB()
 				+ "");
+		this.property.setProperty("oddTableColorRGB", this.getOddTableColor().getRGB() + "");
+		this.property.setProperty("evenTableColorRGB", this.getEvenTableColor().getRGB() + "");
 		this.property.setProperty("tlFontName", this.tlFontName);
 		this.property.setProperty("tlFontSize", this.tlFontSize + "");
 		this.property.setProperty("detailFontName", this.detailFontName);
@@ -2481,5 +2491,36 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	 */
 	public void setFavNotify(boolean notify) {
 	    this.favNotify = notify;
+	}
+	
+	/**
+	 * 偶数行テーブルの色取得
+	 * @return 
+	 */
+	public Color getEvenTableColor() {
+	    return evenTableColor;
+	}
+	
+	/**
+	 * 偶数行テーブルの色設定
+	 */
+	public void setEvenTableColor(Color evenTableColor) {
+	    this.evenTableColor = evenTableColor;
+	}
+	
+	/**
+	 * 奇数行テーブルの色取得
+	 * @return 
+	 */
+	public Color getOddTableColor() {
+	    return oddTableColor;
+	}
+	
+	/**
+	 * 奇数行テーブルの色設定
+	 * @param oddTableColor 
+	 */
+	public void setOddTableColor(Color oddTableColor) {
+	    this.oddTableColor = oddTableColor;
 	}
 }

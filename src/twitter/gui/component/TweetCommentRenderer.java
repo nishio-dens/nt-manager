@@ -61,9 +61,9 @@ public class TweetCommentRenderer extends JEditorPane implements
 		//一行ずつTableの色を変更する
 		//TODO: ここも後で色を変更できるようにする
 		if( row % 2 == 0 ) {
-			setBackground(new Color(240,240,255));
+			setBackground(this.mainAction.getEvenTableColor());
 		}else {
-			setBackground(Color.white);
+			setBackground(this.mainAction.getOddTableColor());
 		}
 
 		// TODO: あとでここのカラーを変える
@@ -71,9 +71,9 @@ public class TweetCommentRenderer extends JEditorPane implements
 		if( column >= 2 ) {
 			if (this.newTableRow >= 0 && row < this.newTableRow) {
 				setBackground(this.mainAction.getNewTableColor());
-			} else {
+			}/* else {
 				setBackground(Color.white);
-			}
+			}*/
 		}
 
 		// フォントを変更
