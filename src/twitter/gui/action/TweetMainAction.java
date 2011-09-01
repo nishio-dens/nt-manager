@@ -491,7 +491,7 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 				final TweetTabbedTable table = new TweetTabbedTable(
 						tweetGetter, tabTitle, this.tweetMainTab,
 						this.tweetManager, this,
-						newTableColor, this.tableElementMaxSize, timerID);
+						this.tableElementMaxSize, timerID);
 
 				this.tweetTaskManager.addTask(timerID, new TweetUpdateTask() {
 

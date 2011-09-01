@@ -17,6 +17,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.StyleSheet;
+import twitter.gui.action.TweetMainAction;
 
 /**
  *
@@ -28,18 +29,17 @@ public class TweetCommentRenderer extends JEditorPane implements
 
 	private int row = -1;
 	private int col = -1;
-	// デフォルトのテーブルカラー
-	private final Color currentTableColor = Color.WHITE;
-	// あたらしく取得したTweetのセルを塗りつぶす色
-	private Color newTableColor = new Color(230, 230, 250);
 	// あたらしく取得したセルが何行目までか
 	private int newTableRow = -1;
+	//main action
+	private TweetMainAction mainAction = null;
 
 	/**
 	 *
 	 */
-	public TweetCommentRenderer() {
+	public TweetCommentRenderer(TweetMainAction mainAction) {
 		super();
+		this.mainAction = mainAction;
 		// setLineWrap(true);
 		setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		// HTMLコードをそのまま表示できるようにする
@@ -70,9 +70,9 @@ public class TweetCommentRenderer extends JEditorPane implements
 		// NewCell
 		if( column >= 2 ) {
 			if (this.newTableRow >= 0 && row < this.newTableRow) {
-				setBackground(newTableColor);
+				setBackground(this.mainAction.getNewTableColor());
 			} else {
-				setBackground(currentTableColor);
+				setBackground(Color.white);
 			}
 		}
 
@@ -111,12 +111,9 @@ public class TweetCommentRenderer extends JEditorPane implements
 	 *
 	 * @param row
 	 *            0以上の値で新しいセルとして指定した行を塗りつぶす
-	 * @param newTableColor
-	 *            新しい部分のテーブルカラー
 	 */
-	public void updateNewCellRow(int row, Color newTableColor) {
+	public void updateNewCellRow(int row) {
 		this.newTableRow = row;
-		this.newTableColor = newTableColor;
 	}
 
 	/**

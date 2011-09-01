@@ -57,8 +57,6 @@ public class TweetTabbedTable implements TweetStreamingListener {
 	private TweetManager tweetManager;
 	// メインアクション
 	private TweetMainAction mainAction;
-	// 新しく取得した部分のテーブルの色
-	private Color newTableColor = null;
 	// テーブルに追加できる要素の最大数
 	// TODO: ここを変更できるようにする
 	private int tableElementMaxSize = 500;
@@ -77,8 +75,6 @@ public class TweetTabbedTable implements TweetStreamingListener {
 	 *            　ツイート管理クラス
 	 * @param mainAction
 	 *            メインアクション
-	 * @param newTableColor
-	 *            新しく取得した部分の色
 	 * @param tableElementMaxSize
 	 *            テーブルに格納できる要素の最大数
 	 * @param timerID
@@ -87,13 +83,12 @@ public class TweetTabbedTable implements TweetStreamingListener {
 	public TweetTabbedTable(TweetGetter tweetGetter, String title,
 			JTabbedPane tabbedPane,
 			TweetManager tweetManager, TweetMainAction mainAction,
-			Color newTableColor, int tableElementMaxSize, String timerID) {
+			int tableElementMaxSize, String timerID) {
 		this.tweetGetter = tweetGetter;
 		this.title = title;
 		this.tabbedPane = tabbedPane;
 		this.tweetManager = tweetManager;
 		this.mainAction = mainAction;
-		this.newTableColor = newTableColor;
 		this.tableElementMaxSize = tableElementMaxSize;
 		this.timerID = timerID;
 
@@ -147,10 +142,10 @@ public class TweetTabbedTable implements TweetStreamingListener {
 		// Comment部分のColumnを複数行コメントが表示できるようにする
 		TableColumnModel mdl = table.getColumnModel();
 		TableColumn col = mdl.getColumn(1);
-		TweetCommentRenderer commentRenderer = new TweetCommentRenderer();
+		TweetCommentRenderer commentRenderer = new TweetCommentRenderer(this.mainAction);
 		col.setCellRenderer(commentRenderer);
 		// INfo部分のColumnを複数行表示できるように
-		TweetCommentRenderer infoRenderer = new TweetCommentRenderer();
+		TweetCommentRenderer infoRenderer = new TweetCommentRenderer(this.mainAction);
 		col = mdl.getColumn(2);
 		col.setCellRenderer(infoRenderer);
 		col.setMaxWidth(200);
@@ -260,11 +255,9 @@ public class TweetTabbedTable implements TweetStreamingListener {
 		TableCellRenderer renderer = getTable().getCellRenderer(0, 2);
 		if (renderer instanceof TweetCommentRenderer) {
 			if (this.getUncheckedTweet() - 1 >= 0) {
-				((TweetCommentRenderer) renderer).updateNewCellRow(
-						this.getUncheckedTweet(), newTableColor);
+				((TweetCommentRenderer) renderer).updateNewCellRow(this.getUncheckedTweet());
 			} else {
-				((TweetCommentRenderer) renderer).updateNewCellRow(-1,
-						newTableColor);
+				((TweetCommentRenderer) renderer).updateNewCellRow(-1);
 			}
 		}
 		// 古いデータを削除
