@@ -29,7 +29,7 @@ import org.xml.sax.SAXParseException;
  *
  */
 public class ClientVersionManager {
-	public static final String currentVersion = "0.6";
+	public static final String currentVersion = "0.61";
 	public static final String nishioTweetManagerURL = "http://densan-labs.net/software/ntm/";
 	private static final String characterSet = "UTF-8";
 	private static final String latestInformationURL = "http://git.densan-labs.net/ntm/latest.txt";

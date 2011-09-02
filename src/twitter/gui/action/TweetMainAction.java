@@ -363,7 +363,9 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 		updateNotifyInformation();
 
 		//streaming apiの状態listener設定
-		this.tweetManager.getStreamManager().addCollectionLifeCycleListener(this);
+		if( this.tweetManager != null && this.tweetManager.getStreamManager() != null ) {
+			this.tweetManager.getStreamManager().addCollectionLifeCycleListener(this);
+		}
 	}
 
 	/**
@@ -470,7 +472,13 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	public void updateNotifyInformation() {
 	    //streaming api利用時、fav通知
 	    if( this.favNotify ) {
-		this.tweetManager.getStreamManager().setFavNotifyManager(new TweetFavNotifyManager(this.trayIcon));
+	    	try {
+	    		if( this.tweetManager != null && this.tweetManager.getStreamManager() != null ) {
+	    			this.tweetManager.getStreamManager().setFavNotifyManager(new TweetFavNotifyManager(this.trayIcon));
+	    		}
+	    	}catch(Exception e) {
+	    		e.printStackTrace();
+	    	}
 	    }
 	}
 
@@ -2492,33 +2500,33 @@ public class TweetMainAction implements ConnectionLifeCycleListener{
 	public void setFavNotify(boolean notify) {
 	    this.favNotify = notify;
 	}
-	
+
 	/**
 	 * 偶数行テーブルの色取得
-	 * @return 
+	 * @return
 	 */
 	public Color getEvenTableColor() {
 	    return evenTableColor;
 	}
-	
+
 	/**
 	 * 偶数行テーブルの色設定
 	 */
 	public void setEvenTableColor(Color evenTableColor) {
 	    this.evenTableColor = evenTableColor;
 	}
-	
+
 	/**
 	 * 奇数行テーブルの色取得
-	 * @return 
+	 * @return
 	 */
 	public Color getOddTableColor() {
 	    return oddTableColor;
 	}
-	
+
 	/**
 	 * 奇数行テーブルの色設定
-	 * @param oddTableColor 
+	 * @param oddTableColor
 	 */
 	public void setOddTableColor(Color oddTableColor) {
 	    this.oddTableColor = oddTableColor;
