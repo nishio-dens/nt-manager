@@ -51,6 +51,7 @@ public class TweetUserStream extends UserStreamAdapter{
 		this.twitterStream.setOAuthConsumer(consumerKey, consumerSecret);
 		this.twitterStream.setOAuthAccessToken(ac);
 		this.twitterStream.addListener(this);
+		loginUsername = tweetManager.getLoginUserScreenName();
 	}
 
 	/**
@@ -89,7 +90,6 @@ public class TweetUserStream extends UserStreamAdapter{
 	 */
 	public void setMentionListener(TweetStreamingListener mentionListener) {
 		this.mentionListener = mentionListener;
-		loginUsername = tweetManager.getLoginUserScreenName();
 	}
 
 	/**
