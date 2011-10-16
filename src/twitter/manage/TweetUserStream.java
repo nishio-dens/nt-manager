@@ -52,24 +52,24 @@ public class TweetUserStream extends UserStreamAdapter{
 		this.twitterStream.setOAuthAccessToken(ac);
 		this.twitterStream.addListener(this);
 	}
-	
+
 	/**
 	 * streaming開始
 	 */
 	public void start() {
 	    this.twitterStream.user();
 	}
-	
+
 	/**
 	 * streaming停止
 	 */
 	public void stop() {
 	    this.twitterStream.cleanUp();
 	}
-	
+
 	/**
 	 * コネクションが接続されたときに呼び出される
-	 * @param listener 
+	 * @param listener
 	 */
 	public void addConnectionLifeCycleListener(ConnectionLifeCycleListener listener) {
 	    this.twitterStream.addConnectionLifeCycleListener(listener);
@@ -99,7 +99,7 @@ public class TweetUserStream extends UserStreamAdapter{
 	public void setMentionNotifyManager(TweetNotifyManager notifyManager) {
 		this.mentionNotifyManager = notifyManager;
 	}
-	
+
 	/**
 	 * お気に入り登録通知
 	 */
@@ -176,12 +176,14 @@ public class TweetUserStream extends UserStreamAdapter{
 	 * お気に入り登録通知
 	 * @param source
 	 * @param target
-	 * @param favoritedStatus 
+	 * @param favoritedStatus
 	 */
 	@Override
 	public void onFavorite(User source, User target, Status favoritedStatus) {
 	    if( favNotifyManager != null ) {
-		favNotifyManager.showNotifyMessage(source, target, favoritedStatus);
+	    	if( target.getScreenName().equals(this.loginUsername) ) {
+	    		favNotifyManager.showNotifyMessage(source, target, favoritedStatus);
+	    	}
 	    }
 	}
 
