@@ -7,9 +7,7 @@
 	<classpathentry kind="lib" path="lib/opencsv-2.3.jar"/>
 	<classpathentry kind="lib" path="lib/resource.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2.jar"/>
-	<classpathentry kind="lib" path="lib/twitter4j-async-2.2.5-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/twitter4j-core-2.2.5-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="lib/twitter4j-media-support-2.2.5-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/twitter4j-stream-2.2.5-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
